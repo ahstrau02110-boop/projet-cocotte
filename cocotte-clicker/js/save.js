@@ -33,11 +33,13 @@ function sanitize(raw) {
   for (const [k, v] of Object.entries(obj(raw.skins))) if (int(v) > 0) s.skins[k] = int(v);
   if (typeof raw.skin === 'string' && s.skins[raw.skin]) s.skin = raw.skin;
   const g = obj(raw.gacha);
-  s.gacha = { pulls: int(g.pulls), sinceLegend: int(g.sinceLegend) };
+  s.gacha = { pulls: int(g.pulls), sinceLegend: int(g.sinceLegend), bgPulls: int(g.bgPulls), bgSinceLegend: int(g.bgSinceLegend) };
+  for (const [k, v] of Object.entries(obj(raw.bgs))) if (int(v) > 0) s.bgs[k] = int(v);
+  if (typeof raw.bg === 'string' && (raw.bg === 'auto' || s.bgs[raw.bg])) s.bg = raw.bg;
   if (Array.isArray(raw.claimed)) s.claimed = raw.claimed.filter(x => typeof x === 'string').slice(-300);
   const m = obj(raw.mini);
   s.mini = { day: typeof m.day === 'string' ? m.day : '', crystalsToday: int(m.crystalsToday), plays: int(m.plays),
-    stars: int(m.stars), perfect: int(m.perfect), best: {} };
+    stars: int(m.stars), perfect: int(m.perfect), puzzles: int(m.puzzles), best: {} };
   for (const k of Object.keys(obj(raw.upgrades))) s.upgrades[k] = true;
   for (const k of Object.keys(obj(raw.projects))) s.projects[k] = true;
   if (Array.isArray(raw.buffs)) s.buffs = raw.buffs.filter(b => b && typeof b.until === 'number' && b.until > Date.now())

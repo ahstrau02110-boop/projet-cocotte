@@ -46,6 +46,7 @@
 
       <div id="buffs" class="buffs" aria-live="polite"></div>
       <div class="bench" id="bench">
+        <div class="bench-bg" id="bench-bg" aria-hidden="true"></div>
         <span class="bench-ruler" aria-hidden="true"></span>
         <div class="bench-decor" id="bench-decor" aria-hidden="true"></div>
         <div class="pot-wrap" id="pot-wrap">
@@ -67,7 +68,7 @@
       <!-- Raccourcis : mini-jeux, gacha, QR -->
       <nav class="actions" aria-label="Activités">
         <button id="btn-games" class="action a-games"><span class="a-ico" aria-hidden="true">🎮</span><span><b>Mini-jeux</b><small>Gagnez des cristaux</small></span></button>
-        <button id="btn-gacha" class="action a-gacha"><span class="a-ico" aria-hidden="true">🎁</span><span><b>Imprimante mystère</b><small>Skins de Cocotte</small></span></button>
+        <button id="btn-gacha" class="action a-gacha"><span class="a-ico" aria-hidden="true">🎁</span><span><b>Imprimantes mystère</b><small>Skins et décors</small></span></button>
         <button id="btn-ach" class="action a-ach"><span class="a-ico" aria-hidden="true">🏆</span><span><b>Succès</b><small id="ach-mini">Badges et bonus</small></span></button>
         <button id="btn-tips" class="action a-tips"><span class="a-ico" aria-hidden="true">💡</span><span><b>Astuces</b><small id="tip-mini">Astuce du numérique</small></span></button>
         <button id="btn-myqr" class="action a-qr"><span class="a-ico" aria-hidden="true">📱</span><span><b>Mon QR code</b><small>Cristaux à La Co'Cotte</small></span></button>
@@ -203,12 +204,13 @@
         <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
       </div>
       <div class="tabs" role="tablist">
-        <button role="tab" id="tab-print" aria-controls="panel-print" aria-selected="true">Imprimer</button>
+        <button role="tab" id="tab-cocotte" aria-controls="panel-print" aria-selected="true">🍲 Cocottes</button>
+        <button role="tab" id="tab-decor" aria-controls="panel-print" aria-selected="false">🖼️ Décors</button>
         <button role="tab" id="tab-coll" aria-controls="panel-coll" aria-selected="false">Collection <span id="coll-count"></span></button>
       </div>
-      <div id="panel-print" role="tabpanel" aria-labelledby="tab-print">
+      <div id="panel-print" role="tabpanel">
         <div class="printer" id="printer" aria-hidden="true">
-          <div class="pr-top"><span class="pr-led"></span>COCOTTE·PRINT</div>
+          <div class="pr-top"><span class="pr-led"></span><span id="printer-label">COCOTTE·PRINT</span></div>
           <div class="pr-rail"><span class="pr-head"></span></div>
           <div class="pr-chamber"><span class="capsule" id="capsule"></span><span class="pr-bed"></span></div>
         </div>
@@ -221,6 +223,11 @@
       </div>
       <div id="panel-coll" role="tabpanel" aria-labelledby="tab-coll" hidden>
         <p id="coll-bonus"></p>
+        <div class="row" role="group" aria-label="Afficher">
+          <button class="ghost-btn" data-coll="cocotte" aria-pressed="true">🍲 Cocottes</button>
+          <button class="ghost-btn" data-coll="decor" aria-pressed="false">🖼️ Décors</button>
+          <span id="coll-sub" class="small"></span>
+        </div>
         <ul id="skin-grid" class="skin-grid"></ul>
       </div>
     </div>

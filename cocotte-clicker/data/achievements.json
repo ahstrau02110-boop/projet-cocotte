@@ -1,5 +1,5 @@
 {
-  "_doc": "Succès. Chaque succès donne un bonus de production (config.json → achievements.prodBonusPct). cond : toutes les conditions doivent être vraies. Clés : clicks, earned, cps, era, buildings (total), pulls, skins, legendary, plays, stars, perfect, claims, upgrades, golden, seasons, projects, tips. buildingTemplates : générés pour chaque bâtiment ({b} = nom).",
+  "_doc": "Succès. Chaque succès donne un bonus de production (config.json → achievements.prodBonusPct). cond : toutes les conditions doivent être vraies. Clés : clicks, earned, cps, era, buildings (total), pulls, skins, legendary, plays, stars, perfect, claims, upgrades, golden, seasons, projects, tips, bgs, bgLegendary. buildingTemplates : générés pour chaque bâtiment ({b} = nom).",
   "buildingTemplates": [
     {
       "n": 1,
@@ -283,9 +283,9 @@
       "cat": "gacha",
       "icon": "🌈",
       "name": "Collection complète",
-      "desc": "Obtenir les 36 skins.",
+      "desc": "Obtenir les 50 skins de Cocotte.",
       "cond": {
-        "skins": 36
+        "skins": 50
       }
     },
     {
@@ -543,7 +543,7 @@
       "cat": "gacha",
       "icon": "🌠",
       "name": "Panthéon",
-      "desc": "Obtenir les 6 skins Légendaires.",
+      "desc": "Obtenir 6 skins Légendaires.",
       "cond": {
         "legendary": 6
       }
@@ -636,6 +636,76 @@
       "desc": "Lire toutes les astuces.",
       "cond": {
         "tips": 41
+      }
+    },
+    {
+      "id": "bg1",
+      "cat": "gacha",
+      "icon": "🖼️",
+      "name": "Nouveau décor",
+      "desc": "Obtenir un décor de plan de travail.",
+      "cond": {
+        "bgs": 1
+      }
+    },
+    {
+      "id": "bg25",
+      "cat": "gacha",
+      "icon": "🎨",
+      "name": "Décorateur·rice",
+      "desc": "Obtenir 25 décors.",
+      "cond": {
+        "bgs": 25
+      }
+    },
+    {
+      "id": "bg50",
+      "cat": "gacha",
+      "icon": "🏛️",
+      "name": "Galerie d'art",
+      "desc": "Obtenir 50 décors.",
+      "cond": {
+        "bgs": 50
+      }
+    },
+    {
+      "id": "bg100",
+      "cat": "gacha",
+      "icon": "🌌",
+      "name": "Musée complet",
+      "desc": "Obtenir les 100 décors.",
+      "cond": {
+        "bgs": 100
+      }
+    },
+    {
+      "id": "bgLeg",
+      "cat": "gacha",
+      "icon": "🌈",
+      "name": "Décor de légende",
+      "desc": "Obtenir un décor Légendaire.",
+      "cond": {
+        "bgLegendary": 1
+      }
+    },
+    {
+      "id": "puzzle1",
+      "cat": "mini",
+      "icon": "🧩",
+      "name": "Pièce par pièce",
+      "desc": "Terminer un puzzle de skin.",
+      "cond": {
+        "puzzles": 1
+      }
+    },
+    {
+      "id": "puzzle20",
+      "cat": "mini",
+      "icon": "🖼️",
+      "name": "Maître du puzzle",
+      "desc": "Terminer 20 puzzles de skins.",
+      "cond": {
+        "puzzles": 20
       }
     }
   ]

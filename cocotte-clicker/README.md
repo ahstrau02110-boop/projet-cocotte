@@ -52,6 +52,7 @@ js/audio.js            Effets sonores + musique lofi générée (WebAudio)
 js/format.js           Abréviations K, M, B…
 js/core.js             Outils partagés (notifications, bus d'événements)
 js/skins.js            Génération des skins de Cocotte en SVG
+js/backgrounds.js      Rendu CSS des décors du plan de travail
 js/gacha.js            Imprimante mystère (tirages, collection)
 js/games/              Mini-jeux : hub.js, match3.js, memory.js, bugs.js
 js/player.js           QR code du joueur, encaissement des bons
@@ -68,6 +69,8 @@ js/vendor/             qrcode.js (MIT), jsQR.js (Apache-2.0)
 data/buildings.json    Bâtiments
 data/eras.json         Ères et seuils de déblocage
 data/skins.json        Skins et taux de rareté
+data/backgrounds.json  100 décors du plan de travail
+tools/                 Générateur des décors
 data/upgrades.json     Améliorations
 data/achievements.json Succès
 data/projects.json     Projets de La Co'Cotte
@@ -132,7 +135,7 @@ Simulation (joueur qui achète au mieux, absences comptées à 50 % plafonnées 
 | Ère Tiers-lieu | ~12 h | ~2 jours |
 | Ère Territoire | ~2 jours | ~6 jours |
 | 12 bâtiments | ~8 jours | ~19 jours |
-| Collection complète des 36 skins (~470 tirages) | ~3 ans en solo · ~15 mois avec une visite par semaine |
+| Collection complète (50 skins + 100 décors) | plusieurs années : objectif à très long terme |
 
 La boucle Nouvelle saison relance ensuite la progression sans fin (chaque saison va plus vite et vise plus loin).
 
@@ -164,12 +167,19 @@ En jouant seul : environ une impression tous les 2 jours. Une visite à La Co'Co
 - **Memory des machines** : 6 paires, étoiles selon le nombre d'essais.
 - **Chasse aux bugs** : 30 s, toucher les bugs, éviter les dossiers. Objectifs : 200 / 400 / 600.
 - **Séquence des machines** : retenir et rejouer une suite de machines qui s'allument (avec sons). Objectifs : 5 / 8 / 11.
+- **Puzzle des skins** : reconstituer une de ses Cocottes, posée sur un de ses décors, en échangeant les pièces. 3×3 (4×4 pour les skins Épiques et Légendaires) ; étoiles selon l'écart au nombre minimal d'échanges.
 
 Chaque étoile rapporte aussi 20 s de production en Co'Coins. Tous jouables au clavier. Ajouter un jeu : créer un module dans `js/games/` (même forme que `memory.js`) et l'ajouter au tableau `GAMES` de `hub.js`.
 
-## Imprimante mystère (skins)
+## Imprimantes mystère (skins et décors)
 
-Tirage ×1 (25 💎) ou ×10 (225 💎, au moins une Rare). 36 skins. Taux : Commune 60 %, Rare 28 %, Épique 10 %, Légendaire 2 %. Légendaire garantie au bout de 60 tirages sans légendaire.
+Deux machines dans la même fenêtre : **Imprimante à Cocottes** (50 skins) et **Imprimante à décors** (100 décors du plan de travail, là où l'on clique : 50 Communs, 30 Rares, 14 Épiques animés, 6 Légendaires à effets). Mêmes prix et taux, garantie légendaire séparée pour chaque machine. Collection commune avec filtre Cocottes / Décors ; « Décor de l'ère » rétablit le décor d'origine. Chaque décor obtenu = **+0,5 % de production**.
+
+Les décors sont générés par `tools/gen-backgrounds.py` dans `data/backgrounds.json` (modifiable à la main : motif, 4 couleurs, effet).
+
+### Skins de Cocotte
+
+Tirage ×1 (25 💎) ou ×10 (225 💎, au moins une Rare). 50 skins. Taux : Commune 60 %, Rare 28 %, Épique 10 %, Légendaire 2 %. Légendaire garantie au bout de 60 tirages sans légendaire.
 Chaque skin différent obtenu donne **+1 % de production** (bonus de collection). Les skins sont purement gagnés en jouant : aucun achat.
 
 Ajouter un skin dans `data/skins.json` :
@@ -180,7 +190,7 @@ Ajouter un skin dans `data/skins.json` :
   "pattern": "stripes", "accessory": "headphones", "eyes": "happy", "desc": "Brodée au Bricol'Café." }
 ```
 
-Options : `pattern` (stripes, wood, pixel, circuit, galaxy, dots, checker, hazard, hearts, lava, sparkles, flames), `accessory` (goggles, headphones, headset, antenna, crown, beanie, vr, helmet, cap, santa, party, nightcap, flame, none), `eyes` (normal, led, pixel, happy, star, sleepy, wink, heart, none), `fx` (glow, holo), `gradient` (liste de couleurs). Ou `"img": "assets/img/mon-skin.png"` pour une illustration.
+Options : `pattern` (stripes, wood, pixel, circuit, galaxy, dots, checker, hazard, hearts, lava, sparkles, flames), `accessory` (goggles, headphones, headset, antenna, crown, beanie, vr, helmet, cap, santa, party, nightcap, flame, bow, sunglasses, bandana, none), `eyes` (normal, led, pixel, happy, star, sleepy, wink, heart, none), `fx` (glow, holo), `gradient` (liste de couleurs). Ou `"img": "assets/img/mon-skin.png"` pour une illustration.
 
 ## Version publique / version équipe et QR codes
 
@@ -247,6 +257,7 @@ Police Atkinson Hyperlegible (conçue pour la basse vision), base 18 px, contras
 - [x] **Palier 3** : Cocotte dorée, 4 projets de La Co'Cotte, prestige « Nouvelle saison », 2ᵉ musique, application installable (PWA)
 - [x] **Enrichissement** : tutoriel, 36 skins, 4ᵉ mini-jeu, 14 bâtiments, 118 améliorations, 128 succès, 6 effets de Cocotte dorée
 - [x] **Astuces numériques** : une par heure, +5 💎
+- [x] **Collection** : 50 skins de Cocotte, Imprimante à décors (100 décors), mini-jeu Puzzle des skins
 - [ ] **Palier 4** : boosts « Le saviez-vous ? » / infos tiers-lieu / quiz, bonus quotidien et série
 - [ ] **Palier 5** : compteur communautaire, objectifs collectifs, classement par pseudo (Supabase, tier gratuit)
 - [ ] **Palier 6** : mode admin (code, surcharges du manifest, édition des données, export/import de config)

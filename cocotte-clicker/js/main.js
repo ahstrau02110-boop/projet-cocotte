@@ -14,6 +14,7 @@ import { buildProgress, initProgress, renderUpgrades, checkAchievements, openAch
 import { decorFor } from './decor.js';
 import { initTutorial } from './tutorial.js';
 import { initTips, renderTipTile } from './tips.js';
+import { applyBackground } from './backgrounds.js';
 import { initGolden, renderBuffs } from './golden.js';
 import { initSeason, renderProjects, renderSeason, applyMusicUnlocks } from './season.js';
 
@@ -39,6 +40,7 @@ async function boot() {
     ]);
     DATA.projects = proj.projects;
     DATA.tips = (await loadJSON('data/tips.json')).tips;
+    DATA.backgrounds = (await loadJSON('data/backgrounds.json')).backgrounds;
     buildProgress(upg, ach);
     DATA.skins = skins.skins;
     DATA.rarities = skins.rarities;
@@ -310,6 +312,7 @@ function applySkin() {
   $('#pot img').src = skinImage(sk.id);
   $('#pot').dataset.fx = sk.fx || '';
   $('#pot').dataset.rarity = sk.rarity;
+  applyBackground();
 }
 
 function bindUI() {
@@ -321,12 +324,7 @@ function bindUI() {
   $('#btn-crystals').addEventListener('click', () => { sfx.ui(); openGacha(); });
   $('#btn-myqr').addEventListener('click', () => { sfx.ui(); openMyQR(); });
   $('#btn-ach').addEventListener('click', () => { sfx.ui(); openAchievements(); });
-  // Onglets de l'Imprimante mystère
-  const tabs = [['#tab-print', '#panel-print'], ['#tab-coll', '#panel-coll']];
-  tabs.forEach(([t], i) => $(t).addEventListener('click', () => {
-    tabs.forEach(([tt, pp], j) => { $(tt).setAttribute('aria-selected', String(i === j)); $(pp).hidden = i !== j; });
-    sfx.ui();
-  }));
+
 
   $('#btn-sound').addEventListener('click', () => {
     state.settings.sound = !state.settings.sound;

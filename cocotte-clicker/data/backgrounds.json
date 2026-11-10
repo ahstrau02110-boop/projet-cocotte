@@ -1,0 +1,1225 @@
+{
+ "_doc": "100 décors du plan de travail (Imprimante à décors). Générés par tools/gen-backgrounds.py ; modifiables à la main. pattern : grid, dots, pegboard, stripes, diagonal, checker, waves, rings, tiles, bricks, plaid, zigzag, blueprint, confetti, stars, circuit, gradient, sunburst, aurora. colors : 4 couleurs #rrggbb. fx : scroll, pulse, hue.",
+ "backgrounds": [
+  {
+   "id": "bg001",
+   "name": "Briques pistache",
+   "rarity": "commune",
+   "pattern": "bricks",
+   "colors": [
+    "#eef7d6",
+    "#b5d96b",
+    "#7ea83a",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg002",
+   "name": "Quadrillé kraft",
+   "rarity": "commune",
+   "pattern": "grid",
+   "colors": [
+    "#e8d5b5",
+    "#a8743f",
+    "#6b4520",
+    "#fffaf0"
+   ]
+  },
+  {
+   "id": "bg003",
+   "name": "Pois sapin",
+   "rarity": "commune",
+   "pattern": "dots",
+   "colors": [
+    "#dcefe4",
+    "#2f7d5b",
+    "#1f5a40",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg004",
+   "name": "Ondes sable",
+   "rarity": "commune",
+   "pattern": "rings",
+   "colors": [
+    "#f6eedd",
+    "#e0c9a0",
+    "#bfa16b",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg005",
+   "name": "Panneau perforé framboise",
+   "rarity": "commune",
+   "pattern": "pegboard",
+   "colors": [
+    "#ffe3ee",
+    "#e41e6c",
+    "#a8124d",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg006",
+   "name": "Panneau perforé ardoise",
+   "rarity": "commune",
+   "pattern": "pegboard",
+   "colors": [
+    "#e4e7eb",
+    "#6b7480",
+    "#4a525c",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg007",
+   "name": "Vagues sable",
+   "rarity": "commune",
+   "pattern": "waves",
+   "colors": [
+    "#f6eedd",
+    "#e0c9a0",
+    "#bfa16b",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg008",
+   "name": "Quadrillé nuit",
+   "rarity": "commune",
+   "pattern": "grid",
+   "colors": [
+    "#1b1035",
+    "#3c2472",
+    "#7b3fe4",
+    "#fcd260"
+   ]
+  },
+  {
+   "id": "bg009",
+   "name": "Biais sable",
+   "rarity": "commune",
+   "pattern": "diagonal",
+   "colors": [
+    "#f6eedd",
+    "#e0c9a0",
+    "#bfa16b",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg010",
+   "name": "Damier menthe",
+   "rarity": "commune",
+   "pattern": "checker",
+   "colors": [
+    "#e6f5dc",
+    "#90c060",
+    "#5f8f3a",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg011",
+   "name": "Biais citron",
+   "rarity": "commune",
+   "pattern": "diagonal",
+   "colors": [
+    "#fff6cc",
+    "#fcd260",
+    "#d9a400",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg012",
+   "name": "Quadrillé océan",
+   "rarity": "commune",
+   "pattern": "grid",
+   "colors": [
+    "#dff1ff",
+    "#3d8fd6",
+    "#2a6aa3",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg013",
+   "name": "Pois sable",
+   "rarity": "commune",
+   "pattern": "dots",
+   "colors": [
+    "#f6eedd",
+    "#e0c9a0",
+    "#bfa16b",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg014",
+   "name": "Pois citron",
+   "rarity": "commune",
+   "pattern": "dots",
+   "colors": [
+    "#fff6cc",
+    "#fcd260",
+    "#d9a400",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg015",
+   "name": "Carreaux lavande",
+   "rarity": "commune",
+   "pattern": "tiles",
+   "colors": [
+    "#efe6ff",
+    "#b48cff",
+    "#7b3fe4",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg016",
+   "name": "Damier glacier",
+   "rarity": "commune",
+   "pattern": "checker",
+   "colors": [
+    "#eefbff",
+    "#9fe3f5",
+    "#5ac8fa",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg017",
+   "name": "Briques citron",
+   "rarity": "commune",
+   "pattern": "bricks",
+   "colors": [
+    "#fff6cc",
+    "#fcd260",
+    "#d9a400",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg018",
+   "name": "Rayures sable",
+   "rarity": "commune",
+   "pattern": "stripes",
+   "colors": [
+    "#f6eedd",
+    "#e0c9a0",
+    "#bfa16b",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg019",
+   "name": "Carreaux aubergine",
+   "rarity": "commune",
+   "pattern": "tiles",
+   "colors": [
+    "#2a1458",
+    "#5c3a9e",
+    "#b48cff",
+    "#fcd260"
+   ]
+  },
+  {
+   "id": "bg020",
+   "name": "Briques sapin",
+   "rarity": "commune",
+   "pattern": "bricks",
+   "colors": [
+    "#dcefe4",
+    "#2f7d5b",
+    "#1f5a40",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg021",
+   "name": "Rayures turquoise",
+   "rarity": "commune",
+   "pattern": "stripes",
+   "colors": [
+    "#ddfaf3",
+    "#5ef2c5",
+    "#1fa98a",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg022",
+   "name": "Panneau perforé orange",
+   "rarity": "commune",
+   "pattern": "pegboard",
+   "colors": [
+    "#ffeadb",
+    "#f07e36",
+    "#c4561b",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg023",
+   "name": "Pois framboise",
+   "rarity": "commune",
+   "pattern": "dots",
+   "colors": [
+    "#ffe3ee",
+    "#e41e6c",
+    "#a8124d",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg024",
+   "name": "Quadrillé cerise",
+   "rarity": "commune",
+   "pattern": "grid",
+   "colors": [
+    "#3a0d1e",
+    "#e41e6c",
+    "#ff7aa8",
+    "#fcd260"
+   ]
+  },
+  {
+   "id": "bg025",
+   "name": "Panneau perforé océan",
+   "rarity": "commune",
+   "pattern": "pegboard",
+   "colors": [
+    "#dff1ff",
+    "#3d8fd6",
+    "#2a6aa3",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg026",
+   "name": "Pois turquoise",
+   "rarity": "commune",
+   "pattern": "dots",
+   "colors": [
+    "#ddfaf3",
+    "#5ef2c5",
+    "#1fa98a",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg027",
+   "name": "Quadrillé aubergine",
+   "rarity": "commune",
+   "pattern": "grid",
+   "colors": [
+    "#2a1458",
+    "#5c3a9e",
+    "#b48cff",
+    "#fcd260"
+   ]
+  },
+  {
+   "id": "bg028",
+   "name": "Panneau perforé citron",
+   "rarity": "commune",
+   "pattern": "pegboard",
+   "colors": [
+    "#fff6cc",
+    "#fcd260",
+    "#d9a400",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg029",
+   "name": "Panneau perforé pistache",
+   "rarity": "commune",
+   "pattern": "pegboard",
+   "colors": [
+    "#eef7d6",
+    "#b5d96b",
+    "#7ea83a",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg030",
+   "name": "Briques ardoise",
+   "rarity": "commune",
+   "pattern": "bricks",
+   "colors": [
+    "#e4e7eb",
+    "#6b7480",
+    "#4a525c",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg031",
+   "name": "Damier kraft",
+   "rarity": "commune",
+   "pattern": "checker",
+   "colors": [
+    "#e8d5b5",
+    "#a8743f",
+    "#6b4520",
+    "#fffaf0"
+   ]
+  },
+  {
+   "id": "bg032",
+   "name": "Panneau perforé lavande",
+   "rarity": "commune",
+   "pattern": "pegboard",
+   "colors": [
+    "#efe6ff",
+    "#b48cff",
+    "#7b3fe4",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg033",
+   "name": "Briques charbon",
+   "rarity": "commune",
+   "pattern": "bricks",
+   "colors": [
+    "#22252b",
+    "#3a3f48",
+    "#90c060",
+    "#fcd260"
+   ]
+  },
+  {
+   "id": "bg034",
+   "name": "Quadrillé glacier",
+   "rarity": "commune",
+   "pattern": "grid",
+   "colors": [
+    "#eefbff",
+    "#9fe3f5",
+    "#5ac8fa",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg035",
+   "name": "Damier ardoise",
+   "rarity": "commune",
+   "pattern": "checker",
+   "colors": [
+    "#e4e7eb",
+    "#6b7480",
+    "#4a525c",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg036",
+   "name": "Pois kraft",
+   "rarity": "commune",
+   "pattern": "dots",
+   "colors": [
+    "#e8d5b5",
+    "#a8743f",
+    "#6b4520",
+    "#fffaf0"
+   ]
+  },
+  {
+   "id": "bg037",
+   "name": "Briques menthe",
+   "rarity": "commune",
+   "pattern": "bricks",
+   "colors": [
+    "#e6f5dc",
+    "#90c060",
+    "#5f8f3a",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg038",
+   "name": "Carreaux kraft",
+   "rarity": "commune",
+   "pattern": "tiles",
+   "colors": [
+    "#e8d5b5",
+    "#a8743f",
+    "#6b4520",
+    "#fffaf0"
+   ]
+  },
+  {
+   "id": "bg039",
+   "name": "Damier corail",
+   "rarity": "commune",
+   "pattern": "checker",
+   "colors": [
+    "#ffe6df",
+    "#ff8a73",
+    "#d9614b",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg040",
+   "name": "Carreaux framboise",
+   "rarity": "commune",
+   "pattern": "tiles",
+   "colors": [
+    "#ffe3ee",
+    "#e41e6c",
+    "#a8124d",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg041",
+   "name": "Vagues menthe",
+   "rarity": "commune",
+   "pattern": "waves",
+   "colors": [
+    "#e6f5dc",
+    "#90c060",
+    "#5f8f3a",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg042",
+   "name": "Quadrillé pêche",
+   "rarity": "commune",
+   "pattern": "grid",
+   "colors": [
+    "#fff0e6",
+    "#ffb38a",
+    "#ff8a73",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg043",
+   "name": "Panneau perforé nuit",
+   "rarity": "commune",
+   "pattern": "pegboard",
+   "colors": [
+    "#1b1035",
+    "#3c2472",
+    "#7b3fe4",
+    "#fcd260"
+   ]
+  },
+  {
+   "id": "bg044",
+   "name": "Carreaux sable",
+   "rarity": "commune",
+   "pattern": "tiles",
+   "colors": [
+    "#f6eedd",
+    "#e0c9a0",
+    "#bfa16b",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg045",
+   "name": "Panneau perforé caramel",
+   "rarity": "commune",
+   "pattern": "pegboard",
+   "colors": [
+    "#f7e7d2",
+    "#c98a4b",
+    "#8a5a2b",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg046",
+   "name": "Quadrillé sapin",
+   "rarity": "commune",
+   "pattern": "grid",
+   "colors": [
+    "#dcefe4",
+    "#2f7d5b",
+    "#1f5a40",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg047",
+   "name": "Damier charbon",
+   "rarity": "commune",
+   "pattern": "checker",
+   "colors": [
+    "#22252b",
+    "#3a3f48",
+    "#90c060",
+    "#fcd260"
+   ]
+  },
+  {
+   "id": "bg048",
+   "name": "Rayures sapin",
+   "rarity": "commune",
+   "pattern": "stripes",
+   "colors": [
+    "#dcefe4",
+    "#2f7d5b",
+    "#1f5a40",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg049",
+   "name": "Vagues aubergine",
+   "rarity": "commune",
+   "pattern": "waves",
+   "colors": [
+    "#2a1458",
+    "#5c3a9e",
+    "#b48cff",
+    "#fcd260"
+   ]
+  },
+  {
+   "id": "bg050",
+   "name": "Biais pistache",
+   "rarity": "commune",
+   "pattern": "diagonal",
+   "colors": [
+    "#eef7d6",
+    "#b5d96b",
+    "#7ea83a",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg051",
+   "name": "Tartan orange",
+   "rarity": "rare",
+   "pattern": "plaid",
+   "colors": [
+    "#ffeadb",
+    "#f07e36",
+    "#c4561b",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg052",
+   "name": "Dégradé citron",
+   "rarity": "rare",
+   "pattern": "gradient",
+   "colors": [
+    "#fff6cc",
+    "#fcd260",
+    "#d9a400",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg053",
+   "name": "Plan technique ardoise",
+   "rarity": "rare",
+   "pattern": "blueprint",
+   "colors": [
+    "#e4e7eb",
+    "#6b7480",
+    "#4a525c",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg054",
+   "name": "Zigzag turquoise",
+   "rarity": "rare",
+   "pattern": "zigzag",
+   "colors": [
+    "#ddfaf3",
+    "#5ef2c5",
+    "#1fa98a",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg055",
+   "name": "Tartan charbon",
+   "rarity": "rare",
+   "pattern": "plaid",
+   "colors": [
+    "#22252b",
+    "#3a3f48",
+    "#90c060",
+    "#fcd260"
+   ]
+  },
+  {
+   "id": "bg056",
+   "name": "Confettis ardoise",
+   "rarity": "rare",
+   "pattern": "confetti",
+   "colors": [
+    "#e4e7eb",
+    "#6b7480",
+    "#4a525c",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg057",
+   "name": "Circuit orange",
+   "rarity": "rare",
+   "pattern": "circuit",
+   "colors": [
+    "#ffeadb",
+    "#f07e36",
+    "#c4561b",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg058",
+   "name": "Zigzag pistache",
+   "rarity": "rare",
+   "pattern": "zigzag",
+   "colors": [
+    "#eef7d6",
+    "#b5d96b",
+    "#7ea83a",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg059",
+   "name": "Confettis lavande",
+   "rarity": "rare",
+   "pattern": "confetti",
+   "colors": [
+    "#efe6ff",
+    "#b48cff",
+    "#7b3fe4",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg060",
+   "name": "Dégradé sable",
+   "rarity": "rare",
+   "pattern": "gradient",
+   "colors": [
+    "#f6eedd",
+    "#e0c9a0",
+    "#bfa16b",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg061",
+   "name": "Ciel étoilé turquoise",
+   "rarity": "rare",
+   "pattern": "stars",
+   "colors": [
+    "#ddfaf3",
+    "#5ef2c5",
+    "#1fa98a",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg062",
+   "name": "Tartan glacier",
+   "rarity": "rare",
+   "pattern": "plaid",
+   "colors": [
+    "#eefbff",
+    "#9fe3f5",
+    "#5ac8fa",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg063",
+   "name": "Ciel étoilé sapin",
+   "rarity": "rare",
+   "pattern": "stars",
+   "colors": [
+    "#dcefe4",
+    "#2f7d5b",
+    "#1f5a40",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg064",
+   "name": "Plan technique sapin",
+   "rarity": "rare",
+   "pattern": "blueprint",
+   "colors": [
+    "#dcefe4",
+    "#2f7d5b",
+    "#1f5a40",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg065",
+   "name": "Circuit aubergine",
+   "rarity": "rare",
+   "pattern": "circuit",
+   "colors": [
+    "#2a1458",
+    "#5c3a9e",
+    "#b48cff",
+    "#fcd260"
+   ]
+  },
+  {
+   "id": "bg066",
+   "name": "Circuit menthe",
+   "rarity": "rare",
+   "pattern": "circuit",
+   "colors": [
+    "#e6f5dc",
+    "#90c060",
+    "#5f8f3a",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg067",
+   "name": "Dégradé corail",
+   "rarity": "rare",
+   "pattern": "gradient",
+   "colors": [
+    "#ffe6df",
+    "#ff8a73",
+    "#d9614b",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg068",
+   "name": "Plan technique caramel",
+   "rarity": "rare",
+   "pattern": "blueprint",
+   "colors": [
+    "#f7e7d2",
+    "#c98a4b",
+    "#8a5a2b",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg069",
+   "name": "Dégradé cerise",
+   "rarity": "rare",
+   "pattern": "gradient",
+   "colors": [
+    "#3a0d1e",
+    "#e41e6c",
+    "#ff7aa8",
+    "#fcd260"
+   ]
+  },
+  {
+   "id": "bg070",
+   "name": "Confettis citron",
+   "rarity": "rare",
+   "pattern": "confetti",
+   "colors": [
+    "#fff6cc",
+    "#fcd260",
+    "#d9a400",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg071",
+   "name": "Plan technique sable",
+   "rarity": "rare",
+   "pattern": "blueprint",
+   "colors": [
+    "#f6eedd",
+    "#e0c9a0",
+    "#bfa16b",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg072",
+   "name": "Ciel étoilé cerise",
+   "rarity": "rare",
+   "pattern": "stars",
+   "colors": [
+    "#3a0d1e",
+    "#e41e6c",
+    "#ff7aa8",
+    "#fcd260"
+   ]
+  },
+  {
+   "id": "bg073",
+   "name": "Zigzag caramel",
+   "rarity": "rare",
+   "pattern": "zigzag",
+   "colors": [
+    "#f7e7d2",
+    "#c98a4b",
+    "#8a5a2b",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg074",
+   "name": "Circuit pêche",
+   "rarity": "rare",
+   "pattern": "circuit",
+   "colors": [
+    "#fff0e6",
+    "#ffb38a",
+    "#ff8a73",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg075",
+   "name": "Circuit citron",
+   "rarity": "rare",
+   "pattern": "circuit",
+   "colors": [
+    "#fff6cc",
+    "#fcd260",
+    "#d9a400",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg076",
+   "name": "Dégradé océan",
+   "rarity": "rare",
+   "pattern": "gradient",
+   "colors": [
+    "#dff1ff",
+    "#3d8fd6",
+    "#2a6aa3",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg077",
+   "name": "Confettis glacier",
+   "rarity": "rare",
+   "pattern": "confetti",
+   "colors": [
+    "#eefbff",
+    "#9fe3f5",
+    "#5ac8fa",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg078",
+   "name": "Zigzag nuit",
+   "rarity": "rare",
+   "pattern": "zigzag",
+   "colors": [
+    "#1b1035",
+    "#3c2472",
+    "#7b3fe4",
+    "#fcd260"
+   ]
+  },
+  {
+   "id": "bg079",
+   "name": "Confettis menthe",
+   "rarity": "rare",
+   "pattern": "confetti",
+   "colors": [
+    "#e6f5dc",
+    "#90c060",
+    "#5f8f3a",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg080",
+   "name": "Zigzag pêche",
+   "rarity": "rare",
+   "pattern": "zigzag",
+   "colors": [
+    "#fff0e6",
+    "#ffb38a",
+    "#ff8a73",
+    "#ffffff"
+   ]
+  },
+  {
+   "id": "bg081",
+   "name": "Quadrillé océan animé",
+   "rarity": "epique",
+   "pattern": "grid",
+   "colors": [
+    "#dff1ff",
+    "#3d8fd6",
+    "#2a6aa3",
+    "#ffffff"
+   ],
+   "fx": "scroll"
+  },
+  {
+   "id": "bg082",
+   "name": "Pois nuit animé",
+   "rarity": "epique",
+   "pattern": "dots",
+   "colors": [
+    "#1b1035",
+    "#3c2472",
+    "#7b3fe4",
+    "#fcd260"
+   ],
+   "fx": "scroll"
+  },
+  {
+   "id": "bg083",
+   "name": "Panneau perforé pêche animé",
+   "rarity": "epique",
+   "pattern": "pegboard",
+   "colors": [
+    "#fff0e6",
+    "#ffb38a",
+    "#ff8a73",
+    "#ffffff"
+   ],
+   "fx": "scroll"
+  },
+  {
+   "id": "bg084",
+   "name": "Rayures citron animé",
+   "rarity": "epique",
+   "pattern": "stripes",
+   "colors": [
+    "#fff6cc",
+    "#fcd260",
+    "#d9a400",
+    "#ffffff"
+   ],
+   "fx": "scroll"
+  },
+  {
+   "id": "bg085",
+   "name": "Biais kraft animé",
+   "rarity": "epique",
+   "pattern": "diagonal",
+   "colors": [
+    "#e8d5b5",
+    "#a8743f",
+    "#6b4520",
+    "#fffaf0"
+   ],
+   "fx": "scroll"
+  },
+  {
+   "id": "bg086",
+   "name": "Damier turquoise animé",
+   "rarity": "epique",
+   "pattern": "checker",
+   "colors": [
+    "#ddfaf3",
+    "#5ef2c5",
+    "#1fa98a",
+    "#ffffff"
+   ],
+   "fx": "scroll"
+  },
+  {
+   "id": "bg087",
+   "name": "Plan technique ardoise animé",
+   "rarity": "epique",
+   "pattern": "blueprint",
+   "colors": [
+    "#e4e7eb",
+    "#6b7480",
+    "#4a525c",
+    "#ffffff"
+   ],
+   "fx": "scroll"
+  },
+  {
+   "id": "bg088",
+   "name": "Ciel étoilé pistache animé",
+   "rarity": "epique",
+   "pattern": "stars",
+   "colors": [
+    "#eef7d6",
+    "#b5d96b",
+    "#7ea83a",
+    "#ffffff"
+   ],
+   "fx": "scroll"
+  },
+  {
+   "id": "bg089",
+   "name": "Quadrillé charbon animé",
+   "rarity": "epique",
+   "pattern": "grid",
+   "colors": [
+    "#22252b",
+    "#3a3f48",
+    "#90c060",
+    "#fcd260"
+   ],
+   "fx": "scroll"
+  },
+  {
+   "id": "bg090",
+   "name": "Pois corail animé",
+   "rarity": "epique",
+   "pattern": "dots",
+   "colors": [
+    "#ffe6df",
+    "#ff8a73",
+    "#d9614b",
+    "#ffffff"
+   ],
+   "fx": "scroll"
+  },
+  {
+   "id": "bg091",
+   "name": "Soleil sapin",
+   "rarity": "epique",
+   "pattern": "sunburst",
+   "colors": [
+    "#dcefe4",
+    "#2f7d5b",
+    "#1f5a40",
+    "#ffffff"
+   ],
+   "fx": "pulse"
+  },
+  {
+   "id": "bg092",
+   "name": "Soleil menthe",
+   "rarity": "epique",
+   "pattern": "sunburst",
+   "colors": [
+    "#e6f5dc",
+    "#90c060",
+    "#5f8f3a",
+    "#ffffff"
+   ],
+   "fx": "pulse"
+  },
+  {
+   "id": "bg093",
+   "name": "Soleil orange",
+   "rarity": "epique",
+   "pattern": "sunburst",
+   "colors": [
+    "#ffeadb",
+    "#f07e36",
+    "#c4561b",
+    "#ffffff"
+   ],
+   "fx": "pulse"
+  },
+  {
+   "id": "bg094",
+   "name": "Soleil océan",
+   "rarity": "epique",
+   "pattern": "sunburst",
+   "colors": [
+    "#dff1ff",
+    "#3d8fd6",
+    "#2a6aa3",
+    "#ffffff"
+   ],
+   "fx": "pulse"
+  },
+  {
+   "id": "bg095",
+   "name": "Aurore boréale",
+   "rarity": "legendaire",
+   "pattern": "aurora",
+   "colors": [
+    "#0f1a3a",
+    "#5ef2c5",
+    "#7b3fe4",
+    "#e41e6c"
+   ],
+   "fx": "hue"
+  },
+  {
+   "id": "bg096",
+   "name": "Explosion arc-en-ciel",
+   "rarity": "legendaire",
+   "pattern": "sunburst",
+   "colors": [
+    "#e41e6c",
+    "#fcd260",
+    "#90c060",
+    "#3d8fd6"
+   ],
+   "fx": "hue"
+  },
+  {
+   "id": "bg097",
+   "name": "Galaxie",
+   "rarity": "legendaire",
+   "pattern": "stars",
+   "colors": [
+    "#120830",
+    "#ffffff",
+    "#fcd260",
+    "#b48cff"
+   ],
+   "fx": "scroll"
+  },
+  {
+   "id": "bg098",
+   "name": "Lave cosmique",
+   "rarity": "legendaire",
+   "pattern": "aurora",
+   "colors": [
+    "#2a0a00",
+    "#ff7a1a",
+    "#e41e6c",
+    "#fcd260"
+   ],
+   "fx": "pulse"
+  },
+  {
+   "id": "bg099",
+   "name": "Holographique",
+   "rarity": "legendaire",
+   "pattern": "gradient",
+   "colors": [
+    "#ff9ad5",
+    "#9ad5ff",
+    "#b8ff9a",
+    "#ffe79a"
+   ],
+   "fx": "hue"
+  },
+  {
+   "id": "bg100",
+   "name": "Matrice dorée",
+   "rarity": "legendaire",
+   "pattern": "circuit",
+   "colors": [
+    "#1a1300",
+    "#fcd260",
+    "#e0a800",
+    "#ffffff"
+   ],
+   "fx": "scroll"
+  }
+ ]
+}

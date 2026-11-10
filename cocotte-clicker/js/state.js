@@ -7,7 +7,7 @@ export const CONFIG = {
 };
 
 // Données chargées au démarrage (data/*.json, assets/manifest.json)
-export const DATA = { buildings: [], eras: [], manifest: {}, config: {}, skins: [], rarities: [], upgradeList: [], achList: [], projects: [], tips: [] };
+export const DATA = { buildings: [], eras: [], manifest: {}, config: {}, skins: [], rarities: [], upgradeList: [], achList: [], projects: [], tips: [], backgrounds: [] };
 
 // Identifiant joueur anonyme (8 caractères, sans caractères ambigus)
 export function newPlayerId() {
@@ -30,9 +30,11 @@ export function freshState() {
     pseudo: '',
     skins: { classique: 1 },          // { id: nombre obtenu }
     skin: 'classique',                 // skin équipé
-    gacha: { pulls: 0, sinceLegend: 0 },
+    gacha: { pulls: 0, sinceLegend: 0, bgPulls: 0, bgSinceLegend: 0 },
+    bgs: {},                           // décors obtenus { id: nombre }
+    bg: 'auto',                        // décor équipé ('auto' = décor de l'ère)
     claimed: [],                       // bons QR déjà encaissés (anti-rejeu)
-    mini: { day: '', crystalsToday: 0, plays: 0, stars: 0, perfect: 0, best: {} },
+    mini: { day: '', crystalsToday: 0, plays: 0, stars: 0, perfect: 0, puzzles: 0, best: {} },
     upgrades: {},                      // { id: true } améliorations achetées
     achievements: {},                  // { id: horodatage } succès obtenus
     projects: {},                      // { id: true } projets de La Co'Cotte réalisés (remis à zéro par saison)
@@ -83,8 +85,8 @@ export function buildingCps(b) { return b.baseCps * buildingMult(b.id) * globalM
 
 // Bonus de collection : +X % de production par skin différent obtenu (hors skin de départ)
 export function collectionBonus() {
-  const pct = DATA.config.gacha?.collectionBonusPct ?? 1;
-  return (Object.keys(state.skins).length - 1) * pct;
+  const pct = DATA.config.gacha?.collectionBonusPct ?? 1, bgPct = DATA.config.gacha?.collectionBgPct ?? 0.5;
+  return (Object.keys(state.skins).length - 1) * pct + Object.keys(state.bgs).length * bgPct;
 }
 export function globalMult() {
   return (1 + collectionBonus() / 100) * (1 + achievementBonus() / 100) * (1 + seedBonus() / 100) * upgradesGlobal()

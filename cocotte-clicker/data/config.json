@@ -25,7 +25,8 @@
       "rare": 3,
       "epique": 8,
       "legendaire": 20
-    }
+    },
+    "collectionBgPct": 0.5
   },
   "minigames": {
     "dailyCrystalCap": 15,

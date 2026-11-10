@@ -92,6 +92,18 @@ function accessory(a) {
         <rect x="26" y="74" width="30" height="42" rx="10" fill="#222" stroke="#000" stroke-width="4"/>
         <rect x="204" y="74" width="30" height="42" rx="10" fill="#222" stroke="#000" stroke-width="4"/>
         <path d="M42 112c4 30 30 46 60 46" stroke="#222" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="104" cy="158" r="6" fill="#5ef2c5" stroke="#000" stroke-width="3"/>`;
+    case 'bow':
+      return `<path d="M130 40l-30-18c-8-4-14 2-12 10l4 18c2 8 10 10 16 6zM130 40l30-18c8-4 14 2 12 10l-4 18c-2 8-10 10-16 6z" fill="#E41E6C" stroke="#000" stroke-width="4" stroke-linejoin="round"/>
+        <circle cx="130" cy="42" r="9" fill="#ff7aa8" stroke="#000" stroke-width="4"/>`;
+    case 'sunglasses':
+      return `<path d="M60 136h140" stroke="#000" stroke-width="6"/>
+        <rect x="78" y="128" width="46" height="30" rx="12" fill="#111" stroke="#000" stroke-width="4"/>
+        <rect x="136" y="128" width="46" height="30" rx="12" fill="#111" stroke="#000" stroke-width="4"/>
+        <path d="M86 136l12-4M144 136l12-4" stroke="#fff" stroke-width="4" stroke-linecap="round"/>`;
+    case 'bandana':
+      return `<path d="M44 90c10-50 52-62 86-62s76 12 86 62z" fill="#3d8fd6" stroke="#000" stroke-width="5" stroke-linejoin="round"/>
+        <g fill="#fff">${[[80,70],[110,52],[150,52],[180,70],[130,74]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="4"/>`).join('')}</g>
+        <path d="M214 84l22-6-6 18 12 8-24 2z" fill="#3d8fd6" stroke="#000" stroke-width="4" stroke-linejoin="round"/>`;
     case 'headphones':
       return `<path d="M44 92C44 20 216 20 216 92" stroke="#000" stroke-width="12" fill="none" stroke-linecap="round"/>
         <path d="M44 92C44 20 216 20 216 92" stroke="#E41E6C" stroke-width="6" fill="none" stroke-linecap="round"/>
@@ -174,13 +186,13 @@ export function skinSVG(s) {
   const fill = s.gradient ? 'url(#g)' : c.body;
   const acc = s.accessory || 'goggles';
   const lidHidden = acc === 'beanie';
-  const knob = ['crown', 'beanie', 'helmet', 'cap', 'santa', 'party', 'nightcap', 'flame'].includes(acc) ? '' :
+  const knob = ['crown', 'beanie', 'helmet', 'cap', 'santa', 'party', 'nightcap', 'flame', 'bandana'].includes(acc) ? '' :
     `<polygon points="146,24 138,38 122,38 114,24 122,10 138,10" fill="#d4d4d4" stroke="#000" stroke-width="4" stroke-linejoin="round"/>
      <circle cx="130" cy="24" r="5.5" fill="#777" stroke="#000" stroke-width="2"/>`;
-  const mouth = (s.eyes === 'none') ? '' :
+  const mouth = acc === 'vr' ? '' :
     `<path d="M120 160q10 14 20 0z" fill="#000" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
      <path d="M125 166q5 4 10 0" stroke="${c.blush}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
-  const blush = s.eyes === 'none' ? '' :
+  const blush = acc === 'vr' ? '' :
     `<ellipse cx="80" cy="166" rx="11" ry="6" fill="${c.blush}" opacity=".9"/><ellipse cx="180" cy="166" rx="11" ry="6" fill="${c.blush}" opacity=".9"/>`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 230">

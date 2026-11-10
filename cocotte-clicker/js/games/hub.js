@@ -8,8 +8,9 @@ import match3 from './match3.js';
 import memory from './memory.js';
 import bugs from './bugs.js';
 import simon from './simon.js';
+import puzzle from './puzzle.js';
 
-export const GAMES = [match3, memory, bugs, simon];
+export const GAMES = [match3, memory, bugs, simon, puzzle];
 let cleanup = null, current = null;
 
 const cfg = () => DATA.config.minigames || {};

@@ -458,6 +458,177 @@
       "accessory": "flame",
       "fx": "glow",
       "desc": "Elle renaît à chaque Nouvelle saison."
+    },
+    {
+      "id": "miel",
+      "name": "Miel doré",
+      "rarity": "commune",
+      "colors": {
+        "body": "#f2b33d",
+        "shade": "#c4861b"
+      },
+      "eyes": "happy",
+      "desc": "Douce comme le miel des ruches du coin."
+    },
+    {
+      "id": "ciel",
+      "name": "Bleu ciel",
+      "rarity": "commune",
+      "colors": {
+        "body": "#9fd8f5",
+        "shade": "#5aa9d6"
+      },
+      "desc": "Légère comme un nuage."
+    },
+    {
+      "id": "prune",
+      "name": "Prune",
+      "rarity": "commune",
+      "colors": {
+        "body": "#8e3b6e",
+        "shade": "#5e2248"
+      },
+      "desc": "Ronde et fruitée."
+    },
+    {
+      "id": "olive",
+      "name": "Olive",
+      "rarity": "commune",
+      "colors": {
+        "body": "#9aa04a",
+        "shade": "#6b7030"
+      },
+      "desc": "Couleur treillis d'atelier."
+    },
+    {
+      "id": "rubis",
+      "name": "Rubis",
+      "rarity": "commune",
+      "colors": {
+        "body": "#c1121f",
+        "shade": "#850c15"
+      },
+      "eyes": "wink",
+      "desc": "Rouge comme un bouton d'arrêt d'urgence."
+    },
+    {
+      "id": "noeud",
+      "name": "Petit nœud",
+      "rarity": "rare",
+      "colors": {
+        "body": "#ffc7dd",
+        "shade": "#e695b4"
+      },
+      "accessory": "bow",
+      "eyes": "happy",
+      "desc": "Toujours bien apprêtée pour les événements."
+    },
+    {
+      "id": "cool",
+      "name": "Cocotte cool",
+      "rarity": "rare",
+      "colors": {
+        "body": "#5ac8fa",
+        "shade": "#2f8fbf"
+      },
+      "accessory": "sunglasses",
+      "eyes": "none",
+      "desc": "Trop stylée pour enlever ses lunettes."
+    },
+    {
+      "id": "aventure",
+      "name": "Aventurière",
+      "rarity": "rare",
+      "colors": {
+        "body": "#c98a4b",
+        "shade": "#8a5a2b"
+      },
+      "accessory": "bandana",
+      "desc": "Toujours partante pour la tournée itinérante."
+    },
+    {
+      "id": "zebre",
+      "name": "Zébrée",
+      "rarity": "rare",
+      "colors": {
+        "body": "#f5f5f5",
+        "shade": "#c9c9c9"
+      },
+      "pattern": "stripes",
+      "eyes": "wink",
+      "accessory": "none",
+      "desc": "Rayée noir et blanc, version tiers-lieu."
+    },
+    {
+      "id": "plage",
+      "name": "Cocotte en vacances",
+      "rarity": "epique",
+      "gradient": [
+        "#ffe066",
+        "#ff8a73",
+        "#5ac8fa"
+      ],
+      "accessory": "sunglasses",
+      "eyes": "none",
+      "fx": "glow",
+      "desc": "Fermeture estivale : direction la plage !"
+    },
+    {
+      "id": "fleurie",
+      "name": "Cocotte fleurie",
+      "rarity": "epique",
+      "colors": {
+        "body": "#90C060",
+        "shade": "#5f8f3a"
+      },
+      "pattern": "hearts",
+      "accessory": "bow",
+      "eyes": "heart",
+      "desc": "Elle pousse dans le jardin partagé."
+    },
+    {
+      "id": "pirate",
+      "name": "Pirate du Vermandois",
+      "rarity": "epique",
+      "colors": {
+        "body": "#2b2b2b",
+        "shade": "#111111",
+        "rim": "#c9a227"
+      },
+      "pattern": "checker",
+      "accessory": "bandana",
+      "eyes": "wink",
+      "desc": "Elle a trouvé le trésor : une imprimante 3D !"
+    },
+    {
+      "id": "soleil",
+      "name": "Cocotte soleil",
+      "rarity": "legendaire",
+      "gradient": [
+        "#fff6c2",
+        "#FCD260",
+        "#F07E36"
+      ],
+      "pattern": "sparkles",
+      "accessory": "sunglasses",
+      "eyes": "none",
+      "fx": "glow",
+      "desc": "Elle illumine tout le plan de travail."
+    },
+    {
+      "id": "glace",
+      "name": "Reine des glaces",
+      "rarity": "legendaire",
+      "gradient": [
+        "#ffffff",
+        "#bfe6f2",
+        "#5ac8fa"
+      ],
+      "pattern": "sparkles",
+      "accessory": "crown",
+      "eyes": "star",
+      "fx": "holo",
+      "desc": "Sculptée dans la glace du canal."
     }
   ]
 }
