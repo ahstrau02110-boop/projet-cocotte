@@ -695,3 +695,34 @@ dialog.play-dlg[open] { display: flex; }
 .two-cols ul { margin: .2rem 0; padding-left: 1.2rem; }
 #music-track { width: 100%; }
 .dlg .row .ghost-btn { background: #fff; }
+
+/* Séquence des machines */
+.simon { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; width: min(100%, 420px); }
+.simon.fail { animation: nope .4s; }
+.pad {
+  --pc: #ccc; position: relative; aspect-ratio: 1; border: 4px solid #000; border-radius: 26px; padding: 14%;
+  background: color-mix(in srgb, var(--pc) 35%, #fff); box-shadow: 0 6px 0 #000; transition: transform .08s, background .08s, filter .08s;
+}
+.pad img { width: 100%; height: 100%; pointer-events: none; }
+.pad-k { position: absolute; top: 8px; left: 12px; font-family: var(--f-mono); font-size: .8rem; }
+.pad.lit { background: var(--pc); transform: scale(1.05); filter: brightness(1.15) drop-shadow(0 0 18px var(--pc)); }
+.pad:disabled { cursor: default; }
+.pad:not(:disabled):active { transform: translateY(4px); box-shadow: 0 2px 0 #000; }
+
+/* ===== Tutoriel ===== */
+.tuto { position: fixed; inset: 0; z-index: 80; }
+.tuto-hole {
+  position: fixed; border: 4px solid var(--c-yellow); border-radius: 20px; pointer-events: none;
+  box-shadow: 0 0 0 200vmax rgba(20,10,40,.62); transition: all .3s ease;
+}
+.tuto.center .tuto-bubble { box-shadow: 0 0 0 200vmax rgba(20,10,40,.62), 0 6px 0 #000; }
+.tuto-bubble {
+  position: fixed; width: min(420px, calc(100vw - 16px)); background: #fff; border: 4px solid #000; border-radius: 22px;
+  box-shadow: 0 6px 0 #000; padding: 1rem 1.1rem; transition: top .3s ease, left .3s ease; animation: toastIn .25s ease-out;
+}
+.tuto-step { font-family: var(--f-mono); font-size: .75rem; color: var(--muted); }
+.tuto-title { font-family: var(--f-title); margin: .1rem 0 .3rem; font-size: 1.35rem; }
+.tuto-txt { margin: 0 0 .8rem; font-size: 1.05rem; }
+.tuto-btns { display: flex; gap: .4rem; justify-content: flex-end; flex-wrap: wrap; }
+.tuto-btns [data-skip] { margin-right: auto; }
+.dlg #btn-tuto { border: var(--line); border-radius: 12px; background: #fff; padding: .45rem .9rem; min-height: 46px; font-weight: 700; box-shadow: var(--lift-sm); }

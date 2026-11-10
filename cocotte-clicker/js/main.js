@@ -12,6 +12,7 @@ import { initGames, openGames } from './games/hub.js';
 import { initPlayer, openMyQR } from './player.js';
 import { buildProgress, initProgress, renderUpgrades, checkAchievements, openAchievements } from './progress.js';
 import { decorFor } from './decor.js';
+import { initTutorial } from './tutorial.js';
 import { initGolden, renderBuffs } from './golden.js';
 import { initSeason, renderProjects, renderSeason, applyMusicUnlocks } from './season.js';
 
@@ -75,6 +76,7 @@ async function boot() {
   initProgress();
   initSeason();
   initGolden();
+  initTutorial();
   on('season', afterStateChange);
   applySkin();
   on('refresh', updateUI);

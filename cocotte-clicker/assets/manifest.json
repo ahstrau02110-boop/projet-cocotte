@@ -17,5 +17,7 @@
   "building.evenements": "assets/img/b-evenements.svg",
   "building.tournee": "assets/img/b-tournee.svg",
   "building.partenaires": "assets/img/b-partenaires.svg",
-  "building.rayonnement": "assets/img/b-rayonnement.svg"
+  "building.rayonnement": "assets/img/b-rayonnement.svg",
+  "building.festival": "assets/img/b-festival.svg",
+  "building.reseau": "assets/img/b-reseau.svg"
 }

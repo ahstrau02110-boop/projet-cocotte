@@ -12,9 +12,19 @@
       "desc": "Posséder 25 {b}."
     },
     {
+      "n": 50,
+      "name": "{b} à la chaîne",
+      "desc": "Posséder 50 {b}."
+    },
+    {
       "n": 100,
       "name": "Centenaire : {b}",
       "desc": "Posséder 100 {b}."
+    },
+    {
+      "n": 200,
+      "name": "Empire : {b}",
+      "desc": "Posséder 200 {b}."
     }
   ],
   "list": [
@@ -273,9 +283,9 @@
       "cat": "gacha",
       "icon": "🌈",
       "name": "Collection complète",
-      "desc": "Obtenir tous les skins.",
+      "desc": "Obtenir les 36 skins.",
       "cond": {
-        "skins": 18
+        "skins": 36
       }
     },
     {
@@ -406,6 +416,196 @@
       "desc": "Lancer 5 Nouvelles saisons.",
       "cond": {
         "seasons": 5
+      }
+    },
+    {
+      "id": "clic50k",
+      "cat": "clic",
+      "icon": "🤖",
+      "name": "Clic automatique ?",
+      "desc": "Cliquer 50 000 fois.",
+      "cond": {
+        "clicks": 50000
+      }
+    },
+    {
+      "id": "prod1q",
+      "cat": "prod",
+      "icon": "🌍",
+      "name": "Économie solidaire mondiale",
+      "desc": "Produire 1 million de milliards de Co'Coins.",
+      "cond": {
+        "earned": 1000000000000000.0
+      }
+    },
+    {
+      "id": "prod100q",
+      "cat": "prod",
+      "icon": "🪐",
+      "name": "Au-delà du Vermandois",
+      "desc": "Produire 100 millions de milliards de Co'Coins.",
+      "cond": {
+        "earned": 1e+17
+      }
+    },
+    {
+      "id": "cps1b",
+      "cat": "cps",
+      "icon": "⚡",
+      "name": "Courant continu",
+      "desc": "Atteindre 1 milliard par seconde.",
+      "cond": {
+        "cps": 1000000000.0
+      }
+    },
+    {
+      "id": "cps100b",
+      "cat": "cps",
+      "icon": "🌋",
+      "name": "Réacteur à idées",
+      "desc": "Atteindre 100 milliards par seconde.",
+      "cond": {
+        "cps": 100000000000.0
+      }
+    },
+    {
+      "id": "bat500",
+      "cat": "prod",
+      "icon": "🌆",
+      "name": "Ville créative",
+      "desc": "Posséder 500 bâtiments au total.",
+      "cond": {
+        "buildings": 500
+      }
+    },
+    {
+      "id": "bat1000",
+      "cat": "prod",
+      "icon": "🗺️",
+      "name": "Territoire maker",
+      "desc": "Posséder 1 000 bâtiments au total.",
+      "cond": {
+        "buildings": 1000
+      }
+    },
+    {
+      "id": "upg40",
+      "cat": "cps",
+      "icon": "🔩",
+      "name": "Atelier optimisé",
+      "desc": "Acheter 40 améliorations.",
+      "cond": {
+        "upgrades": 40
+      }
+    },
+    {
+      "id": "upg80",
+      "cat": "cps",
+      "icon": "🏗️",
+      "name": "Usine du futur",
+      "desc": "Acheter 80 améliorations.",
+      "cond": {
+        "upgrades": 80
+      }
+    },
+    {
+      "id": "pull100",
+      "cat": "gacha",
+      "icon": "🎰",
+      "name": "Imprimante surchauffée",
+      "desc": "Lancer 100 impressions mystère.",
+      "cond": {
+        "pulls": 100
+      }
+    },
+    {
+      "id": "skins24",
+      "cat": "gacha",
+      "icon": "🧥",
+      "name": "Grand dressing",
+      "desc": "Obtenir 24 skins différents.",
+      "cond": {
+        "skins": 24
+      }
+    },
+    {
+      "id": "legend3",
+      "cat": "gacha",
+      "icon": "💫",
+      "name": "Trio légendaire",
+      "desc": "Obtenir 3 skins Légendaires.",
+      "cond": {
+        "legendary": 3
+      }
+    },
+    {
+      "id": "legend6",
+      "cat": "gacha",
+      "icon": "🌠",
+      "name": "Panthéon",
+      "desc": "Obtenir les 6 skins Légendaires.",
+      "cond": {
+        "legendary": 6
+      }
+    },
+    {
+      "id": "mini100",
+      "cat": "mini",
+      "icon": "🏆",
+      "name": "Champion·ne de la salle de jeux",
+      "desc": "Terminer 100 mini-jeux.",
+      "cond": {
+        "plays": 100
+      }
+    },
+    {
+      "id": "stars150",
+      "cat": "mini",
+      "icon": "✨",
+      "name": "Constellation",
+      "desc": "Cumuler 150 étoiles en mini-jeux.",
+      "cond": {
+        "stars": 150
+      }
+    },
+    {
+      "id": "perfect10",
+      "cat": "mini",
+      "icon": "🎯",
+      "name": "Perfectionniste",
+      "desc": "Obtenir 3 étoiles 10 fois.",
+      "cond": {
+        "perfect": 10
+      }
+    },
+    {
+      "id": "gold100",
+      "cat": "special",
+      "icon": "👑",
+      "name": "Ruée vers l'or",
+      "desc": "Attraper 100 Cocottes dorées.",
+      "cond": {
+        "golden": 100
+      }
+    },
+    {
+      "id": "season10",
+      "cat": "special",
+      "icon": "🌲",
+      "name": "Forêt de saisons",
+      "desc": "Lancer 10 Nouvelles saisons.",
+      "cond": {
+        "seasons": 10
+      }
+    },
+    {
+      "id": "visite10",
+      "cat": "special",
+      "icon": "🏡",
+      "name": "Comme à la maison",
+      "desc": "Recevoir 10 fois des cristaux de l'équipe.",
+      "cond": {
+        "claims": 10
       }
     }
   ]

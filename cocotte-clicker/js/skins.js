@@ -27,6 +27,29 @@ function pattern(p, c) {
       return `<g stroke="#5ef2c5" stroke-width="3" fill="none" stroke-linecap="round" opacity=".9">
         <path d="M54 112h30v20h24M206 116h-28v26h-22M60 186h40v-14M200 182h-36v-18M130 196v-14"/></g>
         <g fill="#5ef2c5"><circle cx="108" cy="132" r="4"/><circle cx="156" cy="142" r="4"/><circle cx="100" cy="172" r="4"/><circle cx="164" cy="164" r="4"/><circle cx="130" cy="182" r="4"/></g>`;
+    case 'dots':
+      return [[70,124],[110,118],[150,124],[190,120],[90,150],[170,150],[60,176],[130,190],[200,172],[100,184]]
+        .map(([x, y]) => `<circle cx="${x}" cy="${y}" r="7" fill="#fff" opacity=".55"/>`).join('');
+    case 'checker': {
+      let out = '';
+      for (let y = 100; y < 210; y += 22) for (let x = 40; x < 222; x += 22)
+        if (((x - 40) / 22 + (y - 100) / 22) % 2 === 0) out += `<rect x="${x}" y="${y}" width="22" height="22" fill="#000" opacity=".22"/>`;
+      return out;
+    }
+    case 'hazard':
+      return `<g>${Array.from({ length: 14 }, (_, i) => `<path d="M${10 + i * 20} 172l-24 36h12l24-36z" fill="#000"/>`).join('')}</g><rect x="40" y="168" width="180" height="4" fill="#000"/>`;
+    case 'hearts':
+      return [[72,124],[150,118],[196,150],[100,186],[176,190],[60,166]]
+        .map(([x, y]) => `<path d="M${x} ${y + 8}c-8-5-10-8-10-11a5 5 0 0 1 10-2 5 5 0 0 1 10 2c0 3-2 6-10 11z" fill="#fff" opacity=".7"/>`).join('');
+    case 'lava':
+      return `<path d="M40 150c30-20 50 20 80 0s50-20 100 0v60H40z" fill="#ff4d1a" opacity=".85"/>
+        <path d="M40 176c30-14 60 14 90 0s60-14 90 0v40H40z" fill="#ffd23f" opacity=".8"/>
+        <circle cx="90" cy="130" r="6" fill="#ffd23f"/><circle cx="180" cy="126" r="4" fill="#ffd23f"/>`;
+    case 'sparkles':
+      return [[70,120,9],[190,128,7],[120,186,8],[80,182,5],[200,180,6],[150,112,5]]
+        .map(([x, y, r]) => `<path d="M${x} ${y - r}l${r * .3} ${r * .7} ${r * .7} ${r * .3}-${r * .7} ${r * .3}-${r * .3} ${r * .7}-${r * .3}-${r * .7}-${r * .7}-${r * .3} ${r * .7}-${r * .3}z" fill="#fff"/>`).join('');
+    case 'flames':
+      return `<path d="M40 210c0-30 20-30 20-50 10 14 14 24 24 10 6 16 16 22 26 4 10 18 20 18 30 0 8 16 20 22 28 6 10 14 22 18 32 30v0z" fill="#ffd23f" opacity=".85"/>`;
     case 'galaxy':
       return `<ellipse cx="150" cy="150" rx="70" ry="30" fill="#7b3fe4" opacity=".45" transform="rotate(-20 150 150)"/>
         <ellipse cx="110" cy="170" rx="50" ry="18" fill="#E41E6C" opacity=".35" transform="rotate(15 110 170)"/>`
@@ -40,6 +63,35 @@ function pattern(p, c) {
 function accessory(a) {
   switch (a) {
     case 'none': return '';
+    case 'helmet':
+      return `<path d="M44 92c0-44 38-64 86-64s86 20 86 64z" fill="#FCD260" stroke="#000" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M130 30v58M100 34l6 54M160 34l-6 54" stroke="#000" stroke-width="4" opacity=".5"/>
+        <rect x="34" y="84" width="192" height="14" rx="7" fill="#FCD260" stroke="#000" stroke-width="5"/>`;
+    case 'cap':
+      return `<path d="M58 84c0-36 30-52 72-52s72 16 72 52z" fill="#E41E6C" stroke="#000" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M58 84h-30c-8 0-8-12 0-12h34z" fill="#a8124d" stroke="#000" stroke-width="4" stroke-linejoin="round"/>
+        <circle cx="130" cy="34" r="6" fill="#a8124d" stroke="#000" stroke-width="3"/>
+        <text x="130" y="70" font-family="Arial Black,Arial" font-weight="900" font-size="22" text-anchor="middle" fill="#fff">C'</text>`;
+    case 'santa':
+      return `<path d="M54 86c4-40 40-58 80-56 30 2 50 14 64 40l18-14c8-6 18 2 12 10-6 10-22 14-28 20z" fill="#E41E6C" stroke="#000" stroke-width="5" stroke-linejoin="round"/>
+        <circle cx="236" cy="62" r="13" fill="#fff" stroke="#000" stroke-width="4"/>
+        <rect x="42" y="76" width="176" height="20" rx="10" fill="#fff" stroke="#000" stroke-width="4"/>`;
+    case 'party':
+      return `<path d="M100 84l30-74 30 74z" fill="#5ac8fa" stroke="#000" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M112 56h36M104 74h52" stroke="#E41E6C" stroke-width="6"/><circle cx="130" cy="10" r="9" fill="#FCD260" stroke="#000" stroke-width="3"/>`;
+    case 'nightcap':
+      return `<path d="M52 88c0-40 34-58 78-58 30 0 52 10 64 30l30 40-14 8-30-34c-4 6-6 10-8 14z" fill="#3C2472" stroke="#000" stroke-width="5" stroke-linejoin="round"/>
+        <circle cx="222" cy="100" r="11" fill="#FCD260" stroke="#000" stroke-width="4"/>
+        <rect x="44" y="78" width="160" height="18" rx="9" fill="#d9c8ff" stroke="#000" stroke-width="4"/>`;
+    case 'flame':
+      return `<path d="M130 4c10 18 34 26 30 52-2 16-14 28-30 28s-28-12-30-28c-2-14 8-20 10-34 6 8 10 12 14 8 4-8 0-16 6-26z" fill="#ff7a1a" stroke="#000" stroke-width="4" stroke-linejoin="round"/>
+        <path d="M130 40c6 10 14 16 12 28-2 8-6 12-12 12s-10-4-12-12c0-8 6-12 12-28z" fill="#ffd23f"/>`;
+    case 'headset':
+      return `<path d="M44 96C44 22 216 22 216 96" stroke="#000" stroke-width="12" fill="none" stroke-linecap="round"/>
+        <path d="M44 96C44 22 216 22 216 96" stroke="#5ef2c5" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <rect x="26" y="74" width="30" height="42" rx="10" fill="#222" stroke="#000" stroke-width="4"/>
+        <rect x="204" y="74" width="30" height="42" rx="10" fill="#222" stroke="#000" stroke-width="4"/>
+        <path d="M42 112c4 30 30 46 60 46" stroke="#222" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="104" cy="158" r="6" fill="#5ef2c5" stroke="#000" stroke-width="3"/>`;
     case 'headphones':
       return `<path d="M44 92C44 20 216 20 216 92" stroke="#000" stroke-width="12" fill="none" stroke-linecap="round"/>
         <path d="M44 92C44 20 216 20 216 92" stroke="#E41E6C" stroke-width="6" fill="none" stroke-linecap="round"/>
@@ -83,6 +135,16 @@ function eyes(e) {
     case 'pixel':
       return `<rect x="92" y="134" width="20" height="22" fill="#000"/><rect x="148" y="134" width="20" height="22" fill="#000"/>
         <rect x="102" y="136" width="7" height="7" fill="#fff"/><rect x="158" y="136" width="7" height="7" fill="#fff"/>`;
+    case 'sleepy':
+      return `<path d="M90 148q12 8 24 0M146 148q12 8 24 0" stroke="#000" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <text x="196" y="122" font-family="Arial Black,Arial" font-size="20" font-weight="900" fill="#3C2472">z</text>`;
+    case 'wink':
+      return `<ellipse cx="102" cy="146" rx="12" ry="15" fill="#000"/><circle cx="106" cy="140" r="4.5" fill="#fff"/>
+        <path d="M146 148q12-10 24 0" stroke="#000" stroke-width="6" fill="none" stroke-linecap="round"/>`;
+    case 'heart': {
+      const h = (x, y) => `<path d="M${x} ${y + 12}c-12-8-16-13-16-18a8 8 0 0 1 16-3 8 8 0 0 1 16 3c0 5-4 10-16 18z" fill="#E41E6C" stroke="#000" stroke-width="3" stroke-linejoin="round"/>`;
+      return h(102, 136) + h(158, 136);
+    }
     case 'happy':
       return `<path d="M90 150q12-16 24 0M146 150q12-16 24 0" stroke="#000" stroke-width="6" fill="none" stroke-linecap="round"/>`;
     case 'star': {
@@ -112,7 +174,7 @@ export function skinSVG(s) {
   const fill = s.gradient ? 'url(#g)' : c.body;
   const acc = s.accessory || 'goggles';
   const lidHidden = acc === 'beanie';
-  const knob = acc === 'crown' || acc === 'beanie' ? '' :
+  const knob = ['crown', 'beanie', 'helmet', 'cap', 'santa', 'party', 'nightcap', 'flame'].includes(acc) ? '' :
     `<polygon points="146,24 138,38 122,38 114,24 122,10 138,10" fill="#d4d4d4" stroke="#000" stroke-width="4" stroke-linejoin="round"/>
      <circle cx="130" cy="24" r="5.5" fill="#777" stroke="#000" stroke-width="2"/>`;
   const mouth = (s.eyes === 'none') ? '' :

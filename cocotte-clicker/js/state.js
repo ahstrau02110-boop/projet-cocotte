@@ -38,6 +38,7 @@ export function freshState() {
     projects: {},                      // { id: true } projets de La Co'Cotte réalisés (remis à zéro par saison)
     buffs: [],                         // bonus temporaires { id, name, cps, click, until }
     golden: 0,                         // Cocottes dorées attrapées
+    tuto: false,                       // tutoriel terminé ou passé
     prestige: { seasons: 0, seeds: 0, lifetime: 0 }, // Nouvelles saisons
     startedAt: Date.now(),
     lastSave: Date.now(),

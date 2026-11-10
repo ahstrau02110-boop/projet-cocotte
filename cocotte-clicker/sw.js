@@ -1,6 +1,6 @@
 // Service worker : jeu jouable hors connexion et installable (PWA)
 // Incrémenter VERSION à chaque mise en ligne pour que les joueurs récupèrent la nouvelle version.
-const VERSION = 'cocotte-v3';
+const VERSION = 'coclicker-v4';
 const CORE = [
   './',
   'admin.html',
@@ -14,11 +14,13 @@ const CORE = [
   'assets/img/b-brodeuse.svg',
   'assets/img/b-etabli.svg',
   'assets/img/b-evenements.svg',
+  'assets/img/b-festival.svg',
   'assets/img/b-graveuse.svg',
   'assets/img/b-imprimante3d.svg',
   'assets/img/b-partenaires.svg',
   'assets/img/b-pc.svg',
   'assets/img/b-rayonnement.svg',
+  'assets/img/b-reseau.svg',
   'assets/img/b-tournee.svg',
   'assets/img/cocoin.svg',
   'assets/img/cristal.svg',
@@ -46,6 +48,7 @@ const CORE = [
   'js/games/hub.js',
   'js/games/match3.js',
   'js/games/memory.js',
+  'js/games/simon.js',
   'js/golden.js',
   'js/main.js',
   'js/player.js',
@@ -55,6 +58,7 @@ const CORE = [
   'js/season.js',
   'js/skins.js',
   'js/state.js',
+  'js/tutorial.js',
   'js/vendor/qrcode.js',
   'manifest.webmanifest',
 ];

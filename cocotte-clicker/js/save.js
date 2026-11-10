@@ -43,6 +43,7 @@ function sanitize(raw) {
   if (Array.isArray(raw.buffs)) s.buffs = raw.buffs.filter(b => b && typeof b.until === 'number' && b.until > Date.now())
     .map(b => ({ id: String(b.id), name: String(b.name || ''), cps: num(b.cps, 1) || 1, click: num(b.click, 1) || 1, until: b.until }));
   s.golden = int(raw.golden);
+  s.tuto = !!raw.tuto || raw.v === 1 || int(raw.totalClicks) > 50; // anciens joueurs : pas de tutoriel imposé
   const pr = obj(raw.prestige);
   s.prestige = { seasons: int(pr.seasons), seeds: int(pr.seeds), lifetime: Math.max(num(pr.lifetime), s.totalEarned) };
   for (const [k, v] of Object.entries(obj(raw.achievements))) s.achievements[k] = num(v, Date.now());

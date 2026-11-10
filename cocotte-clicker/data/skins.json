@@ -1,29 +1,463 @@
 {
   "_doc": "Skins de la Cocotte. rarity : commune | rare | epique | legendaire. Couleurs, motif (pattern), accessoire, yeux et effet sont combinés par js/skins.js. Ajoutez \"img\": \"assets/img/...\" pour utiliser une illustration à la place.",
   "rarities": [
-    { "id": "commune",    "label": "Commune",    "color": "#6b7b5a", "weight": 60 },
-    { "id": "rare",       "label": "Rare",       "color": "#2f7fd8", "weight": 28 },
-    { "id": "epique",     "label": "Épique",     "color": "#7b3fe4", "weight": 10 },
-    { "id": "legendaire", "label": "Légendaire", "color": "#e0a800", "weight": 2 }
+    {
+      "id": "commune",
+      "label": "Commune",
+      "color": "#6b7b5a",
+      "weight": 60
+    },
+    {
+      "id": "rare",
+      "label": "Rare",
+      "color": "#2f7fd8",
+      "weight": 28
+    },
+    {
+      "id": "epique",
+      "label": "Épique",
+      "color": "#7b3fe4",
+      "weight": 10
+    },
+    {
+      "id": "legendaire",
+      "label": "Légendaire",
+      "color": "#e0a800",
+      "weight": 2
+    }
   ],
   "skins": [
-    { "id": "classique", "name": "Cocotte classique", "rarity": "commune", "default": true, "desc": "La Cocotte des débuts, lunettes de protection vissées sur le couvercle." },
-    { "id": "menthe",    "name": "Menthe à l'eau",    "rarity": "commune", "colors": { "body": "#90C060", "shade": "#5f8f3a" }, "desc": "Fraîche comme un atelier au printemps." },
-    { "id": "ocean",     "name": "Bleu atelier",      "rarity": "commune", "colors": { "body": "#3d8fd6", "shade": "#2a6aa3" }, "desc": "La couleur des blouses de l'atelier." },
-    { "id": "creme",     "name": "Crème vanille",     "rarity": "commune", "colors": { "body": "#f3e3c3", "shade": "#cdb88f" }, "desc": "Douce, ronde, rassurante." },
-    { "id": "framboise", "name": "Framboise",         "rarity": "commune", "colors": { "body": "#E41E6C", "shade": "#a8124d" }, "desc": "Rose comme les traits du logo." },
-    { "id": "aubergine", "name": "Aubergine",         "rarity": "commune", "colors": { "body": "#3C2472", "shade": "#26164d", "blush": "#ff7aa8" }, "accessory": "headphones", "desc": "Casque sur les oreilles, elle code toute la nuit." },
-    { "id": "carbone",   "name": "Fibre de carbone",  "rarity": "rare", "colors": { "body": "#2b2b2b", "shade": "#111111" }, "pattern": "stripes", "accessory": "headphones", "desc": "Légère, solide, un peu frimeuse." },
-    { "id": "bois",      "name": "Contreplaqué gravé","rarity": "rare", "colors": { "body": "#d9a066", "shade": "#a8743f" }, "pattern": "wood", "desc": "Découpée et gravée à la graveuse laser." },
-    { "id": "cuivre",    "name": "Cuivre poli",       "rarity": "rare", "gradient": ["#f2a57a", "#c46a3a", "#8a4422"], "desc": "Elle brille comme une piste de circuit." },
-    { "id": "filament",  "name": "Filament pastel",   "rarity": "rare", "gradient": ["#ffd1e3", "#d4c4ff", "#c6f0d8"], "eyes": "happy", "accessory": "none", "desc": "Imprimée avec les fins de bobines." },
-    { "id": "hiver",     "name": "Cocotte d'hiver",   "rarity": "rare", "colors": { "body": "#3d8fd6", "shade": "#2a6aa3" }, "accessory": "beanie", "desc": "Bonnet tricoté au Bricol'Café." },
-    { "id": "pixel",     "name": "Cocotte 8-bit",     "rarity": "epique", "colors": { "body": "#5ac8fa", "shade": "#2f8fbf" }, "pattern": "pixel", "eyes": "pixel", "accessory": "none", "desc": "Tout droit sortie d'une borne d'arcade." },
-    { "id": "robot",     "name": "Robo-Cocotte",      "rarity": "epique", "colors": { "body": "#b9c3cc", "shade": "#7d8a96", "blush": "#5ac8fa" }, "eyes": "led", "accessory": "antenna", "desc": "Programmée en Arduino, elle bipe quand elle est contente." },
-    { "id": "vr",        "name": "Cocotte VR",        "rarity": "epique", "colors": { "body": "#3C2472", "shade": "#26164d" }, "eyes": "none", "accessory": "vr", "desc": "Elle visite le Vermandois en réalité virtuelle." },
-    { "id": "neon",      "name": "Circuit néon",      "rarity": "epique", "colors": { "body": "#1b1035", "shade": "#0e081e", "rim": "#5ef2c5" }, "pattern": "circuit", "eyes": "led", "fx": "glow", "desc": "Ses pistes s'allument dans le noir." },
-    { "id": "or",        "name": "Cocotte d'or",      "rarity": "legendaire", "gradient": ["#fff1a8", "#FCD260", "#c99a1e"], "eyes": "star", "accessory": "crown", "fx": "glow", "desc": "Remise au meilleur bricoleur du Vermandois." },
-    { "id": "holo",      "name": "Holographique",     "rarity": "legendaire", "gradient": ["#ff9ad5", "#9ad5ff", "#b8ff9a", "#ffe79a"], "fx": "holo", "desc": "Elle change de couleur selon l'angle. Ou l'humeur." },
-    { "id": "cosmique",  "name": "Cocotte cosmique",  "rarity": "legendaire", "colors": { "body": "#2a1458", "shade": "#120830", "rim": "#d9c8ff" }, "pattern": "galaxy", "eyes": "star", "accessory": "none", "fx": "glow", "desc": "Elle mijote des étoiles." }
+    {
+      "id": "classique",
+      "name": "Cocotte classique",
+      "rarity": "commune",
+      "default": true,
+      "desc": "La Cocotte des débuts, lunettes de protection vissées sur le couvercle."
+    },
+    {
+      "id": "menthe",
+      "name": "Menthe à l'eau",
+      "rarity": "commune",
+      "colors": {
+        "body": "#90C060",
+        "shade": "#5f8f3a"
+      },
+      "desc": "Fraîche comme un atelier au printemps."
+    },
+    {
+      "id": "ocean",
+      "name": "Bleu atelier",
+      "rarity": "commune",
+      "colors": {
+        "body": "#3d8fd6",
+        "shade": "#2a6aa3"
+      },
+      "desc": "La couleur des blouses de l'atelier."
+    },
+    {
+      "id": "creme",
+      "name": "Crème vanille",
+      "rarity": "commune",
+      "colors": {
+        "body": "#f3e3c3",
+        "shade": "#cdb88f"
+      },
+      "desc": "Douce, ronde, rassurante."
+    },
+    {
+      "id": "framboise",
+      "name": "Framboise",
+      "rarity": "commune",
+      "colors": {
+        "body": "#E41E6C",
+        "shade": "#a8124d"
+      },
+      "desc": "Rose comme les traits du logo."
+    },
+    {
+      "id": "aubergine",
+      "name": "Aubergine",
+      "rarity": "commune",
+      "colors": {
+        "body": "#3C2472",
+        "shade": "#26164d",
+        "blush": "#ff7aa8"
+      },
+      "accessory": "headphones",
+      "desc": "Casque sur les oreilles, elle code toute la nuit."
+    },
+    {
+      "id": "carbone",
+      "name": "Fibre de carbone",
+      "rarity": "rare",
+      "colors": {
+        "body": "#2b2b2b",
+        "shade": "#111111"
+      },
+      "pattern": "stripes",
+      "accessory": "headphones",
+      "desc": "Légère, solide, un peu frimeuse."
+    },
+    {
+      "id": "bois",
+      "name": "Contreplaqué gravé",
+      "rarity": "rare",
+      "colors": {
+        "body": "#d9a066",
+        "shade": "#a8743f"
+      },
+      "pattern": "wood",
+      "desc": "Découpée et gravée à la graveuse laser."
+    },
+    {
+      "id": "cuivre",
+      "name": "Cuivre poli",
+      "rarity": "rare",
+      "gradient": [
+        "#f2a57a",
+        "#c46a3a",
+        "#8a4422"
+      ],
+      "desc": "Elle brille comme une piste de circuit."
+    },
+    {
+      "id": "filament",
+      "name": "Filament pastel",
+      "rarity": "rare",
+      "gradient": [
+        "#ffd1e3",
+        "#d4c4ff",
+        "#c6f0d8"
+      ],
+      "eyes": "happy",
+      "accessory": "none",
+      "desc": "Imprimée avec les fins de bobines."
+    },
+    {
+      "id": "hiver",
+      "name": "Cocotte d'hiver",
+      "rarity": "rare",
+      "colors": {
+        "body": "#3d8fd6",
+        "shade": "#2a6aa3"
+      },
+      "accessory": "beanie",
+      "desc": "Bonnet tricoté au Bricol'Café."
+    },
+    {
+      "id": "pixel",
+      "name": "Cocotte 8-bit",
+      "rarity": "epique",
+      "colors": {
+        "body": "#5ac8fa",
+        "shade": "#2f8fbf"
+      },
+      "pattern": "pixel",
+      "eyes": "pixel",
+      "accessory": "none",
+      "desc": "Tout droit sortie d'une borne d'arcade."
+    },
+    {
+      "id": "robot",
+      "name": "Robo-Cocotte",
+      "rarity": "epique",
+      "colors": {
+        "body": "#b9c3cc",
+        "shade": "#7d8a96",
+        "blush": "#5ac8fa"
+      },
+      "eyes": "led",
+      "accessory": "antenna",
+      "desc": "Programmée en Arduino, elle bipe quand elle est contente."
+    },
+    {
+      "id": "vr",
+      "name": "Cocotte VR",
+      "rarity": "epique",
+      "colors": {
+        "body": "#3C2472",
+        "shade": "#26164d"
+      },
+      "eyes": "none",
+      "accessory": "vr",
+      "desc": "Elle visite le Vermandois en réalité virtuelle."
+    },
+    {
+      "id": "neon",
+      "name": "Circuit néon",
+      "rarity": "epique",
+      "colors": {
+        "body": "#1b1035",
+        "shade": "#0e081e",
+        "rim": "#5ef2c5"
+      },
+      "pattern": "circuit",
+      "eyes": "led",
+      "fx": "glow",
+      "desc": "Ses pistes s'allument dans le noir."
+    },
+    {
+      "id": "or",
+      "name": "Cocotte d'or",
+      "rarity": "legendaire",
+      "gradient": [
+        "#fff1a8",
+        "#FCD260",
+        "#c99a1e"
+      ],
+      "eyes": "star",
+      "accessory": "crown",
+      "fx": "glow",
+      "desc": "Remise au meilleur bricoleur du Vermandois."
+    },
+    {
+      "id": "holo",
+      "name": "Holographique",
+      "rarity": "legendaire",
+      "gradient": [
+        "#ff9ad5",
+        "#9ad5ff",
+        "#b8ff9a",
+        "#ffe79a"
+      ],
+      "fx": "holo",
+      "desc": "Elle change de couleur selon l'angle. Ou l'humeur."
+    },
+    {
+      "id": "cosmique",
+      "name": "Cocotte cosmique",
+      "rarity": "legendaire",
+      "colors": {
+        "body": "#2a1458",
+        "shade": "#120830",
+        "rim": "#d9c8ff"
+      },
+      "pattern": "galaxy",
+      "eyes": "star",
+      "accessory": "none",
+      "fx": "glow",
+      "desc": "Elle mijote des étoiles."
+    },
+    {
+      "id": "citron",
+      "name": "Citron givré",
+      "rarity": "commune",
+      "colors": {
+        "body": "#FCD260",
+        "shade": "#d9a400"
+      },
+      "desc": "Acidulée et pleine d'énergie."
+    },
+    {
+      "id": "lavande",
+      "name": "Lavande",
+      "rarity": "commune",
+      "colors": {
+        "body": "#b48cff",
+        "shade": "#8a5fd6"
+      },
+      "desc": "Elle sent bon le jardin partagé."
+    },
+    {
+      "id": "corail",
+      "name": "Corail",
+      "rarity": "commune",
+      "colors": {
+        "body": "#ff8a73",
+        "shade": "#d9614b"
+      },
+      "eyes": "wink",
+      "desc": "Un clin d'œil à chaque visite."
+    },
+    {
+      "id": "ardoise",
+      "name": "Ardoise",
+      "rarity": "commune",
+      "colors": {
+        "body": "#6b7480",
+        "shade": "#4a525c"
+      },
+      "desc": "Sobre comme un tableau d'atelier."
+    },
+    {
+      "id": "pois",
+      "name": "Petits pois",
+      "rarity": "commune",
+      "colors": {
+        "body": "#90C060",
+        "shade": "#5f8f3a"
+      },
+      "pattern": "dots",
+      "desc": "Cousue main à l'atelier couture."
+    },
+    {
+      "id": "sapin",
+      "name": "Vert sapin",
+      "rarity": "commune",
+      "colors": {
+        "body": "#2f7d5b",
+        "shade": "#1f5a40"
+      },
+      "desc": "Couleur tapis de découpe."
+    },
+    {
+      "id": "chantier",
+      "name": "Chef de chantier",
+      "rarity": "rare",
+      "colors": {
+        "body": "#F07E36",
+        "shade": "#c4561b"
+      },
+      "pattern": "hazard",
+      "accessory": "helmet",
+      "desc": "Casque obligatoire dans l'atelier !"
+    },
+    {
+      "id": "damier",
+      "name": "Damier",
+      "rarity": "rare",
+      "colors": {
+        "body": "#f5f5f5",
+        "shade": "#c9c9c9"
+      },
+      "pattern": "checker",
+      "desc": "Prête pour une partie d'échecs au tiers-lieu."
+    },
+    {
+      "id": "gamer",
+      "name": "Cocotte gamer",
+      "rarity": "rare",
+      "colors": {
+        "body": "#1f2a3a",
+        "shade": "#0f1620",
+        "blush": "#5ef2c5"
+      },
+      "eyes": "led",
+      "accessory": "headset",
+      "desc": "Micro ouvert, prête pour la soirée jeux."
+    },
+    {
+      "id": "coeur",
+      "name": "Cœur d'artichaut",
+      "rarity": "rare",
+      "colors": {
+        "body": "#ff9ac1",
+        "shade": "#e06a98"
+      },
+      "pattern": "hearts",
+      "eyes": "heart",
+      "accessory": "none",
+      "desc": "Elle adore tout le monde."
+    },
+    {
+      "id": "casquette",
+      "name": "Casquette Co'",
+      "rarity": "rare",
+      "colors": {
+        "body": "#3d8fd6",
+        "shade": "#2a6aa3"
+      },
+      "accessory": "cap",
+      "desc": "Le merch officiel de la Cocotte."
+    },
+    {
+      "id": "lave",
+      "name": "Lave en fusion",
+      "rarity": "epique",
+      "colors": {
+        "body": "#3a1a10",
+        "shade": "#1e0c06",
+        "rim": "#ffb347"
+      },
+      "pattern": "lava",
+      "fx": "glow",
+      "desc": "Sortie tout droit du four à céramique."
+    },
+    {
+      "id": "noel",
+      "name": "Cocotte de Noël",
+      "rarity": "epique",
+      "colors": {
+        "body": "#2f7d5b",
+        "shade": "#1f5a40"
+      },
+      "pattern": "sparkles",
+      "accessory": "santa",
+      "desc": "Ho ho ho ! Les cadeaux sont imprimés en 3D."
+    },
+    {
+      "id": "fete",
+      "name": "Cocotte en fête",
+      "rarity": "epique",
+      "gradient": [
+        "#ffe3ee",
+        "#d4c4ff",
+        "#c6f0d8"
+      ],
+      "pattern": "dots",
+      "accessory": "party",
+      "eyes": "happy",
+      "desc": "Toujours partante pour les soirées du lieu."
+    },
+    {
+      "id": "nuit",
+      "name": "Nuit étoilée",
+      "rarity": "epique",
+      "colors": {
+        "body": "#1b1035",
+        "shade": "#0e081e",
+        "rim": "#d9c8ff"
+      },
+      "pattern": "sparkles",
+      "eyes": "sleepy",
+      "accessory": "nightcap",
+      "desc": "Elle mijote en dormant."
+    },
+    {
+      "id": "arcenciel",
+      "name": "Arc-en-ciel",
+      "rarity": "legendaire",
+      "gradient": [
+        "#E41E6C",
+        "#F07E36",
+        "#FCD260",
+        "#90C060",
+        "#5ac8fa",
+        "#7b3fe4"
+      ],
+      "eyes": "happy",
+      "accessory": "crown",
+      "fx": "glow",
+      "desc": "Toutes les couleurs du logo réunies."
+    },
+    {
+      "id": "diamant",
+      "name": "Cocotte diamant",
+      "rarity": "legendaire",
+      "gradient": [
+        "#ffffff",
+        "#c9b6ff",
+        "#7b3fe4"
+      ],
+      "pattern": "sparkles",
+      "eyes": "star",
+      "accessory": "none",
+      "fx": "holo",
+      "desc": "Taillée dans un cristal géant."
+    },
+    {
+      "id": "phenix",
+      "name": "Phénix",
+      "rarity": "legendaire",
+      "gradient": [
+        "#ffe066",
+        "#ff7a1a",
+        "#c1121f"
+      ],
+      "pattern": "flames",
+      "accessory": "flame",
+      "fx": "glow",
+      "desc": "Elle renaît à chaque Nouvelle saison."
+    }
   ]
 }

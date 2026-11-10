@@ -1,4 +1,4 @@
-# Co'Cotte Clicker
+# Co'Clicker
 
 Jeu incrémental (type « clicker ») aux couleurs de **La Co'Cotte**, espace de partage et de création, 6 rue Marcellin Berthelot, 02110 Bohain-en-Vermandois.
 100 % statique (HTML/CSS/JS vanilla, modules ES), sans build, hébergeable gratuitement sur GitHub Pages.
@@ -96,17 +96,17 @@ Coût réel = `baseCost × 1,15^possédés`. Repère : chaque bâtiment ≈ ×11
 
 ## Bâtiments, améliorations, succès
 
-**12 bâtiments** sur 4 ères : Atelier (Bénévole, Établi, Bricol'Café), FabLab (Poste informatique, Imprimante 3D, Graveuse laser, Brodeuse numérique), Tiers-lieu (Atelier numérique, Soirée événement, Tournée itinérante), Territoire (Réseau de partenaires, Rayonnement du Vermandois).
+**14 bâtiments** sur 4 ères : Atelier (Bénévole, Établi, Bricol'Café), FabLab (Poste informatique, Imprimante 3D, Graveuse laser, Brodeuse numérique), Tiers-lieu (Atelier numérique, Soirée événement, Tournée itinérante), Territoire (Réseau de partenaires, Rayonnement du Vermandois, Festival Co'Cotte, Réseau des tiers-lieux).
 
 **Améliorations** (`data/upgrades.json`) :
-- 5 paliers ×2 générés automatiquement pour chaque bâtiment (à 1, 5, 25, 50, 100 possédés) : 60 améliorations ;
-- 12 améliorations uniques : clic ×2, clic + 1 % de la production, production globale +5 à +20 %.
+- 7 paliers ×2 générés automatiquement pour chaque bâtiment (à 1, 5, 25, 50, 100, 150, 200 possédés) : 98 améliorations ;
+- 20 améliorations uniques : clic ×2, clic + 1 % de la production, production globale +5 à +20 %.
 
-**Succès** (`data/achievements.json`) : 69 succès (clics, production, vitesse, ères, bâtiments, Imprimante mystère, mini-jeux, visites à La Co'Cotte). Chaque succès = **+1 % de production**. Les succès « par bâtiment » sont générés depuis `buildingTemplates`.
+**Succès** (`data/achievements.json`) : 128 succès (clics, production, vitesse, ères, bâtiments, Imprimante mystère, mini-jeux, visites à La Co'Cotte). Chaque succès = **+1 % de production**. Les succès « par bâtiment » sont générés depuis `buildingTemplates`.
 
 ## Cocotte dorée, projets, Nouvelle saison
 
-**Cocotte dorée** : apparaît toutes les 2 à 5 min pendant 13 s (réglable : `config.json` → `golden`). Effets : Coup de feu (production ×7, 77 s), Jackpot (+15 % de la réserve, max 15 min de production), Inspiration (clics ×77, 13 s), rarement +2 💎.
+**Cocotte dorée** : apparaît toutes les 2 à 5 min pendant 13 s (réglable : `config.json` → `golden`). Effets : Coup de feu (production ×7, 77 s), Jackpot (+15 % de la réserve, max 15 min de production), Portes ouvertes (production ×3 et clics ×7, 30 s), Coup de main (1 à 3 bâtiments offerts), Inspiration (clics ×77, 13 s), rarement +2 💎.
 
 **Projets de La Co'Cotte** (`data/projects.json`), achats uniques dans la boutique :
 
@@ -130,9 +130,13 @@ Simulation (joueur qui achète au mieux, absences comptées à 50 % plafonnées 
 | Ère Tiers-lieu | ~12 h | ~2 jours |
 | Ère Territoire | ~2 jours | ~6 jours |
 | 12 bâtiments | ~8 jours | ~19 jours |
-| Collection complète des skins | ~13 mois en solo · ~6 mois avec une visite par semaine |
+| Collection complète des 36 skins (~470 tirages) | ~3 ans en solo · ~15 mois avec une visite par semaine |
 
 La boucle Nouvelle saison relance ensuite la progression sans fin (chaque saison va plus vite et vise plus loin).
+
+## Tutoriel
+
+Au premier lancement, un tutoriel en 9 étapes met en lumière chaque zone (Cocotte, réserve, bâtiments, améliorations, ères, activités, cristaux). « Passer » à tout moment ; « Revoir le tutoriel » dans ⚙️ Options.
 
 ## Cristaux 💎
 
@@ -153,12 +157,13 @@ En jouant seul : environ une impression tous les 2 jours. Une visite à La Co'Co
 - **Fab'Match** : jeu d'alignement 7×7 (engrenages, bobines, écrous…), 20 coups. 4 alignées = pièce laser (vide la ligne/colonne), 5 = Cocotte bonus (vide une couleur). Objectifs : 1 500 / 3 000 / 4 500.
 - **Memory des machines** : 6 paires, étoiles selon le nombre d'essais.
 - **Chasse aux bugs** : 30 s, toucher les bugs, éviter les dossiers. Objectifs : 200 / 400 / 600.
+- **Séquence des machines** : retenir et rejouer une suite de machines qui s'allument (avec sons). Objectifs : 5 / 8 / 11.
 
 Chaque étoile rapporte aussi 20 s de production en Co'Coins. Tous jouables au clavier. Ajouter un jeu : créer un module dans `js/games/` (même forme que `memory.js`) et l'ajouter au tableau `GAMES` de `hub.js`.
 
 ## Imprimante mystère (skins)
 
-Tirage ×1 (25 💎) ou ×10 (225 💎, au moins une Rare). Taux : Commune 60 %, Rare 28 %, Épique 10 %, Légendaire 2 %. Légendaire garantie au bout de 60 tirages sans légendaire.
+Tirage ×1 (25 💎) ou ×10 (225 💎, au moins une Rare). 36 skins. Taux : Commune 60 %, Rare 28 %, Épique 10 %, Légendaire 2 %. Légendaire garantie au bout de 60 tirages sans légendaire.
 Chaque skin différent obtenu donne **+1 % de production** (bonus de collection). Les skins sont purement gagnés en jouant : aucun achat.
 
 Ajouter un skin dans `data/skins.json` :
@@ -169,7 +174,7 @@ Ajouter un skin dans `data/skins.json` :
   "pattern": "stripes", "accessory": "headphones", "eyes": "happy", "desc": "Brodée au Bricol'Café." }
 ```
 
-Options : `pattern` (stripes, wood, pixel, circuit, galaxy), `accessory` (goggles, headphones, antenna, crown, beanie, vr, none), `eyes` (normal, led, pixel, happy, star, none), `fx` (glow, holo), `gradient` (liste de couleurs). Ou `"img": "assets/img/mon-skin.png"` pour une illustration.
+Options : `pattern` (stripes, wood, pixel, circuit, galaxy, dots, checker, hazard, hearts, lava, sparkles, flames), `accessory` (goggles, headphones, headset, antenna, crown, beanie, vr, helmet, cap, santa, party, nightcap, flame, none), `eyes` (normal, led, pixel, happy, star, sleepy, wink, heart, none), `fx` (glow, holo), `gradient` (liste de couleurs). Ou `"img": "assets/img/mon-skin.png"` pour une illustration.
 
 ## Version publique / version équipe et QR codes
 
@@ -186,7 +191,7 @@ Sécurité : chaque bon est **signé** (ECDSA P-256) avec une clé privée qui n
 
 ### Mise en service (une seule fois)
 
-La clé publique est déjà dans `data/config.json`. Sur chaque appareil de l'équipe : ouvrir `admin.html` (code par défaut **`cocotte`**), puis « Importer une sauvegarde de clé » avec le fichier `cle-admin-cocotte-PRIVEE.json` (transmis à part, **jamais sur GitHub**).
+La clé publique est déjà dans `data/config.json`. Sur chaque appareil de l'équipe : ouvrir `admin.html` (code d'accès communiqué à l'équipe), puis « Importer une sauvegarde de clé » avec le fichier `cle-admin-cocotte-PRIVEE.json` (transmis à part, **jamais sur GitHub**).
 
 Pour changer de clé : « Créer une nouvelle clé », copier la clé publique affichée dans `data/config.json` → `"adminPublicKey"`, publier, et redistribuer le nouveau fichier privé.
 
@@ -234,6 +239,7 @@ Police Atkinson Hyperlegible (conçue pour la basse vision), base 18 px, contras
 - [x] **Palier 2** : 72 améliorations, 69 succès avec badges, 12 bâtiments sur 4 ères, décor par ère, économie des cristaux rééquilibrée
 - [x] **Mini-jeux, cristaux, Imprimante mystère (18 skins, 4 raretés), QR joueur + espace équipe signé**
 - [x] **Palier 3** : Cocotte dorée, 4 projets de La Co'Cotte, prestige « Nouvelle saison », 2ᵉ musique, application installable (PWA)
+- [x] **Enrichissement** : tutoriel, 36 skins, 4ᵉ mini-jeu, 14 bâtiments, 118 améliorations, 128 succès, 6 effets de Cocotte dorée
 - [ ] **Palier 4** : boosts « Le saviez-vous ? » / infos tiers-lieu / quiz, bonus quotidien et série
 - [ ] **Palier 5** : compteur communautaire, objectifs collectifs, classement par pseudo (Supabase, tier gratuit)
 - [ ] **Palier 6** : mode admin (code, surcharges du manifest, édition des données, export/import de config)

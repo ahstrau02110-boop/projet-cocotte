@@ -7,8 +7,9 @@ import { fmt } from '../format.js';
 import match3 from './match3.js';
 import memory from './memory.js';
 import bugs from './bugs.js';
+import simon from './simon.js';
 
-export const GAMES = [match3, memory, bugs];
+export const GAMES = [match3, memory, bugs, simon];
 let cleanup = null, current = null;
 
 const cfg = () => DATA.config.minigames || {};

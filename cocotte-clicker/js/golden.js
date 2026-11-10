@@ -1,5 +1,5 @@
 // Cocotte dorée : apparaît au hasard, à attraper pour un bonus temporaire
-import { DATA, state, earn, addCrystals, totalCps, projectEffects, activeBuffs } from './state.js';
+import { DATA, state, earn, addCrystals, totalCps, projectEffects, activeBuffs, currentEra } from './state.js';
 import { $, toast, emit, reducedMotion } from './core.js';
 import { skinSVG } from './skins.js';
 import { fmt } from './format.js';
@@ -51,10 +51,20 @@ function catchIt() {
   if (r < cp) {
     addCrystals(2);
     msg = 'Pépite de cristal : +2 💎';
-  } else if (r < cp + 12) {
+  } else if (r < cp + 10) {
     addBuff({ id: 'inspiration', name: 'Inspiration', click: 77, sec: 13 });
     msg = 'Inspiration ! Clics ×77 pendant 13 s';
-  } else if (r < cp + 52) {
+  } else if (r < cp + 20) {
+    // Coup de main : des bénévoles offrent 1 à 3 bâtiments déjà débloqués
+    const ownedB = DATA.buildings.filter(b => b.era <= currentEra().id && state.buildings[b.id] > 0);
+    const pool = ownedB.length ? ownedB : DATA.buildings.slice(0, 1);
+    const b = pool[(Math.random() * pool.length) | 0], n = 1 + ((Math.random() * 3) | 0);
+    state.buildings[b.id] = (state.buildings[b.id] || 0) + n;
+    msg = `Coup de main ! ${n} × ${b.name} offert${n > 1 ? 's' : ''}`;
+  } else if (r < cp + 32) {
+    addBuff({ id: 'portesouvertes', name: 'Portes ouvertes', cps: 3, click: 7, sec: 30 });
+    msg = 'Portes ouvertes ! Production ×3 et clics ×7 pendant 30 s';
+  } else if (r < cp + 67) {
     const gain = Math.min(state.coins * 0.15, totalCps() * 900) + 13;
     earn(gain);
     msg = `Jackpot ! +${fmt(gain)} Co'Coins`;
@@ -82,7 +92,7 @@ export function renderBuffs() {
   const list = activeBuffs();
   $('#buffs').innerHTML = list.map(b => {
     const left = Math.ceil((b.until - Date.now()) / 1000);
-    const eff = b.cps !== 1 ? `production ×${b.cps}` : `clics ×${b.click}`;
+    const eff = [b.cps !== 1 && `production ×${b.cps}`, b.click !== 1 && `clics ×${b.click}`].filter(Boolean).join(', ');
     return `<span class="buff">🌟 ${b.name} · ${eff} · <b>${left} s</b></span>`;
   }).join('');
 }

@@ -1,7 +1,7 @@
 {
-  "_doc": "Réglages généraux. gameUrl : URL publique du jeu (vide = déduite automatiquement). adminCodeSha256 : empreinte SHA-256 du code admin (par défaut « cocotte », à changer : voir README). adminPublicKey : clé publique générée depuis admin.html.",
+  "_doc": "Réglages généraux. gameUrl : URL publique du jeu (vide = déduite automatiquement). adminCodeSha256 : empreinte SHA-256 du code admin (voir README : voir README). adminPublicKey : clé publique générée depuis admin.html.",
   "gameUrl": "https://ahstrau02110-boop.github.io/projet-cocotte/cocotte-clicker/",
-  "adminCodeSha256": "1a3116d05b24fe44d9416242f67e9b2474f1f552286eddac9ae4838be2d0c6e0",
+  "adminCodeSha256": "d1d32acd65665bbafe86d076de93832fcbabe1d294531584e5e2526c42745246",
   "adminPublicKey": {
     "kty": "EC",
     "crv": "P-256",
