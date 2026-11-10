@@ -1,0 +1,24 @@
+{
+  "_doc": "Améliorations. buildingTiers : générées automatiquement pour CHAQUE bâtiment (production ×2) quand on en possède « owned » ; coût = coût de base du bâtiment × costMult. upgrades : améliorations uniques. type click (clics ×mult), clickCps (chaque clic rapporte en plus pct % de la production/s), global (toute la production ×mult). unlock : clicks, earned (total produit) ou cps.",
+  "buildingTiers": [
+    { "owned": 1,   "costMult": 10,      "name": "Mode d'emploi" },
+    { "owned": 5,   "costMult": 50,      "name": "Outils affûtés" },
+    { "owned": 25,  "costMult": 500,     "name": "Formation avancée" },
+    { "owned": 50,  "costMult": 50000,   "name": "Maintenance préventive" },
+    { "owned": 100, "costMult": 5000000, "name": "Expertise reconnue" }
+  ],
+  "upgrades": [
+    { "id": "gants",      "name": "Gants de bricolage",      "icon": "🧤", "type": "click",    "mult": 2,    "cost": 100,     "unlock": { "clicks": 30 },   "desc": "Les clics rapportent 2 fois plus." },
+    { "id": "souris",     "name": "Souris ergonomique",      "icon": "🖱️", "type": "click",    "mult": 2,    "cost": 600,     "unlock": { "clicks": 200 },  "desc": "Les clics rapportent 2 fois plus." },
+    { "id": "raccourcis", "name": "Raccourcis clavier",      "icon": "⌨️", "type": "click",    "mult": 2,    "cost": 12000,   "unlock": { "clicks": 800 },  "desc": "Les clics rapportent 2 fois plus." },
+    { "id": "minute",     "name": "Cocotte-minute",          "icon": "⏱️", "type": "clickCps", "pct": 1,     "cost": 60000,   "unlock": { "clicks": 1500 }, "desc": "Chaque clic rapporte en plus 1 % de la production par seconde." },
+    { "id": "soudure",    "name": "Fer à souder bien chaud", "icon": "🔥", "type": "clickCps", "pct": 1,     "cost": 6e6,     "unlock": { "clicks": 3000 }, "desc": "Chaque clic rapporte en plus 1 % de la production par seconde." },
+    { "id": "tablette",   "name": "Tablette graphique",      "icon": "✏️", "type": "clickCps", "pct": 1,     "cost": 6e8,     "unlock": { "clicks": 6000 }, "desc": "Chaque clic rapporte en plus 1 % de la production par seconde." },
+    { "id": "cafe",       "name": "Café partagé",            "icon": "☕", "type": "global",   "mult": 1.05, "cost": 2500,    "unlock": { "earned": 1000 },  "desc": "Toute la production +5 %." },
+    { "id": "playlist",   "name": "Playlist lofi de l'atelier", "icon": "🎧", "type": "global", "mult": 1.1, "cost": 120000,  "unlock": { "earned": 50000 }, "desc": "Toute la production +10 %." },
+    { "id": "planning",   "name": "Planning des réservations", "icon": "📅", "type": "global", "mult": 1.1,  "cost": 1.2e7,   "unlock": { "earned": 5e6 },   "desc": "Toute la production +10 %." },
+    { "id": "fibre",      "name": "Wi-Fi fibre",             "icon": "📶", "type": "global",   "mult": 1.15, "cost": 1.2e9,   "unlock": { "earned": 5e8 },   "desc": "Toute la production +15 %." },
+    { "id": "charte",     "name": "Charte du tiers-lieu",    "icon": "📜", "type": "global",   "mult": 1.15, "cost": 1.2e11,  "unlock": { "earned": 5e10 },  "desc": "Toute la production +15 %." },
+    { "id": "gazette",    "name": "Gazette du Vermandois",   "icon": "📰", "type": "global",   "mult": 1.2,  "cost": 1.2e13,  "unlock": { "earned": 5e12 },  "desc": "Toute la production +20 %." }
+  ]
+}

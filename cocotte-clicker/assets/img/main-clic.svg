@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 80" width="32" height="40">
+  <!-- Main « clic » inspirée du logo -->
+  <path d="M22 42V10a6 6 0 0 1 12 0v24a6 6 0 0 1 12 0v4a6 6 0 0 1 12 0v16c0 14-9 22-22 22h-6c-8 0-13-4-17-10L4 42a6 6 0 0 1 9-8l9 8z"
+        fill="#FCD260" stroke="#000" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M34 34v12M46 38v8" stroke="#000" stroke-width="3" stroke-linecap="round"/>
+</svg>

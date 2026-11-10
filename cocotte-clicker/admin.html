@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Espace équipe · Co'Cotte Clicker</title>
+  <link rel="icon" href="assets/img/marmite.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fredoka:wght@500;600;700&family=Space+Mono:wght@700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="era-2 admin">
+  <header class="hud">
+    <img id="logo" class="logo" src="assets/logo/logo.jpg" alt="La Co'Cotte">
+    <h1 class="admin-title">Espace équipe</h1>
+    <div class="hud-actions">
+      <a class="tool-btn" href="./"><span class="ico" aria-hidden="true">🎮</span><span class="tool-lbl">Le jeu</span></a>
+      <button id="btn-logout" class="tool-btn" hidden><span class="ico" aria-hidden="true">🔒</span><span class="tool-lbl">Quitter</span></button>
+    </div>
+  </header>
+
+  <!-- Connexion -->
+  <main id="login" class="admin-main">
+    <section class="panel narrow">
+      <h2 class="tape">Accès réservé</h2>
+      <p>Cet espace permet à l'équipe de La Co'Cotte de remettre des cristaux aux joueurs.</p>
+      <form id="login-form" class="stack">
+        <label for="code">Code d'accès</label>
+        <input id="code" type="password" autocomplete="current-password" required>
+        <button class="big-btn" type="submit">Entrer</button>
+        <p id="login-err" class="err" role="alert"></p>
+      </form>
+    </section>
+  </main>
+
+  <main id="app" class="admin-main" hidden>
+    <div id="key-warning" class="panel warn" hidden></div>
+
+    <!-- Remise de cristaux -->
+    <section class="panel">
+      <h2 class="tape tape-green">Donner des cristaux</h2>
+      <ol class="steps">
+        <li>Scannez le QR code du joueur (menu « Mon QR code » du jeu).</li>
+        <li>Choisissez le nombre de cristaux puis créez le QR de récompense.</li>
+        <li>Le joueur le scanne avec l'appareil photo de son téléphone : les cristaux arrivent dans son jeu.</li>
+      </ol>
+
+      <div class="grant">
+        <div class="stack">
+          <label for="pid">Code joueur</label>
+          <div class="row">
+            <input id="pid" class="mono" maxlength="12" placeholder="ex. K7QH2MPA" autocomplete="off" spellcheck="false">
+            <button id="btn-scan" type="button">📷 Scanner</button>
+          </div>
+          <p id="pname" class="muted"></p>
+          <div id="scanner" class="scanner" hidden>
+            <video id="video" playsinline muted></video>
+            <button id="btn-scan-stop" type="button">Arrêter la caméra</button>
+          </div>
+
+          <label for="amount">Cristaux à donner</label>
+          <div class="row quick" role="group" aria-label="Montants rapides">
+            <button type="button" data-amt="10">10</button>
+            <button type="button" data-amt="50">50</button>
+            <button type="button" data-amt="100">100</button>
+            <button type="button" data-amt="200">200</button>
+          </div>
+          <input id="amount" type="number" min="1" step="1" value="100">
+
+          <label for="note">Occasion (facultatif)</label>
+          <input id="note" maxlength="60" placeholder="ex. Atelier impression 3D">
+
+          <button id="btn-grant" class="big-btn" type="button">Créer le QR de récompense</button>
+          <p id="grant-err" class="err" role="alert"></p>
+        </div>
+
+        <div id="voucher" class="voucher" hidden>
+          <div id="voucher-qr" class="qr-box"></div>
+          <p class="voucher-txt" id="voucher-txt"></p>
+          <div class="row center">
+            <button id="btn-copy-link" type="button">📋 Copier le lien</button>
+            <button id="btn-next" type="button" class="primary">Joueur suivant</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Historique -->
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="tape">Historique</h2>
+        <button id="btn-csv" type="button">⬇️ Export CSV</button>
+      </div>
+      <div class="table-wrap">
+        <table class="log">
+          <thead><tr><th>Date</th><th>Joueur</th><th>Pseudo</th><th>Cristaux</th><th>Occasion</th></tr></thead>
+          <tbody id="log"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- QR du jeu pour les affiches -->
+    <section class="panel">
+      <h2 class="tape">QR code du jeu (affiches)</h2>
+      <p>À imprimer sur les affiches et plannings : il ouvre le jeu public.</p>
+      <div class="row">
+        <div id="game-qr" class="qr-box small"></div>
+        <div class="stack">
+          <p class="mono" id="game-url"></p>
+          <button id="btn-game-qr" type="button">⬇️ Télécharger l'image</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Clé de signature -->
+    <section class="panel">
+      <h2 class="tape">Clé de signature</h2>
+      <p>Les QR de récompense sont signés avec une clé privée qui reste sur cet appareil. Le jeu public vérifie la signature avec la clé publique (fichier <code>data/config.json</code>) : personne ne peut fabriquer de faux QR.</p>
+      <p id="key-status" class="key-status"></p>
+      <div class="row">
+        <button id="btn-key-new" type="button">🔑 Créer une nouvelle clé</button>
+        <label class="file-btn">📂 Importer une sauvegarde de clé<input type="file" id="key-file" accept=".json,application/json"></label>
+        <button id="btn-key-save" type="button">💾 Sauvegarder la clé</button>
+      </div>
+      <div id="pub-box" hidden>
+        <label for="pub-json">Clé publique à copier dans <code>data/config.json</code> → <code>"adminPublicKey"</code></label>
+        <textarea id="pub-json" rows="5" readonly class="mono"></textarea>
+        <button id="btn-pub-copy" type="button">📋 Copier</button>
+      </div>
+    </section>
+
+    <section class="panel muted-panel">
+      <h2 class="tape">Contenu du jeu</h2>
+      <p>Bientôt : modifier les bâtiments, les textes, les skins et les images sans toucher au code.</p>
+    </section>
+  </main>
+
+  <div id="toasts" class="toasts" role="status" aria-live="polite"></div>
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>

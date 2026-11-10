@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Co'Cotte Clicker · La Co'Cotte, Bohain-en-Vermandois</title>
+  <meta name="description" content="Faites tourner l'atelier de La Co'Cotte, espace de partage et de création à Bohain-en-Vermandois.">
+  <meta name="theme-color" content="#FCD260">
+  <link rel="icon" href="assets/img/marmite.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fredoka:wght@500;600;700&family=Space+Mono:wght@700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="era-1">
+  <a class="skip" href="#shop">Aller à la boutique</a>
+
+  <!-- Barre du haut : logo + compteur toujours visible -->
+  <header class="hud">
+    <img id="logo" class="logo" alt="La Co'Cotte, espace de partage et de création">
+    <div class="wallet" aria-label="Réserve de Co'Coins">
+      <img class="coin-ico" data-asset="cocoin" alt="">
+      <div>
+        <div class="wallet-amount"><span id="coins">0</span> <span class="unit">Co'Coins</span></div>
+        <div class="wallet-cps"><span id="cps">0</span><span class="per-long"> / seconde</span><span class="per-short">/s</span></div>
+      </div>
+    </div>
+    <button class="crystals" id="btn-crystals" aria-label="Cristaux : ouvrir l'Imprimante mystère">
+      <img data-asset="cristal" alt=""><span id="crystals">0</span>
+    </button>
+    <div class="hud-actions">
+      <button id="btn-sound" class="tool-btn" aria-pressed="false"><span class="ico" aria-hidden="true">🔕</span><span class="tool-lbl">Effets</span></button>
+      <button id="btn-music" class="tool-btn" aria-pressed="false"><span class="ico" aria-hidden="true">🎵</span><span class="tool-lbl">Musique</span></button>
+      <button id="btn-options" class="tool-btn"><span class="ico" aria-hidden="true">⚙️</span><span class="tool-lbl">Options</span></button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- Plan de travail -->
+    <section class="workshop" aria-labelledby="ws-title">
+      <h2 id="ws-title" class="tape">Plan de travail</h2>
+
+      <div id="buffs" class="buffs" aria-live="polite"></div>
+      <div class="bench" id="bench">
+        <span class="bench-ruler" aria-hidden="true"></span>
+        <div class="bench-decor" id="bench-decor" aria-hidden="true"></div>
+        <div class="pot-wrap" id="pot-wrap">
+          <canvas id="fx" aria-hidden="true"></canvas>
+          <div class="rays" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <button id="pot" class="pot" aria-describedby="pot-help">
+            <img data-asset="marmite" alt="" draggable="false">
+            <span class="sr">Cliquer sur la Cocotte</span>
+          </button>
+          <div class="coach" id="coach" aria-hidden="true">
+            <img data-asset="main-clic" alt="">
+            <span>Cliquez sur la Cocotte&nbsp;!</span>
+          </div>
+        </div>
+        <p id="pot-help" class="sr">Chaque clic rapporte des Co'Coins. Au clavier : Entrée ou Espace.</p>
+        <p class="per-click">+<span id="click-value">1</span> par clic</p>
+      </div>
+
+      <!-- Raccourcis : mini-jeux, gacha, QR -->
+      <nav class="actions" aria-label="Activités">
+        <button id="btn-games" class="action a-games"><span class="a-ico" aria-hidden="true">🎮</span><span><b>Mini-jeux</b><small>Gagnez des cristaux</small></span></button>
+        <button id="btn-gacha" class="action a-gacha"><span class="a-ico" aria-hidden="true">🎁</span><span><b>Imprimante mystère</b><small>Skins de Cocotte</small></span></button>
+        <button id="btn-ach" class="action a-ach"><span class="a-ico" aria-hidden="true">🏆</span><span><b>Succès</b><small id="ach-mini">Badges et bonus</small></span></button>
+        <button id="btn-myqr" class="action a-qr"><span class="a-ico" aria-hidden="true">📱</span><span><b>Mon QR code</b><small>Cristaux à La Co'Cotte</small></span></button>
+      </nav>
+
+      <!-- Progression des ères -->
+      <div class="era-card">
+        <div class="era-top">
+          <span class="era-step">Ère <span id="era-num">1</span>/<span id="era-max">4</span></span>
+          <strong id="era-name">Atelier</strong>
+        </div>
+        <p id="era-tagline" class="era-tagline"></p>
+        <div class="bar" role="progressbar" aria-labelledby="era-next" aria-valuemin="0" aria-valuemax="100" id="era-bar">
+          <span id="era-fill"></span>
+        </div>
+        <p id="era-next" class="era-next"></p>
+      </div>
+      <!-- Prestige -->
+      <div class="season-card" id="season-card" hidden>
+        <h3 class="tape tape-green">Nouvelle saison</h3>
+        <p id="season-info"></p>
+        <p id="season-next" class="small"></p>
+        <button id="btn-season" class="big-btn">Lancer une nouvelle saison</button>
+      </div>
+    </section>
+
+    <!-- Boutique -->
+    <section class="shop" id="shop" aria-labelledby="shop-title" tabindex="-1">
+      <div class="shop-head">
+        <h2 id="shop-title" class="tape tape-green">Boutique</h2>
+        <div class="qty" role="radiogroup" aria-label="Quantité à acheter">
+          <span class="qty-lbl" aria-hidden="true">Acheter</span>
+          <button role="radio" data-qty="1" aria-checked="true">×1</button>
+          <button role="radio" data-qty="10" aria-checked="false">×10</button>
+          <button role="radio" data-qty="100" aria-checked="false">×100</button>
+        </div>
+      </div>
+      <h3 class="shop-sub">Améliorations <span id="upg-count"></span></h3>
+      <ul id="upgrades" class="upgrades"></ul>
+      <div id="projects-wrap" hidden>
+        <h3 class="shop-sub">Projets de La Co'Cotte</h3>
+        <ul id="projects" class="projects"></ul>
+      </div>
+      <h3 class="shop-sub">Bâtiments</h3>
+      <p class="shop-help">Chaque bâtiment produit des Co'Coins tout seul, même quand vous ne cliquez pas.</p>
+      <ul id="buildings" class="buildings"></ul>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <dl class="stats">
+      <div><dt>Total produit</dt><dd id="total">0</dd></div>
+      <div><dt>Clics</dt><dd id="clicks">0</dd></div>
+      <div><dt>Bâtiments</dt><dd id="nb-buildings">0</dd></div>
+    </dl>
+    <p>La Co'Cotte · espace de partage et de création · 6 rue Marcellin Berthelot, 02110 Bohain-en-Vermandois</p>
+  </footer>
+
+  <!-- Options / sauvegarde -->
+  <dialog id="dlg-options" aria-labelledby="opt-title">
+    <form method="dialog" class="dlg">
+      <div class="dlg-head">
+        <h2 id="opt-title" class="tape">Options</h2>
+        <button value="close" class="dlg-close" aria-label="Fermer">✕</button>
+      </div>
+
+      <h3>Audio</h3>
+      <div class="sliders">
+        <label class="slider"><span>🔔 Effets sonores</span><input type="range" id="vol-sfx" min="0" max="100" step="5"></label>
+        <label class="slider"><span>🎵 Musique lofi</span><input type="range" id="vol-music" min="0" max="100" step="5"></label>
+      </div>
+
+      <label class="slider"><span>🎼 Morceau</span>
+        <select id="music-track"><option value="classique">Lofi de l'atelier</option><option value="atelier">Atelier Musique</option></select>
+      </label>
+
+      <div id="install-box" hidden>
+        <h3>Application</h3>
+        <p id="install-txt">Installez le jeu sur cet appareil : il s'ouvre comme une appli, même sans connexion.</p>
+        <button type="button" id="btn-install" class="primary">📲 Installer l'application</button>
+      </div>
+
+      <h3>Sauvegarde</h3>
+      <p>La partie est enregistrée automatiquement sur cet appareil. Pour la reprendre ailleurs, exportez-la puis importez-la.</p>
+      <div class="row">
+        <button type="button" id="btn-save">💾 Sauvegarder</button>
+        <button type="button" id="btn-export">📋 Copier le code</button>
+        <button type="button" id="btn-download">⬇️ Fichier .txt</button>
+      </div>
+      <label for="save-code">Code de sauvegarde</label>
+      <textarea id="save-code" rows="3" spellcheck="false" placeholder="Collez ici un code pour l'importer"></textarea>
+      <div class="row">
+        <button type="button" id="btn-import" class="primary">Importer le code</button>
+        <label class="file-btn">Importer un fichier<input type="file" id="file-import" accept=".txt,text/plain"></label>
+      </div>
+
+      <h3>Zone sensible</h3>
+      <button type="button" id="btn-reset" class="danger">Effacer la partie</button>
+    </form>
+  </dialog>
+
+  <!-- Salle de jeux -->
+  <dialog id="dlg-games" aria-labelledby="games-title">
+    <div class="dlg">
+      <div class="dlg-head">
+        <h2 id="games-title" class="tape">Mini-jeux</h2>
+        <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
+      </div>
+      <p>Chaque étoile rapporte des Co'Coins et des cristaux 💎. Cristaux encore gagnables aujourd'hui : <strong id="games-left">0</strong>.</p>
+      <ul id="games-list" class="games-list"></ul>
+    </div>
+  </dialog>
+
+  <!-- Partie en cours -->
+  <dialog id="dlg-play" class="play-dlg" aria-labelledby="play-title">
+    <div class="play-head">
+      <h2 id="play-title" class="tape tape-green"></h2>
+      <div id="play-hud" class="play-hud" aria-live="off"></div>
+      <button id="play-quit" class="dlg-close" aria-label="Quitter le mini-jeu">✕</button>
+    </div>
+    <div id="play-area" class="play-area"></div>
+  </dialog>
+
+  <!-- Imprimante mystère (gacha) -->
+  <dialog id="dlg-gacha" class="wide" aria-labelledby="gacha-title">
+    <div class="dlg">
+      <div class="dlg-head">
+        <h2 id="gacha-title" class="tape tape-purple">Imprimante mystère</h2>
+        <span class="crystals static"><img data-asset="cristal" alt=""><span class="js-crystals">0</span><span class="sr"> cristaux</span></span>
+        <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
+      </div>
+      <div class="tabs" role="tablist">
+        <button role="tab" id="tab-print" aria-controls="panel-print" aria-selected="true">Imprimer</button>
+        <button role="tab" id="tab-coll" aria-controls="panel-coll" aria-selected="false">Collection <span id="coll-count"></span></button>
+      </div>
+      <div id="panel-print" role="tabpanel" aria-labelledby="tab-print">
+        <div class="printer" id="printer" aria-hidden="true">
+          <div class="pr-top"><span class="pr-led"></span>COCOTTE·PRINT</div>
+          <div class="pr-rail"><span class="pr-head"></span></div>
+          <div class="pr-chamber"><span class="capsule" id="capsule"></span><span class="pr-bed"></span></div>
+        </div>
+        <div id="gacha-results" class="gacha-results" aria-live="polite"></div>
+        <div class="row center">
+          <button id="pull1" class="big-btn"></button>
+          <button id="pull10" class="big-btn alt"></button>
+        </div>
+        <p id="gacha-info" class="small center"></p>
+      </div>
+      <div id="panel-coll" role="tabpanel" aria-labelledby="tab-coll" hidden>
+        <p id="coll-bonus"></p>
+        <ul id="skin-grid" class="skin-grid"></ul>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Confirmation Nouvelle saison -->
+  <dialog id="dlg-season" aria-labelledby="season-title">
+    <div class="dlg">
+      <div class="dlg-head">
+        <h2 id="season-title" class="tape tape-green">Nouvelle saison ?</h2>
+        <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
+      </div>
+      <p>La Co'Cotte ferme pour l'été et rouvre avec une nouvelle saison : vous repartez de zéro, mais plus fort.</p>
+      <p class="season-gain" id="season-gain"></p>
+      <div class="two-cols">
+        <div><h3>Remis à zéro</h3><ul><li>Co'Coins</li><li>Bâtiments et ères</li><li>Améliorations</li><li>Projets</li></ul></div>
+        <div><h3>Conservé</h3><ul><li>Cristaux 💎 et skins</li><li>Succès et leur bonus</li><li>Graines de saison</li><li>Records des mini-jeux</li></ul></div>
+      </div>
+      <div class="row center">
+        <button id="btn-season-ok" class="big-btn">🌱 Lancer la nouvelle saison</button>
+        <form method="dialog"><button class="ghost-btn">Pas maintenant</button></form>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Succès -->
+  <dialog id="dlg-ach" class="wide" aria-labelledby="ach-title">
+    <div class="dlg">
+      <div class="dlg-head">
+        <h2 id="ach-title" class="tape">Succès</h2>
+        <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
+      </div>
+      <p id="ach-summary"></p>
+      <div id="ach-list"></div>
+    </div>
+  </dialog>
+
+  <!-- QR code du joueur -->
+  <dialog id="dlg-qr" aria-labelledby="qr-title">
+    <div class="dlg">
+      <div class="dlg-head">
+        <h2 id="qr-title" class="tape">Mon QR code</h2>
+        <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
+      </div>
+      <p>Lors de votre venue à La Co'Cotte (atelier, événement…), montrez ce QR code à l'équipe pour recevoir des cristaux 💎. Scannez ensuite le QR de récompense avec l'appareil photo de <strong>ce</strong> téléphone.</p>
+      <div class="qr-layout">
+        <div id="my-qr" class="qr-box"></div>
+        <div class="stack">
+          <p>Code joueur : <strong id="my-id" class="mono"></strong></p>
+          <label for="pseudo">Pseudo (facultatif)</label>
+          <input id="pseudo" maxlength="20" autocomplete="off" placeholder="ex. MakerDu02">
+          <small class="muted">Pas de nom de famille : un pseudo suffit.</small>
+          <button id="btn-qr-dl" type="button">⬇️ Enregistrer l'image</button>
+        </div>
+      </div>
+      <h3>J'ai reçu un code</h3>
+      <div class="row">
+        <input id="claim-code" class="mono grow" placeholder="Collez le lien ou le code de récompense" autocomplete="off" aria-label="Code de récompense">
+        <button id="btn-claim" type="button" class="primary">Valider</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div id="toasts" class="toasts" role="status" aria-live="polite"></div>
+
+  <noscript><p class="fatal">Ce jeu nécessite JavaScript.</p></noscript>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

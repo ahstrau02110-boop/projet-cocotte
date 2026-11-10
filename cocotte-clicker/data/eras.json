@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "Atelier",
+    "unlockAt": 0,
+    "color": "#90C060",
+    "tagline": "On répare, on bricole, on partage les outils."
+  },
+  {
+    "id": 2,
+    "name": "FabLab",
+    "unlockAt": 6000,
+    "color": "#3C2472",
+    "tagline": "Imprimante 3D, graveuse laser : place aux machines !"
+  },
+  {
+    "id": 3,
+    "name": "Tiers-lieu",
+    "unlockAt": 150000000,
+    "color": "#E41E6C",
+    "tagline": "Ateliers, événements, rencontres : le lieu vit."
+  },
+  {
+    "id": 4,
+    "name": "Territoire Vermandois",
+    "unlockAt": 400000000000,
+    "color": "#FCD260",
+    "tagline": "La Co'Cotte rayonne sur tout le Vermandois."
+  }
+]

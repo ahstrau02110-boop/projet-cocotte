@@ -1,0 +1,412 @@
+{
+  "_doc": "Succès. Chaque succès donne un bonus de production (config.json → achievements.prodBonusPct). cond : toutes les conditions doivent être vraies. Clés : clicks, earned, cps, era, buildings (total), pulls, skins, legendary, plays, stars, perfect, claims, upgrades, golden, seasons, projects. buildingTemplates : générés pour chaque bâtiment ({b} = nom).",
+  "buildingTemplates": [
+    {
+      "n": 1,
+      "name": "Première pierre : {b}",
+      "desc": "Posséder 1 {b}."
+    },
+    {
+      "n": 25,
+      "name": "{b} en série",
+      "desc": "Posséder 25 {b}."
+    },
+    {
+      "n": 100,
+      "name": "Centenaire : {b}",
+      "desc": "Posséder 100 {b}."
+    }
+  ],
+  "list": [
+    {
+      "id": "clic1",
+      "cat": "clic",
+      "icon": "👆",
+      "name": "Premier tour de clé",
+      "desc": "Cliquer une fois sur la Cocotte.",
+      "cond": {
+        "clicks": 1
+      }
+    },
+    {
+      "id": "clic100",
+      "cat": "clic",
+      "icon": "👆",
+      "name": "Échauffement",
+      "desc": "Cliquer 100 fois.",
+      "cond": {
+        "clicks": 100
+      }
+    },
+    {
+      "id": "clic1k",
+      "cat": "clic",
+      "icon": "✋",
+      "name": "Main de maker",
+      "desc": "Cliquer 1 000 fois.",
+      "cond": {
+        "clicks": 1000
+      }
+    },
+    {
+      "id": "clic10k",
+      "cat": "clic",
+      "icon": "🦾",
+      "name": "Bras bionique",
+      "desc": "Cliquer 10 000 fois.",
+      "cond": {
+        "clicks": 10000
+      }
+    },
+    {
+      "id": "prod1k",
+      "cat": "prod",
+      "icon": "🪙",
+      "name": "Petite cagnotte",
+      "desc": "Produire 1 000 Co'Coins.",
+      "cond": {
+        "earned": 1000
+      }
+    },
+    {
+      "id": "prod100k",
+      "cat": "prod",
+      "icon": "🪙",
+      "name": "Caisse commune",
+      "desc": "Produire 100 000 Co'Coins.",
+      "cond": {
+        "earned": 100000.0
+      }
+    },
+    {
+      "id": "prod10m",
+      "cat": "prod",
+      "icon": "💰",
+      "name": "Budget participatif",
+      "desc": "Produire 10 millions de Co'Coins.",
+      "cond": {
+        "earned": 10000000.0
+      }
+    },
+    {
+      "id": "prod1b",
+      "cat": "prod",
+      "icon": "💰",
+      "name": "Subvention géante",
+      "desc": "Produire 1 milliard de Co'Coins.",
+      "cond": {
+        "earned": 1000000000.0
+      }
+    },
+    {
+      "id": "prod100b",
+      "cat": "prod",
+      "icon": "🏦",
+      "name": "Banque du temps",
+      "desc": "Produire 100 milliards de Co'Coins.",
+      "cond": {
+        "earned": 100000000000.0
+      }
+    },
+    {
+      "id": "prod10t",
+      "cat": "prod",
+      "icon": "🏦",
+      "name": "Économie circulaire",
+      "desc": "Produire 10 000 milliards de Co'Coins.",
+      "cond": {
+        "earned": 10000000000000.0
+      }
+    },
+    {
+      "id": "cps10",
+      "cat": "cps",
+      "icon": "⚙️",
+      "name": "Ça tourne !",
+      "desc": "Atteindre 10 Co'Coins par seconde.",
+      "cond": {
+        "cps": 10
+      }
+    },
+    {
+      "id": "cps1k",
+      "cat": "cps",
+      "icon": "⚙️",
+      "name": "Chaîne de production",
+      "desc": "Atteindre 1 000 Co'Coins par seconde.",
+      "cond": {
+        "cps": 1000
+      }
+    },
+    {
+      "id": "cps100k",
+      "cat": "cps",
+      "icon": "🏭",
+      "name": "Usine à idées",
+      "desc": "Atteindre 100 000 Co'Coins par seconde.",
+      "cond": {
+        "cps": 100000.0
+      }
+    },
+    {
+      "id": "cps10m",
+      "cat": "cps",
+      "icon": "🚀",
+      "name": "Vitesse lumière",
+      "desc": "Atteindre 10 millions par seconde.",
+      "cond": {
+        "cps": 10000000.0
+      }
+    },
+    {
+      "id": "era2",
+      "cat": "era",
+      "icon": "🔧",
+      "name": "Bienvenue au FabLab",
+      "desc": "Débloquer l'ère FabLab.",
+      "cond": {
+        "era": 2
+      }
+    },
+    {
+      "id": "era3",
+      "cat": "era",
+      "icon": "🎪",
+      "name": "Le lieu prend vie",
+      "desc": "Débloquer l'ère Tiers-lieu.",
+      "cond": {
+        "era": 3
+      }
+    },
+    {
+      "id": "era4",
+      "cat": "era",
+      "icon": "🗺️",
+      "name": "Tout le Vermandois",
+      "desc": "Débloquer l'ère Territoire Vermandois.",
+      "cond": {
+        "era": 4
+      }
+    },
+    {
+      "id": "bat50",
+      "cat": "prod",
+      "icon": "🏗️",
+      "name": "Chantier participatif",
+      "desc": "Posséder 50 bâtiments au total.",
+      "cond": {
+        "buildings": 50
+      }
+    },
+    {
+      "id": "bat250",
+      "cat": "prod",
+      "icon": "🏙️",
+      "name": "Quartier créatif",
+      "desc": "Posséder 250 bâtiments au total.",
+      "cond": {
+        "buildings": 250
+      }
+    },
+    {
+      "id": "upg5",
+      "cat": "cps",
+      "icon": "🛠️",
+      "name": "Bricoleur·euse averti·e",
+      "desc": "Acheter 5 améliorations.",
+      "cond": {
+        "upgrades": 5
+      }
+    },
+    {
+      "id": "upg20",
+      "cat": "cps",
+      "icon": "🧰",
+      "name": "Caisse à outils complète",
+      "desc": "Acheter 20 améliorations.",
+      "cond": {
+        "upgrades": 20
+      }
+    },
+    {
+      "id": "pull1",
+      "cat": "gacha",
+      "icon": "🎁",
+      "name": "Première impression",
+      "desc": "Utiliser l'Imprimante mystère.",
+      "cond": {
+        "pulls": 1
+      }
+    },
+    {
+      "id": "pull30",
+      "cat": "gacha",
+      "icon": "🖨️",
+      "name": "Bobine vide",
+      "desc": "Lancer 30 impressions mystère.",
+      "cond": {
+        "pulls": 30
+      }
+    },
+    {
+      "id": "skins5",
+      "cat": "gacha",
+      "icon": "👗",
+      "name": "Garde-robe",
+      "desc": "Obtenir 5 skins différents.",
+      "cond": {
+        "skins": 5
+      }
+    },
+    {
+      "id": "skins12",
+      "cat": "gacha",
+      "icon": "👑",
+      "name": "Collectionneur·euse",
+      "desc": "Obtenir 12 skins différents.",
+      "cond": {
+        "skins": 12
+      }
+    },
+    {
+      "id": "skinsAll",
+      "cat": "gacha",
+      "icon": "🌈",
+      "name": "Collection complète",
+      "desc": "Obtenir tous les skins.",
+      "cond": {
+        "skins": 18
+      }
+    },
+    {
+      "id": "legend",
+      "cat": "gacha",
+      "icon": "✨",
+      "name": "Légende du FabLab",
+      "desc": "Obtenir un skin Légendaire.",
+      "cond": {
+        "legendary": 1
+      }
+    },
+    {
+      "id": "mini1",
+      "cat": "mini",
+      "icon": "🎮",
+      "name": "Pause jeu",
+      "desc": "Terminer un mini-jeu.",
+      "cond": {
+        "plays": 1
+      }
+    },
+    {
+      "id": "mini25",
+      "cat": "mini",
+      "icon": "🕹️",
+      "name": "Habitué·e de la salle de jeux",
+      "desc": "Terminer 25 mini-jeux.",
+      "cond": {
+        "plays": 25
+      }
+    },
+    {
+      "id": "perfect",
+      "cat": "mini",
+      "icon": "⭐",
+      "name": "Sans faute",
+      "desc": "Obtenir 3 étoiles dans un mini-jeu.",
+      "cond": {
+        "perfect": 1
+      }
+    },
+    {
+      "id": "stars50",
+      "cat": "mini",
+      "icon": "🌟",
+      "name": "Pluie d'étoiles",
+      "desc": "Cumuler 50 étoiles en mini-jeux.",
+      "cond": {
+        "stars": 50
+      }
+    },
+    {
+      "id": "visite",
+      "cat": "special",
+      "icon": "🏠",
+      "name": "Visiteur·euse de La Co'Cotte",
+      "desc": "Recevoir des cristaux de l'équipe sur place.",
+      "cond": {
+        "claims": 1
+      }
+    },
+    {
+      "id": "fidele",
+      "cat": "special",
+      "icon": "💜",
+      "name": "Pilier du tiers-lieu",
+      "desc": "Recevoir 5 fois des cristaux de l'équipe.",
+      "cond": {
+        "claims": 5
+      }
+    },
+    {
+      "id": "gold1",
+      "cat": "special",
+      "icon": "🌟",
+      "name": "Reflet doré",
+      "desc": "Attraper une Cocotte dorée.",
+      "cond": {
+        "golden": 1
+      }
+    },
+    {
+      "id": "gold25",
+      "cat": "special",
+      "icon": "🏅",
+      "name": "Chasseur·euse d'or",
+      "desc": "Attraper 25 Cocottes dorées.",
+      "cond": {
+        "golden": 25
+      }
+    },
+    {
+      "id": "proj1",
+      "cat": "special",
+      "icon": "📌",
+      "name": "Premier projet",
+      "desc": "Réaliser un projet de La Co'Cotte.",
+      "cond": {
+        "projects": 1
+      }
+    },
+    {
+      "id": "projAll",
+      "cat": "special",
+      "icon": "🧩",
+      "name": "Tous les projets",
+      "desc": "Réaliser les 4 projets de La Co'Cotte.",
+      "cond": {
+        "projects": 4
+      }
+    },
+    {
+      "id": "season1",
+      "cat": "special",
+      "icon": "🌱",
+      "name": "Nouvelle saison",
+      "desc": "Lancer une première Nouvelle saison.",
+      "cond": {
+        "seasons": 1
+      }
+    },
+    {
+      "id": "season5",
+      "cat": "special",
+      "icon": "🌳",
+      "name": "Cinq saisons",
+      "desc": "Lancer 5 Nouvelles saisons.",
+      "cond": {
+        "seasons": 5
+      }
+    }
+  ]
+}

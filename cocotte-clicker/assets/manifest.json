@@ -1,0 +1,21 @@
+{
+  "_doc": "Référence unique des assets. 'music' vide = musique lofi générée par le jeu ; sinon chemin/URL d'un fichier audio en boucle.",
+  "logo": "assets/logo/logo.jpg",
+  "marmite": "assets/img/marmite.svg",
+  "cocoin": "assets/img/cocoin.svg",
+  "building.etabli": "assets/img/b-etabli.svg",
+  "building.pc": "assets/img/b-pc.svg",
+  "building.imprimante3d": "assets/img/b-imprimante3d.svg",
+  "main-clic": "assets/img/main-clic.svg",
+  "building.benevole": "assets/img/b-benevole.svg",
+  "building.graveuse": "assets/img/b-graveuse.svg",
+  "music": "",
+  "cristal": "assets/img/cristal.svg",
+  "building.bricolcafe": "assets/img/b-bricolcafe.svg",
+  "building.brodeuse": "assets/img/b-brodeuse.svg",
+  "building.ateliernum": "assets/img/b-ateliernum.svg",
+  "building.evenements": "assets/img/b-evenements.svg",
+  "building.tournee": "assets/img/b-tournee.svg",
+  "building.partenaires": "assets/img/b-partenaires.svg",
+  "building.rayonnement": "assets/img/b-rayonnement.svg"
+}

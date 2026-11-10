@@ -1,0 +1,21 @@
+{
+  "_doc": "Projets de La Co'Cotte : achats uniques (remis à zéro à chaque Nouvelle saison). era = ère minimale pour les voir. effects : building (target ×mult), global (×mult), minigameCoins (×mult), golden (fréquence ×freq), music (débloque la piste « track »). Complétez librement desc pour présenter le vrai projet.",
+  "projects": [
+    { "id": "creagames", "name": "Créagames", "icon": "🎲", "era": 2, "cost": 5000000,
+      "desc": "Les ateliers de création de jeux de La Co'Cotte.",
+      "effectText": "Mini-jeux : Co'Coins ×3 · Poste informatique ×2",
+      "effects": [ { "type": "minigameCoins", "mult": 3 }, { "type": "building", "target": "pc", "mult": 2 } ] },
+    { "id": "antre", "name": "Antre en Ligne", "icon": "🕸️", "era": 3, "cost": 2000000000,
+      "desc": "Le projet de la Numériteam de La Co'Cotte.",
+      "effectText": "Atelier numérique ×3 · Poste informatique ×2",
+      "effects": [ { "type": "building", "target": "ateliernum", "mult": 3 }, { "type": "building", "target": "pc", "mult": 2 } ] },
+    { "id": "musique", "name": "Atelier Musique", "icon": "🎹", "era": 3, "cost": 30000000000,
+      "desc": "L'atelier musique de La Co'Cotte.",
+      "effectText": "Production +10 % · nouvelle musique « Atelier Musique » (Options)",
+      "effects": [ { "type": "global", "mult": 1.1 }, { "type": "music", "track": "atelier" } ] },
+    { "id": "vanbreak", "name": "Prison Van Break", "icon": "🚐", "era": 3, "cost": 200000000000,
+      "desc": "Le projet Prison Van Break de La Co'Cotte.",
+      "effectText": "Tournée itinérante ×3 · Cocottes dorées 30 % plus fréquentes",
+      "effects": [ { "type": "building", "target": "tournee", "mult": 3 }, { "type": "golden", "freq": 1.3 } ] }
+  ]
+}

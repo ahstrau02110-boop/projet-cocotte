@@ -1,0 +1,93 @@
+// Service worker : jeu jouable hors connexion et installable (PWA)
+// Incrémenter VERSION à chaque mise en ligne pour que les joueurs récupèrent la nouvelle version.
+const VERSION = 'cocotte-v3';
+const CORE = [
+  './',
+  'admin.html',
+  'assets/icons/apple-touch-icon.png',
+  'assets/icons/icon-192.png',
+  'assets/icons/icon-512.png',
+  'assets/icons/maskable-512.png',
+  'assets/img/b-ateliernum.svg',
+  'assets/img/b-benevole.svg',
+  'assets/img/b-bricolcafe.svg',
+  'assets/img/b-brodeuse.svg',
+  'assets/img/b-etabli.svg',
+  'assets/img/b-evenements.svg',
+  'assets/img/b-graveuse.svg',
+  'assets/img/b-imprimante3d.svg',
+  'assets/img/b-partenaires.svg',
+  'assets/img/b-pc.svg',
+  'assets/img/b-rayonnement.svg',
+  'assets/img/b-tournee.svg',
+  'assets/img/cocoin.svg',
+  'assets/img/cristal.svg',
+  'assets/img/main-clic.svg',
+  'assets/img/marmite.svg',
+  'assets/logo/logo.jpg',
+  'assets/manifest.json',
+  'css/style.css',
+  'data/achievements.json',
+  'data/buildings.json',
+  'data/config.json',
+  'data/eras.json',
+  'data/projects.json',
+  'data/skins.json',
+  'data/upgrades.json',
+  'index.html',
+  'js/admin.js',
+  'js/audio.js',
+  'js/core.js',
+  'js/decor.js',
+  'js/format.js',
+  'js/fx.js',
+  'js/gacha.js',
+  'js/games/bugs.js',
+  'js/games/hub.js',
+  'js/games/match3.js',
+  'js/games/memory.js',
+  'js/golden.js',
+  'js/main.js',
+  'js/player.js',
+  'js/progress.js',
+  'js/qr.js',
+  'js/save.js',
+  'js/season.js',
+  'js/skins.js',
+  'js/state.js',
+  'js/vendor/qrcode.js',
+  'manifest.webmanifest',
+];
+
+self.addEventListener('install', e => {
+  e.waitUntil(caches.open(VERSION).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));
+});
+
+self.addEventListener('activate', e => {
+  e.waitUntil(caches.keys()
+    .then(keys => Promise.all(keys.filter(k => k !== VERSION).map(k => caches.delete(k))))
+    .then(() => self.clients.claim()));
+});
+
+self.addEventListener('fetch', e => {
+  const req = e.request;
+  if (req.method !== 'GET') return;
+  const url = new URL(req.url);
+  // Pages et données : réseau d'abord (contenu à jour), cache si hors ligne
+  if (req.mode === 'navigate' || url.pathname.endsWith('.json')) {
+    e.respondWith(fetch(req).then(res => {
+      const copy = res.clone();
+      caches.open(VERSION).then(c => c.put(req, copy));
+      return res;
+    }).catch(() => caches.match(req, { ignoreSearch: true }).then(r => r || caches.match('./'))));
+    return;
+  }
+  // Reste (scripts, images, polices) : cache d'abord, mise à jour en arrière-plan
+  e.respondWith(caches.match(req).then(cached => {
+    const net = fetch(req).then(res => {
+      if (res.ok || res.type === 'opaque') { const copy = res.clone(); caches.open(VERSION).then(c => c.put(req, copy)); }
+      return res;
+    }).catch(() => cached);
+    return cached || net;
+  }));
+});

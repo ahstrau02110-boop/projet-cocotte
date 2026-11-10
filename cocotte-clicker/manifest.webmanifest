@@ -1,0 +1,17 @@
+{
+  "name": "Co'Cotte Clicker · La Co'Cotte",
+  "short_name": "Co'Cotte",
+  "description": "Faites tourner l'atelier de La Co'Cotte, espace de partage et de création à Bohain-en-Vermandois.",
+  "lang": "fr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#fbf6ea",
+  "theme_color": "#FCD260",
+  "icons": [
+    { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

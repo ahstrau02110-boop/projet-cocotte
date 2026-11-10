@@ -1,0 +1,51 @@
+{
+  "_doc": "Réglages généraux. gameUrl : URL publique du jeu (vide = déduite automatiquement). adminCodeSha256 : empreinte SHA-256 du code admin (par défaut « cocotte », à changer : voir README). adminPublicKey : clé publique générée depuis admin.html.",
+  "gameUrl": "https://ahstrau02110-boop.github.io/projet-cocotte/cocotte-clicker/",
+  "adminCodeSha256": "1a3116d05b24fe44d9416242f67e9b2474f1f552286eddac9ae4838be2d0c6e0",
+  "adminPublicKey": {
+    "kty": "EC",
+    "crv": "P-256",
+    "x": "bBmeoS5Pb9oBKpJ9Zc2TI6ugodAF-DmHNd9fFdo_utc",
+    "y": "VeKnLZwh-Dq9rjPLb14et6AfcFud8_3pjsSRtk1AgKA"
+  },
+  "rewards": {
+    "welcomeCrystals": 25,
+    "eraCrystals": 5,
+    "qrDefault": 100,
+    "qrMax": 1000,
+    "voucherDays": 7
+  },
+  "gacha": {
+    "cost1": 25,
+    "cost10": 225,
+    "pityLegendary": 60,
+    "collectionBonusPct": 1,
+    "refund": {
+      "commune": 1,
+      "rare": 3,
+      "epique": 8,
+      "legendaire": 20
+    }
+  },
+  "minigames": {
+    "dailyCrystalCap": 15,
+    "coinSecondsPerStar": 20,
+    "crystalsPerStar": 1,
+    "crystalsPerfectBonus": 1
+  },
+  "achievements": {
+    "prodBonusPct": 1
+  },
+  "prestige": {
+    "seedPct": 2,
+    "divisor": 1000000000,
+    "minEra": 3,
+    "seasonCrystals": 5
+  },
+  "golden": {
+    "minSec": 120,
+    "maxSec": 300,
+    "lifeSec": 13,
+    "crystalChancePct": 3
+  }
+}
