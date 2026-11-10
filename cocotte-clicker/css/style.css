@@ -726,3 +726,23 @@ dialog.play-dlg[open] { display: flex; }
 .tuto-btns { display: flex; gap: .4rem; justify-content: flex-end; flex-wrap: wrap; }
 .tuto-btns [data-skip] { margin-right: auto; }
 .dlg #btn-tuto { border: var(--line); border-radius: 12px; background: #fff; padding: .45rem .9rem; min-height: 46px; font-weight: 700; box-shadow: var(--lift-sm); }
+
+/* ===== Astuces numériques ===== */
+.actions { grid-template-columns: repeat(5, 1fr); }
+@media (max-width: 880px) and (min-width: 521px) { .actions { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 520px) { .actions { grid-template-columns: repeat(5, 1fr); gap: .3rem; } .action { padding: .45rem .15rem; } .action b { font-size: .7rem; } }
+.a-tips { background: #e3f4ff; position: relative; }
+.a-tips.ready { animation: suggest 1.4s ease-in-out infinite; }
+.a-tips.ready::after { content: ""; position: absolute; top: 6px; right: 6px; width: 14px; height: 14px; border-radius: 50%; background: var(--c-pink); border: 2px solid #000; }
+.tip-current { display: grid; gap: .8rem; justify-items: center; margin: .6rem 0 1rem; }
+.tip-card { width: 100%; background: #fffbe9; border: var(--line); border-left: 12px solid var(--c-yellow); border-radius: 16px; padding: 1rem 1.1rem; box-shadow: var(--lift-sm); }
+.tip-card h3 { font-family: var(--f-title); font-size: 1.3rem; margin: .3rem 0 .4rem; }
+.tip-card p { font-size: 1.1rem; margin: 0; line-height: 1.5; color: var(--ink); }
+.tip-cat { font-family: var(--f-mono); font-size: .75rem; text-transform: uppercase; background: #fff; border: 2px solid #000; border-radius: 6px; padding: .1rem .45rem; }
+.tip-wait { display: flex; gap: .8rem; align-items: center; width: 100%; padding: 1rem; border: 3px dashed #000; border-radius: 16px; background: #f4f1ea; }
+.tip-wait span { font-size: 2rem; }
+.tip-wait p { margin: 0; }
+.tip-archive { display: grid; gap: .4rem; max-height: 260px; overflow-y: auto; }
+.tip-archive details { border: 2px solid #000; border-radius: 12px; background: #fff; padding: .45rem .7rem; }
+.tip-archive summary { cursor: pointer; font-weight: 700; }
+.tip-archive details p { margin: .4rem 0 0; }

@@ -7,7 +7,7 @@ export const CONFIG = {
 };
 
 // Données chargées au démarrage (data/*.json, assets/manifest.json)
-export const DATA = { buildings: [], eras: [], manifest: {}, config: {}, skins: [], rarities: [], upgradeList: [], achList: [], projects: [] };
+export const DATA = { buildings: [], eras: [], manifest: {}, config: {}, skins: [], rarities: [], upgradeList: [], achList: [], projects: [], tips: [] };
 
 // Identifiant joueur anonyme (8 caractères, sans caractères ambigus)
 export function newPlayerId() {
@@ -39,6 +39,7 @@ export function freshState() {
     buffs: [],                         // bonus temporaires { id, name, cps, click, until }
     golden: 0,                         // Cocottes dorées attrapées
     tuto: false,                       // tutoriel terminé ou passé
+    tips: { last: 0, read: [], pending: null }, // astuces numériques
     prestige: { seasons: 0, seeds: 0, lifetime: 0 }, // Nouvelles saisons
     startedAt: Date.now(),
     lastSave: Date.now(),

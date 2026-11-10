@@ -61,6 +61,7 @@ js/progress.js         Améliorations et succès
 js/decor.js            Décor du plan de travail par ère
 js/golden.js           Cocotte dorée et bonus temporaires
 js/season.js           Projets de La Co'Cotte + Nouvelle saison (prestige)
+js/tips.js             Astuces numériques (une par heure)
 sw.js                  Service worker (hors connexion)
 manifest.webmanifest   Manifeste de l'application
 js/vendor/             qrcode.js (MIT), jsQR.js (Apache-2.0)
@@ -70,6 +71,7 @@ data/skins.json        Skins et taux de rareté
 data/upgrades.json     Améliorations
 data/achievements.json Succès
 data/projects.json     Projets de La Co'Cotte
+data/tips.json         Astuces numériques
 data/config.json       Code admin, clé publique, récompenses, réglages gacha et mini-jeux
 assets/manifest.json   Référence unique de tous les assets (clé → chemin)
 assets/img/            Illustrations SVG chibi
@@ -133,6 +135,10 @@ Simulation (joueur qui achète au mieux, absences comptées à 50 % plafonnées 
 | Collection complète des 36 skins (~470 tirages) | ~3 ans en solo · ~15 mois avec une visite par semaine |
 
 La boucle Nouvelle saison relance ensuite la progression sans fin (chaque saison va plus vite et vise plus loin).
+
+## Astuces numériques
+
+Tuile 💡 « Astuces » : une nouvelle astuce sur le numérique toutes les heures (sécurité, smartphone, ordinateur, internet, IA, numérique responsable, culture geek, FabLab). Le bouton « J'ai lu » se débloque après 8 s de lecture et rapporte **+5 💎**. Les astuces lues restent consultables. 41 astuces dans `data/tips.json` (à compléter librement) ; réglages dans `config.json` → `tips` (intervalle, cristaux, temps de lecture). 3 succès associés.
 
 ## Tutoriel
 
@@ -240,6 +246,7 @@ Police Atkinson Hyperlegible (conçue pour la basse vision), base 18 px, contras
 - [x] **Mini-jeux, cristaux, Imprimante mystère (18 skins, 4 raretés), QR joueur + espace équipe signé**
 - [x] **Palier 3** : Cocotte dorée, 4 projets de La Co'Cotte, prestige « Nouvelle saison », 2ᵉ musique, application installable (PWA)
 - [x] **Enrichissement** : tutoriel, 36 skins, 4ᵉ mini-jeu, 14 bâtiments, 118 améliorations, 128 succès, 6 effets de Cocotte dorée
+- [x] **Astuces numériques** : une par heure, +5 💎
 - [ ] **Palier 4** : boosts « Le saviez-vous ? » / infos tiers-lieu / quiz, bonus quotidien et série
 - [ ] **Palier 5** : compteur communautaire, objectifs collectifs, classement par pseudo (Supabase, tier gratuit)
 - [ ] **Palier 6** : mode admin (code, surcharges du manifest, édition des données, export/import de config)

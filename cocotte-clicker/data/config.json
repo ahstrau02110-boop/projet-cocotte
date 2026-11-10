@@ -47,5 +47,10 @@
     "maxSec": 300,
     "lifeSec": 13,
     "crystalChancePct": 3
+  },
+  "tips": {
+    "intervalMin": 60,
+    "crystals": 5,
+    "readSec": 8
   }
 }

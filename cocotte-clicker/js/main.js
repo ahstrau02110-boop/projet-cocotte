@@ -13,6 +13,7 @@ import { initPlayer, openMyQR } from './player.js';
 import { buildProgress, initProgress, renderUpgrades, checkAchievements, openAchievements } from './progress.js';
 import { decorFor } from './decor.js';
 import { initTutorial } from './tutorial.js';
+import { initTips, renderTipTile } from './tips.js';
 import { initGolden, renderBuffs } from './golden.js';
 import { initSeason, renderProjects, renderSeason, applyMusicUnlocks } from './season.js';
 
@@ -37,6 +38,7 @@ async function boot() {
       loadJSON('data/projects.json'),
     ]);
     DATA.projects = proj.projects;
+    DATA.tips = (await loadJSON('data/tips.json')).tips;
     buildProgress(upg, ach);
     DATA.skins = skins.skins;
     DATA.rarities = skins.rarities;
@@ -77,6 +79,7 @@ async function boot() {
   initSeason();
   initGolden();
   initTutorial();
+  initTips();
   on('season', afterStateChange);
   applySkin();
   on('refresh', updateUI);
@@ -136,6 +139,7 @@ function updateUI() {
   renderProjects();
   renderSeason();
   renderBuffs();
+  renderTipTile();
   $$('.js-crystals').forEach(e => (e.textContent = fmt(state.crystals)));
 
   const era = currentEra();

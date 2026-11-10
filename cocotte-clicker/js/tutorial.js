@@ -11,7 +11,7 @@ const STEPS = [
   { t: '#buildings li:first-child', title: 'Les bâtiments', txt: "Achetez des bénévoles, des machines, des ateliers… Ils produisent des Co'Coins tout seuls, même quand vous êtes absent." },
   { t: '#upgrades', title: 'Les améliorations', txt: 'Elles apparaissent au fil du jeu et multiplient la production. Pensez à y jeter un œil !' },
   { t: '.era-card', title: 'Les ères', txt: 'Atelier, FabLab, Tiers-lieu puis Territoire Vermandois : chaque ère débloque de nouveaux bâtiments et un nouveau décor.' },
-  { t: '.actions', title: 'Les activités', txt: 'Mini-jeux pour gagner des cristaux 💎, Imprimante mystère pour collectionner des skins de Cocotte, Succès, et votre QR code.' },
+  { t: '.actions', title: 'Les activités', txt: 'Mini-jeux pour gagner des cristaux 💎, Imprimante mystère pour collectionner des skins de Cocotte, Succès, Astuces numériques (une par heure, +5 💎) et votre QR code.' },
   { t: '#btn-crystals', title: 'Les cristaux 💎', txt: "Ils se gagnent en jouant… et surtout en venant à La Co'Cotte : montrez votre QR code à l'équipe !" },
   { t: null, title: 'Dernière astuce', txt: 'Une Cocotte dorée apparaît parfois à l\'écran : attrapez-la vite pour un gros bonus. Bon jeu !' },
 ];

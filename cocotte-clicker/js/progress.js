@@ -102,6 +102,7 @@ function stats() {
     golden: state.golden,
     seasons: state.prestige.seasons,
     projects: Object.keys(state.projects).length,
+    tips: state.tips.read.length,
   };
 }
 function met(cond, st) {

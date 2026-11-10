@@ -1,0 +1,251 @@
+{
+  "_doc": "Astuces numériques : une nouvelle toutes les heures (réglages dans config.json → tips). cat : catégorie affichée. Ajoutez, modifiez ou retirez librement des entrées (id unique).",
+  "tips": [
+    {
+      "id": "mdp-phrase",
+      "cat": "🔒 Sécurité",
+      "title": "Une phrase de passe plutôt qu'un mot de passe",
+      "text": "Quatre ou cinq mots au hasard (« cocotte-velo-nuage-tartine ») sont plus longs, donc plus solides, et plus faciles à retenir qu'un mot compliqué comme « P@ss2024 »."
+    },
+    {
+      "id": "mdp-unique",
+      "cat": "🔒 Sécurité",
+      "title": "Un mot de passe par site",
+      "text": "Si un site se fait pirater, les pirates essaient le même mot de passe partout. Utilisez un mot de passe différent pour chaque compte important, surtout votre messagerie."
+    },
+    {
+      "id": "gestionnaire",
+      "cat": "🔒 Sécurité",
+      "title": "Le gestionnaire de mots de passe",
+      "text": "Un gestionnaire (Bitwarden, KeePass, celui de votre navigateur…) retient tous vos mots de passe à votre place. Vous n'avez plus qu'un seul mot de passe principal à mémoriser."
+    },
+    {
+      "id": "2fa",
+      "cat": "🔒 Sécurité",
+      "title": "La double authentification",
+      "text": "Activez la validation en deux étapes (code reçu par SMS ou application) sur votre messagerie et vos comptes importants : même avec votre mot de passe, un pirate reste bloqué."
+    },
+    {
+      "id": "phishing",
+      "cat": "🔒 Sécurité",
+      "title": "Repérer un faux message (hameçonnage)",
+      "text": "Urgence, menace, colis bloqué, remboursement inattendu… Méfiance ! Ne cliquez pas : allez directement sur le site officiel en tapant son adresse vous-même."
+    },
+    {
+      "id": "banque",
+      "cat": "🔒 Sécurité",
+      "title": "Votre banque ne demande jamais vos codes",
+      "text": "Aucune banque ni administration ne vous demandera votre code de carte ou vos identifiants par téléphone, SMS ou mail. Au moindre doute, raccrochez et rappelez votre conseiller."
+    },
+    {
+      "id": "cadenas",
+      "cat": "🔒 Sécurité",
+      "title": "Le cadenas ne veut pas dire « site honnête »",
+      "text": "Le cadenas à côté de l'adresse signifie seulement que la connexion est chiffrée. Un faux site peut aussi en avoir un : vérifiez bien l'orthographe de l'adresse."
+    },
+    {
+      "id": "maj",
+      "cat": "🔒 Sécurité",
+      "title": "Faites les mises à jour",
+      "text": "Les mises à jour corrigent des failles de sécurité. Sur téléphone comme sur ordinateur, acceptez-les dès que possible, idéalement en automatique."
+    },
+    {
+      "id": "wifi-public",
+      "cat": "🔒 Sécurité",
+      "title": "Prudence sur le Wi-Fi public",
+      "text": "Sur un Wi-Fi de gare ou de café, évitez les opérations sensibles (banque, impôts). Préférez votre connexion mobile pour ces démarches."
+    },
+    {
+      "id": "sauvegarde",
+      "cat": "💻 Ordinateur",
+      "title": "La règle du 3-2-1",
+      "text": "Gardez 3 copies de vos fichiers importants, sur 2 supports différents (disque, clé USB, cloud…), dont 1 hors de chez vous. Une panne ne fera plus pleurer personne."
+    },
+    {
+      "id": "raccourci-copier",
+      "cat": "💻 Ordinateur",
+      "title": "Copier-coller au clavier",
+      "text": "Ctrl + C pour copier, Ctrl + V pour coller, Ctrl + X pour couper. Sur Mac, remplacez Ctrl par la touche Cmd ⌘."
+    },
+    {
+      "id": "raccourci-annuler",
+      "cat": "💻 Ordinateur",
+      "title": "Oups ! Annuler",
+      "text": "Ctrl + Z annule la dernière action (texte effacé, fichier déplacé…). Ctrl + Y la refait. Le raccourci le plus utile du monde !"
+    },
+    {
+      "id": "onglet",
+      "cat": "🌐 Internet",
+      "title": "Rouvrir un onglet fermé par erreur",
+      "text": "Ctrl + Maj + T rouvre le dernier onglet fermé dans votre navigateur. Vous pouvez répéter pour remonter plusieurs onglets."
+    },
+    {
+      "id": "zoom",
+      "cat": "💻 Ordinateur",
+      "title": "Agrandir le texte d'une page",
+      "text": "Ctrl + molette de la souris (ou Ctrl + / Ctrl −) agrandit ou réduit l'affichage. Ctrl + 0 revient à la taille normale. Pratique pour lire plus confortablement."
+    },
+    {
+      "id": "capture",
+      "cat": "💻 Ordinateur",
+      "title": "Faire une capture d'écran",
+      "text": "Sous Windows : touches Windows + Maj + S pour sélectionner une zone. Sur Mac : Cmd + Maj + 4. Sur la plupart des téléphones : bouton Volume bas + Marche en même temps."
+    },
+    {
+      "id": "recherche",
+      "cat": "🌐 Internet",
+      "title": "Chercher une expression exacte",
+      "text": "Mettez des guillemets dans votre recherche : \"repair café Bohain\" ne donne que les pages contenant exactement ces mots, dans cet ordre."
+    },
+    {
+      "id": "source",
+      "cat": "🌐 Internet",
+      "title": "Vérifier une information",
+      "text": "Avant de partager : qui publie ? Quelle date ? D'autres médias en parlent-ils ? Une recherche d'image inversée aide aussi à repérer une photo sortie de son contexte."
+    },
+    {
+      "id": "cookies",
+      "cat": "🌐 Internet",
+      "title": "Les bandeaux « cookies »",
+      "text": "Vous avez le droit de refuser les cookies publicitaires : cherchez le bouton « Tout refuser » ou « Continuer sans accepter ». Le site doit rester accessible."
+    },
+    {
+      "id": "piece-jointe",
+      "cat": "🔒 Sécurité",
+      "title": "Les pièces jointes inattendues",
+      "text": "Un fichier reçu sans raison, même d'un contact connu, peut contenir un virus. En cas de doute, demandez à l'expéditeur par un autre moyen avant d'ouvrir."
+    },
+    {
+      "id": "france-connect",
+      "cat": "🌐 Internet",
+      "title": "FranceConnect",
+      "text": "Avec FranceConnect, vous vous connectez à de nombreux services publics (impôts, santé, retraite…) avec un seul compte que vous avez déjà. Moins de mots de passe à retenir !"
+    },
+    {
+      "id": "sites-officiels",
+      "cat": "🌐 Internet",
+      "title": "Les démarches officielles sont gratuites",
+      "text": "Carte grise, extrait d'acte de naissance, casier judiciaire… sur les sites en .gouv.fr ces démarches sont gratuites. Méfiez-vous des sites qui les font payer."
+    },
+    {
+      "id": "stockage-tel",
+      "cat": "📱 Smartphone",
+      "title": "Téléphone plein ?",
+      "text": "Commencez par les vidéos et les fichiers reçus sur les messageries (WhatsApp…) : ce sont souvent eux qui prennent le plus de place, bien avant les applications."
+    },
+    {
+      "id": "batterie",
+      "cat": "📱 Smartphone",
+      "title": "Prendre soin de sa batterie",
+      "text": "Une batterie vieillit moins vite si on évite de la laisser à 0 % ou en plein soleil. Pas besoin d'attendre qu'elle soit vide pour la recharger."
+    },
+    {
+      "id": "applis-permissions",
+      "cat": "📱 Smartphone",
+      "title": "Les autorisations des applis",
+      "text": "Une lampe de poche n'a pas besoin de vos contacts ! Dans Réglages → Applications → Autorisations, retirez ce qui ne semble pas nécessaire."
+    },
+    {
+      "id": "localiser",
+      "cat": "📱 Smartphone",
+      "title": "Retrouver un téléphone perdu",
+      "text": "Activez « Localiser mon appareil » (Android) ou « Localiser » (iPhone) : en cas de perte, vous pourrez le faire sonner, le localiser ou l'effacer à distance."
+    },
+    {
+      "id": "dictee",
+      "cat": "📱 Smartphone",
+      "title": "Écrire avec la voix",
+      "text": "Le petit micro du clavier permet de dicter vos messages au lieu de les taper. Dites « virgule » ou « point » pour la ponctuation."
+    },
+    {
+      "id": "qr",
+      "cat": "📱 Smartphone",
+      "title": "Scanner un QR code",
+      "text": "Ouvrez simplement l'appareil photo et visez le QR code : un lien s'affiche. Vérifiez l'adresse avant de l'ouvrir, comme pour n'importe quel lien."
+    },
+    {
+      "id": "eco-mail",
+      "cat": "♻️ Numérique responsable",
+      "title": "Le vrai poids du numérique",
+      "text": "C'est surtout la fabrication des appareils qui pollue. Garder son téléphone ou son ordinateur plus longtemps est le geste le plus efficace pour la planète."
+    },
+    {
+      "id": "reparer",
+      "cat": "♻️ Numérique responsable",
+      "title": "Réparer avant de racheter",
+      "text": "Écran cassé, batterie fatiguée, ordinateur lent… beaucoup de pannes se réparent. Venez en parler au Bricol'Café de La Co'Cotte !"
+    },
+    {
+      "id": "reconditionne",
+      "cat": "♻️ Numérique responsable",
+      "title": "Le reconditionné",
+      "text": "Un appareil reconditionné a été vérifié et remis en état. Il coûte moins cher qu'un neuf et évite de fabriquer un nouvel appareil."
+    },
+    {
+      "id": "streaming",
+      "cat": "♻️ Numérique responsable",
+      "title": "Vidéo : la qualité a un coût",
+      "text": "Regarder une vidéo en très haute définition sur un petit écran consomme beaucoup de données pour rien. Baisser la qualité sur téléphone économise forfait et énergie."
+    },
+    {
+      "id": "ia",
+      "cat": "🤖 Intelligence artificielle",
+      "title": "L'IA peut se tromper",
+      "text": "Les assistants d'IA écrivent avec assurance… même quand ils se trompent. Vérifiez toujours les informations importantes (santé, droit, argent) auprès d'une source fiable."
+    },
+    {
+      "id": "ia-donnees",
+      "cat": "🤖 Intelligence artificielle",
+      "title": "Que confier à une IA ?",
+      "text": "Évitez de coller dans un chatbot des informations personnelles ou confidentielles (numéros, mots de passe, documents d'autres personnes)."
+    },
+    {
+      "id": "deepfake",
+      "cat": "🤖 Intelligence artificielle",
+      "title": "Les hypertrucages",
+      "text": "Images, voix et vidéos peuvent aujourd'hui être fabriquées par IA. Un appel d'un proche qui demande de l'argent en urgence ? Rappelez-le sur son numéro habituel."
+    },
+    {
+      "id": "pixel",
+      "cat": "🎮 Culture geek",
+      "title": "D'où vient le mot « pixel » ?",
+      "text": "« Pixel » est la contraction de l'anglais picture element : le plus petit point d'une image numérique. Votre écran en compte des millions !"
+    },
+    {
+      "id": "bug",
+      "cat": "🎮 Culture geek",
+      "title": "Le premier « bug »",
+      "text": "En 1947, l'équipe de Grace Hopper a trouvé un vrai papillon de nuit coincé dans un ordinateur et l'a collé dans le cahier de bord. Le mot « bug » existait déjà, mais cette anecdote l'a rendu célèbre !"
+    },
+    {
+      "id": "3d",
+      "cat": "🛠️ FabLab",
+      "title": "Comment marche une imprimante 3D ?",
+      "text": "Elle fait fondre un fil de plastique et le dépose couche après couche, chacune épaisse d'environ 0,2 mm. Un objet de 5 cm, c'est donc environ 250 couches !"
+    },
+    {
+      "id": "laser",
+      "cat": "🛠️ FabLab",
+      "title": "La graveuse laser",
+      "text": "Un faisceau laser très concentré brûle la surface du bois ou du carton pour graver, ou le traverse pour découper. Elle se pilote à partir d'un simple dessin sur l'ordinateur."
+    },
+    {
+      "id": "fablab",
+      "cat": "🛠️ FabLab",
+      "title": "Qu'est-ce qu'un FabLab ?",
+      "text": "Un « laboratoire de fabrication » ouvert à tous, où l'on partage machines et savoir-faire pour fabriquer, réparer et apprendre ensemble. Comme à La Co'Cotte !"
+    },
+    {
+      "id": "opensource",
+      "cat": "🛠️ FabLab",
+      "title": "Les logiciels libres",
+      "text": "LibreOffice, Firefox, VLC, Inkscape… ces logiciels gratuits sont « libres » : leur code est partagé et chacun peut les améliorer. Une belle alternative aux logiciels payants."
+    },
+    {
+      "id": "aide",
+      "cat": "🏠 La Co'Cotte",
+      "title": "Besoin d'un coup de main ?",
+      "text": "Un souci avec un téléphone, une démarche en ligne, un ordinateur ? L'équipe de La Co'Cotte vous accompagne lors des ateliers numériques, à votre rythme."
+    }
+  ]
+}

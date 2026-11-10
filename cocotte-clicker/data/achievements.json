@@ -1,5 +1,5 @@
 {
-  "_doc": "Succès. Chaque succès donne un bonus de production (config.json → achievements.prodBonusPct). cond : toutes les conditions doivent être vraies. Clés : clicks, earned, cps, era, buildings (total), pulls, skins, legendary, plays, stars, perfect, claims, upgrades, golden, seasons, projects. buildingTemplates : générés pour chaque bâtiment ({b} = nom).",
+  "_doc": "Succès. Chaque succès donne un bonus de production (config.json → achievements.prodBonusPct). cond : toutes les conditions doivent être vraies. Clés : clicks, earned, cps, era, buildings (total), pulls, skins, legendary, plays, stars, perfect, claims, upgrades, golden, seasons, projects, tips. buildingTemplates : générés pour chaque bâtiment ({b} = nom).",
   "buildingTemplates": [
     {
       "n": 1,
@@ -606,6 +606,36 @@
       "desc": "Recevoir 10 fois des cristaux de l'équipe.",
       "cond": {
         "claims": 10
+      }
+    },
+    {
+      "id": "tip1",
+      "cat": "special",
+      "icon": "💡",
+      "name": "Curieux·se",
+      "desc": "Lire une astuce numérique.",
+      "cond": {
+        "tips": 1
+      }
+    },
+    {
+      "id": "tip10",
+      "cat": "special",
+      "icon": "📚",
+      "name": "Bon·ne élève",
+      "desc": "Lire 10 astuces numériques.",
+      "cond": {
+        "tips": 10
+      }
+    },
+    {
+      "id": "tipAll",
+      "cat": "special",
+      "icon": "🎓",
+      "name": "Expert·e du numérique",
+      "desc": "Lire toutes les astuces.",
+      "cond": {
+        "tips": 41
       }
     }
   ]

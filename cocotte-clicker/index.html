@@ -69,6 +69,7 @@
         <button id="btn-games" class="action a-games"><span class="a-ico" aria-hidden="true">🎮</span><span><b>Mini-jeux</b><small>Gagnez des cristaux</small></span></button>
         <button id="btn-gacha" class="action a-gacha"><span class="a-ico" aria-hidden="true">🎁</span><span><b>Imprimante mystère</b><small>Skins de Cocotte</small></span></button>
         <button id="btn-ach" class="action a-ach"><span class="a-ico" aria-hidden="true">🏆</span><span><b>Succès</b><small id="ach-mini">Badges et bonus</small></span></button>
+        <button id="btn-tips" class="action a-tips"><span class="a-ico" aria-hidden="true">💡</span><span><b>Astuces</b><small id="tip-mini">Astuce du numérique</small></span></button>
         <button id="btn-myqr" class="action a-qr"><span class="a-ico" aria-hidden="true">📱</span><span><b>Mon QR code</b><small>Cristaux à La Co'Cotte</small></span></button>
       </nav>
 
@@ -242,6 +243,20 @@
         <button id="btn-season-ok" class="big-btn">🌱 Lancer la nouvelle saison</button>
         <form method="dialog"><button class="ghost-btn">Pas maintenant</button></form>
       </div>
+    </div>
+  </dialog>
+
+  <!-- Astuces numériques -->
+  <dialog id="dlg-tips" aria-labelledby="tips-title">
+    <div class="dlg">
+      <div class="dlg-head">
+        <h2 id="tips-title" class="tape">Astuces numériques</h2>
+        <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
+      </div>
+      <p class="muted">Une nouvelle astuce toutes les heures : lisez-la et gagnez des cristaux 💎.</p>
+      <div id="tip-current" class="tip-current" aria-live="polite"></div>
+      <h3>Astuces lues <span id="tip-count" class="small"></span></h3>
+      <div id="tip-archive" class="tip-archive"></div>
     </div>
   </dialog>
 
