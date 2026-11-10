@@ -1,12 +1,12 @@
 // Station Boosts : « Le saviez-vous ? » sur La Co'Cotte et quiz express, contre un bonus de production temporaire
-import { DATA, state } from './state.js';
+import { DATA, state, hasTalent } from './state.js';
 import { $, toast, emit, esc } from './core.js';
 import { save } from './save.js';
 import { sfx } from './audio.js';
 import { addBuff } from './golden.js';
 
 const cfg = () => DATA.config.boosts || {};
-const cd = () => (cfg().cooldownMin ?? 15) * 60000;
+const cd = () => (hasTalent('boost') ? 10 : cfg().cooldownMin ?? 15) * 60000;
 const leftOf = key => Math.max(0, state.boosts[key] + cd() - Date.now());
 export const boostReady = () => !leftOf('infoLast') || !leftOf('quizLast');
 const fmtLeft = ms => `${Math.ceil(ms / 60000)} min`;

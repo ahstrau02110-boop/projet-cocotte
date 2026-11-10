@@ -1,5 +1,5 @@
 // Imprimantes mystère : tirage de skins de Cocotte ou de décors du plan de travail + collection
-import { DATA, state, addCrystals, collectionBonus } from './state.js';
+import { DATA, state, addCrystals, collectionBonus, hasTalent } from './state.js';
 import { $, $$, emit, toast, sleep, reducedMotion, esc } from './core.js';
 import { skinById, rarityOf, skinImage } from './skins.js';
 import { bgById, bgThumb } from './backgrounds.js';
@@ -8,6 +8,7 @@ import { sfx } from './audio.js';
 
 const RANK = { commune: 0, rare: 1, epique: 2, legendaire: 3 };
 const cfg = () => DATA.config.gacha || {};
+const cost10 = () => (cfg().cost10 ?? 225) - (hasTalent('impression') ? 25 : 0);
 let busy = false, machine = 'cocotte', collView = 'cocotte';
 
 // Les deux machines partagent la même logique
@@ -55,7 +56,7 @@ function rollOne(m, minRare) {
 async function pull(n) {
   if (busy) return;
   const m = M[machine];
-  const cost = n === 10 ? cfg().cost10 ?? 225 : (cfg().cost1 ?? 25) * n;
+  const cost = n === 10 ? cost10() : (cfg().cost1 ?? 25) * n;
   if (state.crystals < cost) {
     sfx.deny();
     toast(`Il vous manque ${cost - state.crystals} cristaux. Gagnez-en dans les mini-jeux, les astuces… ou à La Co'Cotte !`);
@@ -132,7 +133,7 @@ function renderInfo() {
   $('#printer').dataset.machine = machine;
   $('#gacha-info').textContent = `${got}/${m.items().length} ${m.unit}s obtenus. Taux : ${rates}. Légendaire garanti${machine === 'cocotte' ? 'e' : ''} dans ${pity} impression${pity > 1 ? 's' : ''} au plus. ×10 : au moins un Rare.`;
   $('#pull1').innerHTML = `Imprimer ×1 <span class="cost">${cfg().cost1 ?? 25} 💎</span>`;
-  $('#pull10').innerHTML = `Imprimer ×10 <span class="cost">${cfg().cost10 ?? 225} 💎</span>`;
+  $('#pull10').innerHTML = `Imprimer ×10 <span class="cost">${cost10()} 💎</span>`;
 }
 
 export function renderCollection() {

@@ -1,0 +1,115 @@
+{
+  "_doc": "Talents de saison : améliorations permanentes achetées avec les graines de saison (conservées à chaque Nouvelle saison). Les graines dépensées continuent de donner leur bonus de production. need = talent requis.",
+  "talents": [
+    {
+      "id": "depart",
+      "icon": "🚀",
+      "name": "Départ lancé",
+      "cost": 1,
+      "desc": "Chaque nouvelle saison commence avec 1 000 Co'Coins."
+    },
+    {
+      "id": "benevoles",
+      "icon": "🙋",
+      "name": "Bénévoles fidèles",
+      "cost": 2,
+      "desc": "Chaque nouvelle saison commence avec 10 Bénévoles bricoleur·euses.",
+      "need": "depart"
+    },
+    {
+      "id": "mains",
+      "icon": "✋",
+      "name": "Mains expertes",
+      "cost": 2,
+      "desc": "Les clics rapportent 2 fois plus."
+    },
+    {
+      "id": "doree",
+      "icon": "🌟",
+      "name": "Aimant à Cocottes",
+      "cost": 3,
+      "desc": "Les Cocottes dorées apparaissent 25 % plus souvent."
+    },
+    {
+      "id": "doree2",
+      "icon": "⏳",
+      "name": "Cocotte patiente",
+      "cost": 3,
+      "desc": "Les Cocottes dorées restent 5 secondes de plus.",
+      "need": "doree"
+    },
+    {
+      "id": "nuit",
+      "icon": "🌙",
+      "name": "Atelier de nuit",
+      "cost": 4,
+      "desc": "Production hors-ligne : 75 % au lieu de 50 %."
+    },
+    {
+      "id": "nuit2",
+      "icon": "🛌",
+      "name": "Grasse matinée",
+      "cost": 5,
+      "desc": "Gains hors-ligne plafonnés à 16 h au lieu de 8 h.",
+      "need": "nuit"
+    },
+    {
+      "id": "soldes",
+      "icon": "🏷️",
+      "name": "Récup' de matériaux",
+      "cost": 5,
+      "desc": "Bâtiments 5 % moins chers."
+    },
+    {
+      "id": "soldes2",
+      "icon": "🧾",
+      "name": "Achats groupés",
+      "cost": 6,
+      "desc": "Améliorations 10 % moins chères.",
+      "need": "soldes"
+    },
+    {
+      "id": "projets",
+      "icon": "📌",
+      "name": "Réseau de projets",
+      "cost": 8,
+      "desc": "Projets de La Co'Cotte 25 % moins chers."
+    },
+    {
+      "id": "boost",
+      "icon": "⚡",
+      "name": "Recharge rapide",
+      "cost": 6,
+      "desc": "Boosts rechargés en 10 min au lieu de 15."
+    },
+    {
+      "id": "jour",
+      "icon": "📅",
+      "name": "Habitué·e",
+      "cost": 6,
+      "desc": "+4 💎 à chaque bonus du jour."
+    },
+    {
+      "id": "mini",
+      "icon": "🎮",
+      "name": "Joueur·euse assidu·e",
+      "cost": 8,
+      "desc": "+10 💎 au plafond quotidien des mini-jeux."
+    },
+    {
+      "id": "impression",
+      "icon": "🖨️",
+      "name": "Impression économique",
+      "cost": 12,
+      "desc": "Impression ×10 à 200 💎 au lieu de 225."
+    },
+    {
+      "id": "fertile",
+      "icon": "🌳",
+      "name": "Graines fertiles",
+      "cost": 15,
+      "desc": "Chaque graine de saison donne +3 % de production au lieu de +2 %.",
+      "need": "depart"
+    }
+  ]
+}

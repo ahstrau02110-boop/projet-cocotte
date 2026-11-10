@@ -1,5 +1,5 @@
 {
-  "_doc": "Réglages généraux. gameUrl : URL publique du jeu (vide = déduite automatiquement). adminCodeSha256 : empreinte SHA-256 du code admin (voir README : voir README). adminPublicKey : clé publique générée depuis admin.html.",
+  "_doc": "Réglages généraux. gameUrl : URL publique du jeu (vide = déduite automatiquement). adminCodeSha256 : empreinte SHA-256 du code admin (voir README : voir README). adminPublicKey : clé publique générée depuis admin.html. community : url et anonKey du projet Supabase (voir README) ; vide = mode solo.",
   "gameUrl": "https://ahstrau02110-boop.github.io/projet-cocotte/cocotte-clicker/",
   "adminCodeSha256": "d1d32acd65665bbafe86d076de93832fcbabe1d294531584e5e2526c42745246",
   "adminPublicKey": {
@@ -9,10 +9,10 @@
     "y": "VeKnLZwh-Dq9rjPLb14et6AfcFud8_3pjsSRtk1AgKA"
   },
   "rewards": {
-    "welcomeCrystals": 25,
-    "eraCrystals": 5,
-    "qrDefault": 100,
-    "qrMax": 1000,
+    "welcomeCrystals": 50,
+    "eraCrystals": 10,
+    "qrDefault": 200,
+    "qrMax": 2000,
     "voucherDays": 7
   },
   "gacha": {
@@ -21,18 +21,18 @@
     "pityLegendary": 60,
     "collectionBonusPct": 1,
     "refund": {
-      "commune": 1,
-      "rare": 3,
-      "epique": 8,
-      "legendaire": 20
+      "commune": 2,
+      "rare": 6,
+      "epique": 16,
+      "legendaire": 40
     },
     "collectionBgPct": 0.5
   },
   "minigames": {
-    "dailyCrystalCap": 15,
+    "dailyCrystalCap": 30,
     "coinSecondsPerStar": 20,
-    "crystalsPerStar": 1,
-    "crystalsPerfectBonus": 1
+    "crystalsPerStar": 2,
+    "crystalsPerfectBonus": 2
   },
   "achievements": {
     "prodBonusPct": 1
@@ -41,17 +41,18 @@
     "seedPct": 2,
     "divisor": 1000000000,
     "minEra": 3,
-    "seasonCrystals": 5
+    "seasonCrystals": 10
   },
   "golden": {
     "minSec": 120,
     "maxSec": 300,
     "lifeSec": 13,
-    "crystalChancePct": 3
+    "crystalChancePct": 3,
+    "crystalGain": 4
   },
   "tips": {
     "intervalMin": 60,
-    "crystals": 5,
+    "crystals": 10,
     "readSec": 8
   },
   "boosts": {
@@ -66,15 +67,56 @@
   },
   "daily": {
     "rewards": [
-      3,
-      4,
-      5,
       6,
       8,
       10,
-      15
+      12,
+      16,
+      20,
+      30
     ],
     "day7BoostMult": 2,
     "day7BoostSec": 300
+  },
+  "groupVoucher": {
+    "defaultHours": 3,
+    "choices": [
+      1,
+      3,
+      24,
+      72
+    ]
+  },
+  "community": {
+    "url": "",
+    "anonKey": "",
+    "syncSec": 120,
+    "goals": [
+      {
+        "at": 10000000000.0,
+        "pct": 2,
+        "name": "Atelier partagé"
+      },
+      {
+        "at": 1000000000000.0,
+        "pct": 3,
+        "name": "FabLab collectif"
+      },
+      {
+        "at": 100000000000000.0,
+        "pct": 5,
+        "name": "Tiers-lieu vivant"
+      },
+      {
+        "at": 1e+16,
+        "pct": 5,
+        "name": "Vermandois créatif"
+      },
+      {
+        "at": 1e+18,
+        "pct": 10,
+        "name": "Légende des Hauts-de-France"
+      }
+    ]
   }
 }

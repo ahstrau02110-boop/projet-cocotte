@@ -1,5 +1,5 @@
 // Sauvegarde locale, export / import, gains hors-ligne
-import { state, replaceState, freshState, CONFIG, totalCps, earn } from './state.js';
+import { state, replaceState, freshState, CONFIG, totalCps, earn, hasTalent } from './state.js';
 
 const KEY = 'cocotte-clicker-save';
 const PREFIX = 'COCOTTE1:';
@@ -48,6 +48,9 @@ function sanitize(raw) {
   const bo = obj(raw.boosts), arr = v => (Array.isArray(v) ? v.filter(x => typeof x === 'string') : []);
   s.boosts = { infoLast: Math.min(num(bo.infoLast), Date.now()), quizLast: Math.min(num(bo.quizLast), Date.now()),
     infoSeen: arr(bo.infoSeen), quizSeen: arr(bo.quizSeen), quizOk: int(bo.quizOk) };
+  const ne = obj(raw.net);
+  s.net = { token: typeof ne.token === 'string' && ne.token.length >= 16 ? ne.token : '', listed: ne.listed !== false,
+    total: num(ne.total), players: int(ne.players), lastSync: num(ne.lastSync) };
   const da = obj(raw.daily);
   s.daily = { last: typeof da.last === 'string' ? da.last : '', streak: int(da.streak), best: int(da.best) };
   const tp = obj(raw.tips);
@@ -55,7 +58,8 @@ function sanitize(raw) {
     pending: typeof tp.pending === 'string' ? tp.pending : null };
   s.tuto = !!raw.tuto || raw.v === 1 || int(raw.totalClicks) > 50; // anciens joueurs : pas de tutoriel imposé
   const pr = obj(raw.prestige);
-  s.prestige = { seasons: int(pr.seasons), seeds: int(pr.seeds), lifetime: Math.max(num(pr.lifetime), s.totalEarned) };
+  s.prestige = { seasons: int(pr.seasons), seeds: int(pr.seeds), lifetime: Math.max(num(pr.lifetime), s.totalEarned), spent: int(pr.spent), talents: {} };
+  for (const k of Object.keys(obj(pr.talents))) s.prestige.talents[k] = true;
   for (const [k, v] of Object.entries(obj(raw.achievements))) s.achievements[k] = num(v, Date.now());
   for (const [k, v] of Object.entries(obj(m.best))) s.mini.best[k] = int(v);
 
@@ -67,6 +71,7 @@ function sanitize(raw) {
   s.settings.musicVol = vol(st.musicVol) ?? s.settings.musicVol;
   if ([1, 10, 100].includes(st.buyQty)) s.settings.buyQty = st.buyQty;
   if (['classique', 'atelier'].includes(st.track)) s.settings.track = st.track;
+  s.settings.dark = !!st.dark;
   return s;
 }
 
@@ -99,8 +104,8 @@ export function hardReset() {
 
 // Gains pendant l'absence : CPS × durée (plafonnée) × efficacité. Retourne { gain, seconds }
 export function applyOffline(seconds) {
-  const capped = Math.min(seconds, CONFIG.offlineMaxHours * 3600);
-  const gain = totalCps() * capped * CONFIG.offlineRate;
+  const capped = Math.min(seconds, (hasTalent('nuit2') ? 16 : CONFIG.offlineMaxHours) * 3600);
+  const gain = totalCps() * capped * (hasTalent('nuit') ? 0.75 : CONFIG.offlineRate);
   if (gain > 0) earn(gain);
   return { gain, seconds: capped };
 }

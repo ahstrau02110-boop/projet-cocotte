@@ -17,8 +17,9 @@ import { initTips, renderTipTile } from './tips.js';
 import { applyBackground } from './backgrounds.js';
 import { initBoosts, renderBoostTile } from './boosts.js';
 import { initDaily, checkDaily } from './daily.js';
+import { initCommunity, renderCommunityCard } from './community.js';
 import { initGolden, renderBuffs } from './golden.js';
-import { initSeason, renderProjects, renderSeason, applyMusicUnlocks } from './season.js';
+import { initSeason, renderProjects, renderSeason, applyMusicUnlocks, initTalents } from './season.js';
 
 // ---------- Chargement ----------
 async function loadJSON(url) {
@@ -45,6 +46,7 @@ async function boot() {
     DATA.backgrounds = (await loadJSON('data/backgrounds.json')).backgrounds;
     DATA.infos = (await loadJSON('data/infos.json')).infos;
     DATA.quiz = (await loadJSON('data/quiz.json')).questions;
+    DATA.talents = (await loadJSON('data/talents.json')).talents;
     buildProgress(upg, ach);
     DATA.skins = skins.skins;
     DATA.rarities = skins.rarities;
@@ -83,19 +85,23 @@ async function boot() {
   initPlayer();
   initProgress();
   initSeason();
+  initTalents();
   initGolden();
   initTutorial();
   initTips();
   initBoosts();
+  initCommunity();
   initDaily();
   on('tutoEnd', () => setTimeout(checkDaily, 600));
   on('season', afterStateChange);
   applySkin();
+  $('#opt-dark').addEventListener('change', e => { state.settings.dark = e.target.checked; applyDark(); save(); });
   on('refresh', updateUI);
   on('skin', applySkin);
   renderShop();
   updateSound();
   updateQty();
+  applyDark();
   $('#coach').classList.toggle('hidden', state.totalClicks >= 3);
   lastFrame = performance.now();
   requestAnimationFrame(loop);
@@ -150,6 +156,7 @@ function updateUI() {
   renderBuffs();
   renderTipTile();
   renderBoostTile();
+  renderCommunityCard();
   $$('.js-crystals').forEach(e => (e.textContent = fmt(state.crystals)));
 
   const era = currentEra();
@@ -308,6 +315,13 @@ function updateSound() {
   $('#vol-music').value = Math.round(st.musicVol * 100);
 }
 
+// Mode sombre (classe sur <html> pour ne pas gêner les classes d'ère du <body>)
+function applyDark() {
+  document.documentElement.classList.toggle('dark', !!state.settings.dark);
+  $('#opt-dark').checked = !!state.settings.dark;
+  document.querySelector('meta[name=theme-color]').content = state.settings.dark ? '#16131f' : '#FCD260';
+}
+
 function updateQty() {
   document.querySelectorAll('.qty [data-qty]').forEach(btn =>
     btn.setAttribute('aria-checked', String(+btn.dataset.qty === state.settings.buyQty)));
@@ -399,6 +413,7 @@ function bindUI() {
 
 function afterStateChange() {
   eraId = 0; // force la mise à jour du décor
+  applyDark();
   applyMusicUnlocks();
   applySkin();
   if (!state.settings.music) music.stop(); else music.start();

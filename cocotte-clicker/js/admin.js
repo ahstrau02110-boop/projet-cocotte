@@ -1,11 +1,12 @@
-// Espace équipe : connexion, clé de signature, QR de récompense, historique
+// Espace équipe : connexion, remise de cristaux (joueur ou groupe), historique, clé de signature
 import { $, $$, toast, esc } from './core.js';
 import { ALGO, SIGN, b64u, baseUrl, qrSVG, qrDataURL, voucherBody } from './qr.js';
+import { startScanner } from './scanner.js';
 
 const KEY_STORE = 'cocotte-admin-key';
 const LOG_STORE = 'cocotte-admin-log';
 const ID_RE = /^[A-Z0-9]{6,12}$/;
-let config = {}, player = { id: '', name: '' }, lastLink = '';
+let config = {}, player = null, lastLink = '', stopScan = null;
 
 // ---------- Outils ----------
 async function sha256hex(txt) {
@@ -16,6 +17,7 @@ const loadKey = () => { try { return JSON.parse(localStorage.getItem(KEY_STORE))
 const loadLog = () => { try { return JSON.parse(localStorage.getItem(LOG_STORE)) || []; } catch { return []; } };
 const download = (name, href) => { const a = document.createElement('a'); a.href = href; a.download = name; a.click(); };
 const sameKey = (a, b) => a && b && a.x === b.x && a.y === b.y;
+const maxAmount = () => config.rewards?.qrMax ?? 2000;
 
 // ---------- Connexion ----------
 async function login(e) {
@@ -34,181 +36,213 @@ function showApp() {
   renderLog();
   renderGameQR();
   readHash();
-  $('#pid').focus();
+}
+
+// ---------- Onglets ----------
+function setTab(tab) {
+  stopCamera();
+  $$('.admin-tabs [role=tab]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.tab === tab)));
+  $$('.tab-panel').forEach(p => (p.hidden = p.dataset.panel !== tab));
 }
 
 // ---------- Clé de signature ----------
 function renderKey() {
-  const k = loadKey(), pub = config.adminPublicKey;
-  const warn = $('#key-warning');
+  const k = loadKey(), pub = config.adminPublicKey, warn = $('#key-warning');
   $('#pub-box').hidden = !k;
   if (k) $('#pub-json').value = JSON.stringify(k.publicJwk);
+  let msg = '';
   if (!k) {
-    $('#key-status').innerHTML = '❌ Aucune clé sur cet appareil.';
-    warn.hidden = false;
-    warn.innerHTML = '<strong>Première utilisation ?</strong> Créez une clé (ou importez la sauvegarde de clé de l\'équipe) dans « Clé de signature » plus bas.';
+    $('#key-status').textContent = '❌ Aucune clé sur cet appareil.';
+    msg = '<strong>Première utilisation sur cet appareil :</strong> allez dans ⚙️ Réglages → « Importer le fichier de clé » (fichier transmis par le référent).';
   } else if (!pub) {
-    $('#key-status').innerHTML = '⚠️ Clé présente, mais la clé publique n\'est pas encore dans <code>data/config.json</code>.';
-    warn.hidden = false;
-    warn.innerHTML = '<strong>Dernière étape :</strong> copiez la clé publique (en bas de page) dans <code>data/config.json</code> puis publiez le jeu. Sans cela, les joueurs ne pourront pas encaisser les QR.';
+    $('#key-status').innerHTML = '⚠️ La clé publique n\'est pas encore dans <code>data/config.json</code>.';
+    msg = '<strong>Dernière étape :</strong> copiez la clé publique (⚙️ Réglages) dans <code>data/config.json</code>, puis publiez le jeu.';
   } else if (!sameKey(k.publicJwk, pub)) {
-    $('#key-status').innerHTML = '⚠️ La clé de cet appareil ne correspond pas à celle du jeu publié.';
-    warn.hidden = false;
-    warn.innerHTML = '<strong>Clé différente :</strong> importez la sauvegarde de clé de l\'équipe, ou mettez à jour <code>data/config.json</code> avec la clé publique de cet appareil.';
+    $('#key-status').textContent = '⚠️ La clé de cet appareil ne correspond pas à celle du jeu.';
+    msg = '<strong>Clé différente :</strong> importez le fichier de clé de l\'équipe dans ⚙️ Réglages.';
   } else {
-    $('#key-status').innerHTML = `✅ Clé active (créée le ${new Date(k.created).toLocaleDateString('fr-FR')}), identique à celle du jeu publié.`;
-    warn.hidden = true;
+    $('#key-status').textContent = `✅ Clé active (créée le ${new Date(k.created).toLocaleDateString('fr-FR')}), identique à celle du jeu.`;
   }
+  warn.hidden = !msg;
+  warn.innerHTML = msg;
 }
 
 async function newKey() {
-  if (loadKey() && !confirm('Remplacer la clé existante ? Les QR déjà créés resteront valables seulement si le jeu garde l\'ancienne clé publique.')) return;
+  if (!confirm('Créer une NOUVELLE clé ? Les QR des autres appareils de l\'équipe ne fonctionneront plus tant que le jeu et ces appareils n\'auront pas été mis à jour.')) return;
   const pair = await crypto.subtle.generateKey(ALGO, true, ['sign', 'verify']);
-  const k = {
-    privateJwk: await crypto.subtle.exportKey('jwk', pair.privateKey),
-    publicJwk: await crypto.subtle.exportKey('jwk', pair.publicKey),
-    created: Date.now(),
-  };
-  // On ne garde que les champs utiles de la clé publique
-  k.publicJwk = { kty: k.publicJwk.kty, crv: k.publicJwk.crv, x: k.publicJwk.x, y: k.publicJwk.y };
+  const pub = await crypto.subtle.exportKey('jwk', pair.publicKey);
+  const k = { privateJwk: await crypto.subtle.exportKey('jwk', pair.privateKey), publicJwk: { kty: pub.kty, crv: pub.crv, x: pub.x, y: pub.y }, created: Date.now() };
   localStorage.setItem(KEY_STORE, JSON.stringify(k));
   saveKeyFile();
   renderKey();
-  toast('Clé créée. Gardez précieusement le fichier de sauvegarde téléchargé.');
+  toast('Nouvelle clé créée et téléchargée : gardez le fichier en lieu sûr.');
 }
-
 function saveKeyFile() {
   const k = loadKey(); if (!k) return;
   download('cle-admin-cocotte-PRIVEE.json', URL.createObjectURL(new Blob([JSON.stringify(k, null, 2)], { type: 'application/json' })));
 }
-
 async function importKey(e) {
   const f = e.target.files[0]; e.target.value = '';
   if (!f) return;
   try {
     const k = JSON.parse(await f.text());
-    await crypto.subtle.importKey('jwk', k.privateJwk, ALGO, false, ['sign']); // validation
+    await crypto.subtle.importKey('jwk', k.privateJwk, ALGO, false, ['sign']);
     localStorage.setItem(KEY_STORE, JSON.stringify(k));
     renderKey();
-    toast('Clé importée.');
+    toast('✅ Clé importée : vous pouvez remettre des cristaux.');
   } catch { toast('Fichier de clé invalide.'); }
 }
 
 // ---------- Joueur ----------
 function setPlayer(id, name = '') {
   id = (id || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
-  player = { id, name: name.slice(0, 20) };
-  $('#pid').value = id;
-  $('#pname').textContent = id && ID_RE.test(id) ? `Joueur ${id}${name ? ' · « ' + name + ' »' : ''}` : '';
-  $('#voucher').hidden = true;
+  $('#pid-err').textContent = '';
+  if (!ID_RE.test(id)) { player = null; $('#pid-err').textContent = id ? 'Code joueur invalide (6 à 12 lettres ou chiffres).' : ''; }
+  else player = { id, name: String(name).slice(0, 20) };
+  $('#player-chip').hidden = !player;
+  $('#player-pick').hidden = !!player;
+  if (player) {
+    $('#player-chip').innerHTML = `<span>✅ Joueur <b class="mono">${esc(player.id)}</b>${player.name ? ` · « ${esc(player.name)} »` : ''}</span>
+      <button type="button" class="ghost-btn" id="btn-change">Changer</button>`;
+    $('#btn-change').addEventListener('click', () => { setPlayer(''); });
+  }
+  $('#btn-grant').disabled = !player;
 }
 
-// Admin ouvert par le QR du joueur (appareil photo) : admin.html#p=ID&n=pseudo
+// Admin ouvert depuis le QR du joueur (appareil photo) : admin.html#p=ID&n=pseudo
 function readHash() {
   const h = new URLSearchParams(location.hash.slice(1));
-  if (h.get('p')) { setPlayer(h.get('p'), h.get('n') || ''); history.replaceState(null, '', location.pathname); }
+  if (h.get('p')) { setTab('player'); setPlayer(h.get('p'), h.get('n') || ''); history.replaceState(null, '', location.pathname); }
 }
 
-// Lecture d'un QR scanné : lien joueur ou code brut
 function parseScan(txt) {
   try {
-    const u = new URL(txt);
-    const h = new URLSearchParams(u.hash.slice(1));
+    const h = new URLSearchParams(new URL(txt).hash.slice(1));
     if (h.get('p')) return { id: h.get('p'), name: h.get('n') || '' };
   } catch { /* pas une URL */ }
   const id = txt.trim().toUpperCase();
   return ID_RE.test(id) ? { id, name: '' } : null;
 }
 
-// ---------- Caméra (BarcodeDetector, sinon jsQR) ----------
-let stream = null, scanning = false;
-async function loadJsQR() {
-  if (window.jsQR) return;
-  await new Promise((ok, ko) => { const s = document.createElement('script'); s.src = 'js/vendor/jsQR.js'; s.onload = ok; s.onerror = ko; document.head.appendChild(s); });
-}
-async function startScan() {
-  try {
-    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-  } catch { toast('Caméra inaccessible. Saisissez le code joueur à la main.'); return; }
-  const video = $('#video');
-  video.srcObject = stream;
-  await video.play();
+async function startCamera() {
   $('#scanner').hidden = false;
-  scanning = true;
-  const detector = 'BarcodeDetector' in window ? new BarcodeDetector({ formats: ['qr_code'] }) : null;
-  if (!detector) await loadJsQR();
-  const canvas = document.createElement('canvas'), ctx = canvas.getContext('2d', { willReadFrequently: true });
-  const loop = async () => {
-    if (!scanning) return;
-    let txt = null;
-    if (video.readyState >= 2) {
-      if (detector) {
-        const codes = await detector.detect(video).catch(() => []);
-        txt = codes[0]?.rawValue || null;
-      } else {
-        canvas.width = video.videoWidth; canvas.height = video.videoHeight;
-        ctx.drawImage(video, 0, 0);
-        const img = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        txt = window.jsQR(img.data, img.width, img.height)?.data || null;
-      }
-    }
-    const res = txt && parseScan(txt);
-    if (res) { stopScan(); setPlayer(res.id, res.name); toast(`Joueur ${res.id} scanné.`); $('#amount').focus(); return; }
-    requestAnimationFrame(loop);
-  };
-  loop();
+  $('#btn-scan').hidden = true;
+  $('#btn-scan-stop').hidden = false;
+  try {
+    stopScan = await startScanner($('#video'), txt => {
+      const r = parseScan(txt);
+      if (!r) { toast('Ce QR n\'est pas un QR joueur Co\'Clicker.'); return false; }
+      stopCamera();
+      setPlayer(r.id, r.name);
+      toast(`✅ Joueur ${r.id} scanné.`);
+      return true;
+    });
+  } catch {
+    stopCamera();
+    toast('Caméra inaccessible : autorisez-la dans le navigateur, ou saisissez le code joueur.');
+  }
 }
-function stopScan() {
-  scanning = false;
-  stream?.getTracks().forEach(t => t.stop());
-  stream = null;
+function stopCamera() {
+  stopScan?.(); stopScan = null;
   $('#scanner').hidden = true;
+  $('#btn-scan').hidden = false;
+  $('#btn-scan-stop').hidden = true;
 }
 
-// ---------- Création du bon ----------
-async function grant() {
-  $('#grant-err').textContent = '';
-  const id = $('#pid').value.trim().toUpperCase();
-  if (id !== player.id) setPlayer(id, '');
-  const amount = Math.floor(+$('#amount').value);
-  const max = config.rewards?.qrMax ?? 1000;
-  const k = loadKey();
-  if (!ID_RE.test(id)) return ($('#grant-err').textContent = 'Code joueur invalide (6 à 12 lettres/chiffres).');
-  if (!(amount > 0 && amount <= max)) return ($('#grant-err').textContent = `Montant entre 1 et ${max}.`);
-  if (!k) return ($('#grant-err').textContent = 'Aucune clé de signature sur cet appareil (voir plus bas).');
+// ---------- Montants rapides ----------
+function bindPresets() {
+  $$('.presets[data-target]').forEach(group => {
+    const input = $('#' + group.dataset.target);
+    const sync = () => group.querySelectorAll('[data-v]').forEach(b => b.setAttribute('aria-checked', String(b.dataset.v === String(input.value))));
+    group.addEventListener('click', e => { const b = e.target.closest('[data-v]'); if (b) { input.value = b.dataset.v; sync(); } });
+    input.addEventListener('input', sync);
+    sync();
+  });
+  const hours = config.groupVoucher?.choices || [1, 3, 24, 72];
+  const g = $('#g-hours');
+  g.innerHTML = hours.map(h => `<button role="radio" type="button" data-h="${h}">${h < 24 ? h + ' h' : h / 24 + ' jour' + (h > 24 ? 's' : '')}</button>`).join('');
+  const pick = h => g.querySelectorAll('[data-h]').forEach(b => b.setAttribute('aria-checked', String(+b.dataset.h === h)));
+  g.addEventListener('click', e => { const b = e.target.closest('[data-h]'); if (b) pick(+b.dataset.h); });
+  pick(config.groupVoucher?.defaultHours ?? 3);
+}
+const groupHours = () => +($('#g-hours [aria-checked="true"]')?.dataset.h || 3);
 
+// ---------- Signature d'un bon ----------
+async function sign(target, amount) {
+  const k = loadKey();
+  if (!k) throw new Error('Aucune clé de signature sur cet appareil : ⚙️ Réglages → Importer le fichier de clé.');
   const nonce = b64u(crypto.getRandomValues(new Uint8Array(6)));
-  const body = voucherBody(id, amount, nonce, Date.now());
+  const body = voucherBody(target, amount, nonce, Date.now());
   const key = await crypto.subtle.importKey('jwk', k.privateJwk, ALGO, false, ['sign']);
   const sig = b64u(await crypto.subtle.sign(SIGN, key, new TextEncoder().encode(body)));
-  lastLink = `${baseUrl(config)}#claim=${body}.${sig}`;
+  return `${baseUrl(config)}#claim=${body}.${sig}`;
+}
 
-  $('#voucher-qr').innerHTML = qrSVG(lastLink, 'QR de récompense');
-  $('#voucher-txt').innerHTML = `<strong>${amount} 💎</strong> pour le joueur <strong>${esc(id)}</strong>${player.name ? ' (« ' + esc(player.name) + ' »)' : ''}.<br>À scanner avec l'appareil photo du téléphone où il joue. Valable ${config.rewards?.voucherDays ?? 7} jours, une seule fois.`;
-  $('#voucher').hidden = false;
-  $('#voucher').scrollIntoView({ behavior: 'smooth', block: 'center' });
-
+function addLog(entry) {
   const log = loadLog();
-  log.unshift({ date: Date.now(), id, name: player.name, amount, note: $('#note').value.trim() });
-  localStorage.setItem(LOG_STORE, JSON.stringify(log.slice(0, 2000)));
+  log.unshift({ date: Date.now(), ...entry });
+  localStorage.setItem(LOG_STORE, JSON.stringify(log.slice(0, 3000)));
   renderLog();
+}
+
+function show({ kicker, title, link, txt, print }) {
+  lastLink = link;
+  $('#show-kicker').textContent = kicker;
+  $('#show-title').textContent = title;
+  $('#show-qr').innerHTML = qrSVG(link, title);
+  $('#show-txt').innerHTML = txt;
+  $('#btn-print').hidden = !print;
+  $('#show').hidden = false;
+  $('#btn-done').focus();
+}
+
+async function grantPlayer() {
+  $('#grant-err').textContent = '';
+  const amount = Math.floor(+$('#amount').value);
+  if (!player) return ($('#grant-err').textContent = 'Identifiez d\'abord le joueur (étape 1).');
+  if (!(amount > 0 && amount <= maxAmount())) return ($('#grant-err').textContent = `Montant entre 1 et ${maxAmount()}.`);
+  try {
+    const link = await sign(player.id, amount);
+    addLog({ type: 'joueur', id: player.id, name: player.name, amount, note: $('#note').value.trim() });
+    show({ kicker: 'Montrez ce QR au joueur', title: `${amount} 💎 pour ${player.name || player.id}`, link,
+      txt: `Dans le jeu : bouton <b>📷 Scanner</b>, puis visez ce QR. Valable ${config.rewards?.voucherDays ?? 7} jours, une seule fois, pour ce joueur uniquement.` });
+  } catch (e) { $('#grant-err').textContent = e.message; }
+}
+
+async function grantGroup() {
+  $('#group-err').textContent = '';
+  const note = $('#g-note').value.trim(), amount = Math.floor(+$('#g-amount').value), hours = groupHours();
+  if (!note) return ($('#group-err').textContent = 'Indiquez le nom de l\'atelier ou de l\'événement.');
+  if (!(amount > 0 && amount <= maxAmount())) return ($('#group-err').textContent = `Montant entre 1 et ${maxAmount()}.`);
+  try {
+    const link = await sign('grp' + hours, amount);
+    addLog({ type: 'groupe', id: `groupe ${hours} h`, name: '', amount, note });
+    const until = new Date(Date.now() + hours * 3600e3).toLocaleString('fr-FR', { weekday: 'long', hour: '2-digit', minute: '2-digit' });
+    show({ kicker: 'QR de groupe · ' + note, title: `${amount} 💎 pour chaque participant·e`, link, print: true,
+      txt: `Dans Co'Clicker : bouton <b>📷 Scanner</b>, puis visez ce QR.<br>Une fois par joueur · valable jusqu'à <b>${until}</b>.` });
+  } catch (e) { $('#group-err').textContent = e.message; }
 }
 
 // ---------- Historique ----------
 function renderLog() {
   const log = loadLog();
+  const today = new Date().toDateString();
+  const todayLog = log.filter(l => new Date(l.date).toDateString() === today);
+  $('#log-summary').textContent = `Aujourd'hui : ${todayLog.length} remise${todayLog.length > 1 ? 's' : ''}, ${todayLog.reduce((a, l) => a + l.amount, 0)} 💎. Total : ${log.length} remise${log.length > 1 ? 's' : ''}.`;
   $('#log').innerHTML = log.length
-    ? log.slice(0, 100).map(l => `<tr><td>${new Date(l.date).toLocaleString('fr-FR')}</td><td class="mono">${esc(l.id)}</td><td>${esc(l.name || '')}</td><td>${l.amount}</td><td>${esc(l.note || '')}</td></tr>`).join('')
-    : '<tr><td colspan="5" class="muted">Aucune remise pour l\'instant.</td></tr>';
+    ? log.slice(0, 200).map(l => `<tr><td>${new Date(l.date).toLocaleString('fr-FR')}</td><td>${l.type === 'groupe' ? '👥 Groupe' : '🎁 Joueur'}</td><td class="mono">${esc(l.id)}</td><td>${esc(l.name || '')}</td><td>${l.amount}</td><td>${esc(l.note || '')}</td></tr>`).join('')
+    : '<tr><td colspan="6" class="muted">Aucune remise pour l\'instant.</td></tr>';
+  // Occasions récentes proposées à la saisie
+  const notes = [...new Set(log.map(l => l.note).filter(Boolean))].slice(0, 15);
+  $('#notes').innerHTML = notes.map(n => `<option value="${esc(n)}">`).join('');
 }
 function exportCSV() {
-  const rows = [['date', 'joueur', 'pseudo', 'cristaux', 'occasion'],
-    ...loadLog().map(l => [new Date(l.date).toISOString(), l.id, l.name || '', l.amount, l.note || ''])];
+  const rows = [['date', 'type', 'joueur', 'pseudo', 'cristaux', 'occasion'],
+    ...loadLog().map(l => [new Date(l.date).toISOString(), l.type || 'joueur', l.id, l.name || '', l.amount, l.note || ''])];
   const csv = rows.map(r => r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(';')).join('\n');
   download('remises-cristaux.csv', URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv' })));
 }
 
-// ---------- QR du jeu ----------
 function renderGameQR() {
   const url = baseUrl(config);
   $('#game-url').textContent = url;
@@ -222,21 +256,31 @@ async function boot() {
 
   $('#login-form').addEventListener('submit', login);
   $('#btn-logout').addEventListener('click', () => { sessionStorage.removeItem('cocotte-admin-ok'); location.reload(); });
+  $$('.admin-tabs [role=tab]').forEach(b => b.addEventListener('click', () => setTab(b.dataset.tab)));
   $('#btn-key-new').addEventListener('click', newKey);
   $('#btn-key-save').addEventListener('click', saveKeyFile);
   $('#key-file').addEventListener('change', importKey);
   $('#btn-pub-copy').addEventListener('click', () => navigator.clipboard.writeText($('#pub-json').value).then(() => toast('Clé publique copiée.')));
-  $('#pid').addEventListener('change', e => setPlayer(e.target.value));
-  $('#btn-scan').addEventListener('click', startScan);
-  $('#btn-scan-stop').addEventListener('click', stopScan);
-  $$('[data-amt]').forEach(b => b.addEventListener('click', () => { $('#amount').value = b.dataset.amt; }));
-  $('#amount').value = config.rewards?.qrDefault ?? 100;
-  $('#btn-grant').addEventListener('click', grant);
+  $('#btn-scan').addEventListener('click', startCamera);
+  $('#btn-scan-stop').addEventListener('click', stopCamera);
+  $('#btn-pid').addEventListener('click', () => setPlayer($('#pid').value));
+  $('#pid').addEventListener('keydown', e => { if (e.key === 'Enter') setPlayer($('#pid').value); });
+  $('#amount').value = config.rewards?.qrDefault ?? 200;
+  $('#g-amount').value = 100;
+  bindPresets();
+  $('#btn-grant').addEventListener('click', grantPlayer);
+  $('#btn-group').addEventListener('click', grantGroup);
   $('#btn-copy-link').addEventListener('click', () => navigator.clipboard.writeText(lastLink).then(() => toast('Lien copié : vous pouvez l\'envoyer au joueur.')));
-  $('#btn-next').addEventListener('click', () => { setPlayer(''); $('#note').value = $('#note').value; $('#pid').focus(); });
+  $('#btn-print').addEventListener('click', () => print());
+  $('#btn-done').addEventListener('click', () => {
+    $('#show').hidden = true;
+    if (!$('[data-panel="player"]').hidden) { setPlayer(''); $('#btn-scan').focus(); }
+  });
+  addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#show').hidden) $('#btn-done').click(); });
   $('#btn-csv').addEventListener('click', exportCSV);
-  $('#btn-game-qr').addEventListener('click', () => download('qr-jeu-cocotte.gif', qrDataURL(baseUrl(config), 12)));
+  $('#btn-game-qr').addEventListener('click', () => download('qr-jeu-coclicker.gif', qrDataURL(baseUrl(config), 12)));
   addEventListener('hashchange', () => { if (!$('#app').hidden) readHash(); });
+  setPlayer('');
 
   if (sessionStorage.getItem('cocotte-admin-ok')) showApp();
 }

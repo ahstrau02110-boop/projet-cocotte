@@ -1,5 +1,5 @@
 // Salle de jeux : liste des mini-jeux, partie en cours, récompenses
-import { DATA, state, addCrystals, earn, totalCps, projectEffects } from '../state.js';
+import { DATA, state, addCrystals, earn, totalCps, projectEffects, hasTalent } from '../state.js';
 import { $, emit, toast, today, esc } from '../core.js';
 import { save } from '../save.js';
 import { sfx } from '../audio.js';
@@ -19,7 +19,7 @@ const cfg = () => DATA.config.minigames || {};
 function rollDay() {
   if (state.mini.day !== today()) { state.mini.day = today(); state.mini.crystalsToday = 0; }
 }
-const crystalsLeft = () => { rollDay(); return Math.max(0, (cfg().dailyCrystalCap ?? 15) - state.mini.crystalsToday); };
+const crystalsLeft = () => { rollDay(); return Math.max(0, (cfg().dailyCrystalCap ?? 30) + (hasTalent('mini') ? 10 : 0) - state.mini.crystalsToday); };
 
 function renderHub() {
   $('#games-left').textContent = crystalsLeft();

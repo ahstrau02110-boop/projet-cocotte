@@ -7,7 +7,7 @@ export const CONFIG = {
 };
 
 // Données chargées au démarrage (data/*.json, assets/manifest.json)
-export const DATA = { buildings: [], eras: [], manifest: {}, config: {}, skins: [], rarities: [], upgradeList: [], achList: [], projects: [], tips: [], backgrounds: [], infos: [], quiz: [] };
+export const DATA = { buildings: [], eras: [], manifest: {}, config: {}, skins: [], rarities: [], upgradeList: [], achList: [], projects: [], tips: [], backgrounds: [], infos: [], quiz: [], talents: [] };
 
 // Identifiant joueur anonyme (8 caractères, sans caractères ambigus)
 export function newPlayerId() {
@@ -44,10 +44,11 @@ export function freshState() {
     tips: { last: 0, read: [], pending: null }, // astuces numériques
     boosts: { infoLast: 0, quizLast: 0, infoSeen: [], quizSeen: [], quizOk: 0 }, // station Boosts
     daily: { last: '', streak: 0, best: 0 },   // bonus quotidien
-    prestige: { seasons: 0, seeds: 0, lifetime: 0 }, // Nouvelles saisons
+    net: { token: '', listed: true, total: 0, players: 0, lastSync: 0 }, // mode communautaire
+    prestige: { seasons: 0, seeds: 0, lifetime: 0, spent: 0, talents: {} }, // Nouvelles saisons + talents
     startedAt: Date.now(),
     lastSave: Date.now(),
-    settings: { sound: false, music: false, sfxVol: 0.7, musicVol: 0.5, buyQty: 1, track: 'classique' },
+    settings: { sound: false, music: false, sfxVol: 0.7, musicVol: 0.5, buyQty: 1, track: 'classique', dark: false },
   };
 }
 
@@ -59,7 +60,7 @@ export const owned = id => state.buildings[id] || 0;
 // Coût de `qty` unités : somme géométrique base·r^n·(r^qty − 1)/(r − 1)
 export function costOf(b, qty = 1) {
   const r = CONFIG.costGrowth, n = owned(b.id);
-  return Math.ceil(b.baseCost * Math.pow(r, n) * (Math.pow(r, qty) - 1) / (r - 1));
+  return Math.ceil(b.baseCost * Math.pow(r, n) * (Math.pow(r, qty) - 1) / (r - 1) * (hasTalent('soldes') ? 0.95 : 1));
 }
 
 // ---------- Multiplicateurs ----------
@@ -72,8 +73,14 @@ export const projectEffects = type => DATA.projects.filter(p => state.projects[p
 export const activeBuffs = () => state.buffs.filter(b => b.until > Date.now());
 export const buffMult = kind => activeBuffs().reduce((m, b) => m * (b[kind] || 1), 1);
 
-// Graines de saison (prestige)
-export const seedBonus = () => state.prestige.seeds * (DATA.config.prestige?.seedPct ?? 2);
+// Objectifs collectifs atteints (valeur en cache, fonctionne hors ligne)
+export const communityPct = () => (DATA.config.community?.goals || []).filter(g => state.net.total >= g.at).reduce((a, g) => a + g.pct, 0);
+
+// Talents de saison achetés avec les graines
+export const hasTalent = id => !!state.prestige.talents[id];
+
+// Graines de saison (prestige) : toutes les graines gagnées comptent, même dépensées
+export const seedBonus = () => state.prestige.seeds * ((DATA.config.prestige?.seedPct ?? 2) + (hasTalent('fertile') ? 1 : 0));
 
 // Améliorations propres à un bâtiment (×2 par palier) + projets
 export function buildingMult(id) {
@@ -91,7 +98,7 @@ export function collectionBonus() {
   return (Object.keys(state.skins).length - 1) * pct + Object.keys(state.bgs).length * bgPct;
 }
 export function globalMult() {
-  return (1 + collectionBonus() / 100) * (1 + achievementBonus() / 100) * (1 + seedBonus() / 100) * upgradesGlobal()
+  return (1 + collectionBonus() / 100) * (1 + achievementBonus() / 100) * (1 + seedBonus() / 100) * (1 + communityPct() / 100) * upgradesGlobal()
     * projectEffects('global').reduce((m, e) => m * e.mult, 1);
 }
 
@@ -101,7 +108,7 @@ export function totalCps() {
 
 // Valeur d'un clic : base × améliorations de clic + % de la production
 export function clickValue() {
-  const mult = bought('click').reduce((m, u) => m * u.mult, 1);
+  const mult = bought('click').reduce((m, u) => m * u.mult, 1) * (hasTalent('mains') ? 2 : 1);
   const pct = bought('clickCps').reduce((p, u) => p + u.pct, 0);
   return (mult + totalCps() * pct / 100) * buffMult('click');
 }

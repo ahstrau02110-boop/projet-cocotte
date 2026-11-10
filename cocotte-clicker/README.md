@@ -65,6 +65,9 @@ js/season.js           Projets de La Co'Cotte + Nouvelle saison (prestige)
 js/tips.js             Astuces numériques (une par heure)
 js/boosts.js           Station Boosts (Le saviez-vous ?, quiz)
 js/daily.js            Bonus quotidien et série
+js/community.js        Mode communautaire (Supabase)
+js/scanner.js          Lecture de QR par la caméra
+supabase/setup.sql     Base communautaire à installer dans Supabase
 sw.js                  Service worker (hors connexion)
 manifest.webmanifest   Manifeste de l'application
 js/vendor/             qrcode.js (MIT), jsQR.js (Apache-2.0)
@@ -79,6 +82,7 @@ data/projects.json     Projets de La Co'Cotte
 data/tips.json         Astuces numériques
 data/infos.json        « Le saviez-vous ? » sur La Co'Cotte
 data/quiz.json         Questions du quiz express
+data/talents.json      Talents de saison (prestige)
 data/config.json       Code admin, clé publique, récompenses, réglages gacha et mini-jeux
 assets/manifest.json   Référence unique de tous les assets (clé → chemin)
 assets/img/            Illustrations SVG chibi
@@ -157,6 +161,33 @@ Tuile 💡 « Astuces » : une nouvelle astuce sur le numérique toutes les heur
 
 7 succès associés (infos, quiz, séries de 3, 7 et 30 jours).
 
+## Mode communautaire (palier 5)
+
+Compteur collectif, 5 objectifs communs (bonus de production pour tous : +2 %, +3 %, +5 %, +5 %, +10 %) et classement par pseudo. Carte « 🌍 Communauté » sous la carte des ères. **Sans configuration, la carte est masquée et le jeu fonctionne en solo** (idem si le serveur est injoignable : dernières valeurs connues).
+
+Backend choisi : **Supabase** (offre gratuite, base PostgreSQL + API prête à l'emploi, aucune ligne de serveur à écrire).
+
+1. Créer un compte sur supabase.com → *New project* (région Europe, mot de passe au choix).
+2. *SQL Editor* → coller tout `supabase/setup.sql` → *Run*.
+3. *Project Settings → API* : copier *Project URL* et la clé *anon public*.
+4. Les coller dans `data/config.json` → `community.url` et `community.anonKey`, puis publier.
+
+La clé *anon* est publique par nature : la table est fermée (RLS sans accès direct), tout passe par 4 fonctions SQL. Anti-triche côté serveur : jeton secret par appareil, une mise à jour toutes les 30 s maximum, progression plafonnée (30× la production connue sur le temps écoulé), valeurs bornées. Données : code joueur anonyme, pseudo facultatif (20 caractères), scores ; case « Apparaître dans le classement » décochable. Pour retirer un pseudo inapproprié : *Table Editor → players*.
+
+## Talents de saison (prestige)
+
+15 talents permanents achetés avec les graines de saison (bouton « 🌱 Talents de saison » de la carte Nouvelle saison) : départ avec 1 000 Co'Coins, 10 bénévoles offerts, clics ×2, Cocottes dorées plus fréquentes / plus longues, hors-ligne 75 % et 16 h, bâtiments −5 %, améliorations −10 %, projets −25 %, boosts en 10 min, +4 💎 au bonus du jour, +10 💎 de plafond mini-jeux, impression ×10 à 200 💎, graines à +3 %. Les graines dépensées continuent de donner leur bonus. Liste : `data/talents.json`.
+
+## Scanner et QR de groupe
+
+- **Jeu** : tuile « 📷 Scanner » (et bouton dans « Mon QR code ») pour lire le QR de récompense avec la caméra, **indispensable pour l'appli installée**.
+- **Espace équipe**, en 4 onglets : 🎁 Un joueur (1. scanner son QR, 2. choisir le montant, 3. créer le QR affiché en plein écran), 👥 Un groupe, 📋 Historique, ⚙️ Réglages (clé, QR du jeu).
+- **QR de groupe** : un seul QR pour tout un atelier ; chaque joueur peut l'utiliser une fois, pendant 1 h, 3 h, 24 h ou 3 jours. Bouton « Imprimer ».
+
+## Mode sombre
+
+⚙️ Options → « 🌙 Mode sombre ». Réglage mémorisé, appliqué dès le chargement.
+
 ## Tutoriel
 
 Au premier lancement, un tutoriel en 9 étapes met en lumière chaque zone (Cocotte, réserve, bâtiments, améliorations, ères, activités, cristaux). « Passer » à tout moment ; « Revoir le tutoriel » dans ⚙️ Options.
@@ -167,11 +198,15 @@ Monnaie secondaire, gagnée sans paiement :
 
 | Source | Quantité (réglable dans `data/config.json`) |
 |---|---|
-| Bienvenue | 25 (une fois, = 1 impression) |
-| Nouvelle ère | 5 |
-| Mini-jeux | 1 par étoile, +1 pour 3 étoiles, plafond 15/jour |
-| QR code remis par l'équipe | 100 par défaut (1 à 1 000) |
-| Doublon à l'Imprimante mystère | 1 / 3 / 8 / 20 selon la rareté |
+| Bienvenue | 50 (une fois) |
+| Nouvelle ère | 10 |
+| Mini-jeux | 2 par étoile, +2 pour 3 étoiles, plafond 30/jour |
+| Astuce numérique (1/h) | 10 |
+| Bonus du jour (7 jours) | 6, 8, 10, 12, 16, 20, 30 |
+| Nouvelle saison | 10 |
+| Cocotte dorée (rare) | 4 |
+| QR code remis par l'équipe | 200 par défaut (1 à 2 000) |
+| Doublon à l'Imprimante mystère | 2 / 6 / 16 / 40 selon la rareté |
 
 En jouant seul : environ une impression tous les 2 jours. Une visite à La Co'Cotte (100 💎) = 4 impressions.
 
@@ -273,5 +308,5 @@ Police Atkinson Hyperlegible (conçue pour la basse vision), base 18 px, contras
 - [x] **Astuces numériques** : une par heure, +5 💎
 - [x] **Collection** : 50 skins de Cocotte, Imprimante à décors (100 décors), mini-jeu Puzzle des skins
 - [x] **Palier 4** : station Boosts (Le saviez-vous ? + quiz), bonus quotidien et série de jours, mention des ateliers dans les Astuces
-- [ ] **Palier 5** : compteur communautaire, objectifs collectifs, classement par pseudo (Supabase, tier gratuit)
+- [x] **Palier 5** : compteur communautaire, objectifs collectifs, classement par pseudo (Supabase), 15 talents de saison, scanner intégré, QR de groupe, espace équipe repensé, mode sombre, récompenses en cristaux ×2
 - [ ] **Palier 6** : mode admin (code, surcharges du manifest, édition des données, export/import de config)

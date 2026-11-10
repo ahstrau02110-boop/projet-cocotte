@@ -1,11 +1,12 @@
 // Projets de La Co'Cotte + prestige « Nouvelle saison »
-import { DATA, state, currentEra, seedBonus, addCrystals } from './state.js';
+import { DATA, state, currentEra, seedBonus, addCrystals, hasTalent } from './state.js';
 import { $, asset, toast, emit, esc } from './core.js';
 import { fmt } from './format.js';
 import { sfx, setTrack, music } from './audio.js';
 import { save } from './save.js';
 
 // ---------- Projets ----------
+const projCost = p => p.cost * (hasTalent('projets') ? 0.75 : 1);
 let projSig = '';
 export function renderProjects() {
   const era = currentEra().id;
@@ -16,7 +17,7 @@ export function renderProjects() {
   if (sig === projSig) {
     for (const b of box.querySelectorAll('.proj:not(.done):not(.locked)')) {
       const p = DATA.projects.find(x => x.id === b.dataset.proj);
-      b.classList.toggle('can', state.coins >= p.cost);
+      b.classList.toggle('can', state.coins >= projCost(p));
     }
     return;
   }
@@ -24,11 +25,11 @@ export function renderProjects() {
   $('#projects-wrap').hidden = !list.length;
   box.innerHTML = list.map(p => {
     const done = !!state.projects[p.id], locked = p.era > era;
-    const can = !done && !locked && state.coins >= p.cost;
+    const can = !done && !locked && state.coins >= projCost(p);
     return `<li><button class="proj${done ? ' done' : ''}${locked ? ' locked' : ''}${can ? ' can' : ''}" data-proj="${p.id}" ${done || locked ? 'aria-disabled="true"' : ''}>
       <span class="proj-ico" aria-hidden="true">${p.icon}</span>
       <span class="proj-txt"><b>${esc(p.name)}</b><small>${esc(p.desc)}</small><em>${esc(p.effectText)}</em></span>
-      <span class="proj-cost">${done ? '✔ Réalisé' : locked ? `Ère ${p.era}` : `<img src="${asset('cocoin')}" alt="">${fmt(p.cost)}`}</span>
+      <span class="proj-cost">${done ? '✔ Réalisé' : locked ? `Ère ${p.era}` : `<img src="${asset('cocoin')}" alt="">${fmt(projCost(p))}`}</span>
     </button></li>`;
   }).join('');
 }
@@ -36,8 +37,8 @@ export function renderProjects() {
 function buyProject(id) {
   const p = DATA.projects.find(x => x.id === id);
   if (!p || state.projects[id] || p.era > currentEra().id) return;
-  if (state.coins < p.cost) { sfx.deny(); return; }
-  state.coins -= p.cost;
+  if (state.coins < projCost(p)) { sfx.deny(); return; }
+  state.coins -= projCost(p);
   state.projects[id] = true;
   sfx.unlock();
   toast(`📌 Projet réalisé : ${p.name} ! ${p.effectText}`, 6000);
@@ -69,6 +70,7 @@ export function renderSeason() {
   $('#season-card').hidden = !show;
   if (!show) return;
   const n = pendingSeeds();
+  $('#btn-talents').textContent = `🌱 Talents de saison (${state.prestige.seeds - state.prestige.spent} graine${state.prestige.seeds - state.prestige.spent > 1 ? 's' : ''} à dépenser)`;
   $('#season-info').innerHTML = `🌱 <strong>${fmt(state.prestige.seeds)}</strong> graine${state.prestige.seeds > 1 ? 's' : ''} de saison · production <strong>+${fmt(seedBonus())} %</strong> pour toujours`
     + (state.prestige.seasons ? ` · saison n°${state.prestige.seasons + 1}` : '');
   $('#season-next').textContent = n > 0
@@ -98,6 +100,9 @@ function newSeason() {
   state.buffs = [];
   state.prestige.seeds += n;
   state.prestige.seasons++;
+  // Talents de départ
+  if (hasTalent('depart')) { state.coins = 1000; state.totalEarned = 1000; }
+  if (hasTalent('benevoles')) state.buildings.benevole = 10;
   const c = P().seasonCrystals ?? 5;
   addCrystals(c);
   save();
@@ -121,4 +126,39 @@ export function initSeason() {
     save();
   });
   applyMusicUnlocks();
+}
+
+// ---------- Talents de saison ----------
+const freeSeeds = () => state.prestige.seeds - state.prestige.spent;
+
+function renderTalents() {
+  $('#talents-free').textContent = freeSeeds();
+  $('#talents-list').innerHTML = DATA.talents.map(t => {
+    const has = hasTalent(t.id), locked = t.need && !hasTalent(t.need), can = !has && !locked && freeSeeds() >= t.cost;
+    const need = locked ? DATA.talents.find(x => x.id === t.need) : null;
+    return `<li><button class="talent${has ? ' done' : ''}${locked ? ' locked' : ''}${can ? ' can' : ''}" data-talent="${t.id}" ${has || locked ? 'aria-disabled="true"' : ''}>
+      <span class="talent-ico" aria-hidden="true">${t.icon}</span>
+      <span class="talent-txt"><b>${esc(t.name)}</b><small>${esc(t.desc)}</small>${need ? `<em>Nécessite : ${esc(need.name)}</em>` : ''}</span>
+      <span class="talent-cost">${has ? '✔ Acquis' : `🌱 ${t.cost}`}</span></button></li>`;
+  }).join('');
+}
+
+function buyTalent(id) {
+  const t = DATA.talents.find(x => x.id === id);
+  if (!t || hasTalent(id) || (t.need && !hasTalent(t.need))) return;
+  if (freeSeeds() < t.cost) { sfx.deny(); toast('Pas assez de graines de saison : lancez une Nouvelle saison pour en gagner.'); return; }
+  state.prestige.spent += t.cost;
+  state.prestige.talents[id] = true;
+  sfx.unlock();
+  toast(`🌱 Talent acquis : ${t.name}`);
+  save();
+  renderTalents();
+  emit('refresh');
+}
+
+export function openTalents() { renderTalents(); $('#dlg-talents').showModal(); }
+
+export function initTalents() {
+  $('#btn-talents').addEventListener('click', () => { sfx.ui(); openTalents(); });
+  $('#talents-list').addEventListener('click', e => { const b = e.target.closest('[data-talent]'); if (b) buyTalent(b.dataset.talent); });
 }

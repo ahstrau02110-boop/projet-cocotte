@@ -15,6 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fredoka:wght@500;600;700&family=Space+Mono:wght@700&display=swap">
   <link rel="stylesheet" href="css/style.css">
+  <script>try { if (JSON.parse(localStorage.getItem('cocotte-clicker-save') || '{}').settings?.dark) document.documentElement.classList.add('dark'); } catch {}</script>
 </head>
 <body class="era-1">
   <a class="skip" href="#shop">Aller à la boutique</a>
@@ -44,8 +45,8 @@
     <section class="workshop" aria-labelledby="ws-title">
       <h2 id="ws-title" class="tape">Plan de travail</h2>
 
-      <div id="buffs" class="buffs" aria-live="polite"></div>
       <div class="bench" id="bench">
+        <div id="buffs" class="buffs" aria-live="polite"></div>
         <div class="bench-bg" id="bench-bg" aria-hidden="true"></div>
         <span class="bench-ruler" aria-hidden="true"></span>
         <div class="bench-decor" id="bench-decor" aria-hidden="true"></div>
@@ -72,6 +73,7 @@
         <button id="btn-ach" class="action a-ach"><span class="a-ico" aria-hidden="true">🏆</span><span><b>Succès</b><small id="ach-mini">Badges et bonus</small></span></button>
         <button id="btn-boost" class="action a-boost"><span class="a-ico" aria-hidden="true">⚡</span><span><b>Boosts</b><small id="boost-mini">Le saviez-vous, quiz</small></span></button>
         <button id="btn-tips" class="action a-tips"><span class="a-ico" aria-hidden="true">💡</span><span><b>Astuces</b><small id="tip-mini">Astuce du numérique</small></span></button>
+        <button id="btn-scan" class="action a-scan"><span class="a-ico" aria-hidden="true">📷</span><span><b>Scanner</b><small>QR de récompense</small></span></button>
         <button id="btn-myqr" class="action a-qr"><span class="a-ico" aria-hidden="true">📱</span><span><b>Mon QR code</b><small>Cristaux à La Co'Cotte</small></span></button>
       </nav>
 
@@ -87,12 +89,22 @@
         </div>
         <p id="era-next" class="era-next"></p>
       </div>
+      <!-- Communauté -->
+      <button class="community-card" id="btn-community" hidden data-card>
+        <span class="com-ico" aria-hidden="true">🌍</span>
+        <span><span class="com-title">Communauté Co'Clicker</span><span id="community-mini"></span></span>
+        <span class="com-go" aria-hidden="true">›</span>
+      </button>
+
       <!-- Prestige -->
       <div class="season-card" id="season-card" hidden>
         <h3 class="tape tape-green">Nouvelle saison</h3>
         <p id="season-info"></p>
         <p id="season-next" class="small"></p>
-        <button id="btn-season" class="big-btn">Lancer une nouvelle saison</button>
+        <div class="row">
+          <button id="btn-season" class="big-btn">Lancer une nouvelle saison</button>
+          <button id="btn-talents" class="ghost-btn">🌱 Talents de saison</button>
+        </div>
       </div>
     </section>
 
@@ -145,6 +157,9 @@
       <label class="slider"><span>🎼 Morceau</span>
         <select id="music-track"><option value="classique">Lofi de l'atelier</option><option value="atelier">Atelier Musique</option></select>
       </label>
+
+      <h3>Affichage</h3>
+      <label class="switch"><input type="checkbox" id="opt-dark"> <span>🌙 Mode sombre</span></label>
 
       <h3>Aide</h3>
       <button type="button" id="btn-tuto">🎓 Revoir le tutoriel</button>
@@ -269,6 +284,43 @@
     </div>
   </dialog>
 
+  <!-- Talents de saison (prestige) -->
+  <dialog id="dlg-talents" class="wide" aria-labelledby="talents-title">
+    <div class="dlg">
+      <div class="dlg-head">
+        <h2 id="talents-title" class="tape tape-green">Talents de saison</h2>
+        <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
+      </div>
+      <p>Dépensez vos graines de saison pour des améliorations <strong>permanentes</strong>, conservées à chaque Nouvelle saison. Les graines dépensées continuent de booster la production.</p>
+      <p class="season-gain">🌱 Graines à dépenser : <span id="talents-free">0</span></p>
+      <ul id="talents-list" class="talents"></ul>
+    </div>
+  </dialog>
+
+  <!-- Scanner de QR (récompenses) -->
+  <dialog id="dlg-scan" aria-labelledby="scan-title">
+    <div class="dlg">
+      <div class="dlg-head">
+        <h2 id="scan-title" class="tape">Scanner un QR</h2>
+        <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
+      </div>
+      <div class="scan-frame"><video id="scan-video" muted playsinline></video><span class="scan-target" aria-hidden="true"></span></div>
+      <p id="scan-msg" class="center" role="status"></p>
+    </div>
+  </dialog>
+
+  <!-- Communauté -->
+  <dialog id="dlg-community" class="wide" aria-labelledby="community-title">
+    <div class="dlg">
+      <div class="dlg-head">
+        <h2 id="community-title" class="tape tape-green">Communauté</h2>
+        <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
+      </div>
+      <p class="muted">Tous les joueurs de Co'Clicker produisent ensemble : chaque objectif collectif atteint donne un bonus de production à tout le monde.</p>
+      <div id="community-body"></div>
+    </div>
+  </dialog>
+
   <!-- Station Boosts -->
   <dialog id="dlg-boost" class="wide" aria-labelledby="boost-title">
     <div class="dlg">
@@ -316,7 +368,7 @@
         <h2 id="qr-title" class="tape">Mon QR code</h2>
         <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
       </div>
-      <p>Lors de votre venue à La Co'Cotte (atelier, événement…), montrez ce QR code à l'équipe pour recevoir des cristaux 💎. Scannez ensuite le QR de récompense avec l'appareil photo de <strong>ce</strong> téléphone.</p>
+      <p>Lors de votre venue à La Co'Cotte (atelier, événement…), montrez ce QR code à l'équipe pour recevoir des cristaux 💎. Scannez ensuite le QR de récompense avec le bouton 📷 <strong>Scanner</strong> du jeu (ou l'appareil photo de ce téléphone).</p>
       <div class="qr-layout">
         <div id="my-qr" class="qr-box"></div>
         <div class="stack">
@@ -328,6 +380,7 @@
         </div>
       </div>
       <h3>J'ai reçu un code</h3>
+      <button id="btn-scan2" type="button" class="big-btn">📷 Scanner le QR de récompense</button>
       <div class="row">
         <input id="claim-code" class="mono grow" placeholder="Collez le lien ou le code de récompense" autocomplete="off" aria-label="Code de récompense">
         <button id="btn-claim" type="button" class="primary">Valider</button>

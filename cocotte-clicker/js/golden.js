@@ -1,5 +1,5 @@
 // Cocotte dorée : apparaît au hasard, à attraper pour un bonus temporaire
-import { DATA, state, earn, addCrystals, totalCps, projectEffects, activeBuffs, currentEra } from './state.js';
+import { DATA, state, earn, addCrystals, totalCps, projectEffects, activeBuffs, currentEra, hasTalent } from './state.js';
 import { $, toast, emit, reducedMotion } from './core.js';
 import { skinSVG } from './skins.js';
 import { fmt } from './format.js';
@@ -11,7 +11,7 @@ let timer = null, el = null, img = '';
 
 function nextDelay() {
   const min = cfg().minSec ?? 120, max = cfg().maxSec ?? 300;
-  const freq = projectEffects('golden').reduce((m, e) => m * e.freq, 1);
+  const freq = projectEffects('golden').reduce((m, e) => m * e.freq, 1) * (hasTalent('doree') ? 1.25 : 1);
   return (min + Math.random() * (max - min)) * 1000 / freq;
 }
 function schedule() { clearTimeout(timer); timer = setTimeout(spawn, nextDelay()); }
@@ -31,7 +31,7 @@ function spawn() {
   document.body.appendChild(el);
   sfx.printTick(1);
   toast('✨ Une Cocotte dorée est apparue !', 3000);
-  const life = (cfg().lifeSec ?? 13) * 1000;
+  const life = ((cfg().lifeSec ?? 13) + (hasTalent('doree2') ? 5 : 0)) * 1000;
   setTimeout(() => el?.classList.add('leaving'), life - 1500);
   setTimeout(() => remove(), life);
 }
@@ -49,8 +49,9 @@ function catchIt() {
   const r = Math.random() * 100, cp = cfg().crystalChancePct ?? 3;
   let msg;
   if (r < cp) {
-    addCrystals(2);
-    msg = 'Pépite de cristal : +2 💎';
+    const g = cfg().crystalGain ?? 4;
+    addCrystals(g);
+    msg = `Pépite de cristal : +${g} 💎`;
   } else if (r < cp + 10) {
     addBuff({ id: 'inspiration', name: 'Inspiration', click: 77, sec: 13 });
     msg = 'Inspiration ! Clics ×77 pendant 13 s';
@@ -87,14 +88,24 @@ export function addBuff({ id, name, cps = 1, click = 1, sec }) {
   state.buffs.push({ id, name, cps, click, until: Date.now() + sec * 1000 });
 }
 
-// Barre des bonus actifs (compte à rebours)
+// Barre des bonus actifs : mise à jour sur place (pas de reconstruction, sinon l'animation clignote)
 export function renderBuffs() {
-  const list = activeBuffs();
-  $('#buffs').innerHTML = list.map(b => {
-    const left = Math.ceil((b.until - Date.now()) / 1000);
+  const box = $('#buffs'), list = activeBuffs(), ids = new Set(list.map(b => b.id));
+  for (const el of [...box.children]) if (!ids.has(el.dataset.id)) el.remove();
+  for (const b of list) {
+    let el = box.querySelector(`[data-id="${b.id}"]`);
     const eff = [b.cps !== 1 && `production ×${b.cps}`, b.click !== 1 && `clics ×${b.click}`].filter(Boolean).join(', ');
-    return `<span class="buff">🌟 ${b.name} · ${eff} · <b>${left} s</b></span>`;
-  }).join('');
+    if (!el || el.dataset.eff !== eff) {
+      el?.remove();
+      el = document.createElement('span');
+      el.className = 'buff';
+      el.dataset.id = b.id;
+      el.dataset.eff = eff;
+      el.innerHTML = `🌟 ${b.name} · ${eff} · <b></b>`;
+      box.appendChild(el);
+    }
+    el.querySelector('b').textContent = Math.ceil((b.until - Date.now()) / 1000) + ' s';
+  }
 }
 
 export function initGolden() { schedule(); }

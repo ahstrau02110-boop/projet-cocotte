@@ -1,5 +1,5 @@
 // Améliorations et succès : génération à partir des données, achat, vérification, affichage
-import { DATA, state, owned, totalCps, currentEra, achievementBonus } from './state.js';
+import { DATA, state, owned, totalCps, currentEra, achievementBonus, hasTalent } from './state.js';
 import { $, asset, toast, emit, esc } from './core.js';
 import { fmt } from './format.js';
 import { sfx } from './audio.js';
@@ -41,14 +41,17 @@ function isUnlocked(u) {
   if (c.cps && totalCps() < c.cps) return false;
   return true;
 }
+// Prix réel (talent « Achats groupés »)
+export const upgCost = u => u.cost * (hasTalent('soldes2') ? 0.9 : 1);
+
 export const availableUpgrades = () =>
   DATA.upgradeList.filter(u => !state.upgrades[u.id] && isUnlocked(u)).sort((a, b) => a.cost - b.cost);
 
 function buyUpgrade(id) {
   const u = DATA.upgradeList.find(x => x.id === id);
   if (!u || state.upgrades[id]) return;
-  if (state.coins < u.cost) { sfx.deny(); return; }
-  state.coins -= u.cost;
+  if (state.coins < upgCost(u)) { sfx.deny(); return; }
+  state.coins -= upgCost(u);
   state.upgrades[id] = true;
   sfx.buy();
   save();
@@ -68,18 +71,18 @@ export function renderUpgrades(force = false) {
       <li><button class="upg" data-upg="${u.id}">
         <span class="upg-ico">${u.img ? `<img src="${asset(u.img)}" alt=""><b>×2</b>` : `<span aria-hidden="true">${u.icon || '⭐'}</span>`}</span>
         <span class="upg-txt"><b>${esc(u.name)}</b><small>${esc(u.desc || '')}</small></span>
-        <span class="upg-cost"><img src="${asset('cocoin')}" alt="">${fmt(u.cost)}</span>
+        <span class="upg-cost"><img src="${asset('cocoin')}" alt="">${fmt(upgCost(u))}</span>
       </button></li>`).join('')
       : '<li class="upg-empty">De nouvelles améliorations apparaissent en cliquant et en construisant.</li>';
     $('#upg-count').textContent = list.length ? `(${list.length})` : '';
   }
   for (const b of ul.querySelectorAll('.upg')) {
     const u = DATA.upgradeList.find(x => x.id === b.dataset.upg);
-    const can = state.coins >= u.cost;
+    const can = state.coins >= upgCost(u);
     b.classList.toggle('can', can);
     b.classList.toggle('cant', !can);
     b.setAttribute('aria-disabled', String(!can));
-    b.setAttribute('aria-label', `${u.name} : ${u.desc || ''} Coût ${fmt(u.cost)} Co'Coins${can ? '' : ', pas assez de Co\'Coins'}.`);
+    b.setAttribute('aria-label', `${u.name} : ${u.desc || ''} Coût ${fmt(upgCost(u))} Co'Coins${can ? '' : ', pas assez de Co\'Coins'}.`);
   }
 }
 
