@@ -1,0 +1,89 @@
+{
+ "_doc": "« Le saviez-vous ? » sur La Co'Cotte : lus contre un boost de production. Complétez/corrigez librement (horaires, ateliers du mois, partenaires…).",
+ "infos": [
+  {
+   "id": "lieu",
+   "icon": "📍",
+   "title": "Où nous trouver ?",
+   "text": "La Co'Cotte, espace de partage et de création, vous accueille au 6 rue Marcellin Berthelot à Bohain-en-Vermandois."
+  },
+  {
+   "id": "public",
+   "icon": "👪",
+   "title": "Pour tout le monde",
+   "text": "Jeunes, familles, seniors, curieux ou bricoleurs confirmés : La Co'Cotte est ouverte à tous les habitants, quel que soit leur niveau."
+  },
+  {
+   "id": "horaires",
+   "icon": "🗓️",
+   "title": "Le programme du mois",
+   "text": "Ateliers, permanences et événements changent chaque mois : retrouvez le planning affiché à l'accueil et sur nos réseaux sociaux."
+  },
+  {
+   "id": "fablab",
+   "icon": "🛠️",
+   "title": "Un FabLab près de chez vous",
+   "text": "Ordinateurs, imprimante 3D, graveuse laser… À La Co'Cotte, ces machines sont accessibles et on vous apprend à vous en servir."
+  },
+  {
+   "id": "imp3d",
+   "icon": "🖨️",
+   "title": "L'imprimante 3D",
+   "text": "Une pièce cassée, un support, un petit objet décoratif ? L'imprimante 3D de La Co'Cotte permet de le fabriquer à partir d'un modèle numérique."
+  },
+  {
+   "id": "laser",
+   "icon": "✨",
+   "title": "La graveuse laser",
+   "text": "Elle grave et découpe le bois ou le carton avec précision : idéal pour personnaliser un cadeau, un porte-clés ou une enseigne."
+  },
+  {
+   "id": "numerique",
+   "icon": "💻",
+   "title": "Ateliers numériques",
+   "text": "Smartphone, mails, démarches en ligne, sécurité… Les ateliers numériques permettent d'avancer à son rythme, accompagné."
+  },
+  {
+   "id": "antre",
+   "icon": "🕸️",
+   "title": "Antre en Ligne",
+   "text": "Antre en Ligne est le projet de la Numériteam de La Co'Cotte. Dans le jeu, il booste vos ateliers numériques !"
+  },
+  {
+   "id": "creagames",
+   "icon": "🎲",
+   "title": "Créagames",
+   "text": "Créagames, ce sont les ateliers de création de jeux de La Co'Cotte. Et si votre prochaine idée de jeu naissait ici ?"
+  },
+  {
+   "id": "musique",
+   "icon": "🎹",
+   "title": "Atelier Musique",
+   "text": "La Co'Cotte a aussi son Atelier Musique. Dans Co'Clicker, il débloque même une seconde musique !"
+  },
+  {
+   "id": "partage",
+   "icon": "🤝",
+   "title": "Un lieu de partage",
+   "text": "Ici, chacun peut apprendre et transmettre : une compétence, une idée, un coup de main. C'est l'esprit d'un tiers-lieu."
+  },
+  {
+   "id": "reparer",
+   "icon": "🔧",
+   "title": "Réparer plutôt que jeter",
+   "text": "Un objet en panne ? Venez en parler à l'équipe : à plusieurs, on trouve souvent une solution pour lui donner une seconde vie."
+  },
+  {
+   "id": "cristaux",
+   "icon": "💎",
+   "title": "Des cristaux en vrai",
+   "text": "Venez à un atelier de La Co'Cotte avec votre QR code joueur : l'équipe peut vous offrir des cristaux pour le jeu !"
+  },
+  {
+   "id": "projet",
+   "icon": "💡",
+   "title": "Vous avez un projet ?",
+   "text": "Une idée à fabriquer, un événement à monter, une compétence à partager ? Parlez-en à l'équipe : La Co'Cotte est là pour vous aider à la concrétiser."
+  }
+ ]
+}

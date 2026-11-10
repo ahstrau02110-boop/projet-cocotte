@@ -1,0 +1,341 @@
+{
+ "_doc": "Quiz express : bonne réponse = gros boost, mauvaise = petit boost + explication. answer = index (0 = première réponse).",
+ "questions": [
+  {
+   "id": "q1",
+   "q": "Quelle est la meilleure façon de créer un mot de passe solide ?",
+   "choices": [
+    "Le prénom de son chien",
+    "Une phrase de plusieurs mots au hasard",
+    "123456",
+    "Sa date de naissance"
+   ],
+   "answer": 1,
+   "explain": "Plusieurs mots au hasard forment un mot de passe long, solide et facile à retenir."
+  },
+  {
+   "id": "q2",
+   "q": "Un SMS vous annonce un colis bloqué avec un lien à cliquer. Que faire ?",
+   "choices": [
+    "Cliquer vite",
+    "Répondre au SMS",
+    "Ne pas cliquer et vérifier sur le site officiel",
+    "Transférer à tous ses contacts"
+   ],
+   "answer": 2,
+   "explain": "C'est une arnaque classique (hameçonnage). On ne clique pas, on vérifie par soi-même."
+  },
+  {
+   "id": "q3",
+   "q": "Que signifie le cadenas à côté de l'adresse d'un site ?",
+   "choices": [
+    "Le site est forcément honnête",
+    "La connexion est chiffrée",
+    "Le site est gratuit",
+    "Le site est français"
+   ],
+   "answer": 1,
+   "explain": "Le cadenas indique seulement une connexion chiffrée : un faux site peut aussi en avoir un."
+  },
+  {
+   "id": "q4",
+   "q": "Quel raccourci annule la dernière action ?",
+   "choices": [
+    "Ctrl + Z",
+    "Ctrl + C",
+    "Ctrl + P",
+    "Ctrl + S"
+   ],
+   "answer": 0,
+   "explain": "Ctrl + Z annule, Ctrl + Y refait."
+  },
+  {
+   "id": "q5",
+   "q": "Quel raccourci permet de copier ?",
+   "choices": [
+    "Ctrl + V",
+    "Ctrl + X",
+    "Ctrl + C",
+    "Ctrl + A"
+   ],
+   "answer": 2,
+   "explain": "Ctrl + C copie, Ctrl + V colle, Ctrl + X coupe, Ctrl + A sélectionne tout."
+  },
+  {
+   "id": "q6",
+   "q": "Que fait une imprimante 3D ?",
+   "choices": [
+    "Elle photocopie en couleur",
+    "Elle fabrique un objet couche par couche",
+    "Elle scanne des visages",
+    "Elle imprime sur du tissu"
+   ],
+   "answer": 1,
+   "explain": "Elle dépose de la matière fondue couche après couche pour fabriquer un objet."
+  },
+  {
+   "id": "q7",
+   "q": "Que veut dire « FabLab » ?",
+   "choices": [
+    "Fabuleux laboratoire",
+    "Laboratoire de fabrication",
+    "Fabrique de labyrinthes",
+    "Laboratoire fabriqué"
+   ],
+   "answer": 1,
+   "explain": "FabLab vient de l'anglais fabrication laboratory : un atelier ouvert pour fabriquer et apprendre."
+  },
+  {
+   "id": "q8",
+   "q": "Quelle machine découpe et grave le bois avec un faisceau lumineux ?",
+   "choices": [
+    "La brodeuse",
+    "L'imprimante 3D",
+    "La graveuse laser",
+    "Le scanner"
+   ],
+   "answer": 2,
+   "explain": "La graveuse laser grave ou découpe le bois, le carton, le cuir…"
+  },
+  {
+   "id": "q9",
+   "q": "Qu'est-ce que la double authentification ?",
+   "choices": [
+    "Deux mots de passe identiques",
+    "Un code en plus du mot de passe",
+    "Deux comptes pour une personne",
+    "Un antivirus"
+   ],
+   "answer": 1,
+   "explain": "En plus du mot de passe, un code (SMS, appli) est demandé : un pirate reste bloqué."
+  },
+  {
+   "id": "q10",
+   "q": "Le geste le plus efficace pour un numérique plus écologique ?",
+   "choices": [
+    "Supprimer ses mails",
+    "Garder ses appareils plus longtemps",
+    "Éteindre sa box chaque minute",
+    "Changer de téléphone chaque année"
+   ],
+   "answer": 1,
+   "explain": "C'est la fabrication des appareils qui pollue le plus : les garder longtemps est le meilleur geste."
+  },
+  {
+   "id": "q11",
+   "q": "Combien de copies de sauvegarde conseille la règle du « 3-2-1 » ?",
+   "choices": [
+    "1",
+    "2",
+    "3",
+    "5"
+   ],
+   "answer": 2,
+   "explain": "3 copies, sur 2 supports différents, dont 1 hors de chez soi."
+  },
+  {
+   "id": "q12",
+   "q": "Une IA vous donne une information médicale. Que faire ?",
+   "choices": [
+    "La suivre sans hésiter",
+    "La vérifier auprès d'un professionnel",
+    "La partager partout",
+    "L'ignorer toujours"
+   ],
+   "answer": 1,
+   "explain": "Les IA peuvent se tromper avec assurance : on vérifie les infos importantes."
+  },
+  {
+   "id": "q13",
+   "q": "À quoi sert FranceConnect ?",
+   "choices": [
+    "À regarder la télé",
+    "À se connecter aux services publics avec un compte existant",
+    "À payer ses courses",
+    "À réparer son ordinateur"
+   ],
+   "answer": 1,
+   "explain": "FranceConnect permet d'accéder aux impôts, à la santé, etc. avec un compte que l'on a déjà."
+  },
+  {
+   "id": "q14",
+   "q": "Que signifie « pixel » ?",
+   "choices": [
+    "Petit élément d'image",
+    "Pile électrique",
+    "Programme de jeu",
+    "Pièce d'ordinateur"
+   ],
+   "answer": 0,
+   "explain": "Pixel vient de picture element : le plus petit point d'une image numérique."
+  },
+  {
+   "id": "q15",
+   "q": "Quel logiciel libre et gratuit remplace une suite bureautique payante ?",
+   "choices": [
+    "LibreOffice",
+    "Photoshop",
+    "Windows",
+    "Excel"
+   ],
+   "answer": 0,
+   "explain": "LibreOffice propose traitement de texte, tableur et présentations, gratuitement."
+  },
+  {
+   "id": "q16",
+   "q": "Comment rouvrir un onglet fermé par erreur ?",
+   "choices": [
+    "Ctrl + Maj + T",
+    "Ctrl + W",
+    "F5",
+    "Alt + F4"
+   ],
+   "answer": 0,
+   "explain": "Ctrl + Maj + T rouvre le dernier onglet fermé."
+  },
+  {
+   "id": "q17",
+   "q": "Votre banque vous appelle et demande votre code de carte. Que faire ?",
+   "choices": [
+    "Le donner",
+    "Raccrocher et rappeler sa banque au numéro habituel",
+    "Le donner à moitié",
+    "L'envoyer par SMS"
+   ],
+   "answer": 1,
+   "explain": "Une banque ne demande jamais votre code : c'est une arnaque."
+  },
+  {
+   "id": "q18",
+   "q": "Pour chercher une expression exacte sur internet, on utilise…",
+   "choices": [
+    "Des parenthèses",
+    "Des guillemets",
+    "Des étoiles",
+    "Des majuscules"
+   ],
+   "answer": 1,
+   "explain": "Les guillemets « \"…\" » ne donnent que les pages contenant exactement ces mots."
+  },
+  {
+   "id": "q19",
+   "q": "Sur un Wi-Fi public, il vaut mieux éviter…",
+   "choices": [
+    "De lire la météo",
+    "De consulter son compte bancaire",
+    "De regarder une carte",
+    "De lire les actualités"
+   ],
+   "answer": 1,
+   "explain": "Les opérations sensibles sont plus sûres sur sa connexion mobile."
+  },
+  {
+   "id": "q20",
+   "q": "Que veut dire « reconditionné » pour un téléphone ?",
+   "choices": [
+    "Neuf mais sans boîte",
+    "Vérifié et remis en état",
+    "Cassé",
+    "Contrefait"
+   ],
+   "answer": 1,
+   "explain": "Un appareil reconditionné est contrôlé et remis en état : moins cher et plus écolo."
+  },
+  {
+   "id": "q21",
+   "q": "Quel est le projet de la Numériteam de La Co'Cotte ?",
+   "choices": [
+    "Créagames",
+    "Antre en Ligne",
+    "Atelier Musique",
+    "Bricol'Café"
+   ],
+   "answer": 1,
+   "explain": "Antre en Ligne est le projet de la Numériteam !"
+  },
+  {
+   "id": "q22",
+   "q": "Dans quelle ville se trouve La Co'Cotte ?",
+   "choices": [
+    "Saint-Quentin",
+    "Guise",
+    "Bohain-en-Vermandois",
+    "Laon"
+   ],
+   "answer": 2,
+   "explain": "La Co'Cotte est au 6 rue Marcellin Berthelot, à Bohain-en-Vermandois."
+  },
+  {
+   "id": "q23",
+   "q": "Comment faire une capture d'écran sous Windows (zone choisie) ?",
+   "choices": [
+    "Windows + Maj + S",
+    "Ctrl + Alt + Suppr",
+    "Alt + Tab",
+    "Windows + L"
+   ],
+   "answer": 0,
+   "explain": "Windows + Maj + S permet de sélectionner une zone à capturer."
+  },
+  {
+   "id": "q24",
+   "q": "Une pièce jointe inattendue arrive d'un contact connu. Que faire ?",
+   "choices": [
+    "L'ouvrir tout de suite",
+    "Vérifier auprès du contact par un autre moyen",
+    "La transférer",
+    "La renommer"
+   ],
+   "answer": 1,
+   "explain": "Les comptes piratés envoient souvent des virus : on vérifie avant d'ouvrir."
+  },
+  {
+   "id": "q25",
+   "q": "Que contient un QR code ?",
+   "choices": [
+    "Une photo",
+    "Un texte ou un lien",
+    "Un virus forcément",
+    "De la musique"
+   ],
+   "answer": 1,
+   "explain": "Un QR code contient du texte, souvent un lien : on vérifie l'adresse avant de l'ouvrir."
+  },
+  {
+   "id": "q26",
+   "q": "Quelle épaisseur fait environ une couche d'impression 3D ?",
+   "choices": [
+    "2 cm",
+    "2 mm",
+    "0,2 mm",
+    "0,002 mm"
+   ],
+   "answer": 2,
+   "explain": "Environ 0,2 mm : un objet de 5 cm compte donc environ 250 couches."
+  },
+  {
+   "id": "q27",
+   "q": "Que permet le mode « Localiser mon appareil » ?",
+   "choices": [
+    "Trouver un restaurant",
+    "Retrouver ou effacer un téléphone perdu",
+    "Augmenter la batterie",
+    "Télécharger des jeux"
+   ],
+   "answer": 1,
+   "explain": "Il permet de faire sonner, localiser ou effacer à distance un téléphone perdu."
+  },
+  {
+   "id": "q28",
+   "q": "Que faire avant de partager une information choc ?",
+   "choices": [
+    "La partager vite",
+    "Vérifier la source et la date",
+    "Ajouter des émojis",
+    "Changer le titre"
+   ],
+   "answer": 1,
+   "explain": "Qui publie ? Quand ? D'autres médias en parlent-ils ? On vérifie avant de partager."
+  }
+ ]
+}

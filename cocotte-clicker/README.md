@@ -63,6 +63,8 @@ js/decor.js            Décor du plan de travail par ère
 js/golden.js           Cocotte dorée et bonus temporaires
 js/season.js           Projets de La Co'Cotte + Nouvelle saison (prestige)
 js/tips.js             Astuces numériques (une par heure)
+js/boosts.js           Station Boosts (Le saviez-vous ?, quiz)
+js/daily.js            Bonus quotidien et série
 sw.js                  Service worker (hors connexion)
 manifest.webmanifest   Manifeste de l'application
 js/vendor/             qrcode.js (MIT), jsQR.js (Apache-2.0)
@@ -75,6 +77,8 @@ data/upgrades.json     Améliorations
 data/achievements.json Succès
 data/projects.json     Projets de La Co'Cotte
 data/tips.json         Astuces numériques
+data/infos.json        « Le saviez-vous ? » sur La Co'Cotte
+data/quiz.json         Questions du quiz express
 data/config.json       Code admin, clé publique, récompenses, réglages gacha et mini-jeux
 assets/manifest.json   Référence unique de tous les assets (clé → chemin)
 assets/img/            Illustrations SVG chibi
@@ -142,6 +146,16 @@ La boucle Nouvelle saison relance ensuite la progression sans fin (chaque saison
 ## Astuces numériques
 
 Tuile 💡 « Astuces » : une nouvelle astuce sur le numérique toutes les heures (sécurité, smartphone, ordinateur, internet, IA, numérique responsable, culture geek, FabLab). Le bouton « J'ai lu » se débloque après 8 s de lecture et rapporte **+5 💎**. Les astuces lues restent consultables. 41 astuces dans `data/tips.json` (à compléter librement) ; réglages dans `config.json` → `tips` (intervalle, cristaux, temps de lecture). 3 succès associés.
+
+## Boosts et bonus quotidien (palier 4)
+
+**Station Boosts** (tuile ⚡) : deux boosts de production, rechargés toutes les 15 min.
+- **📍 Le saviez-vous ?** : une info sur La Co'Cotte (lieu, machines, projets, ateliers…), lisible 6 s → production ×2 pendant 2 min. 14 infos dans `data/infos.json`, **à compléter** (programme du mois, partenaires…).
+- **❓ Quiz express** : une question numérique ou sur La Co'Cotte → bonne réponse : ×3 pendant 2 min ; mauvaise : ×1,5 pendant 1 min + explication. 28 questions dans `data/quiz.json`.
+
+**Bonus du jour** : à la première ouverture de la journée, 3 → 4 → 5 → 6 → 8 → 10 → 15 💎 sur 7 jours (+ production ×2 pendant 5 min le 7ᵉ jour), puis le cycle recommence. Un jour manqué remet la série à 1. Réglages : `config.json` → `daily` et `boosts`.
+
+7 succès associés (infos, quiz, séries de 3, 7 et 30 jours).
 
 ## Tutoriel
 
@@ -258,6 +272,6 @@ Police Atkinson Hyperlegible (conçue pour la basse vision), base 18 px, contras
 - [x] **Enrichissement** : tutoriel, 36 skins, 4ᵉ mini-jeu, 14 bâtiments, 118 améliorations, 128 succès, 6 effets de Cocotte dorée
 - [x] **Astuces numériques** : une par heure, +5 💎
 - [x] **Collection** : 50 skins de Cocotte, Imprimante à décors (100 décors), mini-jeu Puzzle des skins
-- [ ] **Palier 4** : boosts « Le saviez-vous ? » / infos tiers-lieu / quiz, bonus quotidien et série
+- [x] **Palier 4** : station Boosts (Le saviez-vous ? + quiz), bonus quotidien et série de jours, mention des ateliers dans les Astuces
 - [ ] **Palier 5** : compteur communautaire, objectifs collectifs, classement par pseudo (Supabase, tier gratuit)
 - [ ] **Palier 6** : mode admin (code, surcharges du manifest, édition des données, export/import de config)

@@ -70,6 +70,7 @@
         <button id="btn-games" class="action a-games"><span class="a-ico" aria-hidden="true">🎮</span><span><b>Mini-jeux</b><small>Gagnez des cristaux</small></span></button>
         <button id="btn-gacha" class="action a-gacha"><span class="a-ico" aria-hidden="true">🎁</span><span><b>Imprimantes mystère</b><small>Skins et décors</small></span></button>
         <button id="btn-ach" class="action a-ach"><span class="a-ico" aria-hidden="true">🏆</span><span><b>Succès</b><small id="ach-mini">Badges et bonus</small></span></button>
+        <button id="btn-boost" class="action a-boost"><span class="a-ico" aria-hidden="true">⚡</span><span><b>Boosts</b><small id="boost-mini">Le saviez-vous, quiz</small></span></button>
         <button id="btn-tips" class="action a-tips"><span class="a-ico" aria-hidden="true">💡</span><span><b>Astuces</b><small id="tip-mini">Astuce du numérique</small></span></button>
         <button id="btn-myqr" class="action a-qr"><span class="a-ico" aria-hidden="true">📱</span><span><b>Mon QR code</b><small>Cristaux à La Co'Cotte</small></span></button>
       </nav>
@@ -261,9 +262,38 @@
         <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
       </div>
       <p class="muted">Une nouvelle astuce toutes les heures : lisez-la et gagnez des cristaux 💎.</p>
+      <p class="tip-note">🏠 <strong>Bon à savoir :</strong> participez aux ateliers de La Co'Cotte pour gagner encore plus de cristaux ! Montrez votre QR code joueur (tuile 📱) à l'équipe sur place.</p>
       <div id="tip-current" class="tip-current" aria-live="polite"></div>
       <h3>Astuces lues <span id="tip-count" class="small"></span></h3>
       <div id="tip-archive" class="tip-archive"></div>
+    </div>
+  </dialog>
+
+  <!-- Station Boosts -->
+  <dialog id="dlg-boost" class="wide" aria-labelledby="boost-title">
+    <div class="dlg">
+      <div class="dlg-head">
+        <h2 id="boost-title" class="tape tape-green">Boosts</h2>
+        <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
+      </div>
+      <p class="muted">Lisez une info sur La Co'Cotte ou répondez au quiz pour booster votre production. Chaque boost se recharge en 15 minutes.</p>
+      <div class="boost-cols">
+        <section><h3>📍 Le saviez-vous ?</h3><div id="boost-info" class="tip-current"></div></section>
+        <section><h3>❓ Quiz express</h3><div id="boost-quiz" class="tip-current"></div></section>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Bonus quotidien -->
+  <dialog id="dlg-daily" aria-labelledby="daily-title">
+    <div class="dlg">
+      <div class="dlg-head">
+        <h2 id="daily-title" class="tape">Bonus du jour 📅</h2>
+      </div>
+      <p>Revenez chaque jour : la récompense augmente jusqu'au 7ᵉ jour !</p>
+      <ol id="daily-days" class="daily-days"></ol>
+      <p id="daily-txt"></p>
+      <div class="row center"><button id="btn-daily" class="big-btn"></button></div>
     </div>
   </dialog>
 

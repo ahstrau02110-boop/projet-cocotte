@@ -14,7 +14,10 @@ export function toast(msg, ms = 4500) {
   const t = document.createElement('div');
   t.className = 'toast';
   t.textContent = msg;
-  $('#toasts').appendChild(t);
+  const box = $('#toasts');
+  box.appendChild(t);
+  // 3 notifications visibles au maximum : les plus anciennes disparaissent
+  while (box.children.length > 3) box.firstElementChild.remove();
   setTimeout(() => t.remove(), ms);
 }
 

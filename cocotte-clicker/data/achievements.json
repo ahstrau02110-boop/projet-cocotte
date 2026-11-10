@@ -1,5 +1,5 @@
 {
-  "_doc": "Succès. Chaque succès donne un bonus de production (config.json → achievements.prodBonusPct). cond : toutes les conditions doivent être vraies. Clés : clicks, earned, cps, era, buildings (total), pulls, skins, legendary, plays, stars, perfect, claims, upgrades, golden, seasons, projects, tips, bgs, bgLegendary. buildingTemplates : générés pour chaque bâtiment ({b} = nom).",
+  "_doc": "Succès. Chaque succès donne un bonus de production (config.json → achievements.prodBonusPct). cond : toutes les conditions doivent être vraies. Clés : clicks, earned, cps, era, buildings (total), pulls, skins, legendary, plays, stars, perfect, claims, upgrades, golden, seasons, projects, tips, bgs, bgLegendary, infos, quizOk, streak. buildingTemplates : générés pour chaque bâtiment ({b} = nom).",
   "buildingTemplates": [
     {
       "n": 1,
@@ -706,6 +706,76 @@
       "desc": "Terminer 20 puzzles de skins.",
       "cond": {
         "puzzles": 20
+      }
+    },
+    {
+      "id": "info1",
+      "cat": "special",
+      "icon": "📍",
+      "name": "Bienvenue à La Co'Cotte",
+      "desc": "Lire un « Le saviez-vous ? ».",
+      "cond": {
+        "infos": 1
+      }
+    },
+    {
+      "id": "infoAll",
+      "cat": "special",
+      "icon": "🗺️",
+      "name": "Incollable sur La Co'Cotte",
+      "desc": "Lire tous les « Le saviez-vous ? ».",
+      "cond": {
+        "infos": 14
+      }
+    },
+    {
+      "id": "quiz1",
+      "cat": "special",
+      "icon": "❓",
+      "name": "Bonne réponse !",
+      "desc": "Réussir une question du quiz.",
+      "cond": {
+        "quizOk": 1
+      }
+    },
+    {
+      "id": "quiz20",
+      "cat": "special",
+      "icon": "🧠",
+      "name": "Cerveau numérique",
+      "desc": "Réussir 20 questions du quiz.",
+      "cond": {
+        "quizOk": 20
+      }
+    },
+    {
+      "id": "streak3",
+      "cat": "special",
+      "icon": "📅",
+      "name": "Fidèle au poste",
+      "desc": "Jouer 3 jours d'affilée.",
+      "cond": {
+        "streak": 3
+      }
+    },
+    {
+      "id": "streak7",
+      "cat": "special",
+      "icon": "🔥",
+      "name": "Semaine complète",
+      "desc": "Jouer 7 jours d'affilée.",
+      "cond": {
+        "streak": 7
+      }
+    },
+    {
+      "id": "streak30",
+      "cat": "special",
+      "icon": "🏅",
+      "name": "Un mois sans rater",
+      "desc": "Jouer 30 jours d'affilée.",
+      "cond": {
+        "streak": 30
       }
     }
   ]

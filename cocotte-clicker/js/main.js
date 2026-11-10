@@ -15,6 +15,8 @@ import { decorFor } from './decor.js';
 import { initTutorial } from './tutorial.js';
 import { initTips, renderTipTile } from './tips.js';
 import { applyBackground } from './backgrounds.js';
+import { initBoosts, renderBoostTile } from './boosts.js';
+import { initDaily, checkDaily } from './daily.js';
 import { initGolden, renderBuffs } from './golden.js';
 import { initSeason, renderProjects, renderSeason, applyMusicUnlocks } from './season.js';
 
@@ -41,6 +43,8 @@ async function boot() {
     DATA.projects = proj.projects;
     DATA.tips = (await loadJSON('data/tips.json')).tips;
     DATA.backgrounds = (await loadJSON('data/backgrounds.json')).backgrounds;
+    DATA.infos = (await loadJSON('data/infos.json')).infos;
+    DATA.quiz = (await loadJSON('data/quiz.json')).questions;
     buildProgress(upg, ach);
     DATA.skins = skins.skins;
     DATA.rarities = skins.rarities;
@@ -82,6 +86,9 @@ async function boot() {
   initGolden();
   initTutorial();
   initTips();
+  initBoosts();
+  initDaily();
+  on('tutoEnd', () => setTimeout(checkDaily, 600));
   on('season', afterStateChange);
   applySkin();
   on('refresh', updateUI);
@@ -142,6 +149,7 @@ function updateUI() {
   renderSeason();
   renderBuffs();
   renderTipTile();
+  renderBoostTile();
   $$('.js-crystals').forEach(e => (e.textContent = fmt(state.crystals)));
 
   const era = currentEra();

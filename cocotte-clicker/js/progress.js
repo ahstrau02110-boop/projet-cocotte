@@ -106,6 +106,9 @@ function stats() {
     bgs: Object.keys(state.bgs).length,
     bgLegendary: DATA.backgrounds.filter(b => b.rarity === 'legendaire' && state.bgs[b.id]).length,
     puzzles: state.mini.puzzles,
+    infos: state.boosts.infoSeen.length,
+    quizOk: state.boosts.quizOk,
+    streak: state.daily.best,
   };
 }
 function met(cond, st) {

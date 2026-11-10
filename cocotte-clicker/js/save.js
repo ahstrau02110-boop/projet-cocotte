@@ -45,6 +45,11 @@ function sanitize(raw) {
   if (Array.isArray(raw.buffs)) s.buffs = raw.buffs.filter(b => b && typeof b.until === 'number' && b.until > Date.now())
     .map(b => ({ id: String(b.id), name: String(b.name || ''), cps: num(b.cps, 1) || 1, click: num(b.click, 1) || 1, until: b.until }));
   s.golden = int(raw.golden);
+  const bo = obj(raw.boosts), arr = v => (Array.isArray(v) ? v.filter(x => typeof x === 'string') : []);
+  s.boosts = { infoLast: Math.min(num(bo.infoLast), Date.now()), quizLast: Math.min(num(bo.quizLast), Date.now()),
+    infoSeen: arr(bo.infoSeen), quizSeen: arr(bo.quizSeen), quizOk: int(bo.quizOk) };
+  const da = obj(raw.daily);
+  s.daily = { last: typeof da.last === 'string' ? da.last : '', streak: int(da.streak), best: int(da.best) };
   const tp = obj(raw.tips);
   s.tips = { last: Math.min(num(tp.last), Date.now()), read: Array.isArray(tp.read) ? tp.read.filter(x => typeof x === 'string') : [],
     pending: typeof tp.pending === 'string' ? tp.pending : null };

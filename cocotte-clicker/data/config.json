@@ -53,5 +53,28 @@
     "intervalMin": 60,
     "crystals": 5,
     "readSec": 8
+  },
+  "boosts": {
+    "cooldownMin": 15,
+    "infoMult": 2,
+    "infoSec": 120,
+    "infoReadSec": 6,
+    "quizMult": 3,
+    "quizSec": 120,
+    "quizWrongMult": 1.5,
+    "quizWrongSec": 60
+  },
+  "daily": {
+    "rewards": [
+      3,
+      4,
+      5,
+      6,
+      8,
+      10,
+      15
+    ],
+    "day7BoostMult": 2,
+    "day7BoostSec": 300
   }
 }

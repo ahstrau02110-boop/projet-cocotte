@@ -781,3 +781,33 @@ dialog.play-dlg[open] { display: flex; }
 .pz.done { gap: 0; transition: gap .4s; }
 .pz.done .pz-piece { border-radius: 0; }
 .pz.done .pz-piece.ok::after { display: none; }
+
+/* ===== Palier 4 : boosts, bonus quotidien ===== */
+.actions { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 880px) and (min-width: 521px) { .actions { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 520px) { .actions { grid-template-columns: repeat(3, 1fr); gap: .4rem; } .action b { font-size: .8rem; } }
+.a-boost { background: #fff3cc; position: relative; }
+.a-boost.ready { animation: suggest 1.4s ease-in-out infinite; }
+.a-boost.ready::after { content: ""; position: absolute; top: 6px; right: 6px; width: 14px; height: 14px; border-radius: 50%; background: var(--c-green); border: 2px solid #000; }
+.boost-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
+@media (max-width: 680px) { .boost-cols { grid-template-columns: 1fr; } }
+.boost-cols h3 { font-family: var(--f-title); margin: .4rem 0 0; }
+.tip-card.info { border-left-color: var(--c-pink); background: #fff0f5; }
+.tip-card.quiz { border-left-color: var(--c-purple); background: #f4ecff; }
+.tip-card.quiz h3 { font-size: 1.15rem; }
+.quiz-choices { display: grid; gap: .45rem; margin-top: .6rem; }
+.quiz-btn { text-align: left; padding: .55rem .8rem; min-height: 48px; border: var(--line); border-radius: 12px; background: #fff; font-weight: 700; box-shadow: var(--lift-sm); }
+.quiz-btn:not(:disabled):hover { background: #fffbea; }
+.quiz-btn:disabled { cursor: default; box-shadow: none; }
+.quiz-btn.good { background: #dff0cc; border-color: #2f7d5b; }
+.quiz-btn.bad { background: #ffd3e3; text-decoration: line-through; }
+.quiz-explain { margin: .6rem 0 0; font-size: 1rem; }
+.tip-note { background: #fff3cc; border: 2px solid #000; border-radius: 12px; padding: .55rem .8rem; margin: .4rem 0 0; font-size: .98rem; }
+.daily-days { list-style: none; padding: 0; margin: .6rem 0; display: grid; grid-template-columns: repeat(7, 1fr); gap: .35rem; }
+.day { display: grid; justify-items: center; gap: .1rem; padding: .45rem .2rem; border: 2px solid #000; border-radius: 12px; background: #fff; text-align: center; }
+.day span { font-family: var(--f-mono); font-size: .62rem; }
+.day b { font-family: var(--f-title); font-size: .95rem; }
+.day small { font-size: .6rem; color: var(--muted); }
+.day.past { background: #dff0cc; opacity: .8; }
+.day.now { background: var(--c-yellow); transform: scale(1.08); box-shadow: var(--lift-sm); }
+@media (max-width: 480px) { .daily-days { grid-template-columns: repeat(4, 1fr); } }
