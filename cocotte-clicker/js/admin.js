@@ -2,11 +2,13 @@
 import { $, $$, toast, esc } from './core.js';
 import { ALGO, SIGN, b64u, baseUrl, qrSVG, qrDataURL, voucherBody } from './qr.js';
 import { startScanner } from './scanner.js';
+import { initContent } from './admin-content.js';
+import { deepMerge } from './content.js';
 
 const KEY_STORE = 'cocotte-admin-key';
 const LOG_STORE = 'cocotte-admin-log';
 const ID_RE = /^[A-Z0-9]{6,12}$/;
-let config = {}, player = null, lastLink = '', stopScan = null;
+let config = {}, player = null, lastLink = '', stopScan = null, contentReady = false;
 
 // ---------- Outils ----------
 async function sha256hex(txt) {
@@ -36,6 +38,7 @@ function showApp() {
   renderLog();
   renderGameQR();
   readHash();
+  if (!contentReady) { contentReady = true; initContent(config).catch(() => toast('Contenu du jeu : chargement impossible.')); }
 }
 
 // ---------- Onglets ----------
@@ -253,6 +256,8 @@ function renderGameQR() {
 async function boot() {
   try { config = await (await fetch('data/config.json', { cache: 'no-cache' })).json(); }
   catch { toast('Impossible de charger data/config.json'); return; }
+  // Réglages publiés depuis l'onglet Contenu (montants par défaut, plafonds…)
+  try { deepMerge(config, (await (await fetch('data/overrides.json', { cache: 'no-cache' })).json()).config || {}); } catch { /* aucun */ }
 
   $('#login-form').addEventListener('submit', login);
   $('#btn-logout').addEventListener('click', () => { sessionStorage.removeItem('cocotte-admin-ok'); location.reload(); });

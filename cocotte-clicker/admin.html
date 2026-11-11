@@ -45,6 +45,7 @@
       <button role="tab" data-tab="player" aria-selected="true"><span aria-hidden="true">🎁</span> Un joueur</button>
       <button role="tab" data-tab="group" aria-selected="false"><span aria-hidden="true">👥</span> Un groupe</button>
       <button role="tab" data-tab="log" aria-selected="false"><span aria-hidden="true">📋</span> Historique</button>
+      <button role="tab" data-tab="content" aria-selected="false"><span aria-hidden="true">✏️</span> Contenu</button>
       <button role="tab" data-tab="settings" aria-selected="false"><span aria-hidden="true">⚙️</span> Réglages</button>
     </nav>
 
@@ -132,6 +133,23 @@
           <tbody id="log"></tbody>
         </table>
       </div>
+    </section>
+
+    <!-- ===== Contenu du jeu (palier 6) ===== -->
+    <section class="tab-panel" data-panel="content" hidden>
+      <div class="panel">
+        <h2 class="tape">Contenu du jeu</h2>
+        <p>Modifiez les images, textes, bâtiments ou réglages, vérifiez avec l'<b>aperçu</b>, puis <b>publiez</b> pour tous les joueurs. Le brouillon est enregistré automatiquement sur cet appareil.</p>
+        <div class="row">
+          <button id="ct-preview" type="button" class="big-btn">👁️ Aperçu dans le jeu</button>
+          <button id="ct-export" type="button" class="big-btn alt">📤 Publier</button>
+          <label class="file-btn">📂 Importer un fichier<input type="file" id="ct-import" accept=".json,application/json"></label>
+          <button id="ct-reset" type="button" class="danger">↺ Tout annuler</button>
+        </div>
+        <p id="ct-status" class="small" role="status"></p>
+      </div>
+      <nav id="ct-nav" class="ct-nav" role="tablist" aria-label="Type de contenu"></nav>
+      <div id="ct-body" class="panel ct-body"></div>
     </section>
 
     <!-- ===== Réglages ===== -->

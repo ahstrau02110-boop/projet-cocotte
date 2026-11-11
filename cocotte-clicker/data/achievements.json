@@ -1,5 +1,5 @@
 {
-  "_doc": "Succès. Chaque succès donne un bonus de production (config.json → achievements.prodBonusPct). cond : toutes les conditions doivent être vraies. Clés : clicks, earned, cps, era, buildings (total), pulls, skins, legendary, plays, stars, perfect, claims, upgrades, golden, seasons, projects, tips, bgs, bgLegendary, infos, quizOk, streak. buildingTemplates : générés pour chaque bâtiment ({b} = nom).",
+  "_doc": "Succès. Chaque succès donne un bonus de production (config.json → achievements.prodBonusPct). cond : toutes les conditions doivent être vraies. Clés : clicks, earned, cps, era, buildings (total), pulls, skins, legendary, plays, stars, perfect, claims, upgrades, golden, seasons, projects, tips, bgs, bgLegendary, infos, quizOk, streak, tipsAll, infosAll. buildingTemplates : générés pour chaque bâtiment ({b} = nom).",
   "buildingTemplates": [
     {
       "n": 1,
@@ -635,7 +635,7 @@
       "name": "Expert·e du numérique",
       "desc": "Lire toutes les astuces.",
       "cond": {
-        "tips": 41
+        "tipsAll": 1
       }
     },
     {
@@ -725,7 +725,7 @@
       "name": "Incollable sur La Co'Cotte",
       "desc": "Lire tous les « Le saviez-vous ? ».",
       "cond": {
-        "infos": 14
+        "infosAll": 1
       }
     },
     {

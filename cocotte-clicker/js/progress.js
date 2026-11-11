@@ -106,6 +106,8 @@ function stats() {
     seasons: state.prestige.seasons,
     projects: Object.keys(state.projects).length,
     tips: state.tips.read.length,
+    tipsAll: DATA.tips.length && DATA.tips.every(t => state.tips.read.includes(t.id)) ? 1 : 0,
+    infosAll: DATA.infos.length && DATA.infos.every(t => state.boosts.infoSeen.includes(t.id)) ? 1 : 0,
     bgs: Object.keys(state.bgs).length,
     bgLegendary: DATA.backgrounds.filter(b => b.rarity === 'legendaire' && state.bgs[b.id]).length,
     puzzles: state.mini.puzzles,

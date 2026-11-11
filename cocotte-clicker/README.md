@@ -58,6 +58,8 @@ js/games/              Mini-jeux : hub.js, match3.js, memory.js, bugs.js
 js/player.js           QR code du joueur, encaissement des bons
 js/qr.js               QR codes + vérification des signatures
 js/admin.js            Espace équipe
+js/admin-content.js    Onglet Contenu (édition sans code)
+js/content.js          Application des surcharges (overrides.json + aperçu)
 js/progress.js         Améliorations et succès
 js/decor.js            Décor du plan de travail par ère
 js/golden.js           Cocotte dorée et bonus temporaires
@@ -83,6 +85,7 @@ data/tips.json         Astuces numériques
 data/infos.json        « Le saviez-vous ? » sur La Co'Cotte
 data/quiz.json         Questions du quiz express
 data/talents.json      Talents de saison (prestige)
+data/overrides.json    Contenu publié depuis l'espace équipe ({} = contenu d'origine)
 data/config.json       Code admin, clé publique, récompenses, réglages gacha et mini-jeux
 assets/manifest.json   Référence unique de tous les assets (clé → chemin)
 assets/img/            Illustrations SVG chibi
@@ -187,6 +190,24 @@ La clé *anon* est publique par nature : la table est fermée (RLS sans accès d
 ## Mode sombre
 
 ⚙️ Options → « 🌙 Mode sombre ». Réglage mémorisé, appliqué dès le chargement.
+
+## Modifier le contenu sans coder (palier 6)
+
+Espace équipe → onglet **✏️ Contenu** :
+- **🖼️ Images** : remplacer n'importe quel asset du `manifest` (logo, Cocotte classique, pièce, cristal, curseur, bâtiments) par un lien ou un fichier de l'appareil (réduit à 512 px), ou indiquer un fichier audio pour la musique.
+- **🏗️ Bâtiments / 🗺️ Ères / 📌 Projets** : noms, descriptions, coûts, productions, seuils, présentation des projets.
+- **💡 Astuces / 📍 Le saviez-vous ? / ❓ Quiz** : ajouter, modifier, supprimer.
+- **⚖️ Économie** : prix des tirages, cristaux gagnés, bonus du jour, astuces, boosts, Cocotte dorée, graines de saison.
+
+Le brouillon est enregistré sur l'appareil. **👁️ Aperçu** ouvre le jeu avec les modifications (bandeau rose, visible seulement sur cet appareil ; « Quitter l'aperçu » pour revenir).
+
+### Publier pour tous les joueurs
+
+1. **📤 Publier** télécharge `overrides.json` (le jeu vérifie d'abord que les textes sont complets).
+2. Sur GitHub, ouvrir `cocotte-clicker/data/` → *Add file* → *Upload files* (lien direct dans l'onglet 📤 Publier), déposer le fichier (il remplace l'ancien) → *Commit changes*.
+3. En 1 à 2 minutes, tous les joueurs ont le nouveau contenu (appli installée : à la prochaine ouverture).
+
+Le code et les fichiers `data/*.json` d'origine ne sont jamais modifiés : `overrides.json` ne contient que les différences. Pour tout remettre à l'origine, publier un fichier vide (« ↺ Tout annuler » puis « 📤 Publier »). « 📂 Importer un fichier » reprend un `overrides.json` existant (sauvegarde, autre appareil de l'équipe).
 
 ## Tutoriel
 
@@ -309,4 +330,4 @@ Police Atkinson Hyperlegible (conçue pour la basse vision), base 18 px, contras
 - [x] **Collection** : 50 skins de Cocotte, Imprimante à décors (100 décors), mini-jeu Puzzle des skins
 - [x] **Palier 4** : station Boosts (Le saviez-vous ? + quiz), bonus quotidien et série de jours, mention des ateliers dans les Astuces
 - [x] **Palier 5** : compteur communautaire, objectifs collectifs, classement par pseudo (Supabase), 15 talents de saison, scanner intégré, QR de groupe, espace équipe repensé, mode sombre, récompenses en cristaux ×2
-- [ ] **Palier 6** : mode admin (code, surcharges du manifest, édition des données, export/import de config)
+- [x] **Palier 6** : édition du contenu depuis l'espace équipe (images, bâtiments, ères, projets, astuces, infos, quiz, économie), aperçu, publication par `overrides.json`

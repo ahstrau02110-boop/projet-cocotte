@@ -18,6 +18,7 @@ import { applyBackground } from './backgrounds.js';
 import { initBoosts, renderBoostTile } from './boosts.js';
 import { initDaily, checkDaily } from './daily.js';
 import { initCommunity, renderCommunityCard } from './community.js';
+import { applyOverrides, readDraft, previewOn, PREVIEW_KEY } from './content.js';
 import { initGolden, renderBuffs } from './golden.js';
 import { initSeason, renderProjects, renderSeason, applyMusicUnlocks, initTalents } from './season.js';
 
@@ -47,6 +48,14 @@ async function boot() {
     DATA.infos = (await loadJSON('data/infos.json')).infos;
     DATA.quiz = (await loadJSON('data/quiz.json')).questions;
     DATA.talents = (await loadJSON('data/talents.json')).talents;
+    // Contenu modifié depuis l'espace équipe : version publiée, puis brouillon en aperçu (appareil de l'équipe)
+    applyOverrides(DATA, await loadJSON('data/overrides.json').catch(() => null));
+    if (previewOn() && readDraft()) {
+      applyOverrides(DATA, readDraft());
+      document.body.insertAdjacentHTML('afterbegin', `<div class="preview-banner" role="status">👁️ Aperçu des modifications de l'espace équipe (non publiées)
+        <button type="button" id="btn-preview-off">Quitter l'aperçu</button></div>`);
+      document.getElementById('btn-preview-off').addEventListener('click', () => { localStorage.removeItem(PREVIEW_KEY); location.reload(); });
+    }
     buildProgress(upg, ach);
     DATA.skins = skins.skins;
     DATA.rarities = skins.rarities;
