@@ -2,6 +2,7 @@
 import { DATA, state, addCrystals } from './state.js';
 import { $, toast, emit, esc } from './core.js';
 import { save } from './save.js';
+import { renderCalendar } from './events.js';
 import { sfx } from './audio.js';
 
 const cfg = () => DATA.config.tips || {};
@@ -89,6 +90,7 @@ export function renderTipTile() {
 
 export function openTips() {
   render();
+  renderCalendar();
   $('#dlg-tips').showModal();
 }
 

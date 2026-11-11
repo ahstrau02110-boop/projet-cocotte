@@ -33,6 +33,8 @@ export function applyOverrides(DATA, ov) {
   }
   // Listes de textes : remplacées entièrement si fournies
   for (const list of ['tips', 'infos', 'quiz']) if (Array.isArray(ov[list]) && ov[list].length) DATA[list] = ov[list];
+  // Calendrier : peut être vidé volontairement
+  if (Array.isArray(ov.calendar)) DATA.calendar = ov.calendar;
   if (isObj(ov.config)) deepMerge(DATA.config, ov.config);
 }
 

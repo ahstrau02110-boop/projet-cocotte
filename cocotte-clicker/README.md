@@ -68,6 +68,7 @@ js/tips.js             Astuces numériques (une par heure)
 js/boosts.js           Station Boosts (Le saviez-vous ?, quiz)
 js/daily.js            Bonus quotidien et série
 js/community.js        Mode communautaire (Supabase)
+js/events.js           Événements + calendrier
 js/scanner.js          Lecture de QR par la caméra
 supabase/setup.sql     Base communautaire à installer dans Supabase
 sw.js                  Service worker (hors connexion)
@@ -85,6 +86,8 @@ data/tips.json         Astuces numériques
 data/infos.json        « Le saviez-vous ? » sur La Co'Cotte
 data/quiz.json         Questions du quiz express
 data/talents.json      Talents de saison (prestige)
+data/events.json       Événements et objets exclusifs
+data/calendar.json     Notre calendrier (ateliers)
 data/overrides.json    Contenu publié depuis l'espace équipe ({} = contenu d'origine)
 data/config.json       Code admin, clé publique, récompenses, réglages gacha et mini-jeux
 assets/manifest.json   Référence unique de tous les assets (clé → chemin)
@@ -209,6 +212,21 @@ Le brouillon est enregistré sur l'appareil. **👁️ Aperçu** ouvre le jeu av
 
 Le code et les fichiers `data/*.json` d'origine ne sont jamais modifiés : `overrides.json` ne contient que les différences. Pour tout remettre à l'origine, publier un fichier vide (« ↺ Tout annuler » puis « 📤 Publier »). « 📂 Importer un fichier » reprend un `overrides.json` existant (sauvegarde, autre appareil de l'équipe).
 
+## Événements
+
+Tuile **🎉 Événements** : événements en cours (avec compte à rebours) et à venir, boutique d'objets exclusifs payés en cristaux (absents des imprimantes mystère).
+
+| Événement | Dates | Bonus | Objets |
+|---|---|---|---|
+| 👾 Erreur 404 : la Cocotte a buggé ! | permanent | — | Cocotte glitchée (404 💎), décor Écran glitché (202 💎) |
+| 🎄 L'Avent du FabLab | 1er–31 décembre | production +10 % | Cocotte des neiges (250 💎), décor Nuit de neige (150 💎) |
+
+Ajouter un événement : `data/events.json` (dates `AAAA-MM-JJ`, vides = permanent ; `bonusPct` ; `offers` = skins/décors marqués `"event": true` dans `skins.json` / `backgrounds.json`, rareté `evenement`).
+
+## Notre calendrier
+
+Section **📅 Notre calendrier** dans l'onglet 💡 Astuces, juste sous l'encart sur les ateliers. Vide pour l'instant (message « bientôt »). Pour y mettre le planning : espace équipe → ✏️ Contenu → **📅 Calendrier** (date, horaire, titre, description), puis publier. Seuls les ateliers à venir s'affichent, dans l'ordre.
+
 ## Tutoriel
 
 Au premier lancement, un tutoriel en 9 étapes met en lumière chaque zone (Cocotte, réserve, bâtiments, améliorations, ères, activités, cristaux). « Passer » à tout moment ; « Revoir le tutoriel » dans ⚙️ Options.
@@ -330,4 +348,5 @@ Police Atkinson Hyperlegible (conçue pour la basse vision), base 18 px, contras
 - [x] **Collection** : 50 skins de Cocotte, Imprimante à décors (100 décors), mini-jeu Puzzle des skins
 - [x] **Palier 4** : station Boosts (Le saviez-vous ? + quiz), bonus quotidien et série de jours, mention des ateliers dans les Astuces
 - [x] **Palier 5** : compteur communautaire, objectifs collectifs, classement par pseudo (Supabase), 15 talents de saison, scanner intégré, QR de groupe, espace équipe repensé, mode sombre, récompenses en cristaux ×2
+- [x] **Événements** (boutique d'objets exclusifs, Cocotte glitchée 404 💎) et section « Notre calendrier »
 - [x] **Palier 6** : édition du contenu depuis l'espace équipe (images, bâtiments, ères, projets, astuces, infos, quiz, économie), aperçu, publication par `overrides.json`

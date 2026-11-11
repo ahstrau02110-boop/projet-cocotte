@@ -23,6 +23,7 @@ const P = {
   sunburst: (a, b, c, d) => (d === '#ffffff' || !d)
     ? `repeating-conic-gradient(from 0deg at 50% 45%, ${a} 0 10deg, ${b}99 10deg 20deg)`
     : `repeating-conic-gradient(from 0deg at 50% 45%, ${a} 0 15deg, ${b} 15deg 30deg, ${c} 30deg 45deg, ${d} 45deg 60deg)`,
+  glitch: (a, b, c, d) => `repeating-linear-gradient(0deg, rgba(255,255,255,.07) 0 2px, transparent 2px 5px), linear-gradient(90deg, transparent 0 12%, ${b}cc 12% 30%, transparent 30% 55%, ${c}aa 55% 61%, transparent 61%) 0 35%/100% 18px no-repeat, linear-gradient(90deg, transparent 0 40%, ${c}cc 40% 78%, transparent 78%) 0 62%/100% 10px no-repeat, linear-gradient(90deg, transparent 0 5%, ${d}aa 5% 22%, transparent 22%) 0 80%/100% 14px no-repeat, ${a}`,
   aurora: (a, b, c, d) => `radial-gradient(ellipse at 20% 20%, ${b}cc, transparent 55%), radial-gradient(ellipse at 80% 30%, ${c}cc, transparent 55%), radial-gradient(ellipse at 50% 95%, ${d}aa, transparent 60%), ${a}`,
 };
 

@@ -10,7 +10,7 @@ function persist() {
   localStorage.setItem(DRAFT_KEY, JSON.stringify(ov));
   const n = Object.keys(ov.manifest || {}).length
     + Object.values(EDITABLE).reduce((a, _, i) => a + Object.keys(ov[Object.keys(EDITABLE)[i]] || {}).length, 0)
-    + ['tips', 'infos', 'quiz'].filter(k => Array.isArray(ov[k])).length
+    + ['tips', 'infos', 'quiz', 'calendar'].filter(k => Array.isArray(ov[k])).length
     + countLeaves(ov.config || {});
   $('#ct-status').textContent = n
     ? `✏️ ${n} modification${n > 1 ? 's' : ''} en brouillon, enregistrée${n > 1 ? 's' : ''} sur cet appareil. Pensez à publier.`
@@ -33,6 +33,7 @@ const VIEWS = {
   tips: { label: '💡 Astuces', render: () => renderTexts('tips', { cat: 'Catégorie (avec émoji)', title: 'Titre', text: 'Texte' }) },
   infos: { label: '📍 Le saviez-vous ?', render: () => renderTexts('infos', { icon: 'Émoji', title: 'Titre', text: 'Texte' }) },
   quiz: { label: '❓ Quiz', render: () => renderTexts('quiz', { q: 'Question', choices: 'Réponses', answer: 'Bonne réponse', explain: 'Explication' }) },
+  calendar: { label: '📅 Calendrier', render: () => renderTexts('calendar', { date: 'Date (AAAA-MM-JJ)', time: 'Horaire (ex. 14h-16h)', title: 'Atelier / événement', text: 'Description' }) },
   economy: { label: '⚖️ Économie', render: renderEconomy },
   publish: { label: '📤 Publier', render: renderPublish },
 };
@@ -108,11 +109,12 @@ function renderTexts(list, labels) {
       ${Array.isArray(ov[list]) ? `<button type="button" class="ghost-btn" data-reset-list="${list}">↺ Revenir à la liste d'origine</button>` : ''}
       <span class="small">${items.length} élément${items.length > 1 ? 's' : ''}</span></div>
     <ul class="ct-list">${items.map((it, i) => `<li class="ct-item"><details${it._new ? ' open' : ''}>
-      <summary>${esc(it.title || it.q || '(sans titre)')}</summary>
+      <summary>${it.date ? esc(it.date) + ' · ' : ''}${esc(it.title || it.q || '(sans titre)')}</summary>
       <div class="ct-grid">${Object.entries(labels).map(([f, l]) => {
         if (f === 'choices') return `<label class="wide"><span>${l} (4)</span>${[0, 1, 2, 3].map(k => `<input data-text="${list}:${i}:choices:${k}" value="${esc(it.choices?.[k] ?? '')}" placeholder="Réponse ${k + 1}">`).join('')}</label>`;
         if (f === 'answer') return `<label><span>${l}</span><select data-text="${list}:${i}:answer">${[0, 1, 2, 3].map(k => `<option value="${k}" ${it.answer === k ? 'selected' : ''}>Réponse ${k + 1}</option>`).join('')}</select></label>`;
         const long = f === 'text' || f === 'explain' || f === 'q';
+        if (f === 'date') return `<label><span>${l}</span><input type="date" data-text="${list}:${i}:${f}" value="${esc(it[f] ?? '')}"></label>`;
         return `<label class="${long ? 'wide' : ''}"><span>${l}</span>${long ? `<textarea rows="3" data-text="${list}:${i}:${f}">${esc(it[f] ?? '')}</textarea>` : `<input data-text="${list}:${i}:${f}" value="${esc(it[f] ?? '')}">`}</label>`;
       }).join('')}</div>
       <button type="button" class="danger small-btn" data-del="${list}:${i}">🗑️ Supprimer</button></details></li>`).join('')}</ul>`;
@@ -205,7 +207,7 @@ function bind() {
     if (b.dataset.add) {
       const l = b.dataset.add, arr = ensureList(l);
       const id = 'perso-' + Date.now().toString(36);
-      arr.unshift(l === 'quiz' ? { id, q: '', choices: ['', '', '', ''], answer: 0, explain: '', _new: 1 } : l === 'infos' ? { id, icon: '💡', title: '', text: '', _new: 1 } : { id, cat: '💡 Astuce', title: '', text: '', _new: 1 });
+      arr.unshift(l === 'calendar' ? { id, date: new Date().toLocaleDateString('sv-SE'), time: '', title: '', text: '', _new: 1 } : l === 'quiz' ? { id, q: '', choices: ['', '', '', ''], answer: 0, explain: '', _new: 1 } : l === 'infos' ? { id, icon: '💡', title: '', text: '', _new: 1 } : { id, cat: '💡 Astuce', title: '', text: '', _new: 1 });
       persist(); VIEWS[l].render();
       arr.forEach(x => delete x._new);
     }
@@ -224,6 +226,7 @@ function bind() {
   });
   $('#ct-export').addEventListener('click', () => {
     // Vérifie les textes avant publication
+    if (Array.isArray(ov.calendar) && ov.calendar.some(x => !/^\d{4}-\d{2}-\d{2}$/.test(x.date || '') || !x.title)) return toast('Calendrier : chaque atelier doit avoir une date (AAAA-MM-JJ) et un titre.');
     for (const l of ['tips', 'infos']) if (Array.isArray(ov[l]) && ov[l].some(x => !x.title || !x.text)) return toast(`Un élément de « ${VIEWS[l].label} » n'a pas de titre ou de texte.`);
     if (Array.isArray(ov.quiz) && ov.quiz.some(q => !q.q || q.choices.some(c => !c))) return toast('Une question du quiz est incomplète (question ou réponses vides).');
     const out = { ...ov, _doc: 'Contenu modifié depuis l\'espace équipe Co\'Clicker', _published: new Date().toISOString() };
@@ -248,11 +251,11 @@ function bind() {
 
 export async function initContent(cfg) {
   config = cfg;
-  const [buildings, eras, projects, tips, infos, quiz, manifest, published] = await Promise.all([
+  const [buildings, eras, projects, tips, infos, quiz, manifest, published, calendar] = await Promise.all([
     load('data/buildings.json'), load('data/eras.json'), load('data/projects.json'), load('data/tips.json'),
-    load('data/infos.json'), load('data/quiz.json'), load('assets/manifest.json'), load('data/overrides.json').catch(() => ({})),
+    load('data/infos.json'), load('data/quiz.json'), load('assets/manifest.json'), load('data/overrides.json').catch(() => ({})), load('data/calendar.json').catch(() => ({ calendar: [] })),
   ]);
-  BASE = { buildings, eras, projects: projects.projects, tips: tips.tips, infos: infos.infos, quiz: quiz.questions, manifest, config: JSON.parse(JSON.stringify(cfg)) };
+  BASE = { buildings, eras, projects: projects.projects, tips: tips.tips, infos: infos.infos, quiz: quiz.questions, calendar: calendar.calendar || [], manifest, config: JSON.parse(JSON.stringify(cfg)) };
   // Le brouillon reprend la version publiée tant qu'aucune modification locale n'existe
   ov = readDraft() || (({ _doc, _published, ...rest }) => rest)(published || {});
   $('#ct-nav').innerHTML = Object.entries(VIEWS).map(([k, v]) => `<button role="tab" type="button" data-v="${k}">${v.label}</button>`).join('');

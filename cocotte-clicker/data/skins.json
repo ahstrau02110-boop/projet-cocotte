@@ -1,5 +1,5 @@
 {
-  "_doc": "Skins de la Cocotte. rarity : commune | rare | epique | legendaire. Couleurs, motif (pattern), accessoire, yeux et effet sont combinés par js/skins.js. Ajoutez \"img\": \"assets/img/...\" pour utiliser une illustration à la place.",
+  "_doc": "Skins de la Cocotte. rarity : commune | rare | epique | legendaire. Couleurs, motif (pattern), accessoire, yeux et effet sont combinés par js/skins.js. Ajoutez \"img\": \"assets/img/...\" pour utiliser une illustration à la place. Rareté « evenement » + \"event\": true : skin vendu dans l'onglet Événements, absent des imprimantes.",
   "rarities": [
     {
       "id": "commune",
@@ -24,6 +24,12 @@
       "label": "Légendaire",
       "color": "#e0a800",
       "weight": 2
+    },
+    {
+      "id": "evenement",
+      "label": "Événement",
+      "color": "#E41E6C",
+      "weight": 0
     }
   ],
   "skins": [
@@ -629,6 +635,39 @@
       "eyes": "star",
       "fx": "holo",
       "desc": "Sculptée dans la glace du canal."
+    },
+    {
+      "id": "glitch",
+      "name": "Cocotte glitchée",
+      "rarity": "evenement",
+      "event": true,
+      "colors": {
+        "body": "#1b1035",
+        "shade": "#0e081e",
+        "rim": "#5ef2c5",
+        "blush": "#ff2bd6"
+      },
+      "pattern": "glitch",
+      "eyes": "glitch",
+      "accessory": "none",
+      "fx": "glitch",
+      "desc": "ERREUR 404 : Cocotte introuvable… ah si, la voilà !"
+    },
+    {
+      "id": "bonhomme",
+      "name": "Cocotte des neiges",
+      "rarity": "evenement",
+      "event": true,
+      "gradient": [
+        "#ffffff",
+        "#e6f4ff",
+        "#bfe6f2"
+      ],
+      "pattern": "sparkles",
+      "accessory": "beanie",
+      "eyes": "happy",
+      "fx": "glow",
+      "desc": "Fabriquée pendant l'Avent du FabLab."
     }
   ]
 }

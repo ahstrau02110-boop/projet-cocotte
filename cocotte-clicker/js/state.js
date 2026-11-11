@@ -7,7 +7,7 @@ export const CONFIG = {
 };
 
 // Données chargées au démarrage (data/*.json, assets/manifest.json)
-export const DATA = { buildings: [], eras: [], manifest: {}, config: {}, skins: [], rarities: [], upgradeList: [], achList: [], projects: [], tips: [], backgrounds: [], infos: [], quiz: [], talents: [] };
+export const DATA = { buildings: [], eras: [], manifest: {}, config: {}, skins: [], rarities: [], upgradeList: [], achList: [], projects: [], tips: [], backgrounds: [], infos: [], quiz: [], talents: [], events: [], calendar: [] };
 
 // Identifiant joueur anonyme (8 caractères, sans caractères ambigus)
 export function newPlayerId() {
@@ -73,6 +73,13 @@ export const projectEffects = type => DATA.projects.filter(p => state.projects[p
 export const activeBuffs = () => state.buffs.filter(b => b.until > Date.now());
 export const buffMult = kind => activeBuffs().reduce((m, b) => m * (b[kind] || 1), 1);
 
+// Événements en cours (dates locales AAAA-MM-JJ, vides = permanent)
+export const activeEvents = () => {
+  const t = new Date().toLocaleDateString('sv-SE');
+  return DATA.events.filter(e => (!e.start || e.start <= t) && (!e.end || t <= e.end));
+};
+export const eventPct = () => activeEvents().reduce((a, e) => a + (e.bonusPct || 0), 0);
+
 // Objectifs collectifs atteints (valeur en cache, fonctionne hors ligne)
 export const communityPct = () => (DATA.config.community?.goals || []).filter(g => state.net.total >= g.at).reduce((a, g) => a + g.pct, 0);
 
@@ -98,7 +105,7 @@ export function collectionBonus() {
   return (Object.keys(state.skins).length - 1) * pct + Object.keys(state.bgs).length * bgPct;
 }
 export function globalMult() {
-  return (1 + collectionBonus() / 100) * (1 + achievementBonus() / 100) * (1 + seedBonus() / 100) * (1 + communityPct() / 100) * upgradesGlobal()
+  return (1 + collectionBonus() / 100) * (1 + achievementBonus() / 100) * (1 + seedBonus() / 100) * (1 + communityPct() / 100) * (1 + eventPct() / 100) * upgradesGlobal()
     * projectEffects('global').reduce((m, e) => m * e.mult, 1);
 }
 

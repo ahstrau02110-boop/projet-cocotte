@@ -6,7 +6,7 @@ import { bgById, bgThumb } from './backgrounds.js';
 import { save } from './save.js';
 import { sfx } from './audio.js';
 
-const RANK = { commune: 0, rare: 1, epique: 2, legendaire: 3 };
+const RANK = { commune: 0, rare: 1, epique: 2, legendaire: 3, evenement: 4 };
 const cfg = () => DATA.config.gacha || {};
 const cost10 = () => (cfg().cost10 ?? 225) - (hasTalent('impression') ? 25 : 0);
 let busy = false, machine = 'cocotte', collView = 'cocotte';
@@ -15,14 +15,14 @@ let busy = false, machine = 'cocotte', collView = 'cocotte';
 const M = {
   cocotte: {
     title: 'Imprimante à Cocottes', label: 'COCOTTE·PRINT', unit: 'skin',
-    items: () => DATA.skins.filter(s => !s.default), all: () => DATA.skins,
+    items: () => DATA.skins.filter(s => !s.default && !s.event), all: () => DATA.skins,
     owned: () => state.skins, pity: 'sinceLegend', pulls: 'pulls',
     visual: s => `<img src="${skinImage(s.id)}" alt="">`,
     equipped: id => state.skin === id, equip: id => { state.skin = id; }, byId: skinById,
   },
   decor: {
     title: 'Imprimante à décors', label: 'DÉCOR·PRINT', unit: 'décor',
-    items: () => DATA.backgrounds, all: () => DATA.backgrounds,
+    items: () => DATA.backgrounds.filter(b => !b.event), all: () => DATA.backgrounds,
     owned: () => state.bgs, pity: 'bgSinceLegend', pulls: 'bgPulls',
     visual: b => bgThumb(b),
     equipped: id => state.bg === id, equip: id => { state.bg = id; }, byId: bgById,
@@ -156,7 +156,7 @@ export function renderCollection() {
       ${m.visual(s)}<span class="rar">${rar.label}</span>
       ${has ? `<b>${esc(s.name)}</b>${s.desc ? `<small>${esc(s.desc)}</small>` : ''}
         <button class="equip-btn" data-equip="${collView}:${s.id}" ${on ? 'disabled' : ''}>${on ? 'Équipé' : 'Équiper'}</button>`
-        : '<b>???</b><small>À imprimer</small>'}</li>`;
+        : s.event ? `<b>${esc(s.name)}</b><small>Objet d'événement (onglet 🎉)</small>` : '<b>???</b><small>À imprimer</small>'}</li>`;
   }).join('');
   grid.innerHTML = html;
 }

@@ -111,6 +111,8 @@ function stats() {
     bgs: Object.keys(state.bgs).length,
     bgLegendary: DATA.backgrounds.filter(b => b.rarity === 'legendaire' && state.bgs[b.id]).length,
     puzzles: state.mini.puzzles,
+    eventItems: DATA.skins.filter(s => s.event && state.skins[s.id]).length + DATA.backgrounds.filter(b => b.event && state.bgs[b.id]).length,
+    glitch: state.skins.glitch ? 1 : 0,
     infos: state.boosts.infoSeen.length,
     quizOk: state.boosts.quizOk,
     streak: state.daily.best,

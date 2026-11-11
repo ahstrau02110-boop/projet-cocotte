@@ -19,6 +19,7 @@ import { initBoosts, renderBoostTile } from './boosts.js';
 import { initDaily, checkDaily } from './daily.js';
 import { initCommunity, renderCommunityCard } from './community.js';
 import { applyOverrides, readDraft, previewOn, PREVIEW_KEY } from './content.js';
+import { initEvents, renderEventTile } from './events.js';
 import { initGolden, renderBuffs } from './golden.js';
 import { initSeason, renderProjects, renderSeason, applyMusicUnlocks, initTalents } from './season.js';
 
@@ -48,6 +49,8 @@ async function boot() {
     DATA.infos = (await loadJSON('data/infos.json')).infos;
     DATA.quiz = (await loadJSON('data/quiz.json')).questions;
     DATA.talents = (await loadJSON('data/talents.json')).talents;
+    DATA.events = (await loadJSON('data/events.json')).events;
+    DATA.calendar = (await loadJSON('data/calendar.json').catch(() => ({ calendar: [] }))).calendar || [];
     // Contenu modifié depuis l'espace équipe : version publiée, puis brouillon en aperçu (appareil de l'équipe)
     applyOverrides(DATA, await loadJSON('data/overrides.json').catch(() => null));
     if (previewOn() && readDraft()) {
@@ -99,6 +102,7 @@ async function boot() {
   initTutorial();
   initTips();
   initBoosts();
+  initEvents();
   initCommunity();
   initDaily();
   on('tutoEnd', () => setTimeout(checkDaily, 600));
@@ -165,6 +169,7 @@ function updateUI() {
   renderBuffs();
   renderTipTile();
   renderBoostTile();
+  renderEventTile();
   renderCommunityCard();
   $$('.js-crystals').forEach(e => (e.textContent = fmt(state.crystals)));
 

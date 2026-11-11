@@ -1,5 +1,5 @@
 {
-  "_doc": "Succès. Chaque succès donne un bonus de production (config.json → achievements.prodBonusPct). cond : toutes les conditions doivent être vraies. Clés : clicks, earned, cps, era, buildings (total), pulls, skins, legendary, plays, stars, perfect, claims, upgrades, golden, seasons, projects, tips, bgs, bgLegendary, infos, quizOk, streak, tipsAll, infosAll. buildingTemplates : générés pour chaque bâtiment ({b} = nom).",
+  "_doc": "Succès. Chaque succès donne un bonus de production (config.json → achievements.prodBonusPct). cond : toutes les conditions doivent être vraies. Clés : clicks, earned, cps, era, buildings (total), pulls, skins, legendary, plays, stars, perfect, claims, upgrades, golden, seasons, projects, tips, bgs, bgLegendary, infos, quizOk, streak, tipsAll, infosAll. buildingTemplates : générés pour chaque bâtiment ({b} = nom). eventItems, glitch.",
   "buildingTemplates": [
     {
       "n": 1,
@@ -776,6 +776,26 @@
       "desc": "Jouer 30 jours d'affilée.",
       "cond": {
         "streak": 30
+      }
+    },
+    {
+      "id": "event1",
+      "cat": "special",
+      "icon": "🎉",
+      "name": "Collectionneur·euse d'événement",
+      "desc": "Acheter un objet d'événement.",
+      "cond": {
+        "eventItems": 1
+      }
+    },
+    {
+      "id": "event404",
+      "cat": "special",
+      "icon": "👾",
+      "name": "Erreur 404",
+      "desc": "Obtenir la Cocotte glitchée.",
+      "cond": {
+        "glitch": 1
       }
     }
   ]

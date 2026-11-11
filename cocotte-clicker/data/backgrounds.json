@@ -1220,6 +1220,34 @@
     "#ffffff"
    ],
    "fx": "scroll"
+  },
+  {
+   "id": "ev-glitch",
+   "name": "Écran glitché",
+   "rarity": "evenement",
+   "event": true,
+   "pattern": "glitch",
+   "colors": [
+    "#0b0b14",
+    "#ff2bd6",
+    "#5ef2c5",
+    "#fcd260"
+   ],
+   "fx": "glitch"
+  },
+  {
+   "id": "ev-neige",
+   "name": "Nuit de neige",
+   "rarity": "evenement",
+   "event": true,
+   "pattern": "stars",
+   "colors": [
+    "#1d2a4a",
+    "#ffffff",
+    "#bfe6f2",
+    "#ffffff"
+   ],
+   "fx": "scroll"
   }
  ]
 }

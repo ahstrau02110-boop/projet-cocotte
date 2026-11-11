@@ -50,6 +50,11 @@ function pattern(p, c) {
         .map(([x, y, r]) => `<path d="M${x} ${y - r}l${r * .3} ${r * .7} ${r * .7} ${r * .3}-${r * .7} ${r * .3}-${r * .3} ${r * .7}-${r * .3}-${r * .7}-${r * .7}-${r * .3} ${r * .7}-${r * .3}z" fill="#fff"/>`).join('');
     case 'flames':
       return `<path d="M40 210c0-30 20-30 20-50 10 14 14 24 24 10 6 16 16 22 26 4 10 18 20 18 30 0 8 16 20 22 28 6 10 14 22 18 32 30v0z" fill="#ffd23f" opacity=".85"/>`;
+    case 'glitch':
+      // Bandes décalées magenta / cyan + lignes de balayage
+      return `<rect x="40" y="118" width="190" height="10" fill="#ff2bd6" opacity=".75"/><rect x="30" y="150" width="120" height="7" fill="#5ef2c5" opacity=".8"/>
+        <rect x="120" y="178" width="110" height="9" fill="#fcd260" opacity=".7"/><rect x="40" y="196" width="80" height="5" fill="#ff2bd6" opacity=".6"/>`
+        + Array.from({ length: 28 }, (_, i) => `<rect x="40" y="${100 + i * 4}" width="180" height="1.5" fill="#fff" opacity=".12"/>`).join('');
     case 'galaxy':
       return `<ellipse cx="150" cy="150" rx="70" ry="30" fill="#7b3fe4" opacity=".45" transform="rotate(-20 150 150)"/>
         <ellipse cx="110" cy="170" rx="50" ry="18" fill="#E41E6C" opacity=".35" transform="rotate(15 110 170)"/>`
@@ -147,6 +152,10 @@ function eyes(e) {
     case 'pixel':
       return `<rect x="92" y="134" width="20" height="22" fill="#000"/><rect x="148" y="134" width="20" height="22" fill="#000"/>
         <rect x="102" y="136" width="7" height="7" fill="#fff"/><rect x="158" y="136" width="7" height="7" fill="#fff"/>`;
+    case 'glitch':
+      return `<ellipse cx="102" cy="146" rx="12" ry="15" fill="#5ef2c5"/><ellipse cx="99" cy="146" rx="12" ry="15" fill="#ff2bd6" opacity=".7"/>
+        <rect x="146" y="134" width="24" height="24" fill="#fff"/><rect x="150" y="138" width="8" height="8" fill="#000"/><rect x="158" y="146" width="8" height="8" fill="#000"/>
+        <text x="130" y="128" font-family="Space Mono,monospace" font-size="16" font-weight="700" text-anchor="middle" fill="#5ef2c5">404</text>`;
     case 'sleepy':
       return `<path d="M90 148q12 8 24 0M146 148q12 8 24 0" stroke="#000" stroke-width="6" fill="none" stroke-linecap="round"/>
         <text x="196" y="122" font-family="Arial Black,Arial" font-size="20" font-weight="900" fill="#3C2472">z</text>`;

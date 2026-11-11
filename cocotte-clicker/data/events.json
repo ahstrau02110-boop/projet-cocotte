@@ -1,0 +1,47 @@
+{
+  "_doc": "Événements : start/end au format AAAA-MM-JJ (vides = permanent). bonusPct = production en plus pendant l'événement. offers : skin ou décor (kind: skin | bg, id défini dans skins.json / backgrounds.json avec \"event\": true) vendus contre des cristaux.",
+  "events": [
+    {
+      "id": "err404",
+      "icon": "👾",
+      "name": "Erreur 404 : la Cocotte a buggé !",
+      "desc": "Un bug s'est glissé dans l'imprimante 3D… et il a créé une Cocotte unique. Récupérez-la avant que quelqu'un ne la répare !",
+      "start": "",
+      "end": "",
+      "bonusPct": 0,
+      "offers": [
+        {
+          "kind": "skin",
+          "id": "glitch",
+          "price": 404
+        },
+        {
+          "kind": "bg",
+          "id": "ev-glitch",
+          "price": 202
+        }
+      ]
+    },
+    {
+      "id": "avent",
+      "icon": "🎄",
+      "name": "L'Avent du FabLab",
+      "desc": "Tout le mois de décembre, l'atelier se met aux couleurs de l'hiver : production +10 % et objets exclusifs.",
+      "start": "2026-12-01",
+      "end": "2026-12-31",
+      "bonusPct": 10,
+      "offers": [
+        {
+          "kind": "skin",
+          "id": "bonhomme",
+          "price": 250
+        },
+        {
+          "kind": "bg",
+          "id": "ev-neige",
+          "price": 150
+        }
+      ]
+    }
+  ]
+}
