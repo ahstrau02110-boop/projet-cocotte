@@ -6,14 +6,8 @@
     {
       "kty": "EC",
       "crv": "P-256",
-      "x": "Tm1IDyPOL4yJ0s3Xq2q3UNXSSky5KTzcFr95tA41uI8",
-      "y": "c_p9lAAMnDfTNL8op9cHxFSHkwMX9WVHTIIhsZ-wIwM"
-    },
-    {
-      "kty": "EC",
-      "crv": "P-256",
-      "x": "WIfKpL9kXRYLAFL-puDrc6UlQY25YL2AWKHX_DLv90k",
-      "y": "ANwjdEBj0Cb43oUrSWDFH7uCA6bisIFr-DSdsH7bY88"
+      "x": "V1Y0pJ53-3aO0UoCCljwd1X2HbDcEinq87L9priGAfE",
+      "y": "OZhDqi4kHFl00iUvzZ7Gw876ganhUn4symV8DrDP_to"
     }
   ],
   "rewards": {
