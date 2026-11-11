@@ -28,11 +28,12 @@ export function openMyQR() {
 // Vérifie et encaisse un bon signé par l'équipe
 export async function claim(token) {
   const R = DATA.config.rewards || {};
-  const pub = DATA.config.adminPublicKey;
-  if (!pub) { toast("Les récompenses par QR code ne sont pas encore activées sur ce jeu."); return; }
+  // Une ou plusieurs clés publiques acceptées (plusieurs appareils de l'équipe)
+  const pubs = [DATA.config.adminPublicKey].flat().filter(Boolean);
+  if (!pubs.length) { toast("Les récompenses par QR code ne sont pas encore activées sur ce jeu."); return; }
   let v;
-  try { v = await verifyVoucher(token, pub); }
-  catch { sfx.deny(); toast('Code de récompense invalide.'); return; }
+  for (const pub of pubs) { try { v = await verifyVoucher(token, pub); break; } catch {} }
+  if (!v) { sfx.deny(); toast('Code de récompense invalide.'); return; }
   // Bon de groupe (atelier, événement) : valable pour tous les joueurs, une fois chacun, pendant quelques heures
   const group = /^grp(\d+)$/.exec(v.playerId);
   if (group) {

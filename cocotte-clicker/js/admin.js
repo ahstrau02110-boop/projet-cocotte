@@ -51,7 +51,7 @@ function setTab(tab) {
 
 // ---------- Clé de signature ----------
 function renderKey() {
-  const k = loadKey(), pub = config.adminPublicKey, warn = $('#key-warning');
+  const k = loadKey(), pubs = [config.adminPublicKey].flat().filter(Boolean), pub = pubs.length, warn = $('#key-warning');
   $('#pub-box').hidden = !k;
   if (k) $('#pub-json').value = JSON.stringify(k.publicJwk);
   let msg = '';
@@ -61,7 +61,7 @@ function renderKey() {
   } else if (!pub) {
     $('#key-status').innerHTML = '⚠️ La clé publique n\'est pas encore dans <code>data/config.json</code>.';
     msg = '<strong>Dernière étape :</strong> copiez la clé publique (⚙️ Réglages) dans <code>data/config.json</code>, puis publiez le jeu.';
-  } else if (!sameKey(k.publicJwk, pub)) {
+  } else if (!pubs.some(p => sameKey(k.publicJwk, p))) {
     $('#key-status').textContent = '⚠️ La clé de cet appareil ne correspond pas à celle du jeu.';
     msg = '<strong>Clé différente :</strong> importez le fichier de clé de l\'équipe dans ⚙️ Réglages.';
   } else {
