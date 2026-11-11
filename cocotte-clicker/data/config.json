@@ -2,7 +2,7 @@
   "_doc": "Réglages généraux. gameUrl : URL publique du jeu (vide = déduite automatiquement). adminCodeSha256 : empreinte SHA-256 du code admin (voir README : voir README). adminPublicKey : clé publique générée depuis admin.html. community : url et anonKey du projet Supabase (voir README) ; vide = mode solo.",
   "gameUrl": "https://ahstrau02110-boop.github.io/projet-cocotte/cocotte-clicker/",
   "adminCodeSha256": "d1d32acd65665bbafe86d076de93832fcbabe1d294531584e5e2526c42745246",
-  "adminPublicKey": {
+  "adminPublicKey": {{"kty":"EC","crv":"P-256","x":"Tm1IDyPOL4yJ0s3Xq2q3UNXSSky5KTzcFr95tA41uI8","y":"c_p9lAAMnDfTNL8op9cHxFSHkwMX9WVHTIIhsZ-wIwM"}
     "kty": "EC",
     "crv": "P-256",
     "x": "bBmeoS5Pb9oBKpJ9Zc2TI6ugodAF-DmHNd9fFdo_utc",
