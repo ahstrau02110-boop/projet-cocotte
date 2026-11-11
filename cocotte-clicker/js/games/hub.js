@@ -76,6 +76,7 @@ function finish(game, { score, stars }) {
   const record = score > (state.mini.best[game.id] || 0);
   if (record) state.mini.best[game.id] = score;
   state.mini.plays++;
+  emit('gameEnd', { game: game.id, score });
   state.mini.stars += stars;
   if (stars === 3) state.mini.perfect++;
   save();

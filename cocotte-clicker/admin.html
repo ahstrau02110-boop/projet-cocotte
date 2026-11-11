@@ -45,6 +45,7 @@
       <button role="tab" data-tab="player" aria-selected="true"><span aria-hidden="true">🎁</span> Un joueur</button>
       <button role="tab" data-tab="group" aria-selected="false"><span aria-hidden="true">👥</span> Un groupe</button>
       <button role="tab" data-tab="log" aria-selected="false"><span aria-hidden="true">📋</span> Historique</button>
+      <button role="tab" data-tab="live" aria-selected="false"><span aria-hidden="true">📡</span> En direct</button>
       <button role="tab" data-tab="content" aria-selected="false"><span aria-hidden="true">✏️</span> Contenu</button>
       <button role="tab" data-tab="settings" aria-selected="false"><span aria-hidden="true">⚙️</span> Réglages</button>
     </nav>
@@ -132,6 +133,51 @@
           <thead><tr><th>Date</th><th>Type</th><th>Joueur</th><th>Pseudo</th><th>Cristaux</th><th>Occasion</th></tr></thead>
           <tbody id="log"></tbody>
         </table>
+      </div>
+    </section>
+
+    <!-- ===== En direct (serveur) ===== -->
+    <section class="tab-panel" data-panel="live" hidden>
+      <div class="panel">
+        <h2 class="tape tape-green">En direct</h2>
+        <p>Actions visibles immédiatement par tous les joueurs connectés. Elles nécessitent la <b>clé serveur</b> de l'équipe (transmise par le référent).</p>
+        <div class="row"><input id="live-key" type="password" class="mono grow" placeholder="Clé serveur" autocomplete="off" aria-label="Clé serveur">
+          <button type="button" id="btn-live-key" class="primary">Enregistrer</button></div>
+        <p id="live-key-status" class="key-status"></p>
+        <h3>Maintenant</h3><ul id="live-now" class="live-now"></ul>
+      </div>
+      <div class="panel">
+        <h2 class="tape">📣 Annonce</h2>
+        <p class="muted">Un bandeau en haut du jeu, chez tous les joueurs (ex. « Atelier Pixel Art complet, prochain jeudi ! »).</p>
+        <div class="stack"><label for="ann-text">Message (200 caractères)</label><input id="ann-text" maxlength="200">
+          <label for="ann-hours">Affiché pendant (heures)</label><input id="ann-hours" type="number" min="1" value="24"></div>
+        <div class="row"><button type="button" id="btn-announce" class="big-btn">📣 Publier l'annonce</button><button type="button" id="btn-announce-clear" class="ghost-btn">Retirer</button></div>
+      </div>
+      <div class="panel">
+        <h2 class="tape">👾 Boss collectif</h2>
+        <p class="muted">Un « méga-bug » à vaincre tous ensemble : chaque clic sur la Cocotte lui retire 1 point de vie. Ceux qui l'ont frappé au moins 10 fois gagnent la récompense. Comptez environ 300 points de vie par joueur attendu.</p>
+        <div class="ct-grid"><label><span>Nom</span><input id="boss-name" value="Méga-bug de l'imprimante"></label>
+          <label><span>Points de vie</span><input id="boss-hp" type="number" min="100" value="5000"></label>
+          <label><span>Durée (heures)</span><input id="boss-hours" type="number" min="1" value="24"></label>
+          <label><span>Récompense (💎)</span><input id="boss-reward" type="number" min="0" value="80"></label></div>
+        <div class="row"><button type="button" id="btn-boss" class="big-btn">👾 Lancer le boss</button><button type="button" id="btn-boss-stop" class="ghost-btn">Arrêter</button></div>
+      </div>
+      <div class="panel">
+        <h2 class="tape">🗺️ Chasse au trésor</h2>
+        <p class="muted">Des QR « balises » cachés dans La Co'Cotte. Chaque balise trouvée rapporte des cristaux et affiche un indice (vers la suivante). Toutes trouvées = bonus. Une ligne = une balise.</p>
+        <div class="ct-grid"><label><span>Nom</span><input id="hunt-name" value="Chasse au trésor de La Co'Cotte"></label>
+          <label><span>Durée (heures)</span><input id="hunt-hours" type="number" min="1" value="8"></label>
+          <label><span>💎 par balise</span><input id="hunt-reward" type="number" min="0" value="15"></label>
+          <label><span>💎 bonus (toutes trouvées)</span><input id="hunt-bonus" type="number" min="0" value="60"></label>
+          <label class="wide"><span>Indices (un par ligne, affiché quand on trouve la balise)</span>
+            <textarea id="hunt-clues" rows="5" placeholder="La suivante t'attend près de l'imprimante 3D&#10;Cherche sous le panneau du Bricol'Café&#10;Bravo ! Dernière balise : à l'accueil"></textarea></label></div>
+        <div class="row"><button type="button" id="btn-hunt" class="big-btn">🗺️ Créer la chasse</button>
+          <button type="button" id="btn-hunt-show" class="ghost-btn">Réimprimer la chasse en cours</button><button type="button" id="btn-hunt-stop" class="ghost-btn">Terminer</button></div>
+        <div id="hunt-print" class="hunt-print"></div>
+      </div>
+      <div class="panel">
+        <h2 class="tape">🖼️ Galerie (modération)</h2>
+        <ul id="live-gallery" class="live-gallery"></ul>
       </div>
     </section>
 

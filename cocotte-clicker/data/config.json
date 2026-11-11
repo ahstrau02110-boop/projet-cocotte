@@ -116,7 +116,9 @@
         "pct": 10,
         "name": "Légende des Hauts-de-France"
       }
-    ]
+    ],
+    "weeklyReward": 150,
+    "teamBonusPct": 10
   },
   "repoUploadUrl": "https://github.com/ahstrau02110-boop/projet-cocotte/upload/main/cocotte-clicker/data"
 }

@@ -40,11 +40,16 @@
     </div>
   </header>
 
+  <!-- Annonce en direct de l'équipe -->
+  <div id="announce" class="announce" hidden role="status"><span aria-hidden="true">📣</span><span id="announce-txt"></span>
+    <button type="button" id="announce-close" aria-label="Masquer l'annonce">✕</button></div>
+
   <main class="layout">
     <!-- Plan de travail -->
     <section class="workshop" aria-labelledby="ws-title">
       <h2 id="ws-title" class="tape">Plan de travail</h2>
 
+      <section id="boss" class="boss" hidden aria-label="Boss collectif"></section>
       <div class="bench" id="bench">
         <div id="buffs" class="buffs" aria-live="polite"></div>
         <div class="bench-bg" id="bench-bg" aria-hidden="true"></div>
@@ -324,10 +329,10 @@
   <dialog id="dlg-community" class="wide" aria-labelledby="community-title">
     <div class="dlg">
       <div class="dlg-head">
-        <h2 id="community-title" class="tape tape-green">Communauté</h2>
+        <h2 id="community-title" class="tape tape-green">Communauté en ligne</h2>
         <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
       </div>
-      <p class="muted">Tous les joueurs de Co'Clicker produisent ensemble : chaque objectif collectif atteint donne un bonus de production à tout le monde.</p>
+      <p class="muted">Classements, défi de la semaine, équipes, galerie et cadeaux : jouez avec tous les joueurs de Co'Clicker.</p>
       <div id="community-body"></div>
     </div>
   </dialog>

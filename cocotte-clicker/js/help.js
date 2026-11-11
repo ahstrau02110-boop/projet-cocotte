@@ -12,7 +12,7 @@ const HELP = {
   'btn-tips': ['💡', 'Astuces numériques', ['Une astuce sur le numérique toutes les heures : lisez-la pour gagner 10 💎.', 'Vous y trouvez aussi « Notre calendrier » : le programme des ateliers de La Co\'Cotte.']],
   'btn-scan': ['📷', 'Scanner', ['Pour récupérer les cristaux offerts par l\'équipe de La Co\'Cotte.', 'Visez le QR de récompense (ou le QR de groupe d\'un atelier) : les cristaux arrivent aussitôt.']],
   'btn-myqr': ['📱', 'Mon QR code', ['Votre carte de joueur, sans compte ni nom.', 'Montrez-la à l\'équipe pendant un atelier pour recevoir des cristaux.', 'Vous pouvez choisir un pseudo pour le classement.']],
-  'btn-community': ['🌍', 'Communauté', ['Tous les joueurs produisent ensemble : chaque objectif collectif atteint booste la production de tout le monde.', 'Un classement par pseudo (facultatif) montre les meilleurs joueurs.']],
+  'btn-community': ['🌍', 'Communauté en ligne', ['Défi de la semaine à réussir tous ensemble, équipes (Atelier, FabLab, Tiers-lieu), classements des mini-jeux.', 'Exposez votre Cocotte dans la galerie et offrez 10 💎 par jour à un ami.', 'Pendant les événements : boss collectif et chasse au trésor à La Co\'Cotte !']],
 };
 
 let pending = null;

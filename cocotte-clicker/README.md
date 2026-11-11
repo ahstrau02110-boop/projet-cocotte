@@ -75,6 +75,9 @@ js/app-shell.js        Installation de l'appli et alerte de mise à jour
 js/pdf-planning.js     Lecture du planning PDF (espace équipe)
 js/scanner.js          Lecture de QR par la caméra
 supabase/setup.sql     Base communautaire à installer dans Supabase
+supabase/online.sql    Fonctions en ligne (à installer après setup.sql)
+ecran.html             Écran d'accueil pour La Co'Cotte
+js/admin-live.js       Espace équipe : onglet En direct
 sw.js                  Service worker (hors connexion)
 manifest.webmanifest   Manifeste de l'application
 js/vendor/             qrcode.js (MIT), jsQR.js (Apache-2.0)
@@ -260,6 +263,24 @@ Ils apparaissent en tête de la liste des mini-jeux (7 jeux au total).
 - Diagnostic Chrome sur la version en ligne : installable, aucune erreur (manifeste, icônes, service worker).
 - **Nouvelle version** : quand une mise à jour est publiée, un bandeau « ✨ Une nouvelle version est disponible — 🔄 Rafraîchir » s'affiche. Sinon, fermer et rouvrir l'appli (ou rafraîchir la page) suffit.
 
+## Fonctions en ligne
+
+Nécessitent le script **`supabase/online.sql`** (à exécuter une fois dans Supabase → SQL Editor, après `setup.sql`). Sans lui, le jeu fonctionne et seuls le compteur et le classement général s'affichent.
+
+Joueurs (carte 🌍 Communauté en ligne, à onglets) :
+- **🎯 Défi de la semaine** : un objectif commun qui change chaque lundi (mini-jeux terminés, Cocottes dorées, missions ou clics), calibré sur le nombre de joueurs actifs. Atteint = **150 💎 pour chaque joueur**.
+- **🛡️ Équipes** Atelier / FabLab / Tiers-lieu (choix gardé 30 jours) : mini-jeu 10 pts, mission 20 pts, Cocotte dorée 5 pts. L'équipe gagnante du mois donne **+10 % de production** à ses membres le mois suivant.
+- **🎮 Classements de la semaine** par mini-jeu (remis à zéro le lundi, scores plafonnés côté serveur).
+- **🖼️ Galerie** : exposer sa Cocotte + son décor, ❤️ les autres.
+- **🎁 Cadeaux** : offrir 10 💎 par jour à un ami (code joueur) ; reçus à la connexion suivante.
+- **📣 Annonce** en bandeau, **👾 boss collectif** au-dessus du plan de travail (chaque clic = 1 coup ; récompense si ≥ 10 coups quand il tombe), **🗺️ chasse au trésor** (balises QR scannées avec 📷 Scanner : cristaux + indice, bonus si toutes trouvées).
+
+Équipe (espace équipe → **📡 En direct**, avec la **clé serveur** de l'équipe) : publier/retirer une annonce, lancer/arrêter un boss (nom, points de vie, durée, récompense), créer une chasse au trésor (un indice par ligne → planche de balises QR à imprimer, nombre de fois où chaque balise a été trouvée), modérer la galerie.
+
+**Écran d'accueil** : `ecran.html` (à ouvrir en plein écran sur une télé du lieu) affiche le compteur collectif, l'annonce, le défi de la semaine, le boss, les meilleurs joueurs, la galerie et le QR pour jouer ; mise à jour chaque minute.
+
+Sécurité : chaque action joueur exige le jeton secret de l'appareil ; actions de l'équipe protégées par la clé serveur (seule son empreinte SHA-256 est dans la base) ; tables fermées, tout passe par des fonctions avec plafonds (cadeau 1/jour, coups de boss 15/s, scores maximum par jeu, progression des compteurs bornée dans le temps).
+
 ## Tutoriel
 
 Au premier lancement, un tutoriel en 9 étapes met en lumière chaque zone (Cocotte, réserve, bâtiments, améliorations, ères, activités, cristaux). « Passer » à tout moment ; « Revoir le tutoriel » dans ⚙️ Options.
@@ -383,4 +404,5 @@ Police Atkinson Hyperlegible (conçue pour la basse vision), base 18 px, contras
 - [x] **Palier 5** : compteur communautaire, objectifs collectifs, classement par pseudo (Supabase), 15 talents de saison, scanner intégré, QR de groupe, espace équipe repensé, mode sombre, récompenses en cristaux ×2
 - [x] **Événements** (boutique d'objets exclusifs, Cocotte glitchée 404 💎) et section « Notre calendrier »
 - [x] **Missions du jour**, explications des activités, mini-jeux enfants, installation Android et alerte de mise à jour
+- [x] **Fonctions en ligne** : défi de la semaine, équipes, classements des mini-jeux, galerie, cadeaux, annonces, boss collectif, chasse au trésor, écran d'accueil
 - [x] **Palier 6** : édition du contenu depuis l'espace équipe (images, bâtiments, ères, projets, astuces, infos, quiz, économie), aperçu, publication par `overrides.json`

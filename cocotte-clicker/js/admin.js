@@ -3,6 +3,7 @@ import { $, $$, toast, esc } from './core.js';
 import { ALGO, SIGN, b64u, baseUrl, qrSVG, qrDataURL, voucherBody } from './qr.js';
 import { startScanner } from './scanner.js';
 import { initContent } from './admin-content.js';
+import { initLive } from './admin-live.js';
 import { deepMerge } from './content.js';
 
 const KEY_STORE = 'cocotte-admin-key';
@@ -38,7 +39,7 @@ function showApp() {
   renderLog();
   renderGameQR();
   readHash();
-  if (!contentReady) { contentReady = true; initContent(config).catch(() => toast('Contenu du jeu : chargement impossible.')); }
+  if (!contentReady) { contentReady = true; initContent(config).catch(() => toast('Contenu du jeu : chargement impossible.')); initLive(config); }
 }
 
 // ---------- Onglets ----------

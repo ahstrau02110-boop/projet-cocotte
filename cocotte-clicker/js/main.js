@@ -5,7 +5,7 @@ import { fmt, fmtDuration } from './format.js';
 import { initFx, puff, stepFx, floatText } from './fx.js';
 import { sfx, music, setSfxVolume, setMusicVolume, setMusicUrl } from './audio.js';
 
-import { $, $$, asset, toast, on } from './core.js';
+import { $, $$, asset, toast, on, emit } from './core.js';
 import { skinById, skinImage } from './skins.js';
 import { initGacha, openGacha } from './gacha.js';
 import { initGames, openGames } from './games/hub.js';
@@ -298,6 +298,7 @@ function onPotClick(e) {
   earn(v);
   state.handEarned += v;
   state.totalClicks++;
+  emit('potClick');
   if (state.totalClicks >= 3) $('#coach').classList.add('hidden');
 
   // Position du « +N » : pointeur, ou centre si clavier

@@ -48,6 +48,7 @@ export function freshState() {
     counters: { bought: 0, upgBought: 0, tips: 0, infos: 0, missions: 0 }, // compteurs pour les missions
     missions: { day: '', list: [], bonus: false },  // missions du jour
     helpSeen: {},                      // explications des activités déjà vues
+    online: { claimedWeeks: [], team: null, teamWinner: null, bossClaimed: [], huntBonus: [], giftDay: '', hiddenAnnounce: 0 }, // fonctions en ligne
     prestige: { seasons: 0, seeds: 0, lifetime: 0, spent: 0, talents: {} }, // Nouvelles saisons + talents
     startedAt: Date.now(),
     lastSave: Date.now(),
@@ -83,6 +84,9 @@ export const activeEvents = () => {
 };
 export const eventPct = () => activeEvents().reduce((a, e) => a + (e.bonusPct || 0), 0);
 
+// Équipe gagnante du mois dernier : bonus pour ses membres
+export const teamPct = () => (state.online.team && state.online.team === state.online.teamWinner ? (DATA.config.community?.teamBonusPct ?? 10) : 0);
+
 // Objectifs collectifs atteints (valeur en cache, fonctionne hors ligne)
 export const communityPct = () => (DATA.config.community?.goals || []).filter(g => state.net.total >= g.at).reduce((a, g) => a + g.pct, 0);
 
@@ -108,7 +112,7 @@ export function collectionBonus() {
   return (Object.keys(state.skins).length - 1) * pct + Object.keys(state.bgs).length * bgPct;
 }
 export function globalMult() {
-  return (1 + collectionBonus() / 100) * (1 + achievementBonus() / 100) * (1 + seedBonus() / 100) * (1 + communityPct() / 100) * (1 + eventPct() / 100) * upgradesGlobal()
+  return (1 + collectionBonus() / 100) * (1 + achievementBonus() / 100) * (1 + seedBonus() / 100) * (1 + communityPct() / 100) * (1 + teamPct() / 100) * (1 + eventPct() / 100) * upgradesGlobal()
     * projectEffects('global').reduce((m, e) => m * e.mult, 1);
 }
 

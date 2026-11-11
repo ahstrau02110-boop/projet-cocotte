@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Co'Clicker · Écran de La Co'Cotte</title>
+  <link rel="icon" href="assets/img/marmite.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Fredoka:wght@500;600;700&family=Space+Mono:wght@700&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="ecran">
+  <!-- Écran d'accueil de La Co'Cotte : à afficher en plein écran (F11) sur une télé ou un écran du lieu -->
+  <header class="ec-head">
+    <img src="assets/logo/logo.jpg" alt="La Co'Cotte">
+    <h1>Co'Clicker <small>le jeu de La Co'Cotte</small></h1>
+    <div id="ec-qr" class="ec-qr"></div>
+  </header>
+  <div id="ec-announce" class="announce" hidden><span aria-hidden="true">📣</span><span id="ec-announce-txt"></span></div>
+  <main class="ec-grid">
+    <section class="ec-card"><h2>🌍 Ensemble</h2><p class="ec-big" id="ec-total">—</p><p id="ec-players"></p></section>
+    <section class="ec-card"><h2>🎯 Défi de la semaine</h2><p id="ec-weekly">—</p><span class="bar"><span id="ec-weekly-bar"></span></span></section>
+    <section class="ec-card" id="ec-boss-card" hidden><h2>👾 Boss</h2><p id="ec-boss"></p><span class="bar boss-bar"><span id="ec-boss-bar"></span></span></section>
+    <section class="ec-card"><h2>🏆 Meilleurs joueurs</h2><ol id="ec-board" class="com-board"></ol></section>
+    <section class="ec-card ec-wide"><h2>🖼️ Galerie des Cocottes</h2><ul id="ec-gallery" class="gallery"></ul></section>
+  </main>
+  <script type="module" src="js/ecran.js"></script>
+</body>
+</html>
