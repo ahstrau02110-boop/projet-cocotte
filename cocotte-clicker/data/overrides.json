@@ -1,1 +1,175 @@
-{}
+{
+ "calendarDoc": {
+  "title": "Programme de novembre 2026",
+  "images": [
+   "data/planning-2026-11-1.webp"
+  ],
+  "pdf": "data/planning-2026-11.pdf",
+  "stamp": "2026-11"
+ },
+ "calendar": [
+  {
+   "id": "pdf-11-3-4",
+   "date": "2026-11-03",
+   "time": "14h00 - 16h30",
+   "title": "Initiation Pixel Art",
+   "text": "Créer son perso rétro, pixel par pixel."
+  },
+  {
+   "id": "pdf-11-4-0",
+   "date": "2026-11-04",
+   "time": "14h00 - 16h30",
+   "title": "Permanences Numériques",
+   "text": "Démarches en ligne, aide perso, accès aux postes."
+  },
+  {
+   "id": "pdf-11-5-13",
+   "date": "2026-11-05",
+   "time": "9h00 - 11h00",
+   "title": "Découverte de Google Flow",
+   "text": "Créer des vidéos à partir d'un simple texte."
+  },
+  {
+   "id": "pdf-11-5-14",
+   "date": "2026-11-05",
+   "time": "14h00 - 16h30",
+   "title": "FabLab : Page web avec Claude",
+   "text": "Sa page web avec l'IA, sans savoir coder."
+  },
+  {
+   "id": "pdf-11-6-20",
+   "date": "2026-11-06",
+   "time": "9h00 - 12h00",
+   "title": "Les mails",
+   "text": "Envoyer, recevoir, déjouer les arnaques."
+  },
+  {
+   "id": "pdf-11-10-5",
+   "date": "2026-11-10",
+   "time": "14h00 - 16h30",
+   "title": "Wikipédia Game",
+   "text": "Relier 2 pages en un minimum de clics !"
+  },
+  {
+   "id": "pdf-11-12-15",
+   "date": "2026-11-12",
+   "time": "9h00 - 11h00",
+   "title": "Création musicale de Noël",
+   "text": "Composer son morceau de Noël sur ordi."
+  },
+  {
+   "id": "pdf-11-12-16",
+   "date": "2026-11-12",
+   "time": "14h00 - 16h30",
+   "title": "FabLab : CréaGame",
+   "text": "Imaginer et fabriquer son propre jeu."
+  },
+  {
+   "id": "pdf-11-16-8",
+   "date": "2026-11-16",
+   "time": "9h00 - 11h00",
+   "title": "OnBoarding défi Forindustrie",
+   "text": "Découvrir les métiers de l'industrie."
+  },
+  {
+   "id": "pdf-11-17-6",
+   "date": "2026-11-17",
+   "time": "14h00 - 16h30",
+   "title": "Café de l'IA",
+   "text": "Un café, vos questions : on parle d'IA."
+  },
+  {
+   "id": "pdf-11-18-10",
+   "date": "2026-11-18",
+   "time": "9h00 - 11h00",
+   "title": "Création de badges Movember",
+   "text": "Des badges pour la santé des hommes."
+  },
+  {
+   "id": "pdf-11-18-1",
+   "date": "2026-11-18",
+   "time": "14h00 - 16h30",
+   "title": "Permanences Numériques",
+   "text": "Démarches en ligne, aide perso, accès aux postes."
+  },
+  {
+   "id": "pdf-11-18-11",
+   "date": "2026-11-18",
+   "time": "14h00 - 16h30",
+   "title": "FabLab : Création 3D Movember",
+   "text": "Modéliser et imprimer sa moustache en 3D."
+  },
+  {
+   "id": "pdf-11-19-17",
+   "date": "2026-11-19",
+   "time": "14h00 - 16h30",
+   "title": "FabLab : Les lutins de Noël",
+   "text": "Lutins et déco de Noël made in FabLab."
+  },
+  {
+   "id": "pdf-11-20-21",
+   "date": "2026-11-20",
+   "time": "9h00 - 12h00",
+   "title": "Boussole numérique",
+   "text": "Faire le point : par où commencer ?"
+  },
+  {
+   "id": "pdf-11-23-9",
+   "date": "2026-11-23",
+   "time": "9h00 - 11h00",
+   "title": "OnBoarding défi Forindustrie",
+   "text": "Découvrir les métiers de l'industrie."
+  },
+  {
+   "id": "pdf-11-24-7",
+   "date": "2026-11-24",
+   "time": "14h00 - 16h30",
+   "title": "Atelier ART'Ificiel",
+   "text": "Créer des images avec l'IA et en débattre."
+  },
+  {
+   "id": "pdf-11-25-12",
+   "date": "2026-11-25",
+   "time": "9h00 - 11h00",
+   "title": "GeekNPop : Tier list Marvel",
+   "text": "Classer les héros Marvel, débat garanti !"
+  },
+  {
+   "id": "pdf-11-25-2",
+   "date": "2026-11-25",
+   "time": "14h00 - 16h30",
+   "title": "Permanences Numériques",
+   "text": "Démarches en ligne, aide perso, accès aux postes."
+  },
+  {
+   "id": "pdf-11-26-18",
+   "date": "2026-11-26",
+   "time": "9h00 - 11h00",
+   "title": "Apprendre avec l'IA",
+   "text": "L'IA comme prof particulier, à son rythme."
+  },
+  {
+   "id": "pdf-11-26-19",
+   "date": "2026-11-26",
+   "time": "14h00 - 16h30",
+   "title": "FabLab : Stickers de Noël",
+   "text": "Dessiner et découper ses stickers de Noël."
+  },
+  {
+   "id": "pdf-11-27-22",
+   "date": "2026-11-27",
+   "time": "9h00 - 12h00",
+   "title": "Interface numérique",
+   "text": "Bureau, fenêtres, souris : les bases."
+  },
+  {
+   "id": "pdf-11-27-3",
+   "date": "2026-11-27",
+   "time": "14h00 - 16h30",
+   "title": "Bricol' Café de jouets",
+   "text": "Un jouet cassé ? On le répare ensemble avant Noël."
+  }
+ ],
+ "_doc": "Contenu modifié depuis l'espace équipe Co'Clicker",
+ "_published": "2026-11-11T09:14:45.901Z"
+}

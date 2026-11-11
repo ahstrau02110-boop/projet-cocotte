@@ -92,12 +92,27 @@ export function initEvents() {
 }
 
 // ---------- Notre calendrier (onglet Astuces) ----------
+const key = x => x.date + String(parseInt(x.time) || 0).padStart(2, '0');
 export function renderCalendar() {
   const t = today();
-  const items = (DATA.calendar || []).filter(c => c.date >= t).sort((a, b) => (a.date + (a.time || '')).localeCompare(b.date + (b.time || '')));
-  $('#calendar').innerHTML = items.length
-    ? `<ul class="cal-list">${items.slice(0, 12).map(c => `<li>
+  const doc = DATA.calendarDoc;
+  const docHTML = doc?.images?.length ? `<div class="cal-doc">
+      <button type="button" class="cal-doc-img" id="btn-planning" aria-label="Agrandir le ${esc(doc.title)}"><img src="${esc(doc.images[0])}" alt=""></button>
+      <span class="stack"><b>📄 ${esc(doc.title)}</b>
+        <button type="button" class="big-btn" id="btn-planning2">🔍 Voir le programme</button>
+        ${doc.pdf ? `<a class="ghost-btn cal-dl" href="${esc(doc.pdf)}" download target="_blank" rel="noopener">⬇️ Télécharger le PDF</a>` : ''}</span></div>` : '';
+  const items = (DATA.calendar || []).filter(c => c.date >= t).sort((a, b) => key(a).localeCompare(key(b)));
+  $('#calendar').innerHTML = docHTML + (items.length
+    ? `<h4 class="cal-sub">Prochains rendez-vous</h4><ul class="cal-list">${items.slice(0, 12).map(c => `<li>
         <span class="cal-date"><b>${new Date(c.date + 'T12:00').getDate()}</b>${new Date(c.date + 'T12:00').toLocaleDateString('fr-FR', { month: 'short' })}</span>
         <span><b>${esc(c.title)}</b>${c.time ? ` · ${esc(c.time)}` : ''}${c.text ? `<br><small>${esc(c.text)}</small>` : ''}</span></li>`).join('')}</ul>`
-    : `<div class="cal-soon"><span aria-hidden="true">🗓️</span><p><b>Bientôt ici :</b> le planning des ateliers de La Co'Cotte. En attendant, retrouvez le programme du mois à l'accueil et sur nos réseaux.</p></div>`;
+    : docHTML ? '' : `<div class="cal-soon"><span aria-hidden="true">🗓️</span><p><b>Bientôt ici :</b> le planning des ateliers de La Co'Cotte. En attendant, retrouvez le programme du mois à l'accueil et sur nos réseaux.</p></div>`);
+  const open = () => {
+    $('#planning-pages').innerHTML = doc.images.map((im, i) => `<img src="${esc(im)}" alt="${esc(doc.title)}, page ${i + 1}">`).join('');
+    $('#planning-title').textContent = doc.title;
+    const dl = $('#planning-dl'); dl.hidden = !doc.pdf; if (doc.pdf) dl.href = doc.pdf;
+    $('#dlg-planning').showModal();
+  };
+  $('#btn-planning')?.addEventListener('click', open);
+  $('#btn-planning2')?.addEventListener('click', open);
 }

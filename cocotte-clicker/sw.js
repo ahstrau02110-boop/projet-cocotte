@@ -1,6 +1,6 @@
 // Service worker : jeu jouable hors connexion et installable (PWA)
 // Incrémenter VERSION à chaque mise en ligne pour que les joueurs récupèrent la nouvelle version.
-const VERSION = 'coclicker-v11';
+const VERSION = 'coclicker-v12';
 const CORE = [
   './',
   'admin.html',
@@ -67,6 +67,7 @@ const CORE = [
   'js/games/simon.js',
   'js/golden.js',
   'js/main.js',
+  'js/pdf-planning.js',
   'js/player.js',
   'js/progress.js',
   'js/qr.js',
@@ -77,8 +78,8 @@ const CORE = [
   'js/state.js',
   'js/tips.js',
   'js/tutorial.js',
-  'js/vendor/qrcode.js',
   'manifest.webmanifest',
+  'js/vendor/qrcode.js',
 ];
 
 self.addEventListener('install', e => {

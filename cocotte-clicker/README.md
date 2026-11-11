@@ -69,6 +69,7 @@ js/boosts.js           Station Boosts (Le saviez-vous ?, quiz)
 js/daily.js            Bonus quotidien et série
 js/community.js        Mode communautaire (Supabase)
 js/events.js           Événements + calendrier
+js/pdf-planning.js     Lecture du planning PDF (espace équipe)
 js/scanner.js          Lecture de QR par la caméra
 supabase/setup.sql     Base communautaire à installer dans Supabase
 sw.js                  Service worker (hors connexion)
@@ -226,6 +227,13 @@ Ajouter un événement : `data/events.json` (dates `AAAA-MM-JJ`, vides = permane
 ## Notre calendrier
 
 Section **📅 Notre calendrier** dans l'onglet 💡 Astuces, juste sous l'encart sur les ateliers. Vide pour l'instant (message « bientôt »). Pour y mettre le planning : espace équipe → ✏️ Contenu → **📅 Calendrier** (date, horaire, titre, description), puis publier. Seuls les ateliers à venir s'affichent, dans l'ordre.
+
+**Importer directement le PDF du programme du mois** : ✏️ Contenu → 📅 Calendrier → « 📂 Importer le PDF du planning ». L'espace équipe :
+- transforme la (les) page(s) en image affichée dans le jeu (« 🔍 Voir le programme », « ⬇️ Télécharger le PDF ») ;
+- détecte automatiquement les ateliers (dates « 03 NOV », « MAR 17 », « LUN 16 · 23 », rendez-vous récurrents « Mercredis 4, 18 & 25 · 14h00 - 16h30 ») et remplit le calendrier du mois (à vérifier, modifiable) ;
+- à la publication, télécharge 3 fichiers à déposer ensemble sur GitHub (`overrides.json`, `planning-AAAA-MM.pdf`, `planning-AAAA-MM-1.webp`).
+
+Fonctionne avec la mise en page des plannings habituels (programme de novembre 2026 : 23 rendez-vous détectés). Lecture PDF : PDF.js, chargé uniquement dans l'espace équipe.
 
 ## Tutoriel
 

@@ -1037,3 +1037,18 @@ input[type=checkbox] { width: 1.4rem !important; height: 1.4rem; min-height: 0 !
 html.dark .ev-card { background: linear-gradient(135deg, #3a1f2c, #2d2346); color: var(--ink); }
 html.dark .ev-card.soon, html.dark .cal-soon { background: #221e33; }
 html.dark .cal-list li { background: #2a2540; }
+
+/* ===== Programme du mois (PDF) ===== */
+.pdf-box { padding: .8rem 1rem; margin-bottom: 1rem; border: 3px solid #000; border-radius: 16px; background: #fff8d6; }
+.pdf-box h3 { margin-top: 0 !important; }
+.pdf-current { display: grid; grid-template-columns: 120px 1fr; gap: .8rem; align-items: start; margin-bottom: .6rem; }
+.pdf-current img { width: 120px; border: 2px solid #000; border-radius: 8px; background: #fff; }
+.cal-doc { display: grid; grid-template-columns: 110px 1fr; gap: .8rem; align-items: center; padding: .6rem; border: var(--line); border-radius: 16px; background: #fff8d6; margin-bottom: .6rem; }
+.cal-doc-img { padding: 0; border: 2px solid #000; border-radius: 8px; background: #fff; overflow: hidden; line-height: 0; }
+.cal-doc-img img { width: 100%; }
+.cal-doc .big-btn, .cal-dl { width: 100%; justify-content: center; text-align: center; text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; color: inherit; border: var(--line); border-radius: 14px; font-weight: 700; }
+.cal-sub { font-family: var(--f-title); margin: .6rem 0 .35rem; }
+.planning-pages { display: grid; gap: .8rem; margin-top: .6rem; }
+.planning-pages img { width: 100%; border: 2px solid #000; border-radius: 10px; background: #fff; }
+#planning-dl { text-decoration: none; color: #141414; display: inline-flex; align-items: center; }
+html.dark .cal-doc, html.dark .pdf-box { background: #2f2a1c; color: var(--ink); }

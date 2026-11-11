@@ -1,16 +1,22 @@
 // Espace équipe → onglet « Contenu » : modifier images, textes, bâtiments, économie… sans toucher au code
 import { $, $$, toast, esc } from './core.js';
 import { DRAFT_KEY, PREVIEW_KEY, EDITABLE, readDraft } from './content.js';
+import { readPdf, parsePlanning } from './pdf-planning.js';
 
-let BASE = {}, ov = {}, view = 'images', config = {};
+let BASE = {}, ov = {}, view = 'images', config = {}, publishFiles = ['overrides.json'];
 const load = async u => (await fetch(u, { cache: 'no-cache' })).json();
 
 // ---------- Brouillon ----------
 function persist() {
-  localStorage.setItem(DRAFT_KEY, JSON.stringify(ov));
+  try { localStorage.setItem(DRAFT_KEY, JSON.stringify(ov)); }
+  catch {
+    // Brouillon trop lourd pour l'appareil (gros PDF) : on garde tout sauf le PDF lui-même
+    try { localStorage.setItem(DRAFT_KEY, JSON.stringify({ ...ov, calendarDoc: ov.calendarDoc && { ...ov.calendarDoc, pdf: '' } })); } catch { /* tant pis */ }
+    toast('PDF trop lourd pour l\'aperçu sur cet appareil : il sera quand même publié.');
+  }
   const n = Object.keys(ov.manifest || {}).length
     + Object.values(EDITABLE).reduce((a, _, i) => a + Object.keys(ov[Object.keys(EDITABLE)[i]] || {}).length, 0)
-    + ['tips', 'infos', 'quiz', 'calendar'].filter(k => Array.isArray(ov[k])).length
+    + ['tips', 'infos', 'quiz', 'calendar'].filter(k => Array.isArray(ov[k])).length + (ov.calendarDoc ? 1 : 0)
     + countLeaves(ov.config || {});
   $('#ct-status').textContent = n
     ? `✏️ ${n} modification${n > 1 ? 's' : ''} en brouillon, enregistrée${n > 1 ? 's' : ''} sur cet appareil. Pensez à publier.`
@@ -33,7 +39,7 @@ const VIEWS = {
   tips: { label: '💡 Astuces', render: () => renderTexts('tips', { cat: 'Catégorie (avec émoji)', title: 'Titre', text: 'Texte' }) },
   infos: { label: '📍 Le saviez-vous ?', render: () => renderTexts('infos', { icon: 'Émoji', title: 'Titre', text: 'Texte' }) },
   quiz: { label: '❓ Quiz', render: () => renderTexts('quiz', { q: 'Question', choices: 'Réponses', answer: 'Bonne réponse', explain: 'Explication' }) },
-  calendar: { label: '📅 Calendrier', render: () => renderTexts('calendar', { date: 'Date (AAAA-MM-JJ)', time: 'Horaire (ex. 14h-16h)', title: 'Atelier / événement', text: 'Description' }) },
+  calendar: { label: '📅 Calendrier', render: () => { renderTexts('calendar', { date: 'Date (AAAA-MM-JJ)', time: 'Horaire (ex. 14h-16h)', title: 'Atelier / événement', text: 'Description' }); renderPdfBox(); } },
   economy: { label: '⚖️ Économie', render: renderEconomy },
   publish: { label: '📤 Publier', render: renderPublish },
 };
@@ -121,6 +127,48 @@ function renderTexts(list, labels) {
 }
 function ensureList(list) { if (!Array.isArray(ov[list])) ov[list] = JSON.parse(JSON.stringify(BASE[list])); return ov[list]; }
 
+// ----- Programme du mois (PDF) -----
+function renderPdfBox() {
+  const d = ov.calendarDoc;
+  $('#ct-body').insertAdjacentHTML('afterbegin', `<div class="pdf-box">
+    <h3>📄 Programme du mois (PDF)</h3>
+    ${d ? `<div class="pdf-current"><img src="${esc(d.images?.[0] || '')}" alt="Aperçu du programme">
+      <span class="stack"><b>${esc(d.title)}</b><small>${d.images?.length || 0} page(s) · ${d.pdf ? 'PDF joint' : 'PDF à réimporter avant publication'}</small>
+      <button type="button" class="ghost-btn small-btn" data-pdf-remove>🗑️ Retirer le programme</button></span></div>` : '<p class="muted">Aucun programme : importez le PDF du mois, il s\'affichera dans le jeu (onglet 💡 Astuces → Notre calendrier).</p>'}
+    <label class="switch"><input type="checkbox" id="pdf-auto" checked> <span>Remplir automatiquement le calendrier avec les ateliers détectés</span></label>
+    <label class="file-btn">📂 ${d ? 'Remplacer par un autre PDF' : 'Importer le PDF du planning'}<input type="file" accept="application/pdf,.pdf" data-pdf></label>
+    <p id="pdf-msg" class="small" role="status"></p></div>`);
+}
+
+async function importPdf(file) {
+  const msg = $('#pdf-msg');
+  msg.textContent = '⏳ Lecture du PDF…';
+  try {
+    const { images, lines } = await readPdf(file);
+    const plan = parsePlanning(lines);
+    const pdf = await new Promise((ok, ko) => { const r = new FileReader(); r.onload = () => ok(r.result); r.onerror = ko; r.readAsDataURL(file); });
+    const stamp = plan.month ? `${plan.year}-${String(['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'].indexOf(plan.month) + 1).padStart(2, '0')}` : Date.now().toString(36);
+    ov.calendarDoc = { title: plan.month ? `Programme de ${plan.month} ${plan.year}` : 'Programme du mois', images, pdf, stamp };
+    let added = 0;
+    if ($('#pdf-auto').checked && plan.items.length) {
+      // Remplace les ateliers du même mois, garde les autres
+      const prefix = stamp + '-';
+      const keep = (ov.calendar ?? BASE.calendar).filter(c => !c.date?.startsWith(prefix));
+      ov.calendar = [...keep, ...plan.items];
+      added = plan.items.length;
+    }
+    persist();
+    VIEWS.calendar.render();
+    $('#pdf-msg').textContent = added ? `✅ Programme importé : ${added} atelier${added > 1 ? 's' : ''} ajouté${added > 1 ? 's' : ''} au calendrier. Vérifiez-les ci-dessous.`
+      : '✅ Programme importé (aucun atelier détecté automatiquement : ajoutez-les à la main si besoin).';
+  } catch (err) {
+    msg.textContent = '❌ Impossible de lire ce PDF.';
+  }
+}
+
+const dataUrlToBlob = u => fetch(u).then(r => r.blob());
+const downloadBlob = (blob, name) => { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click(); };
+
 // ----- Économie -----
 const ECO = [
   ['Imprimantes mystère', [['gacha.cost1', 'Prix d\'une impression (💎)'], ['gacha.cost10', 'Prix de 10 impressions (💎)'], ['gacha.pityLegendary', 'Légendaire garanti tous les… tirages']]],
@@ -144,8 +192,8 @@ function renderPublish() {
   $('#ct-body').innerHTML = `<h3>Publier pour tous les joueurs</h3>
     <ol class="steps big">
       <li><b>Vérifiez</b> avec « 👁️ Aperçu dans le jeu » (seul cet appareil voit les modifications).</li>
-      <li>Cliquez <b>« 📤 Publier »</b> : le fichier <code>overrides.json</code> est téléchargé.</li>
-      <li>Déposez-le sur GitHub, dans <code>cocotte-clicker/data/</code> : ${upload ? `<a href="${esc(upload)}" target="_blank" rel="noopener">ouvrir la page de dépôt</a>, ` : ''}glissez le fichier, puis <b>« Commit changes »</b>. Il remplace l'ancien.</li>
+      <li>Cliquez <b>« 📤 Publier »</b> : ${publishFiles.length > 1 ? `${publishFiles.length} fichiers sont téléchargés (<code>${publishFiles.join('</code>, <code>')}</code>). Si le navigateur demande l'autorisation de télécharger plusieurs fichiers, acceptez.` : 'le fichier <code>overrides.json</code> est téléchargé (plus le PDF du programme et ses images s\'il y en a un).'}</li>
+      <li>Déposez-le sur GitHub, dans <code>cocotte-clicker/data/</code> : ${upload ? `<a href="${esc(upload)}" target="_blank" rel="noopener">ouvrir la page de dépôt</a>, ` : ''}glissez <b>tous</b> les fichiers téléchargés, puis <b>« Commit changes »</b>. <code>overrides.json</code> remplace l'ancien.</li>
       <li>1 à 2 minutes plus tard, tous les joueurs ont le nouveau contenu (appli installée : à la prochaine ouverture).</li>
     </ol>
     <p class="muted">Pour revenir au contenu d'origine pour tout le monde : publiez un fichier vide (« ↺ Tout annuler » puis « 📤 Publier »).</p>`;
@@ -156,6 +204,7 @@ function bind() {
   const body = $('#ct-body');
   body.addEventListener('change', async e => {
     const t = e.target;
+    if (t.dataset.pdf !== undefined && t.files?.[0]) { importPdf(t.files[0]); t.value = ''; return; }
     if (t.dataset.img) {
       const k = t.dataset.img, v = t.value.trim();
       if (v === '(fichier importé)') return;
@@ -202,6 +251,7 @@ function bind() {
   });
   body.addEventListener('click', e => {
     const b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.pdfRemove !== undefined) { if (confirm('Retirer le programme du mois ?')) { ov.calendarDoc = null; persist(); VIEWS.calendar.render(); } return; }
     if (b.dataset.resetImg) { delete ov.manifest?.[b.dataset.resetImg]; persist(); renderImages(); }
     if (b.dataset.resetItem) { const [l, id] = b.dataset.resetItem.split(':'); delete ov[l]?.[id]; persist(); VIEWS[l].render(); }
     if (b.dataset.add) {
@@ -229,13 +279,19 @@ function bind() {
     if (Array.isArray(ov.calendar) && ov.calendar.some(x => !/^\d{4}-\d{2}-\d{2}$/.test(x.date || '') || !x.title)) return toast('Calendrier : chaque atelier doit avoir une date (AAAA-MM-JJ) et un titre.');
     for (const l of ['tips', 'infos']) if (Array.isArray(ov[l]) && ov[l].some(x => !x.title || !x.text)) return toast(`Un élément de « ${VIEWS[l].label} » n'a pas de titre ou de texte.`);
     if (Array.isArray(ov.quiz) && ov.quiz.some(q => !q.q || q.choices.some(c => !c))) return toast('Une question du quiz est incomplète (question ou réponses vides).');
-    const out = { ...ov, _doc: 'Contenu modifié depuis l\'espace équipe Co\'Clicker', _published: new Date().toISOString() };
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(new Blob([JSON.stringify(out, null, 1)], { type: 'application/json' }));
-    a.download = 'overrides.json';
-    a.click();
+    const out = JSON.parse(JSON.stringify({ ...ov, _doc: 'Contenu modifié depuis l\'espace équipe Co\'Clicker', _published: new Date().toISOString() }));
+    const extra = [];
+    if (out.calendarDoc) {
+      const d = out.calendarDoc, st = d.stamp || Date.now().toString(36);
+      if (d.pdf?.startsWith('data:')) { extra.push([d.pdf, `planning-${st}.pdf`]); d.pdf = `data/planning-${st}.pdf`; }
+      else if (!d.pdf && ov.calendarDoc.pdf === '') return toast('Réimportez le PDF du programme avant de publier.');
+      d.images = d.images.map((im, i) => { if (!im.startsWith('data:')) return im; extra.push([im, `planning-${st}-${i + 1}.webp`]); return `data/planning-${st}-${i + 1}.webp`; });
+    }
+    downloadBlob(new Blob([JSON.stringify(out, null, 1)], { type: 'application/json' }), 'overrides.json');
+    for (const [u, name] of extra) dataUrlToBlob(u).then(b => downloadBlob(b, name));
+    publishFiles = ['overrides.json', ...extra.map(x => x[1])];
     setView('publish');
-    toast('📤 overrides.json téléchargé : déposez-le sur GitHub (voir étapes).', 6000);
+    toast(`📤 ${publishFiles.length} fichier${publishFiles.length > 1 ? 's' : ''} téléchargé${publishFiles.length > 1 ? 's' : ''} : déposez-le${publishFiles.length > 1 ? 's' : ''} sur GitHub (voir étapes).`, 7000);
   });
   $('#ct-import').addEventListener('change', async e => {
     const f = e.target.files[0]; e.target.value = '';

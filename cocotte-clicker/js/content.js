@@ -35,6 +35,7 @@ export function applyOverrides(DATA, ov) {
   for (const list of ['tips', 'infos', 'quiz']) if (Array.isArray(ov[list]) && ov[list].length) DATA[list] = ov[list];
   // Calendrier : peut être vidé volontairement
   if (Array.isArray(ov.calendar)) DATA.calendar = ov.calendar;
+  if (ov.calendarDoc !== undefined) DATA.calendarDoc = ov.calendarDoc; // programme du mois (PDF + images), null = retiré
   if (isObj(ov.config)) deepMerge(DATA.config, ov.config);
 }
 
