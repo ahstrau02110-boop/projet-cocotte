@@ -9,8 +9,11 @@ import memory from './memory.js';
 import bugs from './bugs.js';
 import simon from './simon.js';
 import puzzle from './puzzle.js';
+import bubbles from './bubbles.js';
+import catcher from './catcher.js';
 
-export const GAMES = [match3, memory, bugs, simon, puzzle];
+// Les jeux les plus simples en premier (enfants)
+export const GAMES = [bubbles, catcher, memory, match3, bugs, simon, puzzle];
 let cleanup = null, current = null;
 
 const cfg = () => DATA.config.minigames || {};

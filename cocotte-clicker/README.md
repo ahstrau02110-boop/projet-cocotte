@@ -69,6 +69,9 @@ js/boosts.js           Station Boosts (Le saviez-vous ?, quiz)
 js/daily.js            Bonus quotidien et série
 js/community.js        Mode communautaire (Supabase)
 js/events.js           Événements + calendrier
+js/missions.js         Missions du jour
+js/help.js             Explications des activités
+js/app-shell.js        Installation de l'appli et alerte de mise à jour
 js/pdf-planning.js     Lecture du planning PDF (espace équipe)
 js/scanner.js          Lecture de QR par la caméra
 supabase/setup.sql     Base communautaire à installer dans Supabase
@@ -88,6 +91,7 @@ data/infos.json        « Le saviez-vous ? » sur La Co'Cotte
 data/quiz.json         Questions du quiz express
 data/talents.json      Talents de saison (prestige)
 data/events.json       Événements et objets exclusifs
+data/missions.json     Missions du jour
 data/calendar.json     Notre calendrier (ateliers)
 data/overrides.json    Contenu publié depuis l'espace équipe ({} = contenu d'origine)
 data/config.json       Code admin, clé publique, récompenses, réglages gacha et mini-jeux
@@ -235,6 +239,27 @@ Section **📅 Notre calendrier** dans l'onglet 💡 Astuces, juste sous l'encar
 
 Fonctionne avec la mise en page des plannings habituels (programme de novembre 2026 : 23 rendez-vous détectés). Lecture PDF : PDF.js, chargé uniquement dans l'espace équipe.
 
+## Missions du jour
+
+Carte **🎯 Missions du jour** sous la carte des ères : 3 défis tirés au hasard chaque jour (un facile, un moyen, un difficile) parmi 10 types (cliquer, terminer des mini-jeux, gagner des étoiles, acheter bâtiments ou améliorations, attraper une Cocotte dorée, lire une astuce ou un « Le saviez-vous ? », réussir le quiz, lancer une impression). Récompense 10 à 40 💎 chacune, **+30 💎** si les trois sont faites. Liste et montants : `data/missions.json`.
+
+## Explications des activités
+
+La première fois qu'on touche une activité (Mini-jeux, Imprimantes, Succès, Événements, Boosts, Astuces, Scanner, Mon QR code, Communauté), une fiche explique à quoi elle sert, puis l'activité s'ouvre. ⚙️ Options → « ❔ Revoir les explications des activités ». Le tutoriel de départ présente aussi les missions.
+
+## Mini-jeux pour les enfants
+
+- **🫧 Bulles de savon** : toucher les bulles qui montent (bulles dorées = 5 points). Aucun piège, 40 s.
+- **🧺 Attrape-tout** : glisser la Cocotte pour attraper engrenages, étoiles et cristaux, éviter les 🐞 (3 cœurs), 45 s. Boutons ⬅️ ➡️ pour les petites mains.
+
+Ils apparaissent en tête de la liste des mini-jeux (7 jeux au total).
+
+## Installation et mises à jour
+
+- **Android** : ⚙️ Options → « 📲 Installer l'application » donne toujours la marche à suivre adaptée au navigateur (Chrome, Samsung Internet, Firefox) ; un bandeau « Installer » apparaît quand Chrome le permet. Si la page a été ouverte depuis un lecteur de QR code ou un réseau social, il faut d'abord l'**ouvrir dans Chrome** (menu ⋮ → « Ouvrir dans Chrome ») : ces navigateurs intégrés ne peuvent pas installer d'appli.
+- Diagnostic Chrome sur la version en ligne : installable, aucune erreur (manifeste, icônes, service worker).
+- **Nouvelle version** : quand une mise à jour est publiée, un bandeau « ✨ Une nouvelle version est disponible — 🔄 Rafraîchir » s'affiche. Sinon, fermer et rouvrir l'appli (ou rafraîchir la page) suffit.
+
 ## Tutoriel
 
 Au premier lancement, un tutoriel en 9 étapes met en lumière chaque zone (Cocotte, réserve, bâtiments, améliorations, ères, activités, cristaux). « Passer » à tout moment ; « Revoir le tutoriel » dans ⚙️ Options.
@@ -357,4 +382,5 @@ Police Atkinson Hyperlegible (conçue pour la basse vision), base 18 px, contras
 - [x] **Palier 4** : station Boosts (Le saviez-vous ? + quiz), bonus quotidien et série de jours, mention des ateliers dans les Astuces
 - [x] **Palier 5** : compteur communautaire, objectifs collectifs, classement par pseudo (Supabase), 15 talents de saison, scanner intégré, QR de groupe, espace équipe repensé, mode sombre, récompenses en cristaux ×2
 - [x] **Événements** (boutique d'objets exclusifs, Cocotte glitchée 404 💎) et section « Notre calendrier »
+- [x] **Missions du jour**, explications des activités, mini-jeux enfants, installation Android et alerte de mise à jour
 - [x] **Palier 6** : édition du contenu depuis l'espace équipe (images, bâtiments, ères, projets, astuces, infos, quiz, économie), aperçu, publication par `overrides.json`

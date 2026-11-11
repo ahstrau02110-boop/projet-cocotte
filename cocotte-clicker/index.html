@@ -90,6 +90,12 @@
         </div>
         <p id="era-next" class="era-next"></p>
       </div>
+      <!-- Missions du jour -->
+      <section class="missions-card" aria-labelledby="missions-title">
+        <h3 id="missions-title">🎯 Missions du jour <span id="missions-count" class="small"></span></h3>
+        <ul id="missions-list" class="missions"></ul>
+      </section>
+
       <!-- Communauté -->
       <button class="community-card" id="btn-community" hidden data-card>
         <span class="com-ico" aria-hidden="true">🌍</span>
@@ -165,11 +171,13 @@
       <h3>Aide</h3>
       <button type="button" id="btn-tuto">🎓 Revoir le tutoriel</button>
 
-      <div id="install-box" hidden>
-        <h3>Application</h3>
+      <div id="install-box">
+        <h3>📲 Installer l'application</h3>
         <p id="install-txt">Installez le jeu sur cet appareil : il s'ouvre comme une appli, même sans connexion.</p>
-        <button type="button" id="btn-install" class="primary">📲 Installer l'application</button>
+        <button type="button" id="btn-install" class="primary" hidden>📲 Installer maintenant</button>
+        <ol id="install-steps" class="install-steps"></ol>
       </div>
+      <button type="button" id="btn-help-reset" class="ghost-btn">❔ Revoir les explications des activités</button>
 
       <h3>Sauvegarde</h3>
       <p>La partie est enregistrée automatiquement sur cet appareil. Pour la reprendre ailleurs, exportez-la puis importez-la.</p>
@@ -349,6 +357,16 @@
     </div>
   </dialog>
 
+  <!-- Explication d'une activité (au premier clic) -->
+  <dialog id="dlg-help" aria-labelledby="help-title">
+    <div class="dlg help-dlg">
+      <div class="help-ico" id="help-ico" aria-hidden="true"></div>
+      <h2 id="help-title"></h2>
+      <ul id="help-list" class="help-list"></ul>
+      <div class="row center"><button type="button" id="btn-help-go" class="big-btn">C'est parti !</button></div>
+    </div>
+  </dialog>
+
   <!-- Station Boosts -->
   <dialog id="dlg-boost" class="wide" aria-labelledby="boost-title">
     <div class="dlg">
@@ -415,6 +433,12 @@
       </div>
     </div>
   </dialog>
+
+  <!-- Bandeaux : installation, nouvelle version -->
+  <div id="install-banner" class="app-banner" hidden><span>📲 Installer Co'Clicker sur cet appareil ?</span>
+    <button type="button" id="btn-install-banner" class="big-btn">Installer</button><button type="button" class="ghost-btn" id="btn-install-later" aria-label="Plus tard">✕</button></div>
+  <div id="update-banner" class="app-banner update" hidden role="status"><span>✨ Une nouvelle version du jeu est disponible !</span>
+    <button type="button" id="btn-update" class="big-btn">🔄 Rafraîchir</button></div>
 
   <div id="toasts" class="toasts" role="status" aria-live="polite"></div>
 

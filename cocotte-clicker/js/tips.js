@@ -66,6 +66,7 @@ function markRead(t) {
   const c = cfg().crystals ?? 5;
   addCrystals(c);
   if (!state.tips.read.includes(t.id)) state.tips.read.push(t.id);
+  state.counters.tips++;
   state.tips.last = Date.now();
   state.tips.pending = null;
   notified = false;

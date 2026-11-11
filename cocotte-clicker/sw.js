@@ -1,6 +1,6 @@
 // Service worker : jeu jouable hors connexion et installable (PWA)
 // Incrémenter VERSION à chaque mise en ligne pour que les joueurs récupèrent la nouvelle version.
-const VERSION = 'coclicker-v13';
+const VERSION = 'coclicker-v14';
 const CORE = [
   './',
   'admin.html',
@@ -37,6 +37,7 @@ const CORE = [
   'data/eras.json',
   'data/events.json',
   'data/infos.json',
+  'data/missions.json',
   'data/overrides.json',
   'data/projects.json',
   'data/quiz.json',
@@ -47,6 +48,7 @@ const CORE = [
   'index.html',
   'js/admin-content.js',
   'js/admin.js',
+  'js/app-shell.js',
   'js/audio.js',
   'js/backgrounds.js',
   'js/boosts.js',
@@ -59,14 +61,18 @@ const CORE = [
   'js/format.js',
   'js/fx.js',
   'js/gacha.js',
+  'js/games/bubbles.js',
   'js/games/bugs.js',
+  'js/games/catcher.js',
   'js/games/hub.js',
   'js/games/match3.js',
   'js/games/memory.js',
   'js/games/puzzle.js',
   'js/games/simon.js',
   'js/golden.js',
+  'js/help.js',
   'js/main.js',
+  'js/missions.js',
   'js/pdf-planning.js',
   'js/player.js',
   'js/progress.js',

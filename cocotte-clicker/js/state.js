@@ -7,7 +7,7 @@ export const CONFIG = {
 };
 
 // Données chargées au démarrage (data/*.json, assets/manifest.json)
-export const DATA = { buildings: [], eras: [], manifest: {}, config: {}, skins: [], rarities: [], upgradeList: [], achList: [], projects: [], tips: [], backgrounds: [], infos: [], quiz: [], talents: [], events: [], calendar: [] };
+export const DATA = { buildings: [], eras: [], manifest: {}, config: {}, skins: [], rarities: [], upgradeList: [], achList: [], projects: [], tips: [], backgrounds: [], infos: [], quiz: [], talents: [], events: [], calendar: [], missions: {} };
 
 // Identifiant joueur anonyme (8 caractères, sans caractères ambigus)
 export function newPlayerId() {
@@ -45,6 +45,9 @@ export function freshState() {
     boosts: { infoLast: 0, quizLast: 0, infoSeen: [], quizSeen: [], quizOk: 0 }, // station Boosts
     daily: { last: '', streak: 0, best: 0 },   // bonus quotidien
     net: { token: '', listed: true, total: 0, players: 0, lastSync: 0 }, // mode communautaire
+    counters: { bought: 0, upgBought: 0, tips: 0, infos: 0, missions: 0 }, // compteurs pour les missions
+    missions: { day: '', list: [], bonus: false },  // missions du jour
+    helpSeen: {},                      // explications des activités déjà vues
     prestige: { seasons: 0, seeds: 0, lifetime: 0, spent: 0, talents: {} }, // Nouvelles saisons + talents
     startedAt: Date.now(),
     lastSave: Date.now(),
@@ -133,6 +136,7 @@ export function buy(b, qty) {
   if (state.coins < c) return false;
   state.coins -= c;
   state.buildings[b.id] = owned(b.id) + qty;
+  state.counters.bought += qty;
   return true;
 }
 

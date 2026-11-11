@@ -1,5 +1,5 @@
 {
-  "_doc": "Succès. Chaque succès donne un bonus de production (config.json → achievements.prodBonusPct). cond : toutes les conditions doivent être vraies. Clés : clicks, earned, cps, era, buildings (total), pulls, skins, legendary, plays, stars, perfect, claims, upgrades, golden, seasons, projects, tips, bgs, bgLegendary, infos, quizOk, streak, tipsAll, infosAll. buildingTemplates : générés pour chaque bâtiment ({b} = nom). eventItems, glitch.",
+  "_doc": "Succès. Chaque succès donne un bonus de production (config.json → achievements.prodBonusPct). cond : toutes les conditions doivent être vraies. Clés : clicks, earned, cps, era, buildings (total), pulls, skins, legendary, plays, stars, perfect, claims, upgrades, golden, seasons, projects, tips, bgs, bgLegendary, infos, quizOk, streak, tipsAll, infosAll. buildingTemplates : générés pour chaque bâtiment ({b} = nom). eventItems, glitch. missions.",
   "buildingTemplates": [
     {
       "n": 1,
@@ -796,6 +796,26 @@
       "desc": "Obtenir la Cocotte glitchée.",
       "cond": {
         "glitch": 1
+      }
+    },
+    {
+      "id": "mission1",
+      "cat": "special",
+      "icon": "🎯",
+      "name": "Mission accomplie",
+      "desc": "Réussir une mission du jour.",
+      "cond": {
+        "missions": 1
+      }
+    },
+    {
+      "id": "mission30",
+      "cat": "special",
+      "icon": "🏹",
+      "name": "Agent·e de La Co'Cotte",
+      "desc": "Réussir 30 missions du jour.",
+      "cond": {
+        "missions": 30
       }
     }
   ]

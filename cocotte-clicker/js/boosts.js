@@ -40,6 +40,7 @@ function renderInfo() {
     if (leftOf('infoLast')) return;
     state.boosts.infoLast = Date.now();
     if (!state.boosts.infoSeen.includes(it.id)) state.boosts.infoSeen.push(it.id);
+    state.counters.infos++;
     addBuff({ id: 'info', name: 'Le saviez-vous ?', cps: cfg().infoMult ?? 2, sec: cfg().infoSec ?? 120 });
     done(`📍 Merci ! Production ×${cfg().infoMult ?? 2} pendant ${(cfg().infoSec ?? 120) / 60} min.`);
     renderInfo();

@@ -173,7 +173,7 @@ const downloadBlob = (blob, name) => { const a = document.createElement('a'); a.
 const ECO = [
   ['Imprimantes mystère', [['gacha.cost1', 'Prix d\'une impression (💎)'], ['gacha.cost10', 'Prix de 10 impressions (💎)'], ['gacha.pityLegendary', 'Légendaire garanti tous les… tirages']]],
   ['Cristaux', [['rewards.welcomeCrystals', 'Cadeau de bienvenue'], ['rewards.eraCrystals', 'Par nouvelle ère'], ['rewards.qrDefault', 'QR de l\'équipe : montant proposé'], ['rewards.qrMax', 'QR de l\'équipe : maximum'], ['rewards.voucherDays', 'QR joueur : validité (jours)'],
-    ['minigames.dailyCrystalCap', 'Mini-jeux : plafond par jour'], ['minigames.crystalsPerGame', 'Mini-jeux : cristaux par partie'], ['daily.rewards', 'Bonus du jour (7 valeurs séparées par des virgules)']]],
+    ['minigames.dailyCrystalCap', 'Mini-jeux : plafond par jour'], ['missions.allBonus', 'Missions : bonus des 3 missions'], ['minigames.crystalsPerGame', 'Mini-jeux : cristaux par partie'], ['daily.rewards', 'Bonus du jour (7 valeurs séparées par des virgules)']]],
   ['Astuces et boosts', [['tips.intervalMin', 'Astuces : une toutes les… minutes'], ['tips.crystals', 'Astuces : cristaux gagnés'], ['tips.readSec', 'Astuces : temps de lecture (s)'],
     ['boosts.cooldownMin', 'Boosts : recharge (minutes)'], ['boosts.infoMult', 'Le saviez-vous : multiplicateur'], ['boosts.quizMult', 'Quiz réussi : multiplicateur']]],
   ['Cocotte dorée et saisons', [['golden.minSec', 'Cocotte dorée : apparition min (s)'], ['golden.maxSec', 'Cocotte dorée : apparition max (s)'], ['golden.lifeSec', 'Cocotte dorée : durée à l\'écran (s)'], ['prestige.seedPct', 'Graine de saison : % de production']]],

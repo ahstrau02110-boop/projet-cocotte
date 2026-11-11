@@ -53,6 +53,7 @@ function buyUpgrade(id) {
   if (state.coins < upgCost(u)) { sfx.deny(); return; }
   state.coins -= upgCost(u);
   state.upgrades[id] = true;
+  state.counters.upgBought++;
   sfx.buy();
   save();
   renderUpgrades(true);
@@ -113,6 +114,7 @@ function stats() {
     puzzles: state.mini.puzzles,
     eventItems: DATA.skins.filter(s => s.event && state.skins[s.id]).length + DATA.backgrounds.filter(b => b.event && state.bgs[b.id]).length,
     glitch: state.skins.glitch ? 1 : 0,
+    missions: state.counters.missions,
     infos: state.boosts.infoSeen.length,
     quizOk: state.boosts.quizOk,
     streak: state.daily.best,

@@ -48,6 +48,12 @@ function sanitize(raw) {
   const bo = obj(raw.boosts), arr = v => (Array.isArray(v) ? v.filter(x => typeof x === 'string') : []);
   s.boosts = { infoLast: Math.min(num(bo.infoLast), Date.now()), quizLast: Math.min(num(bo.quizLast), Date.now()),
     infoSeen: arr(bo.infoSeen), quizSeen: arr(bo.quizSeen), quizOk: int(bo.quizOk) };
+  const co = obj(raw.counters);
+  for (const k of Object.keys(s.counters)) s.counters[k] = int(co[k]);
+  const mi = obj(raw.missions);
+  if (typeof mi.day === 'string' && Array.isArray(mi.list)) s.missions = { day: mi.day, bonus: !!mi.bonus,
+    list: mi.list.filter(m => m && typeof m.id === 'string').slice(0, 3).map(m => ({ id: m.id, lvl: int(m.lvl), n: Math.max(1, int(m.n, 1)), reward: int(m.reward), start: num(m.start), claimed: !!m.claimed })) };
+  for (const k of Object.keys(obj(raw.helpSeen))) s.helpSeen[k] = true;
   const ne = obj(raw.net);
   s.net = { token: typeof ne.token === 'string' && ne.token.length >= 16 ? ne.token : '', listed: ne.listed !== false,
     total: num(ne.total), players: int(ne.players), lastSync: num(ne.lastSync) };

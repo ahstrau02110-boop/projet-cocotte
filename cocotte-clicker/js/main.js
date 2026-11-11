@@ -20,6 +20,8 @@ import { initDaily, checkDaily } from './daily.js';
 import { initCommunity, renderCommunityCard } from './community.js';
 import { applyOverrides, readDraft, previewOn, PREVIEW_KEY } from './content.js';
 import { initEvents, renderEventTile } from './events.js';
+import { initMissions, renderMissions } from './missions.js';
+import { initHelp } from './help.js';
 import { initGolden, renderBuffs } from './golden.js';
 import { initSeason, renderProjects, renderSeason, applyMusicUnlocks, initTalents } from './season.js';
 
@@ -50,6 +52,7 @@ async function boot() {
     DATA.quiz = (await loadJSON('data/quiz.json')).questions;
     DATA.talents = (await loadJSON('data/talents.json')).talents;
     DATA.events = (await loadJSON('data/events.json')).events;
+    DATA.missions = await loadJSON('data/missions.json');
     DATA.calendar = (await loadJSON('data/calendar.json').catch(() => ({ calendar: [] }))).calendar || [];
     // Contenu modifié depuis l'espace équipe : version publiée, puis brouillon en aperçu (appareil de l'équipe)
     applyOverrides(DATA, await loadJSON('data/overrides.json').catch(() => null));
@@ -103,6 +106,8 @@ async function boot() {
   initTips();
   initBoosts();
   initEvents();
+  initMissions();
+  initHelp();
   initCommunity();
   initDaily();
   on('tutoEnd', () => setTimeout(checkDaily, 600));
@@ -170,6 +175,7 @@ function updateUI() {
   renderTipTile();
   renderBoostTile();
   renderEventTile();
+  renderMissions();
   renderCommunityCard();
   $$('.js-crystals').forEach(e => (e.textContent = fmt(state.crystals)));
 
@@ -439,27 +445,4 @@ function afterStateChange() {
 
 boot();
 
-// Application installable / hors ligne
-if ('serviceWorker' in navigator && location.protocol !== 'file:') {
-  addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
-}
-
-// Bouton « Installer l'application » (Android / ordinateur) ; consigne pour iPhone
-let installEvt = null;
-addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  installEvt = e;
-  $('#install-box').hidden = false;
-});
-$('#btn-install').addEventListener('click', async () => {
-  if (!installEvt) return;
-  installEvt.prompt();
-  await installEvt.userChoice.catch(() => {});
-  installEvt = null;
-  $('#install-box').hidden = true;
-});
-if (/iphone|ipad/i.test(navigator.userAgent) && !navigator.standalone) {
-  $('#install-box').hidden = false;
-  $('#btn-install').hidden = true;
-  $('#install-txt').textContent = "Sur iPhone : touchez le bouton Partager puis « Sur l'écran d'accueil » pour installer le jeu.";
-}
+import './app-shell.js';

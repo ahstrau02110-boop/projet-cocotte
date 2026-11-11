@@ -1052,3 +1052,61 @@ html.dark .cal-list li { background: #2a2540; }
 .planning-pages img { width: 100%; border: 2px solid #000; border-radius: 10px; background: #fff; }
 #planning-dl { text-decoration: none; color: #141414; display: inline-flex; align-items: center; }
 html.dark .cal-doc, html.dark .pdf-box { background: #2f2a1c; color: var(--ink); }
+
+/* ===== Missions du jour ===== */
+.missions-card { background: #fff; border: var(--line); border-radius: var(--r); box-shadow: var(--lift-sm); padding: .8rem 1rem; }
+.missions-card h3 { font-family: var(--f-title); margin: 0 0 .5rem; font-size: 1.15rem; }
+.missions { list-style: none; padding: 0; margin: 0; display: grid; gap: .4rem; }
+.mission { display: grid; grid-template-columns: 36px 1fr auto; gap: .55rem; align-items: center; padding: .4rem .55rem; border: 2px solid #000; border-radius: 12px; background: #fffdf6; }
+.mission.ready { background: #fff3cc; animation: suggest 1.4s ease-in-out infinite; }
+.mission.claimed { background: #eaf6dd; opacity: .8; }
+.mission.bonus { border-style: dashed; }
+.mi-ico { font-size: 1.4rem; text-align: center; }
+.mi-txt b { display: block; font-size: .92rem; line-height: 1.2; }
+.mi-txt .bar { height: 9px; margin: .2rem 0 0; }
+.mi-txt small { font-family: var(--f-mono); font-size: .7rem; color: var(--muted); }
+.mi-btn { border: 2px solid #000; border-radius: 10px; background: #eee; font-weight: 700; padding: .3rem .55rem; min-height: 40px; white-space: nowrap; }
+.mi-btn:not(:disabled) { background: var(--c-yellow); box-shadow: var(--lift-sm); }
+.mi-done { font-size: 1.3rem; color: #2f7d5b; font-weight: 700; padding: 0 .4rem; }
+html.dark .missions-card, html.dark .mission { background: #2a2540; color: var(--ink); }
+html.dark .mission.ready { background: #4a3d12; } html.dark .mission.claimed { background: #22331d; }
+html.dark .mi-btn { background: #3a3550; color: var(--ink); } html.dark .mi-btn:not(:disabled) { background: var(--c-yellow); color: #141414; }
+
+/* ===== Aide des activités ===== */
+.help-dlg { text-align: center; }
+.help-ico { font-size: 3.4rem; line-height: 1; }
+.help-dlg h2 { font-family: var(--f-title); margin: .3rem 0 .6rem; }
+.help-list { text-align: left; margin: 0 auto 1rem; max-width: 34ch; padding-left: 1.2rem; display: grid; gap: .45rem; font-size: 1.05rem; }
+#btn-help-reset { margin-top: .6rem; border: var(--line); border-radius: 12px; background: #fff; padding: .45rem .9rem; min-height: 46px; font-weight: 700; }
+
+/* ===== Installation / mise à jour ===== */
+.install-steps { padding-left: 1.3rem; margin: .4rem 0 0; display: grid; gap: .3rem; }
+.app-banner { position: fixed; left: 50%; transform: translateX(-50%); bottom: 1rem; z-index: 70; width: min(94vw, 480px);
+  display: flex; align-items: center; gap: .6rem; padding: .7rem .8rem; background: #fff; border: var(--line); border-radius: 16px; box-shadow: var(--lift); font-weight: 700; }
+.app-banner span { flex: 1; }
+.app-banner .big-btn { min-height: 44px; padding: .3rem .9rem; }
+.app-banner .ghost-btn { min-height: 44px; min-width: 44px; padding: 0; }
+.app-banner.update { top: 1rem; bottom: auto; background: var(--c-yellow); color: #141414; }
+html.dark .app-banner:not(.update) { background: #2a2540; color: var(--ink); }
+
+/* ===== Mini-jeux enfants ===== */
+.bub-zone, .catch-zone { position: relative; width: min(100%, 560px); height: min(62vh, 520px); border: 4px solid #000; border-radius: 22px; overflow: hidden; box-shadow: var(--lift);
+  background: linear-gradient(#bfe6f2, #e8f7ff 60%, #fff3cc); }
+.bubble { position: absolute; left: 0; top: 0; width: var(--s); height: var(--s); padding: 0; border-radius: 50%; border: 3px solid rgba(255,255,255,.95);
+  background: radial-gradient(circle at 32% 28%, #fff 0 12%, transparent 13%), radial-gradient(circle, color-mix(in srgb, var(--c) 50%, transparent), color-mix(in srgb, var(--c) 85%, #fff));
+  box-shadow: 0 0 0 2px rgba(0,0,0,.25), inset 0 -6px 12px rgba(255,255,255,.6); display: grid; place-items: center; font-size: calc(var(--s) * .42); touch-action: none; }
+.bubble img { width: 78%; }
+.bubble.gold { background: radial-gradient(circle at 32% 28%, #fff 0 12%, transparent 13%), radial-gradient(circle, #fff1a8, #FCD260); box-shadow: 0 0 18px #FCD260, 0 0 0 2px #000; }
+.bubble.popped { animation: bubPop .25s ease-out forwards; }
+@keyframes bubPop { to { scale: 1.6; opacity: 0; } }
+.catch-zone { background: linear-gradient(#efe6ff, #fff 70%, #d8b384 70.5%); }
+.catch-pot { position: absolute; bottom: 4px; width: 110px; transition: none; }
+.catch-pot img { width: 100%; display: block; }
+.catch-pot.yum { animation: pop .2s; } .catch-pot.hurt { animation: nope .35s; filter: drop-shadow(0 0 10px #E41E6C); }
+.fall { position: absolute; left: 0; top: 0; font-size: 2.3rem; line-height: 1; filter: drop-shadow(0 3px 0 rgba(0,0,0,.25)); }
+.fall.bad { font-size: 2.1rem; }
+.catch-pad { display: flex; gap: 1rem; justify-content: center; margin-top: .7rem; }
+.catch-pad button { width: 84px; height: 64px; font-size: 1.8rem; border: var(--line); border-radius: 16px; background: #fff; box-shadow: var(--lift-sm); touch-action: none; }
+.catch-pad button:active { transform: translateY(3px); box-shadow: none; }
+.mi-txt { display: block; min-width: 0; }
+.mi-txt .bar { display: block; width: 100%; }

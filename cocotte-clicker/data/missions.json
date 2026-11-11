@@ -1,0 +1,166 @@
+{
+  "_doc": "Missions du jour : 3 tirées au hasard chaque jour (une facile, une moyenne, une difficile). n = objectif par difficulté, reward = cristaux par difficulté. stat : clicks, plays, stars, bought, upgBought, golden, tips, quizOk, infos, pulls. allBonus = cristaux en plus si les 3 sont faites.",
+  "allBonus": 30,
+  "missions": [
+    {
+      "id": "clicks",
+      "icon": "👆",
+      "text": "Cliquer {n} fois sur la Cocotte",
+      "stat": "clicks",
+      "n": [
+        150,
+        400,
+        800
+      ],
+      "reward": [
+        15,
+        20,
+        30
+      ]
+    },
+    {
+      "id": "games",
+      "icon": "🎮",
+      "text": "Terminer {n} mini-jeu(x)",
+      "stat": "plays",
+      "n": [
+        1,
+        2,
+        4
+      ],
+      "reward": [
+        15,
+        25,
+        40
+      ]
+    },
+    {
+      "id": "stars",
+      "icon": "⭐",
+      "text": "Gagner {n} étoiles en mini-jeux",
+      "stat": "stars",
+      "n": [
+        2,
+        5,
+        9
+      ],
+      "reward": [
+        15,
+        25,
+        40
+      ]
+    },
+    {
+      "id": "build",
+      "icon": "🏗️",
+      "text": "Acheter {n} bâtiments",
+      "stat": "bought",
+      "n": [
+        5,
+        15,
+        30
+      ],
+      "reward": [
+        15,
+        20,
+        30
+      ]
+    },
+    {
+      "id": "upgrade",
+      "icon": "🛠️",
+      "text": "Acheter {n} amélioration(s)",
+      "stat": "upgBought",
+      "n": [
+        1,
+        2,
+        4
+      ],
+      "reward": [
+        15,
+        20,
+        30
+      ]
+    },
+    {
+      "id": "golden",
+      "icon": "🌟",
+      "text": "Attraper {n} Cocotte(s) dorée(s)",
+      "stat": "golden",
+      "n": [
+        1,
+        2,
+        3
+      ],
+      "reward": [
+        20,
+        30,
+        40
+      ]
+    },
+    {
+      "id": "tips",
+      "icon": "💡",
+      "text": "Lire {n} astuce(s) numérique(s)",
+      "stat": "tips",
+      "n": [
+        1,
+        2,
+        2
+      ],
+      "reward": [
+        15,
+        20,
+        30
+      ]
+    },
+    {
+      "id": "quiz",
+      "icon": "❓",
+      "text": "Réussir {n} question(s) du quiz",
+      "stat": "quizOk",
+      "n": [
+        1,
+        1,
+        2
+      ],
+      "reward": [
+        15,
+        25,
+        35
+      ]
+    },
+    {
+      "id": "infos",
+      "icon": "📍",
+      "text": "Lire {n} « Le saviez-vous ? »",
+      "stat": "infos",
+      "n": [
+        1,
+        2,
+        2
+      ],
+      "reward": [
+        15,
+        20,
+        30
+      ]
+    },
+    {
+      "id": "pulls",
+      "icon": "🎁",
+      "text": "Lancer {n} impression(s) mystère",
+      "stat": "pulls",
+      "n": [
+        1,
+        2,
+        4
+      ],
+      "reward": [
+        10,
+        15,
+        25
+      ]
+    }
+  ]
+}
