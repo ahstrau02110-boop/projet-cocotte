@@ -81,6 +81,7 @@
         <button id="btn-tips" class="action a-tips"><span class="a-ico" aria-hidden="true">💡</span><span><b>Astuces</b><small id="tip-mini">Astuce du numérique</small></span></button>
         <button id="btn-scan" class="action a-scan"><span class="a-ico" aria-hidden="true">📷</span><span><b>Scanner</b><small>QR de récompense</small></span></button>
         <button id="btn-myqr" class="action a-qr"><span class="a-ico" aria-hidden="true">📱</span><span><b>Mon QR code</b><small>Cristaux à La Co'Cotte</small></span></button>
+        <button id="btn-share" class="action a-share"><span class="a-ico" aria-hidden="true">📤</span><span><b>Partager</b><small>Invitez vos proches</small></span></button>
       </nav>
 
       <!-- Progression des ères -->
@@ -413,6 +414,25 @@
   </dialog>
 
   <!-- QR code du joueur -->
+  <dialog id="dlg-share" aria-labelledby="share-title">
+    <div class="dlg">
+      <div class="dlg-head">
+        <h2 id="share-title" class="tape tape-green">Partager le jeu</h2>
+        <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
+      </div>
+      <p>Faites découvrir Co'Clicker à vos proches : il suffit de scanner ce QR code avec l'appareil photo d'un téléphone. Gratuit, sans compte, et plus on est de joueurs, plus les objectifs collectifs avancent !</p>
+      <div class="share-box">
+        <div id="share-qr" class="qr-box share-qr"></div>
+        <p class="mono share-url" id="share-url"></p>
+        <div class="row share-btns">
+          <button id="btn-share-native" type="button" class="big-btn">📤 Partager…</button>
+          <button id="btn-share-copy" type="button">🔗 Copier le lien</button>
+          <button id="btn-share-dl" type="button">⬇️ Enregistrer le QR</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
   <dialog id="dlg-qr" aria-labelledby="qr-title">
     <div class="dlg">
       <div class="dlg-head">

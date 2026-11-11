@@ -10,6 +10,7 @@ import { skinById, skinImage } from './skins.js';
 import { initGacha, openGacha } from './gacha.js';
 import { initGames, openGames } from './games/hub.js';
 import { initPlayer, openMyQR } from './player.js';
+import { initShare } from './share.js';
 import { buildProgress, initProgress, renderUpgrades, checkAchievements, openAchievements } from './progress.js';
 import { decorFor } from './decor.js';
 import { initTutorial } from './tutorial.js';
@@ -108,6 +109,7 @@ async function boot() {
   initEvents();
   initMissions();
   initHelp();
+  initShare();
   initCommunity();
   initDaily();
   on('tutoEnd', () => setTimeout(checkDaily, 600));

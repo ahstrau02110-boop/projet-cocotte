@@ -1191,3 +1191,10 @@ body.ecran { padding: 1.2rem; }
 .ec-big { font-family: var(--f-title); font-size: 2.6rem; margin: 0; }
 .ec-card .bar { display: block; height: 20px; }
 .weekly-bar { display: block; width: 100%; }
+
+/* ===== Partager le jeu ===== */
+.a-share { background: #e3f1ff; }
+.share-box { display: grid; justify-items: center; gap: .6rem; margin-top: .4rem; }
+.share-qr { width: min(280px, 100%); }
+.share-url { word-break: break-all; text-align: center; font-size: .85rem; margin: 0; }
+.share-btns { justify-content: center; flex-wrap: wrap; }
