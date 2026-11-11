@@ -44,7 +44,7 @@ function start(area, api) {
     const bad = Math.random() < 0.18 + p * 0.12;
     const [emoji, pts] = bad ? ['🐞', 0] : GOOD[(Math.random() * GOOD.length) | 0];
     const el = document.createElement('span');
-    el.className = 'fall' + (bad ? ' bad' : '');
+    el.className = 'catch-item' + (bad ? ' bad' : '');
     el.textContent = emoji;
     zone.appendChild(el);
     items.push({ el, x: 0.06 + Math.random() * 0.88, y: -40, vy: 120 + Math.random() * 60 + p * 140, bad, pts });

@@ -63,6 +63,19 @@ addEventListener('DOMContentLoaded', () => {
 });
 if (document.readyState !== 'loading') renderInstall();
 
+// ---------- Rafraîchissement automatique toutes les 5 min ----------
+// Recharge la page (sauvegarde faite par beforeunload) pour récupérer la dernière version,
+// mais jamais pendant une partie : on attend qu'aucune fenêtre ne soit ouverte et 10 s sans action.
+const AUTO_RELOAD = 5 * 60000, IDLE = 10000;
+const bootAt = Date.now();
+let lastAct = Date.now();
+for (const ev of ['pointerdown', 'keydown', 'touchstart']) addEventListener(ev, () => { lastAct = Date.now(); }, { passive: true, capture: true });
+setInterval(() => {
+  if (Date.now() - bootAt < AUTO_RELOAD || Date.now() - lastAct < IDLE) return;
+  if (document.querySelector('dialog[open]') || document.hidden) return;
+  location.reload();
+}, 5000);
+
 // ---------- Service worker + nouvelle version ----------
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
   addEventListener('load', async () => {
@@ -73,10 +86,10 @@ if ('serviceWorker' in navigator && location.protocol !== 'file:') {
       navigator.serviceWorker.addEventListener('controllerchange', () => {
         if (hadController) $('#update-banner').hidden = false;
       });
-      // Vérifie les mises à jour au retour sur l'appli et toutes les 30 min
-      const check = () => reg.update().catch(() => {});
+      // Vérifie les mises à jour au retour sur l'appli et toutes les 5 min
+      const check = () => reg?.update().catch(() => {});
       document.addEventListener('visibilitychange', () => { if (!document.hidden) check(); });
-      setInterval(check, 30 * 60000);
+      setInterval(check, 5 * 60000);
     } catch { /* hors ligne */ }
   });
 }

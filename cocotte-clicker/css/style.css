@@ -1104,8 +1104,8 @@ html.dark .app-banner:not(.update) { background: #2a2540; color: var(--ink); }
 .catch-pot { position: absolute; bottom: 4px; width: 110px; transition: none; }
 .catch-pot img { width: 100%; display: block; }
 .catch-pot.yum { animation: pop .2s; } .catch-pot.hurt { animation: nope .35s; filter: drop-shadow(0 0 10px #E41E6C); }
-.fall { position: absolute; left: 0; top: 0; font-size: 2.3rem; line-height: 1; filter: drop-shadow(0 3px 0 rgba(0,0,0,.25)); }
-.fall.bad { font-size: 2.1rem; }
+.catch-item { position: absolute; left: 0; top: 0; font-size: 2.3rem; line-height: 1; filter: drop-shadow(0 3px 0 rgba(0,0,0,.25)); }
+.catch-item.bad { font-size: 2.1rem; }
 .catch-pad { display: flex; gap: 1rem; justify-content: center; margin-top: .7rem; }
 .catch-pad button { width: 84px; height: 64px; font-size: 1.8rem; border: var(--line); border-radius: 16px; background: #fff; box-shadow: var(--lift-sm); touch-action: none; }
 .catch-pad button:active { transform: translateY(3px); box-shadow: none; }
