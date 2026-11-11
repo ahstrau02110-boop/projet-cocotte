@@ -19,7 +19,7 @@ const cfg = () => DATA.config.minigames || {};
 function rollDay() {
   if (state.mini.day !== today()) { state.mini.day = today(); state.mini.crystalsToday = 0; }
 }
-const crystalsLeft = () => { rollDay(); return Math.max(0, (cfg().dailyCrystalCap ?? 30) + (hasTalent('mini') ? 10 : 0) - state.mini.crystalsToday); };
+const crystalsLeft = () => { rollDay(); return Math.max(0, (cfg().dailyCrystalCap ?? 100) + (hasTalent('mini') ? 20 : 0) - state.mini.crystalsToday); };
 
 function renderHub() {
   $('#games-left').textContent = crystalsLeft();
@@ -62,7 +62,8 @@ function stop() {
 function finish(game, { score, stars }) {
   stop();
   rollDay();
-  const wanted = stars * (cfg().crystalsPerStar ?? 1) + (stars === 3 ? (cfg().crystalsPerfectBonus ?? 1) : 0);
+  // Chaque partie terminée rapporte un montant fixe de cristaux (dans la limite du jour)
+  const wanted = cfg().crystalsPerGame ?? 10;
   const crystals = Math.min(wanted, crystalsLeft());
   state.mini.crystalsToday += crystals;
   addCrystals(crystals);

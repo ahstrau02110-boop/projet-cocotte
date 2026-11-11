@@ -19,7 +19,7 @@ export function checkDaily() {
   const streak = gap === 1 ? d.streak + 1 : 1;     // série continue si hier, sinon elle repart à 1
   const lost = d.last && gap > 1 && d.streak > 1;
   const idx = (streak - 1) % 7;                     // cycle de 7 jours
-  const gain = rewards()[idx] + (hasTalent('jour') ? 4 : 0);
+  const gain = rewards()[idx] + (hasTalent('jour') ? 10 : 0);
 
   $('#daily-days').innerHTML = rewards().map((r, i) =>
     `<li class="day${i < idx ? ' past' : ''}${i === idx ? ' now' : ''}"><span>Jour ${i + 1}</span><b>${r} 💎</b>${i === 6 ? '<small>+ boost</small>' : ''}</li>`).join('');

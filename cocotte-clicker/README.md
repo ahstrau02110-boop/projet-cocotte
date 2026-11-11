@@ -183,7 +183,7 @@ La clé *anon* est publique par nature : la table est fermée (RLS sans accès d
 
 ## Talents de saison (prestige)
 
-15 talents permanents achetés avec les graines de saison (bouton « 🌱 Talents de saison » de la carte Nouvelle saison) : départ avec 1 000 Co'Coins, 10 bénévoles offerts, clics ×2, Cocottes dorées plus fréquentes / plus longues, hors-ligne 75 % et 16 h, bâtiments −5 %, améliorations −10 %, projets −25 %, boosts en 10 min, +4 💎 au bonus du jour, +10 💎 de plafond mini-jeux, impression ×10 à 200 💎, graines à +3 %. Les graines dépensées continuent de donner leur bonus. Liste : `data/talents.json`.
+15 talents permanents achetés avec les graines de saison (bouton « 🌱 Talents de saison » de la carte Nouvelle saison) : départ avec 1 000 Co'Coins, 10 bénévoles offerts, clics ×2, Cocottes dorées plus fréquentes / plus longues, hors-ligne 75 % et 16 h, bâtiments −5 %, améliorations −10 %, projets −25 %, boosts en 10 min, +10 💎 au bonus du jour, +20 💎 de plafond mini-jeux, impression ×10 à 200 💎, graines à +3 %. Les graines dépensées continuent de donner leur bonus. Liste : `data/talents.json`.
 
 ## Scanner et QR de groupe
 
@@ -247,9 +247,9 @@ Monnaie secondaire, gagnée sans paiement :
 |---|---|
 | Bienvenue | 50 (une fois) |
 | Nouvelle ère | 10 |
-| Mini-jeux | 2 par étoile, +2 pour 3 étoiles, plafond 30/jour |
+| Mini-jeux | 10 par partie terminée, plafond 100/jour (10 parties) |
 | Astuce numérique (1/h) | 10 |
-| Bonus du jour (7 jours) | 6, 8, 10, 12, 16, 20, 30 |
+| Bonus du jour (7 jours) | 10, 15, 20, 25, 30, 40, 60 |
 | Nouvelle saison | 10 |
 | Cocotte dorée (rare) | 4 |
 | QR code remis par l'équipe | 200 par défaut (1 à 2 000) |

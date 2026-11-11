@@ -29,10 +29,9 @@
     "collectionBgPct": 0.5
   },
   "minigames": {
-    "dailyCrystalCap": 30,
+    "dailyCrystalCap": 100,
     "coinSecondsPerStar": 20,
-    "crystalsPerStar": 2,
-    "crystalsPerfectBonus": 2
+    "crystalsPerGame": 10
   },
   "achievements": {
     "prodBonusPct": 1
@@ -67,13 +66,13 @@
   },
   "daily": {
     "rewards": [
-      6,
-      8,
       10,
-      12,
-      16,
+      15,
       20,
-      30
+      25,
+      30,
+      40,
+      60
     ],
     "day7BoostMult": 2,
     "day7BoostSec": 300

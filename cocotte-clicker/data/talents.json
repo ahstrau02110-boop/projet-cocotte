@@ -87,14 +87,14 @@
       "icon": "📅",
       "name": "Habitué·e",
       "cost": 6,
-      "desc": "+4 💎 à chaque bonus du jour."
+      "desc": "+10 💎 à chaque bonus du jour."
     },
     {
       "id": "mini",
       "icon": "🎮",
       "name": "Joueur·euse assidu·e",
       "cost": 8,
-      "desc": "+10 💎 au plafond quotidien des mini-jeux."
+      "desc": "+20 💎 au plafond quotidien des mini-jeux (2 parties de plus)."
     },
     {
       "id": "impression",
