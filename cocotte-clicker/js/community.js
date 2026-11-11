@@ -13,7 +13,9 @@ let online = null, board = [], myRank = null, busy = false;
 async function rpc(name, body = {}) {
   const r = await fetch(`${C().url.replace(/\/$/, '')}/rest/v1/rpc/${name}`, {
     method: 'POST',
-    headers: { apikey: C().anonKey, Authorization: `Bearer ${C().anonKey}`, 'Content-Type': 'application/json' },
+    // Nouvelles clés Supabase (sb_publishable_…) : en-tête apikey seul ; anciennes clés « anon » (JWT) : aussi en Bearer
+    headers: { apikey: C().anonKey, 'Content-Type': 'application/json',
+      ...(C().anonKey.startsWith('eyJ') ? { Authorization: `Bearer ${C().anonKey}` } : {}) },
     body: JSON.stringify(body),
     signal: AbortSignal.timeout ? AbortSignal.timeout(8000) : undefined,
   });
