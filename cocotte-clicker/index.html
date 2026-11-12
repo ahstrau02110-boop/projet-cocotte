@@ -187,7 +187,24 @@
 
       <h3>Sauvegarde</h3>
       <p>La partie est enregistrée automatiquement sur cet appareil.</p>
-      <button type="button" id="btn-transfer" class="big-btn">📲 Changer d'appareil (QR code)</button>
+      <div class="cloud-box">
+        <label class="switch"><input type="checkbox" id="cloud-on" checked> <span>☁️ Sauvegarde en ligne</span></label>
+        <p id="cloud-status" class="cloud-status" role="status"></p>
+        <p class="muted">Votre partie vous suit sur tous vos appareils reliés : jouez sur le PC de La Co'Cotte puis continuez sur votre téléphone, sans rien faire.</p>
+        <button type="button" id="btn-transfer" class="big-btn">📲 Relier un autre appareil (QR code)</button>
+        <h4>🔑 Code de secours</h4>
+        <p id="cloud-rec-txt" class="muted"></p>
+        <button type="button" id="btn-cloud-code">🔑 Créer mon code de secours</button>
+        <div id="cloud-code-box" class="cloud-code-box" hidden>
+          <strong id="cloud-code" class="mono"></strong>
+          <small>Notez ce code (photo, papier…) : il ne sera plus affiché. Ne le donnez à personne.</small>
+        </div>
+        <label for="cloud-rec-input">Appareil perdu ? Récupérez votre partie :</label>
+        <div class="row">
+          <input id="cloud-rec-input" class="mono grow" maxlength="14" placeholder="Code de secours" aria-label="Code de secours" autocomplete="off" autocapitalize="characters">
+          <button type="button" id="btn-cloud-recover" class="primary">Récupérer</button>
+        </div>
+      </div>
       <p class="muted">Ou, sans connexion Internet : exportez le code de sauvegarde puis importez-le sur l'autre appareil.</p>
       <div class="row">
         <button type="button" id="btn-save">💾 Sauvegarder</button>
@@ -419,7 +436,7 @@
   <dialog id="dlg-transfer" aria-labelledby="tr-title">
     <div class="dlg">
       <div class="dlg-head">
-        <h2 id="tr-title" class="tape tape-green">Changer d'appareil</h2>
+        <h2 id="tr-title" class="tape tape-green">Relier un appareil</h2>
         <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
       </div>
       <p id="tr-offline" class="tr-warn" hidden>Le transfert par QR code nécessite une connexion au serveur. Utilisez plutôt le code de sauvegarde (⚙️ Options).</p>
@@ -441,7 +458,7 @@
             <input id="tr-code" class="mono grow tr-input" maxlength="9" placeholder="ABCD-EF23" autocomplete="off" autocapitalize="characters" aria-label="Code de transfert">
             <button type="button" id="btn-tr-take" class="primary">Récupérer</button>
           </div>
-          <p class="muted">La partie de l'appareil où vous la récupérez est remplacée. Continuez ensuite à jouer sur un seul appareil.</p>
+          <p class="muted">La partie de l'appareil où vous la récupérez est remplacée. Ensuite, les deux appareils restent synchronisés automatiquement (☁️ Sauvegarde en ligne).</p>
         </section>
       </div>
     </div>
@@ -481,7 +498,7 @@
           <input id="pseudo" maxlength="20" autocomplete="off" placeholder="ex. MakerDu02">
           <small class="muted">Pas de nom de famille : un pseudo suffit.</small>
           <button id="btn-qr-dl" type="button">⬇️ Enregistrer l'image</button>
-          <button id="btn-transfer2" type="button">📲 Changer d'appareil</button>
+          <button id="btn-transfer2" type="button">📲 Relier un autre appareil</button>
         </div>
       </div>
       <h3>J'ai reçu un code</h3>

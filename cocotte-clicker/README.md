@@ -76,7 +76,8 @@ js/pdf-planning.js     Lecture du planning PDF (espace équipe)
 js/scanner.js          Lecture de QR par la caméra
 supabase/setup.sql     Base communautaire à installer dans Supabase
 supabase/online.sql    Fonctions en ligne (à installer après setup.sql)
-supabase/transfer.sql  Changer d'appareil par QR code (à installer après online.sql)
+supabase/transfer.sql  Relier un appareil par QR code (à installer après online.sql)
+supabase/cloud.sql     Sauvegarde en ligne + code de secours (à installer après transfer.sql)
 ecran.html             Écran d'accueil pour La Co'Cotte
 js/admin-live.js       Espace équipe : onglet En direct
 sw.js                  Service worker (hors connexion)
@@ -408,8 +409,18 @@ Police Atkinson Hyperlegible (conçue pour la basse vision), base 18 px, contras
 - [x] **Fonctions en ligne** : défi de la semaine, équipes, classements des mini-jeux, galerie, cadeaux, annonces, boss collectif, chasse au trésor, écran d'accueil
 - [x] **Palier 6** : édition du contenu depuis l'espace équipe (images, bâtiments, ères, projets, astuces, infos, quiz, économie), aperçu, publication par `overrides.json`
 
-## Changer d'appareil (QR code)
+## Relier un appareil (QR code)
 
-⚙️ Options → « 📲 Changer d'appareil » (ou Mon QR code). L'ancien appareil dépose la partie sur le serveur sous un code de 8 caractères (valable 10 minutes, usage unique) et affiche un QR code. Le nouvel appareil scanne ce QR (appareil photo ou 📷 Scanner) ou tape le code : sa partie est remplacée par celle transférée (Co'Coins, cristaux, collection, code joueur, pseudo…).
+⚙️ Options → « 📲 Relier un autre appareil » (ou Mon QR code). L'ancien appareil dépose la partie sur le serveur sous un code de 8 caractères (valable 10 minutes, usage unique) et affiche un QR code. Le nouvel appareil scanne ce QR (appareil photo ou 📷 Scanner) ou tape le code : sa partie est remplacée par celle transférée (Co'Coins, cristaux, collection, code joueur, pseudo…).
 
 Nécessite le script **`supabase/transfer.sql`** (à exécuter une fois dans Supabase → SQL Editor). Sans connexion, le code de sauvegarde (Options) reste disponible.
+
+## Sauvegarde en ligne et code de secours
+
+Activée par défaut (⚙️ Options → ☁️ Sauvegarde en ligne). La partie est envoyée toutes les minutes quand le jeu est affiché, et quand on le quitte ; à l'ouverture (ou au retour sur le jeu), l'appareil reprend la version du serveur si elle est plus récente. Les appareils reliés (même code joueur, via le QR « Relier un autre appareil ») partagent donc la même partie sans rien faire.
+
+Si deux appareils ont joué chacun de leur côté, le serveur garde la partie la plus avancée (total de Co'Coins produits) et met l'autre de côté 7 jours (table `cloud_backups`).
+
+Le **code de secours** (12 caractères, affiché une seule fois, seule son empreinte est stockée) permet de récupérer la partie sur un nouvel appareil sans l'ancien (téléphone perdu). Il crée un nouveau jeton : les autres appareils de ce joueur sont déconnectés de la sauvegarde en ligne.
+
+Nécessite le script **`supabase/cloud.sql`**.

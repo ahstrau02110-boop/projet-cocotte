@@ -1212,3 +1212,14 @@ body.ecran { padding: 1.2rem; }
 .tr-input { flex: 1 1 150px; min-width: 0; text-transform: uppercase; letter-spacing: .08em; font-size: 1.1rem; }
 html.dark .tr-step { background: #2a2540; }
 .tr-warn { background: #fff3cc; color: #141414; border: 2px solid #000; border-radius: 12px; padding: .5rem .7rem; }
+
+/* ===== Sauvegarde en ligne ===== */
+.cloud-box { display: grid; gap: .5rem; border: var(--line); border-radius: 16px; padding: .7rem .9rem; background: #eef6ff; margin: .4rem 0 .8rem; }
+.cloud-box p, .cloud-box h4 { margin: 0; }
+.cloud-box h4 { font-family: var(--f-title); margin-top: .4rem; }
+.cloud-status { font-weight: 700; }
+.cloud-code-box { display: grid; gap: .3rem; justify-items: center; text-align: center; background: #fff3cc; border: 2px dashed #000; border-radius: 12px; padding: .6rem; }
+.cloud-code-box strong { font-size: 1.5rem; letter-spacing: .08em; white-space: nowrap; }
+#cloud-rec-input { text-transform: uppercase; letter-spacing: .06em; min-width: 0; }
+html.dark .cloud-box { background: #22324a; }
+html.dark .cloud-code-box { color: #141414; }

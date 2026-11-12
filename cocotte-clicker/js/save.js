@@ -62,6 +62,8 @@ function sanitize(raw) {
   const ne = obj(raw.net);
   s.net = { token: typeof ne.token === 'string' && ne.token.length >= 16 ? ne.token : '', listed: ne.listed !== false,
     total: num(ne.total), players: int(ne.players), lastSync: num(ne.lastSync) };
+  const cl = obj(raw.cloud);
+  s.cloud = { on: cl.on !== false, rev: int(cl.rev), last: num(cl.last), recovery: !!cl.recovery };
   const da = obj(raw.daily);
   s.daily = { last: typeof da.last === 'string' ? da.last : '', streak: int(da.streak), best: int(da.best) };
   const tp = obj(raw.tips);
