@@ -46,6 +46,7 @@
     <div class="hud-actions">
       <button id="btn-sound" class="tool-btn" aria-pressed="false"><span class="ico" aria-hidden="true">🔕</span><span class="tool-lbl">Effets</span></button>
       <button id="btn-music" class="tool-btn" aria-pressed="false"><span class="ico" aria-hidden="true">🎵</span><span class="tool-lbl">Musique</span></button>
+      <button id="btn-maj" class="tool-btn" aria-label="Mises à jour"><span class="ico" aria-hidden="true">🆕</span><span class="tool-lbl">Maj</span></button>
       <button id="btn-options" class="tool-btn"><span class="ico" aria-hidden="true">⚙️</span><span class="tool-lbl">Options</span></button>
     </div>
   </header>
@@ -443,6 +444,17 @@
   </dialog>
 
   <!-- QR code du joueur -->
+  <dialog id="dlg-maj" aria-labelledby="maj-title">
+    <div class="dlg">
+      <div class="dlg-head">
+        <h2 id="maj-title" class="tape tape-green">Mises à jour</h2>
+        <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
+      </div>
+      <p class="muted">Les nouveautés de Co'Clicker, de la plus récente à la plus ancienne. Une idée pour le jeu ? Parlez-en à l'équipe de La Co'Cotte !</p>
+      <ul id="maj-list" class="maj-list"></ul>
+    </div>
+  </dialog>
+
   <dialog id="dlg-transfer" aria-labelledby="tr-title">
     <div class="dlg">
       <div class="dlg-head">

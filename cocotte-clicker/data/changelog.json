@@ -1,0 +1,71 @@
+{
+  "_doc": "Onglet « Maj » du jeu : la plus récente en premier. id unique (sert au point « nouveau »), date AAAA-MM-JJ, titre, liste de lignes (emoji en début de ligne).",
+  "updates": [
+    {
+      "id": "2026-11-12b",
+      "date": "2026-11-12",
+      "title": "Votre partie vous suit partout",
+      "items": [
+        "☁️ Sauvegarde en ligne : votre partie est enregistrée automatiquement et vous suit sur tous vos appareils reliés.",
+        "📲 Relier un appareil : un QR code à scanner une seule fois (⚙️ Options ou Mon QR code).",
+        "🔑 Code de secours : retrouvez votre partie si vous perdez votre téléphone.",
+        "⏸️ Une seule partie active à la fois : si le jeu est ouvert ailleurs (autre onglet ou appareil), cette page se met en pause pour ne rien écraser.",
+        "🛠️ Chargement plus fiable : nouvelle tentative automatique si la connexion coupe.",
+        "🆕 Ce nouvel onglet « Maj » pour suivre les nouveautés !"
+      ]
+    },
+    {
+      "id": "2026-11-11b",
+      "date": "2026-11-11",
+      "title": "Le jeu passe en ligne",
+      "items": [
+        "🌍 Communauté en ligne : défi de la semaine à réussir tous ensemble (+150 💎).",
+        "🛡️ Équipes Atelier, FabLab et Tiers-lieu : l'équipe gagnante du mois gagne +10 % de production.",
+        "🎮 Classements de la semaine pour chaque mini-jeu.",
+        "🖼️ Galerie : exposez votre Cocotte et likez celles des autres.",
+        "🎁 Cadeaux : offrez 10 💎 par jour à un ami.",
+        "👾 Boss collectif, 🗺️ chasse au trésor à La Co'Cotte et 📣 annonces de l'équipe.",
+        "📤 Onglet Partager : le QR code du jeu pour inviter vos proches.",
+        "🔄 Le jeu se met à jour tout seul toutes les 5 minutes.",
+        "🧩 Fab'Match : correction des pièces qui devenaient géantes."
+      ]
+    },
+    {
+      "id": "2026-11-11a",
+      "date": "2026-11-11",
+      "title": "Missions, événements et calendrier",
+      "items": [
+        "🎯 Missions du jour : de petits objectifs qui rapportent des cristaux.",
+        "🫧 Deux mini-jeux pour les plus jeunes : Bulles de savon et Attrape-tout.",
+        "💎 Chaque mini-jeu terminé rapporte 10 cristaux ; bonus quotidien revu.",
+        "🎉 Onglet Événements, avec la Cocotte glitchée (404 💎).",
+        "📅 Notre calendrier : le programme des ateliers de La Co'Cotte dans l'onglet Astuces.",
+        "❔ Chaque activité s'explique la première fois qu'on l'ouvre.",
+        "📲 Installation de l'appli simplifiée sur Android."
+      ]
+    },
+    {
+      "id": "2026-11-10b",
+      "date": "2026-11-10",
+      "title": "Communauté, saisons et mode sombre",
+      "items": [
+        "🌍 Compteur collectif et classement des joueurs.",
+        "🌱 Talents de saison pour aller encore plus loin.",
+        "📷 Scanner intégré et QR de groupe pendant les ateliers.",
+        "🌙 Mode sombre (⚙️ Options).",
+        "⚡ Station Boosts (infos et quiz) et 📅 bonus quotidien.",
+        "🖼️ 100 décors, 50 Cocottes et le Puzzle des skins.",
+        "💡 Une astuce numérique toutes les heures."
+      ]
+    },
+    {
+      "id": "2026-11-10a",
+      "date": "2026-11-10",
+      "title": "Lancement de Co'Clicker",
+      "items": [
+        "🍲 Cliquez sur la Cocotte, construisez l'atelier, le FabLab puis le tiers-lieu !",
+        "🎮 Mini-jeux, 🎁 imprimantes mystère, 🏆 succès et tutoriel de démarrage."
+      ]
+    }
+  ]
+}

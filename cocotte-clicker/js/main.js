@@ -14,6 +14,7 @@ import { initShare } from './share.js';
 import { initTransfer } from './transfer.js';
 import { initCloud } from './cloud.js';
 import { claimLocal, setBooted } from './session.js';
+import { initMaj } from './maj.js';
 import { buildProgress, initProgress, renderUpgrades, checkAchievements, openAchievements } from './progress.js';
 import { decorFor } from './decor.js';
 import { initTutorial } from './tutorial.js';
@@ -134,6 +135,7 @@ async function boot() {
   initShare();
   initTransfer();
   initCloud();
+  initMaj();
   initCommunity();
   initDaily();
   on('tutoEnd', () => setTimeout(checkDaily, 600));

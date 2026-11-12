@@ -433,3 +433,7 @@ Le jeu ne tourne activement qu'à un seul endroit à la fois. Le dernier onglet 
 - Autres appareils : le serveur retient la session active (`cloud_sessions`). Une session sans signe de vie depuis 3 minutes peut être remplacée sans pause.
 
 Nécessite le script **`supabase/session.sql`**.
+
+## Onglet « Maj » (mises à jour)
+
+Bouton 🆕 Maj en haut du jeu : liste des nouveautés, lue dans **`data/changelog.json`** (la plus récente en premier). Un point rose apparaît quand une nouvelle entrée (nouvel `id`) n'a pas encore été lue sur l'appareil. Pour annoncer une mise à jour : ajouter une entrée en tête de `updates` (id unique, date, titre, lignes).
