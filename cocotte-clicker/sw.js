@@ -1,6 +1,6 @@
 // Service worker : jeu jouable hors connexion et installable (PWA)
 // Incrémenter VERSION à chaque mise en ligne pour que les joueurs récupèrent la nouvelle version.
-const VERSION = 'coclicker-v23';
+const VERSION = 'coclicker-v24';
 const CORE = [
   './',
   'admin.html',
@@ -104,25 +104,31 @@ self.addEventListener('activate', e => {
     .then(() => self.clients.claim()));
 });
 
+// Accès au cache sans jamais faire échouer la requête (cache indisponible : navigation privée, Firefox strict…)
+const fromCache = (req, opts) => caches.match(req, opts).catch(() => undefined);
+const toCache = (req, res) => { if (res.ok) caches.open(VERSION).then(c => c.put(req, res)).catch(() => {}); };
+// Réseau, avec une seconde tentative si l'appareil se dit connecté (connexion instable)
+const net = req => fetch(req).catch(err => {
+  if (self.navigator?.onLine === false) throw err;
+  return new Promise(r => setTimeout(r, 400)).then(() => fetch(req));
+});
+
 self.addEventListener('fetch', e => {
   const req = e.request;
-  if (req.method !== 'GET') return;
+  if (req.method !== 'GET' || !req.url.startsWith(self.location.origin)) return; // autres sites : sans service worker
   const url = new URL(req.url);
   // Pages et données : réseau d'abord (contenu à jour), cache si hors ligne
   if (req.mode === 'navigate' || url.pathname.endsWith('.json')) {
-    e.respondWith(fetch(req).then(res => {
-      const copy = res.clone();
-      caches.open(VERSION).then(c => c.put(req, copy));
-      return res;
-    }).catch(() => caches.match(req, { ignoreSearch: true }).then(r => r || caches.match('./'))));
+    e.respondWith(net(req).then(res => { toCache(req, res.clone()); return res; })
+      .catch(async () => (await fromCache(req, { ignoreSearch: true }))
+        || (req.mode === 'navigate' && await fromCache('./'))
+        || Response.error()));
     return;
   }
   // Reste (scripts, images, polices) : cache d'abord, mise à jour en arrière-plan
-  e.respondWith(caches.match(req).then(cached => {
-    const net = fetch(req).then(res => {
-      if (res.ok || res.type === 'opaque') { const copy = res.clone(); caches.open(VERSION).then(c => c.put(req, copy)); }
-      return res;
-    }).catch(() => cached);
-    return cached || net;
+  e.respondWith(fromCache(req).then(cached => {
+    const fresh = net(req).then(res => { toCache(req, res.clone()); return res; });
+    if (cached) { fresh.catch(() => {}); return cached; }
+    return fresh.catch(() => Response.error());
   }));
 });

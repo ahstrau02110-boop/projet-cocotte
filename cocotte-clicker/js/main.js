@@ -69,11 +69,28 @@ async function boot() {
     DATA.skins = skins.skins;
     DATA.rarities = skins.rarities;
   } catch (e) {
+    // Réparation automatique : 1re fois on recharge, 2e fois on réinitialise le service worker et son cache
+    // (la partie, enregistrée dans localStorage, n'est pas touchée)
+    const tries = +sessionStorage.getItem('coclicker-boot-retry') || 0;
+    if (tries < 2 && location.protocol !== 'file:') {
+      sessionStorage.setItem('coclicker-boot-retry', tries + 1);
+      if (tries === 1 && 'serviceWorker' in navigator) {
+        try {
+          for (const r of await navigator.serviceWorker.getRegistrations()) await r.unregister();
+          for (const k of await caches.keys()) await caches.delete(k);
+        } catch { /* rien */ }
+      }
+      setTimeout(() => location.reload(), 1200);
+      document.body.insertAdjacentHTML('afterbegin', '<p class="fatal">Chargement du jeu… nouvelle tentative.</p>');
+      return;
+    }
+    sessionStorage.removeItem('coclicker-boot-retry');
     document.body.insertAdjacentHTML('afterbegin',
       `<p class="fatal">Impossible de charger les données du jeu (${e.message}).<br>
-       En local, lancez un petit serveur (voir README) au lieu d'ouvrir le fichier directement.</p>`);
+       Vérifiez la connexion Internet puis <a href="" onclick="location.reload();return false">rechargez la page</a>.</p>`);
     return;
   }
+  sessionStorage.removeItem('coclicker-boot-retry');
 
   // Assets via le manifest
   $('#logo').src = asset('logo');
