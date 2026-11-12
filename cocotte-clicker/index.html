@@ -201,6 +201,16 @@
       <div class="cloud-box">
         <label class="switch"><input type="checkbox" id="cloud-on" checked> <span>☁️ Sauvegarde en ligne</span></label>
         <p id="cloud-status" class="cloud-status" role="status"></p>
+        <div id="cloud-repair" class="cloud-repair" hidden>
+          <b>🔧 Réparer la connexion de cet appareil</b>
+          <p>Cela arrive si votre partie a été récupérée sur un autre appareil avec le code de secours, ou si une ancienne sauvegarde a été importée. Au choix :</p>
+          <ul>
+            <li><b>Vous jouez surtout ailleurs ?</b> Sur cet autre appareil, ⚙️ Options → « Relier un autre appareil », puis scannez le QR ici.</li>
+            <li><b>Vous avez un code de secours ?</b> Saisissez-le plus bas (« Appareil perdu ? »).</li>
+            <li><b>Sinon :</b> gardez la partie de cet appareil avec un nouveau code joueur.</li>
+          </ul>
+          <button type="button" id="btn-cloud-newid" class="big-btn">🆕 Nouveau code joueur (garder ma partie)</button>
+        </div>
         <p class="muted">Votre partie vous suit sur tous vos appareils reliés : jouez sur le PC de La Co'Cotte puis continuez sur votre téléphone, sans rien faire.</p>
         <button type="button" id="btn-transfer" class="big-btn">📲 Relier un autre appareil (QR code)</button>
         <h4>🔑 Code de secours</h4>

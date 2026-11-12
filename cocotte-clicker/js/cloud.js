@@ -3,7 +3,7 @@
 //  - envoi toutes les minutes quand le jeu est affiché, et quand on le quitte ;
 //  - à l'ouverture / au retour sur le jeu : reprise de la version du serveur si elle est plus récente ;
 //  - conflit (deux appareils ont joué chacun de leur côté) : le serveur garde la partie la plus avancée.
-import { state } from './state.js';
+import { state, newPlayerId } from './state.js';
 import { $, toast } from './core.js';
 import { save, exportSave, importSave } from './save.js';
 import { rpc, netEnabled, sync } from './community.js';
@@ -33,9 +33,28 @@ function adopt(data, rev, msg, extra) {
 function fail(err) {
   failures++;
   lastError = err;
-  // Jamais synchronisé : le joueur n'est pas encore inscrit au serveur → inscription
-  if (err === 'auth' && !state.net.lastSync) sync();
+  // 1er refus : le joueur n'est peut-être pas encore inscrit au serveur → inscription, puis nouvel essai
+  if (err === 'auth' && failures === 1) sync();
   renderStatus();
+}
+
+// Refus répétés : le serveur connaît ce code joueur avec un autre jeton
+// (partie récupérée ailleurs avec le code de secours, ou ancienne sauvegarde importée)
+export const unrecognized = () => lastError === 'auth' && failures > 1;
+export function markUnrecognized() { lastError = 'auth'; failures = Math.max(failures, 2); renderStatus(); }
+
+// Réparation : nouveau code joueur pour cet appareil, en gardant toute la progression locale
+function newIdentity() {
+  if (!confirm('Donner un nouveau code joueur à cet appareil ?\n\nVotre progression sur cet appareil est conservée, mais elle ne sera plus liée à l\'ancien code (classement, équipe, autres appareils).')) return;
+  const b = crypto.getRandomValues(new Uint8Array(24));
+  state.playerId = newPlayerId();
+  state.net.token = btoa(String.fromCharCode(...b)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  state.net.lastSync = 0;
+  state.online.team = null; state.online.teamWinner = null;
+  state.cloud = { on: true, rev: 0, last: 0, recovery: false };
+  save();
+  sessionStorage.setItem(FLAG, '✅ Nouveau code joueur : ' + state.playerId + '. La sauvegarde en ligne est de nouveau active.');
+  location.reload();
 }
 
 // Récupère la version du serveur si elle est plus récente
@@ -110,11 +129,12 @@ export function renderStatus() {
   let txt;
   if (!netEnabled()) txt = '⚠️ Indisponible : pas de serveur configuré.';
   else if (!state.cloud.on) txt = '⏸️ Désactivée : la partie reste sur cet appareil uniquement.';
-  else if (lastError === 'auth' && state.net.lastSync && failures > 1) txt = '⚠️ Cet appareil n\'est plus relié : la partie a été récupérée ailleurs avec le code de secours.';
+  else if (unrecognized()) txt = '⚠️ Cet appareil n\'est plus reconnu par le serveur : la sauvegarde en ligne et le transfert sont bloqués.';
   else if (lastError === 'net') txt = '📡 Hors connexion : la partie sera envoyée dès le retour d\'Internet.';
   else if (state.cloud.last) txt = `✅ Sauvegardée en ligne le ${new Date(state.cloud.last).toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' })}.`;
   else txt = '⏳ Première sauvegarde en ligne dans un instant…';
   el.textContent = txt;
+  $('#cloud-repair').hidden = !(state.cloud.on && unrecognized());
   $('#cloud-rec-txt').textContent = state.cloud.recovery
     ? 'Vous avez déjà un code de secours. En créer un nouveau annule l\'ancien.'
     : 'Notez ce code : il permet de retrouver votre partie si vous perdez cet appareil.';
@@ -123,6 +143,7 @@ export function renderStatus() {
 export function initCloud() {
   $('#cloud-on').addEventListener('change', e => { state.cloud.on = e.target.checked; save(); renderStatus(); pulled = false; });
   $('#btn-cloud-code').addEventListener('click', newRecovery);
+  $('#btn-cloud-newid').addEventListener('click', newIdentity);
   $('#btn-cloud-recover').addEventListener('click', recover);
   $('#cloud-rec-input').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); recover(); } });
   $('#btn-options')?.addEventListener('click', () => { $('#cloud-code-box').hidden = true; renderStatus(); });

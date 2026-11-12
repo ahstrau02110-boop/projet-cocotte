@@ -5,6 +5,7 @@ import { $, toast } from './core.js';
 import { save, exportSave, importSave } from './save.js';
 import { baseUrl, qrSVG } from './qr.js';
 import { rpc, netEnabled } from './community.js';
+import { markUnrecognized } from './cloud.js';
 
 const fmtCode = c => c.slice(0, 4) + '-' + c.slice(4);
 let timer = null;
@@ -29,6 +30,14 @@ async function send() {
   try {
     save();
     const r = await rpc('create_transfer', { p_id: state.playerId, p_token: state.net.token, p_data: exportSave() });
+    if (r?.error === 'auth') {
+      // Appareil non reconnu : on ouvre directement la réparation dans les Options
+      markUnrecognized();
+      $('#dlg-transfer').close();
+      $('#dlg-options').showModal();
+      $('#cloud-repair').scrollIntoView({ block: 'center' });
+      return;
+    }
     if (!r?.ok) throw new Error(r?.error || 'ko');
     const link = `${baseUrl(DATA.config)}#transfer=${r.code}`;
     $('#tr-qr').innerHTML = qrSVG(link, 'QR code de transfert de la partie');
