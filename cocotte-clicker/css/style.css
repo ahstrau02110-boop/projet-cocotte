@@ -1223,3 +1223,12 @@ html.dark .tr-step { background: #2a2540; }
 #cloud-rec-input { text-transform: uppercase; letter-spacing: .06em; min-width: 0; }
 html.dark .cloud-box { background: #22324a; }
 html.dark .cloud-code-box { color: #141414; }
+
+/* ===== Session en pause ===== */
+.session-lock { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; padding: 1rem; background: rgba(20, 16, 40, .78); backdrop-filter: blur(4px); }
+.session-lock[hidden] { display: none; }
+.session-card { max-width: 440px; background: #fff; color: #141414; border: var(--line); border-radius: 22px; box-shadow: var(--lift); padding: 1.4rem 1.3rem; text-align: center; display: grid; gap: .7rem; justify-items: center; }
+.session-card h2 { font-family: var(--f-title); margin: 0; }
+.session-card p { margin: 0; }
+.session-card small { color: #555; }
+.session-ico { font-size: 3rem; }

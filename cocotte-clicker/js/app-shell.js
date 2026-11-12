@@ -72,7 +72,7 @@ let lastAct = Date.now();
 for (const ev of ['pointerdown', 'keydown', 'touchstart']) addEventListener(ev, () => { lastAct = Date.now(); }, { passive: true, capture: true });
 setInterval(() => {
   if (Date.now() - bootAt < AUTO_RELOAD || Date.now() - lastAct < IDLE) return;
-  if (document.querySelector('dialog[open]') || document.hidden) return;
+  if (document.querySelector('dialog[open]') || document.hidden || document.body.classList.contains('session-paused')) return;
   location.reload();
 }, 5000);
 

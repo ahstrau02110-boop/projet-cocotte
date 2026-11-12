@@ -13,6 +13,7 @@ import { initPlayer, openMyQR } from './player.js';
 import { initShare } from './share.js';
 import { initTransfer } from './transfer.js';
 import { initCloud } from './cloud.js';
+import { claimLocal, setBooted } from './session.js';
 import { buildProgress, initProgress, renderUpgrades, checkAchievements, openAchievements } from './progress.js';
 import { decorFor } from './decor.js';
 import { initTutorial } from './tutorial.js';
@@ -96,7 +97,9 @@ async function boot() {
   $('#logo').src = asset('logo');
   document.querySelectorAll('[data-asset]').forEach(img => (img.src = asset(img.dataset.asset)));
 
+  await claimLocal(); // un seul onglet actif : les autres enregistrent puis se mettent en pause
   const hadSave = load();
+  setBooted();
   // Oublie les bâtiments retirés des données (anciennes sauvegardes)
   for (const id of Object.keys(state.buildings))
     if (!DATA.buildings.some(b => b.id === id)) delete state.buildings[id];

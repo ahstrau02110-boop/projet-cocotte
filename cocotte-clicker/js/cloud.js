@@ -7,15 +7,17 @@ import { state } from './state.js';
 import { $, toast } from './core.js';
 import { save, exportSave, importSave } from './save.js';
 import { rpc, netEnabled, sync } from './community.js';
+import { sid, isPaused, pause } from './session.js';
 
 const PUSH_EVERY = 60000;
 const FLAG = 'coclicker-cloud-msg';
 // pulled : la version du serveur a été vérifiée depuis l'ouverture / le retour sur le jeu (obligatoire avant d'envoyer)
 let busy = false, pulled = false, failures = 0, lastError = '';
+let claim = true; // à l'ouverture, cette session prend la main sur les autres appareils
 
 const me = () => ({ p_id: state.playerId, p_token: state.net.token });
 const progress = () => state.prestige.lifetime;
-const active = () => netEnabled() && state.cloud.on;
+const active = () => netEnabled() && state.cloud.on && !isPaused();
 
 // Remplace la partie de cet appareil par celle du serveur, puis recharge le jeu
 function adopt(data, rev, msg, extra) {
@@ -41,8 +43,10 @@ export async function pull() {
   if (!active() || busy || document.querySelector('dialog[open]')) return;
   busy = true;
   try {
-    const r = await rpc('cloud_get', { ...me(), p_rev: state.cloud.rev });
+    const r = await rpc('cloud_get', { ...me(), p_rev: state.cloud.rev, p_sid: sid, p_claim: claim });
+    if (r?.error === 'taken') return pause('device');
     if (!r?.ok) return fail(r?.error || 'ko');
+    claim = false;
     failures = 0; lastError = '';
     if (r.newer) return adopt(r.data, r.rev, '☁️ Partie synchronisée avec votre autre appareil.');
     pulled = true;
@@ -55,8 +59,9 @@ export async function push(force = false) {
   if (!force && (document.hidden || Date.now() - state.cloud.last < PUSH_EVERY - 2000)) return;
   busy = true;
   try {
-    const r = await rpc('cloud_put', { ...me(), p_data: exportSave(), p_progress: progress(), p_base_rev: state.cloud.rev });
-    if (r?.ok) {
+    const r = await rpc('cloud_put', { ...me(), p_data: exportSave(), p_progress: progress(), p_base_rev: state.cloud.rev, p_sid: sid });
+    if (r?.error === 'taken') pause('device');
+    else if (r?.ok) {
       state.cloud.rev = r.rev; state.cloud.last = Date.now(); save();
       failures = 0; lastError = '';
     } else if (r?.error === 'newer') {

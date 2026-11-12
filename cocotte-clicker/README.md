@@ -78,6 +78,7 @@ supabase/setup.sql     Base communautaire à installer dans Supabase
 supabase/online.sql    Fonctions en ligne (à installer après setup.sql)
 supabase/transfer.sql  Relier un appareil par QR code (à installer après online.sql)
 supabase/cloud.sql     Sauvegarde en ligne + code de secours (à installer après transfer.sql)
+supabase/session.sql   Une seule session active par joueur (à installer après cloud.sql)
 ecran.html             Écran d'accueil pour La Co'Cotte
 js/admin-live.js       Espace équipe : onglet En direct
 sw.js                  Service worker (hors connexion)
@@ -424,3 +425,11 @@ Si deux appareils ont joué chacun de leur côté, le serveur garde la partie la
 Le **code de secours** (12 caractères, affiché une seule fois, seule son empreinte est stockée) permet de récupérer la partie sur un nouvel appareil sans l'ancien (téléphone perdu). Il crée un nouveau jeton : les autres appareils de ce joueur sont déconnectés de la sauvegarde en ligne.
 
 Nécessite le script **`supabase/cloud.sql`**.
+
+## Une seule session active
+
+Le jeu ne tourne activement qu'à un seul endroit à la fois. Le dernier onglet ou appareil ouvert prend la main ; les autres passent en pause (« Partie en pause », bouton « ▶️ Jouer ici ») et n'enregistrent plus rien, pour ne pas écraser la sauvegarde.
+- Même navigateur : les onglets se préviennent entre eux (BroadcastChannel), sans serveur.
+- Autres appareils : le serveur retient la session active (`cloud_sessions`). Une session sans signe de vie depuis 3 minutes peut être remplacée sans pause.
+
+Nécessite le script **`supabase/session.sql`**.

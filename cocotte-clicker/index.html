@@ -18,6 +18,16 @@
   <script>try { if (JSON.parse(localStorage.getItem('cocotte-clicker-save') || '{}').settings?.dark) document.documentElement.classList.add('dark'); } catch {}</script>
 </head>
 <body class="era-1">
+  <!-- Session en pause : le jeu est ouvert ailleurs (onglet ou appareil) -->
+  <div id="session-lock" class="session-lock" hidden role="alertdialog" aria-modal="true" aria-labelledby="session-lock-title">
+    <div class="session-card">
+      <div class="session-ico" aria-hidden="true">⏸️</div>
+      <h2 id="session-lock-title">Partie en pause</h2>
+      <p id="session-lock-txt"></p>
+      <button type="button" id="btn-session-here" class="big-btn">▶️ Jouer ici</button>
+      <small>L'autre page passera alors en pause. Votre progression n'est pas perdue.</small>
+    </div>
+  </div>
   <a class="skip" href="#shop">Aller à la boutique</a>
 
   <!-- Barre du haut : logo + compteur toujours visible -->

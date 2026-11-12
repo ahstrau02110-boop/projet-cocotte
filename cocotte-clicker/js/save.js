@@ -4,7 +4,12 @@ import { state, replaceState, freshState, CONFIG, totalCps, earn, hasTalent } fr
 const KEY = 'cocotte-clicker-save';
 const PREFIX = 'COCOTTE1:';
 
+// Session en pause (jeu ouvert ailleurs) : plus aucune écriture
+let blocked = false;
+export const blockSaves = () => { blocked = true; };
+
 export function save() {
+  if (blocked) return false;
   state.lastSave = Date.now();
   try { localStorage.setItem(KEY, JSON.stringify(state)); return true; }
   catch { return false; } // navigation privée / quota
