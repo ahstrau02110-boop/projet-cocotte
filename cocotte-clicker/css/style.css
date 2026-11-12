@@ -1198,3 +1198,17 @@ body.ecran { padding: 1.2rem; }
 .share-qr { width: min(280px, 100%); }
 .share-url { word-break: break-all; text-align: center; font-size: .85rem; margin: 0; }
 .share-btns { justify-content: center; flex-wrap: wrap; }
+
+/* ===== Changer d'appareil ===== */
+.tr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: .4rem; }
+@media (max-width: 640px) { .tr-grid { grid-template-columns: 1fr; } }
+.tr-step { border: var(--line); border-radius: 16px; padding: .7rem .9rem; background: #fff; display: grid; gap: .5rem; align-content: start; }
+.tr-step h3 { margin: 0; font-family: var(--f-title); }
+.tr-step p { margin: 0; }
+.tr-send { display: grid; justify-items: center; gap: .3rem; text-align: center; }
+.tr-send .qr-box { width: min(240px, 100%); }
+.tr-code { font-size: 1.4rem; letter-spacing: .06em; white-space: nowrap; }
+.tr-step .row { flex-wrap: wrap; }
+.tr-input { flex: 1 1 150px; min-width: 0; text-transform: uppercase; letter-spacing: .08em; font-size: 1.1rem; }
+html.dark .tr-step { background: #2a2540; }
+.tr-warn { background: #fff3cc; color: #141414; border: 2px solid #000; border-radius: 12px; padding: .5rem .7rem; }

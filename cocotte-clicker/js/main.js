@@ -11,6 +11,7 @@ import { initGacha, openGacha } from './gacha.js';
 import { initGames, openGames } from './games/hub.js';
 import { initPlayer, openMyQR } from './player.js';
 import { initShare } from './share.js';
+import { initTransfer } from './transfer.js';
 import { buildProgress, initProgress, renderUpgrades, checkAchievements, openAchievements } from './progress.js';
 import { decorFor } from './decor.js';
 import { initTutorial } from './tutorial.js';
@@ -110,6 +111,7 @@ async function boot() {
   initMissions();
   initHelp();
   initShare();
+  initTransfer();
   initCommunity();
   initDaily();
   on('tutoEnd', () => setTimeout(checkDaily, 600));

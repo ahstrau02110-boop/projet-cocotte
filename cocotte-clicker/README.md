@@ -76,6 +76,7 @@ js/pdf-planning.js     Lecture du planning PDF (espace équipe)
 js/scanner.js          Lecture de QR par la caméra
 supabase/setup.sql     Base communautaire à installer dans Supabase
 supabase/online.sql    Fonctions en ligne (à installer après setup.sql)
+supabase/transfer.sql  Changer d'appareil par QR code (à installer après online.sql)
 ecran.html             Écran d'accueil pour La Co'Cotte
 js/admin-live.js       Espace équipe : onglet En direct
 sw.js                  Service worker (hors connexion)
@@ -406,3 +407,9 @@ Police Atkinson Hyperlegible (conçue pour la basse vision), base 18 px, contras
 - [x] **Missions du jour**, explications des activités, mini-jeux enfants, installation Android et alerte de mise à jour
 - [x] **Fonctions en ligne** : défi de la semaine, équipes, classements des mini-jeux, galerie, cadeaux, annonces, boss collectif, chasse au trésor, écran d'accueil
 - [x] **Palier 6** : édition du contenu depuis l'espace équipe (images, bâtiments, ères, projets, astuces, infos, quiz, économie), aperçu, publication par `overrides.json`
+
+## Changer d'appareil (QR code)
+
+⚙️ Options → « 📲 Changer d'appareil » (ou Mon QR code). L'ancien appareil dépose la partie sur le serveur sous un code de 8 caractères (valable 10 minutes, usage unique) et affiche un QR code. Le nouvel appareil scanne ce QR (appareil photo ou 📷 Scanner) ou tape le code : sa partie est remplacée par celle transférée (Co'Coins, cristaux, collection, code joueur, pseudo…).
+
+Nécessite le script **`supabase/transfer.sql`** (à exécuter une fois dans Supabase → SQL Editor). Sans connexion, le code de sauvegarde (Options) reste disponible.

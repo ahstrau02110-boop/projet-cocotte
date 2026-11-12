@@ -6,6 +6,7 @@ import { sfx } from './audio.js';
 import { baseUrl, qrSVG, qrDataURL, verifyVoucher } from './qr.js';
 import { startScanner } from './scanner.js';
 import { huntFind } from './community.js';
+import { takeTransfer } from './transfer.js';
 
 // Lien encodé dans le QR du joueur : ouvre l'espace équipe avec son code
 function playerLink() {
@@ -58,6 +59,9 @@ export async function claim(token) {
 
 // Bon arrivé par lien (QR scanné avec l'appareil photo) : index.html#claim=...
 function checkHash() {
+  // Transfert de partie depuis un autre appareil
+  const t = location.hash.match(/^#transfer=([A-Za-z0-9-]{8,9})$/);
+  if (t) { history.replaceState(null, '', location.pathname + location.search); setTimeout(() => takeTransfer(t[1]), 600); return; }
   const h = location.hash.match(/^#hunt=([a-f0-9]{8,40})$/);
   if (h) { history.replaceState(null, '', location.pathname + location.search); huntFind(h[1]); return; }
   const m = location.hash.match(/^#claim=(.+)$/);
@@ -70,12 +74,14 @@ function checkHash() {
 let stopScan = null;
 export async function openScanner() {
   const dlg = $('#dlg-scan');
-  $('#scan-msg').textContent = 'Visez un QR de récompense ou une balise de chasse au trésor de La Co\'Cotte.';
+  $('#scan-msg').textContent = 'Visez un QR de récompense, une balise de chasse au trésor ou un QR de transfert de partie.';
   dlg.showModal();
   try {
     stopScan = await startScanner($('#scan-video'), txt => {
       const hunt = txt.match(/#hunt=([a-f0-9]{8,40})$/);
       if (hunt) { dlg.close(); huntFind(hunt[1]); return true; }
+      const tr = txt.match(/#transfer=([A-Za-z0-9-]{8,9})$/);
+      if (tr) { dlg.close(); takeTransfer(tr[1]); return true; }
       const m = txt.match(/#claim=(.+)$/);
       if (!m) { $('#scan-msg').textContent = 'Ce QR n\'est pas un QR de récompense Co\'Clicker.'; sfx.deny(); return false; }
       dlg.close();
