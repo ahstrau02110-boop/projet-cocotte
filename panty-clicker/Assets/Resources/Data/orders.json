@@ -1,0 +1,12 @@
+{ "_doc": "Commandes des habitant·es de la Ville. Les quantités dépendent de l'ère.",
+  "clients": [ "Neko-chan du Café", "Usagi, la voisine du dessus", "le club d'idoles du lycée", "Mamie Kitsune", "le capitaine des Pirates des Bulles", "la Guilde des Magical Girls", "Sensei Sakura", "le petit dragon du parc", "la boulangerie Mochi-Mochi", "l'équipe d'e-sport Pastel", "la reine du Château Licorne", "Robo-kun, le mecha poli" ],
+  "requests": [
+    { "what": "des culottes brodées pour un concert", "main": "dentelle", "side": "paillettes" },
+    { "what": "un trousseau tout doux pour l'hiver", "main": "coton", "side": "soie" },
+    { "what": "des costumes de cosplay pour la convention", "main": "soie", "side": "paillettes" },
+    { "what": "des rubans pour décorer la vitrine", "main": "dentelle", "side": "coton" },
+    { "what": "une tenue de transformation magique", "main": "paillettes", "side": "soie" },
+    { "what": "des chaussettes assorties (et la culotte qui va avec)", "main": "coton", "side": "dentelle" },
+    { "what": "un drapeau géant pour le festival", "main": "soie", "side": "coton" }
+  ]
+}

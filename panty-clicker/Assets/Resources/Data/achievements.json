@@ -1,0 +1,20 @@
+{ "_doc": "Succès générés : chaque groupe donne un succès par palier (+prodBonusPct % de production chacun). stat : clicks | earned | cps | golden | pulls | skins | bgs | seasons | stars | plays | crafted | orders | happy | streak | shopBought | cityPlace. {n} = palier.",
+  "groups": [
+    { "stat": "clicks", "text": "Tapoter {n} fois", "names": ["Premier tapotis", "Doigt agile", "Tapoteuse pro", "Rafale de clics", "Main de fée", "Mitraillette kawaii", "Légende du clic", "Clic divin"], "tiers": [1, 100, 1000, 5000, 20000, 50000, 100000, 250000] },
+    { "stat": "earned", "text": "Produire {n} Rubans", "names": ["Petit bout de ruban", "Bobine pleine", "Mercerie", "Rayon entier", "Usine à rubans", "Empire du ruban", "Ruban cosmique", "Ruban infini", "Au-delà du ruban", "Ruban absolu"], "tiers": [100, 10000, 1000000, 100000000, 10000000000, 1000000000000, 100000000000000, 1e16, 1e18, 1e20] },
+    { "stat": "cps", "text": "Atteindre {n} Rubans/s", "names": ["Ça tourne", "Rythme de croisière", "Vitesse lumière", "Hyperespace", "Turbo kawaii", "Singularité mignonne"], "tiers": [10, 1000, 100000, 10000000, 1000000000, 100000000000] },
+    { "stat": "golden", "text": "Attraper {n} Pantsu dorées", "names": ["Chanceuse", "Chasseuse d'or", "Aimant doré", "Collectionneuse d'or", "Roi Midas"], "tiers": [1, 10, 50, 150, 500] },
+    { "stat": "pulls", "text": "Ouvrir {n} capsules", "names": ["Première capsule", "Accro aux capsules", "Gacha addict", "Machine vivante"], "tiers": [1, 50, 200, 1000] },
+    { "stat": "skins", "text": "Posséder {n} skins différents", "names": ["Petite garde-robe", "Dressing", "Penderie royale", "Musée de la culotte"], "tiers": [5, 15, 25, 40] },
+    { "stat": "bgs", "text": "Posséder {n} décors différents", "names": ["Nouveau papier peint", "Galerie", "Musée des décors"], "tiers": [3, 8, 15] },
+    { "stat": "seasons", "text": "Faire {n} Grand(s) Lavage(s)", "names": ["Premier lavage", "Lavage en douceur", "Programme intensif", "Essorage cosmique"], "tiers": [1, 3, 10, 25] },
+    { "stat": "stars", "text": "Gagner {n} étoiles en mini-jeux", "names": ["Joueuse", "Gameuse", "Pro gameuse", "Champion·ne du monde"], "tiers": [3, 30, 150, 500] },
+    { "stat": "crafted", "text": "Coudre {n} créations", "names": ["Premier point", "Couturière", "Grande couturière", "Haute couture"], "tiers": [1, 10, 50, 200] },
+    { "stat": "orders", "text": "Livrer {n} commandes", "names": ["Livraison express", "Service client 5 étoiles", "Entreprise prospère"], "tiers": [1, 10, 50] },
+    { "stat": "happy", "text": "Atteindre {n} de Bonheur en Ville", "names": ["Quartier sympa", "Ville joyeuse", "Cité radieuse", "Utopie kawaii", "Paradis pastel"], "tiers": [10, 50, 150, 400, 1000] },
+    { "stat": "streak", "text": "Série de connexion de {n} jours", "names": ["Fidèle", "Assidue", "Inséparable", "Âme sœur"], "tiers": [3, 7, 14, 28] },
+    { "stat": "shopBought", "text": "Acheter {n} articles en Boutique", "names": ["Petite cliente", "Habituée", "Fashionista"], "tiers": [1, 20, 100] },
+    { "stat": "cityPlace", "text": "Poser {n} éléments en Ville", "names": ["Architecte en herbe", "Urbaniste", "Bâtisseuse de rêves"], "tiers": [1, 25, 100] }
+  ],
+  "building": { "tiers": [1, 10, 25, 50, 100, 150, 200], "text": "Posséder {n} x {b}" }
+}

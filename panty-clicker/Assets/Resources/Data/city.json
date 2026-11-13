@@ -1,0 +1,37 @@
+{
+  "_doc": "Ville idle. Les bâtiments posés viennent de buildings.json (il faut en posséder au moins autant dans le Clicker). Chaque bâtiment posé : +boostPct % à la production de ce type de bâtiment. Le Bonheur (somme cityHappy + décos, x adjacences) donne +happyPct % de production globale par point et remplit le Coffre à Cœurs (heartsPerHappyMin) jusqu'à storageHours heures. Une déco donne aura % de Bonheur en plus aux bâtiments voisins (4 cases).",
+  "gridStart": 5,
+  "gridMax": 10,
+  "expandCost": [50, 150, 400, 1000, 2500],
+  "boostPct": 2,
+  "happyPct": 0.25,
+  "heartsPerHappyMin": 0.2,
+  "storageHours": 4,
+  "levelMax": 10,
+  "levelCost": [20, 50, 120, 250, 500, 900, 1500, 2500, 4000],
+  "levelHappyPct": 25,
+  "grounds": [
+    { "id": "herbe", "name": "Herbe tendre", "cost": 0 },
+    { "id": "pave", "name": "Pavés pastel", "cost": 2 },
+    { "id": "sable", "name": "Sable sucré", "cost": 3 },
+    { "id": "eau", "name": "Lac menthe", "cost": 5 },
+    { "id": "nuage", "name": "Sol nuage", "cost": 8, "era": 4 },
+    { "id": "etoile", "name": "Sol étoilé", "cost": 12, "era": 5 }
+  ],
+  "decos": [
+    { "id": "fleurs", "name": "Parterre de fleurs", "cost": 5, "happy": 1, "aura": 5, "era": 1 },
+    { "id": "banc", "name": "Banc cœur", "cost": 8, "happy": 1, "aura": 8, "era": 1 },
+    { "id": "corde", "name": "Corde à linge", "cost": 12, "happy": 2, "aura": 10, "era": 1 },
+    { "id": "sakura", "name": "Cerisier en fleurs", "cost": 20, "happy": 3, "aura": 10, "era": 1 },
+    { "id": "lampadaire", "name": "Lampadaire étoile", "cost": 25, "happy": 2, "aura": 15, "era": 2 },
+    { "id": "champignon", "name": "Maison champignon", "cost": 35, "happy": 4, "aura": 10, "era": 2 },
+    { "id": "capsules", "name": "Distributeur à capsules", "cost": 50, "happy": 4, "aura": 20, "era": 2 },
+    { "id": "fontaine", "name": "Fontaine cœur", "cost": 80, "happy": 6, "aura": 20, "era": 3 },
+    { "id": "lanterne", "name": "Lanternes de fête", "cost": 100, "happy": 5, "aura": 25, "era": 3 },
+    { "id": "chat", "name": "Chat porte-bonheur", "cost": 150, "happy": 8, "aura": 25, "era": 3 },
+    { "id": "arcenciel", "name": "Arc-en-ciel", "cost": 250, "happy": 10, "aura": 30, "era": 4 },
+    { "id": "portique", "name": "Portique sacré", "cost": 350, "happy": 12, "aura": 30, "era": 4 },
+    { "id": "statue", "name": "Statue Pantsu Dorée", "cost": 600, "happy": 20, "aura": 40, "era": 5 },
+    { "id": "planete", "name": "Mini-planète", "cost": 900, "happy": 25, "aura": 50, "era": 5 }
+  ]
+}

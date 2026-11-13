@@ -1,0 +1,92 @@
+{
+ "_doc": "Décors (fond de l'écran de clic), générés par Tools/gen_sprites.py.",
+ "backgrounds": [
+  {
+   "id": "rose",
+   "name": "Rêve Rose",
+   "rarity": "commune"
+  },
+  {
+   "id": "menthe",
+   "name": "Matin Menthe",
+   "rarity": "commune"
+  },
+  {
+   "id": "citron",
+   "name": "Limonade",
+   "rarity": "commune"
+  },
+  {
+   "id": "ciel",
+   "name": "Ciel d'Été",
+   "rarity": "commune"
+  },
+  {
+   "id": "lilas",
+   "name": "Lilas",
+   "rarity": "commune"
+  },
+  {
+   "id": "peche",
+   "name": "Coucher Pêche",
+   "rarity": "commune"
+  },
+  {
+   "id": "sakura",
+   "name": "Allée Sakura",
+   "rarity": "rare"
+  },
+  {
+   "id": "arcade",
+   "name": "Arcade 8-bits",
+   "rarity": "rare"
+  },
+  {
+   "id": "bonbon",
+   "name": "Pays Bonbon",
+   "rarity": "rare"
+  },
+  {
+   "id": "plage",
+   "name": "Plage Glacée",
+   "rarity": "rare"
+  },
+  {
+   "id": "aurore",
+   "name": "Aurore Polaire",
+   "rarity": "epique"
+  },
+  {
+   "id": "nuit",
+   "name": "Nuit Étoilée",
+   "rarity": "epique"
+  },
+  {
+   "id": "idol",
+   "name": "Scène d'Idole",
+   "rarity": "epique"
+  },
+  {
+   "id": "cosmos",
+   "name": "Cosmos Pastel",
+   "rarity": "legendaire"
+  },
+  {
+   "id": "paradis",
+   "name": "Paradis Arc-en-ciel",
+   "rarity": "legendaire"
+  },
+  {
+   "id": "ev-neige",
+   "name": "Nuit de Neige",
+   "rarity": "evenement",
+   "gacha": false
+  },
+  {
+   "id": "ev-glitch",
+   "name": "Écran Bleu Kawaii",
+   "rarity": "evenement",
+   "gacha": false
+  }
+ ]
+}

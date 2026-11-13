@@ -1,0 +1,13 @@
+{ "_doc": "Atelier couture. cost : matériaux. result.type : buff (cps/click x, min), gems (n), skin (id), golden, pull, coinsSec (secondes de production), hearts (Cœurs de Ville).",
+  "recipes": [
+  { "id": "the", "name": "Thé au lait", "era": 1, "cost": { "coton": 8, "dentelle": 6 }, "result": { "type": "buff", "cps": 1.5, "min": 10 }, "desc": "Production x1,5 pendant 10 min." },
+  { "id": "mitaines", "name": "Mitaines douces", "era": 1, "cost": { "coton": 10, "soie": 4 }, "result": { "type": "buff", "click": 3, "min": 10 }, "desc": "Clics x3 pendant 10 min." },
+  { "id": "polish", "name": "Polissage de Gemmes", "era": 1, "cost": { "coton": 10, "dentelle": 10, "soie": 5 }, "result": { "type": "gems", "n": 15 }, "desc": "+15 Gemmes." },
+  { "id": "appeau", "name": "Appeau doré", "era": 1, "cost": { "dentelle": 8, "paillettes": 2 }, "result": { "type": "golden" }, "desc": "Fait apparaître une Pantsu dorée tout de suite." },
+  { "id": "capsule", "name": "Capsule cousue main", "era": 2, "cost": { "coton": 12, "soie": 8, "paillettes": 2 }, "result": { "type": "pull" }, "desc": "Un tirage gratuit à la machine à capsules." },
+  { "id": "panier", "name": "Panier garni", "era": 2, "cost": { "coton": 15, "dentelle": 10 }, "result": { "type": "coinsSec", "n": 1800 }, "desc": "30 minutes de production d'un coup." },
+  { "id": "bouquet", "name": "Bouquet de rubans", "era": 2, "cost": { "dentelle": 12, "soie": 6 }, "result": { "type": "hearts", "n": 60 }, "desc": "+60 Cœurs pour la Ville." },
+  { "id": "robe", "name": "Robe de bal", "era": 3, "cost": { "soie": 14, "paillettes": 5 }, "result": { "type": "buff", "cps": 3, "min": 5 }, "desc": "Production x3 pendant 5 min." },
+  { "id": "skin-dentelle", "name": "Dentelle Royale", "era": 2, "cost": { "coton": 30, "dentelle": 40, "paillettes": 6 }, "result": { "type": "skin", "id": "dentelle" }, "desc": "Skin exclusif de l'Atelier." },
+  { "id": "skin-soie", "name": "Soie de Lune", "era": 3, "cost": { "soie": 40, "paillettes": 10 }, "result": { "type": "skin", "id": "soie" }, "desc": "Skin exclusif de l'Atelier." }
+] }

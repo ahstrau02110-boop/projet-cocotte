@@ -1,0 +1,7 @@
+{ "eras": [
+  { "id": 1, "name": "Chambre Cosy", "unlockAt": 0, "color": "#ff8fb8", "tagline": "Une aiguille, un peu de fil et beaucoup d'amour." },
+  { "id": 2, "name": "Rue Kawaii", "unlockAt": 6000, "color": "#4aa3ff", "tagline": "Les boutiques ouvrent, les chats s'installent au café." },
+  { "id": 3, "name": "Ville Pastel", "unlockAt": 150000000, "color": "#b36bff", "tagline": "Arcades, idoles et train bonbon : la ville s'éveille." },
+  { "id": 4, "name": "Royaume des Nuages", "unlockAt": 400000000000, "color": "#ffb020", "tagline": "Châteaux en guimauve et cerisiers éternels." },
+  { "id": 5, "name": "Galaxie Mignonne", "unlockAt": 2e17, "color": "#7a5cff", "tagline": "Même les étoiles portent des culottes à froufrous." }
+] }

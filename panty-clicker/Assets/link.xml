@@ -1,0 +1,4 @@
+<!-- Empêche IL2CPP de retirer les types (dé)sérialisés par réflexion (sauvegarde JSON) -->
+<linker>
+  <assembly fullname="Assembly-CSharp" preserve="all" />
+</linker>

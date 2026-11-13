@@ -1,0 +1,34 @@
+{ "_doc": "Boutique. iap = achat réel (prix affiché, branché via IStore : voir README). currency : gems | rubans | hearts. give : gems, hearts, tickets (capsules gratuites), buff {cps|click, min}, coinsSec, mats, skin, bg, deco {id, n}, shield (bouclier de série), sub (abonnement : gemmes/jour pendant days). pool = objets possibles de la Boutique du jour.",
+  "packs": [
+    { "id": "gems-s", "name": "Poignée de Gemmes", "iap": true, "price": "0,99 €", "give": { "gems": 80 } },
+    { "id": "gems-m", "name": "Sac de Gemmes", "iap": true, "price": "4,99 €", "give": { "gems": 550 }, "tag": "+10 %" },
+    { "id": "gems-l", "name": "Coffre de Gemmes", "iap": true, "price": "9,99 €", "give": { "gems": 1400 }, "tag": "+40 %" },
+    { "id": "gems-xl", "name": "Trésor de Gemmes", "iap": true, "price": "19,99 €", "give": { "gems": 3200 }, "tag": "Meilleure offre" },
+    { "id": "lune", "name": "Abonnement Lune (30 jours)", "iap": true, "price": "4,99 €", "give": { "gems": 300, "sub": { "gems": 30, "days": 30 } }, "tag": "+30 Gemmes / jour" }
+  ],
+  "starter": { "id": "starter", "name": "Pack de bienvenue", "iap": true, "price": "1,99 €", "give": { "gems": 300, "skin": "magical", "tickets": 5, "buff": { "cps": 2, "min": 60 } }, "tag": "-80 % · une seule fois" },
+  "permanent": [
+    { "id": "ticket", "name": "Ticket capsule", "currency": "gems", "cost": 25, "give": { "tickets": 1 } },
+    { "id": "ticket10", "name": "10 tickets capsule", "currency": "gems", "cost": 225, "give": { "tickets": 10 } },
+    { "id": "sablier", "name": "Sablier magique (2 h de production)", "currency": "gems", "cost": 60, "give": { "coinsSec": 7200 } },
+    { "id": "turbo", "name": "Turbo couture (prod. x2, 30 min)", "currency": "gems", "cost": 40, "give": { "buff": { "cps": 2, "min": 30 } } },
+    { "id": "bouclier", "name": "Bouclier de série", "currency": "gems", "cost": 50, "give": { "shield": 1 }, "desc": "Protège ta série de connexion si tu rates un jour." },
+    { "id": "coeurs", "name": "Bourse de Cœurs (+100)", "currency": "gems", "cost": 30, "give": { "hearts": 100 } }
+  ],
+  "pool": [
+    { "id": "d-turbo", "name": "Turbo couture (prod. x2, 15 min)", "currency": "gems", "cost": 20, "give": { "buff": { "cps": 2, "min": 15 } } },
+    { "id": "d-clic", "name": "Clics x5 (10 min)", "currency": "gems", "cost": 15, "give": { "buff": { "click": 5, "min": 10 } } },
+    { "id": "d-mats", "name": "Sac de matériaux (x12)", "currency": "gems", "cost": 25, "give": { "mats": 12 } },
+    { "id": "d-mats-r", "name": "Sac de matériaux", "currency": "rubans", "costSec": 1800, "give": { "mats": 6 } },
+    { "id": "d-coeurs", "name": "Cœurs (+40)", "currency": "rubans", "costSec": 1200, "give": { "hearts": 40 } },
+    { "id": "d-ticket", "name": "Ticket capsule", "currency": "gems", "cost": 20, "give": { "tickets": 1 } },
+    { "id": "d-ticket3", "name": "3 tickets capsule", "currency": "gems", "cost": 60, "give": { "tickets": 3 } },
+    { "id": "d-sablier", "name": "Sablier (1 h de production)", "currency": "gems", "cost": 25, "give": { "coinsSec": 3600 } },
+    { "id": "d-skin-rare", "name": "Skin rare au choix du jour", "currency": "gems", "cost": 120, "give": { "skinRarity": "rare" } },
+    { "id": "d-skin-epic", "name": "Skin épique du jour", "currency": "gems", "cost": 380, "give": { "skinRarity": "epique" } },
+    { "id": "d-bg", "name": "Décor du jour", "currency": "gems", "cost": 90, "give": { "bgRarity": "rare" } },
+    { "id": "d-deco", "name": "Déco de Ville du jour", "currency": "hearts", "costMult": 0.6, "give": { "decoRandom": 1 } },
+    { "id": "d-fontaine", "name": "Fontaine cœur", "currency": "gems", "cost": 45, "give": { "deco": { "id": "fontaine", "n": 1 } } },
+    { "id": "d-statue", "name": "Statue Pantsu Dorée", "currency": "gems", "cost": 240, "give": { "deco": { "id": "statue", "n": 1 } } }
+  ]
+}

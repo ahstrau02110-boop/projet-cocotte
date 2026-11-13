@@ -1,0 +1,65 @@
+{
+  "_doc": "Skins de Pantsu. rarity : commune | rare | epique | legendaire | evenement | couture | arcenciel. Apparence (body, accent, pattern, eyes, acc, fx) rendue par Tools/gen_sprites.py -> Sprites/skins/<id>.png. gacha:false = absent des capsules. mega = niveau de Renaissance qui l'offre. bannerOnly = ne tombe que pendant sa bannière vedette (FOMO).",
+  "rarities": [
+    { "id": "commune",    "label": "Commune",     "color": "#9aa4b5", "weight": 60 },
+    { "id": "rare",       "label": "Rare",        "color": "#4aa3ff", "weight": 28 },
+    { "id": "epique",     "label": "Épique",      "color": "#b36bff", "weight": 10 },
+    { "id": "legendaire", "label": "Légendaire",  "color": "#ffb020", "weight": 2 },
+    { "id": "evenement",  "label": "Édition limitée", "color": "#ff4f9a", "weight": 0 },
+    { "id": "couture",    "label": "Couture",     "color": "#c48a5a", "weight": 0 },
+    { "id": "arcenciel",  "label": "Arc-en-ciel", "color": "#7a5cff", "weight": 0 }
+  ],
+  "skins": [
+    { "id": "classique", "name": "Pantsu Fleurie", "rarity": "commune", "default": true, "body": "#f7c6d9", "accent": "#e17aa8", "pattern": "flowers", "eyes": "normal", "acc": "none", "desc": "La toute première. Des fleurs, des cœurs, et beaucoup d'amour." },
+    { "id": "menthe", "name": "Menthe Glacée", "rarity": "commune", "body": "#c8f0dc", "accent": "#4fb58c", "pattern": "dots", "eyes": "normal", "acc": "bow", "desc": "Fraîche comme un mochi à la menthe." },
+    { "id": "citron", "name": "Citron Pop", "rarity": "commune", "body": "#fff1a8", "accent": "#f0b820", "pattern": "stars", "eyes": "happy", "acc": "none", "desc": "Pétillante dès le réveil." },
+    { "id": "lavande", "name": "Lavande Douce", "rarity": "commune", "body": "#e3d4fb", "accent": "#9b7be0", "pattern": "hearts", "eyes": "normal", "acc": "bow", "desc": "Sent bon le linge propre et les câlins." },
+    { "id": "peche", "name": "Pêche Mignonne", "rarity": "commune", "body": "#ffd9c2", "accent": "#f08a5b", "pattern": "stripes", "eyes": "happy", "acc": "none", "desc": "Rayures douces, humeur au beau fixe." },
+    { "id": "nuage", "name": "Petit Nuage", "rarity": "commune", "body": "#eef6ff", "accent": "#8fbaea", "pattern": "clouds", "eyes": "sleepy", "acc": "none", "desc": "Toujours un peu dans la lune." },
+    { "id": "fraise", "name": "Fraise Chantilly", "rarity": "commune", "body": "#ffd3dc", "accent": "#e8456b", "pattern": "strawberries", "eyes": "normal", "acc": "bow", "desc": "Sucrée, rosée, irrésistible." },
+    { "id": "biscuit", "name": "Biscuit Choco", "rarity": "commune", "body": "#f3dcc0", "accent": "#9c6b48", "pattern": "checker", "eyes": "happy", "acc": "none", "desc": "Craquante à l'extérieur, fondante à l'intérieur." },
+    { "id": "bleuet", "name": "Bleuet", "rarity": "commune", "body": "#d3e2ff", "accent": "#5f86e0", "pattern": "flowers", "eyes": "normal", "acc": "none", "desc": "Cueillie au bord d'un champ pastel." },
+    { "id": "sakura", "name": "Pétale de Sakura", "rarity": "commune", "body": "#ffe4ee", "accent": "#f48fb1", "pattern": "sakura", "eyes": "closed", "acc": "none", "desc": "Elle fleurit une fois par an, et c'est magnifique." },
+
+    { "id": "neko", "name": "Neko-chan", "rarity": "rare", "body": "#fbe3ec", "accent": "#ff7fae", "pattern": "paws", "eyes": "cat", "acc": "cat", "desc": "Nya ! Elle retombe toujours sur ses coutures." },
+    { "id": "usagi", "name": "Usagi de Lune", "rarity": "rare", "body": "#f4f0ff", "accent": "#a68be0", "pattern": "moons", "eyes": "normal", "acc": "bunny", "desc": "Saute de nuage en nuage les soirs de pleine lune." },
+    { "id": "kitsune", "name": "Kitsune Malicieuse", "rarity": "rare", "body": "#ffe0c4", "accent": "#ff8a3d", "pattern": "dots", "eyes": "wink", "acc": "fox", "desc": "Neuf queues, zéro sérieux." },
+    { "id": "gamer", "name": "Gamer Girl", "rarity": "rare", "body": "#d8f6ff", "accent": "#2fb8e0", "pattern": "pixel", "eyes": "normal", "acc": "headset", "desc": "GG EZ. Speedrun du linge en 4 min 12." },
+    { "id": "marin", "name": "Uniforme Marin", "rarity": "rare", "body": "#eef4ff", "accent": "#3b5bb5", "pattern": "stripes", "eyes": "normal", "acc": "sailor", "desc": "Au nom de la lune… elle va plier ton linge." },
+    { "id": "sorciere", "name": "Petite Sorcière", "rarity": "rare", "body": "#e9dcff", "accent": "#6a3fb5", "pattern": "stars", "eyes": "wink", "acc": "witch", "desc": "Livraison de culottes à balai, 24 h/24." },
+    { "id": "maid", "name": "Maid Café", "rarity": "rare", "body": "#ffffff", "accent": "#3a3346", "pattern": "lace", "eyes": "happy", "acc": "maid", "desc": "Okaerinasai, Maître·sse ! Un thé moe-moe ?" },
+    { "id": "chef", "name": "Chef Pâtissière", "rarity": "rare", "body": "#fff7ee", "accent": "#f29a9a", "pattern": "hearts", "eyes": "happy", "acc": "chef", "desc": "Ses macarons ont trois étoiles au guide Kawaii." },
+    { "id": "pirate", "name": "Pirate des Bulles", "rarity": "rare", "body": "#e6f6ff", "accent": "#20406a", "pattern": "stripes", "eyes": "patch", "acc": "pirate", "desc": "Cherche le One Panty depuis des années." },
+    { "id": "ninja", "name": "Ninja de l'Ombre", "rarity": "rare", "body": "#4a4466", "accent": "#ff5a86", "pattern": "dots", "eyes": "focus", "acc": "ninja", "desc": "Discrète. Silencieuse. Très, très douce." },
+
+    { "id": "magical", "name": "Magical Girl Étoilée", "rarity": "epique", "body": "#ffd1ec", "accent": "#ff4fa8", "pattern": "stars", "eyes": "sparkle", "acc": "tiara", "fx": "sparkle", "desc": "Transformation ! Puissance du ruban magique !" },
+    { "id": "mecha", "name": "Mecha Pantsu MK-II", "rarity": "epique", "body": "#dfe6f0", "accent": "#ff6b3d", "pattern": "panel", "eyes": "visor", "acc": "mecha", "desc": "Pilotée par une culotte de 14 ans. Classique." },
+    { "id": "vampire", "name": "Vampi-chan", "rarity": "epique", "body": "#3a2342", "accent": "#e0306a", "pattern": "bats", "eyes": "red", "acc": "vampire", "fx": "sparkle", "desc": "Ne boit que du jus de fraise. Promis." },
+    { "id": "idol", "name": "Idole Pop", "rarity": "epique", "body": "#fff0f8", "accent": "#ff3f98", "pattern": "hearts", "eyes": "sparkle", "acc": "idol", "fx": "sparkle", "desc": "Son concert affiche complet jusqu'en 2099." },
+    { "id": "samurai", "name": "Samouraï Sakura", "rarity": "epique", "body": "#f9e9e9", "accent": "#b3263b", "pattern": "sakura", "eyes": "focus", "acc": "samurai", "desc": "Son katana ? Une aiguille à tricoter. Redoutable." },
+    { "id": "dragon", "name": "Bébé Dragon", "rarity": "epique", "body": "#c9f2d6", "accent": "#2e9e6a", "pattern": "scales", "eyes": "normal", "acc": "dragon", "desc": "Crache des bulles de savon au lieu du feu." },
+    { "id": "astro", "name": "Astronaute", "rarity": "epique", "body": "#eef0ff", "accent": "#5a6bd8", "pattern": "planets", "eyes": "sparkle", "acc": "astro", "desc": "Un petit pas pour la culotte, un grand pas pour le kawaii." },
+    { "id": "slime", "name": "Slime Gélatine", "rarity": "epique", "body": "#bff3ff", "accent": "#2bb7d6", "pattern": "drops", "eyes": "happy", "acc": "none", "fx": "glossy", "desc": "Réincarnée en slime, et franchement elle adore." },
+
+    { "id": "celeste", "name": "Ange Céleste", "rarity": "legendaire", "body": "#fffbe6", "accent": "#f6c945", "pattern": "feathers", "eyes": "sparkle", "acc": "angel", "fx": "glow", "desc": "Descendue des nuages pour bénir ton panier à linge." },
+    { "id": "demon", "name": "Petite Démone", "rarity": "legendaire", "body": "#3a1030", "accent": "#ff3b6b", "pattern": "hearts", "eyes": "red", "acc": "devil", "fx": "glow", "desc": "Un peu diabolique, surtout très câline." },
+    { "id": "galaxie", "name": "Galaxie Kawaii", "rarity": "legendaire", "body": "#2a1b5e", "body2": "#8a4fe0", "accent": "#ffd86b", "pattern": "galaxy", "eyes": "star", "acc": "crown", "fx": "galaxy", "desc": "Elle contient des milliards d'étoiles. Et un ruban." },
+    { "id": "licorne", "name": "Licorne Arc-en-ciel", "rarity": "legendaire", "body": "#ffffff", "accent": "#ff7fbf", "pattern": "rainbow", "eyes": "sparkle", "acc": "unicorn", "fx": "rainbow", "desc": "La plus rare du royaume. Certaines disent qu'elle n'existe pas." },
+
+    { "id": "doree", "name": "Pantsu Dorée", "rarity": "legendaire", "gacha": false, "body": "#ffe680", "body2": "#d9a400", "accent": "#b07d00", "pattern": "stars", "eyes": "star", "acc": "crown", "fx": "glow", "desc": "Apparaît au hasard. Attrape-la vite !" },
+
+    { "id": "noel", "name": "Pantsu des Neiges", "rarity": "evenement", "gacha": false, "body": "#e8f6ff", "accent": "#d62f4b", "pattern": "snow", "eyes": "happy", "acc": "santa", "desc": "Édition limitée de l'hiver. Ne reviendra peut-être jamais…" },
+    { "id": "halloween", "name": "Citrouille Boo", "rarity": "evenement", "gacha": false, "body": "#ffb067", "accent": "#4a2a5e", "pattern": "bats", "eyes": "wink", "acc": "pumpkin", "desc": "Des bonbons ou une culotte !" },
+    { "id": "valentin", "name": "Cœur Fondant", "rarity": "evenement", "gacha": false, "body": "#ffc2d4", "accent": "#e0245e", "pattern": "hearts", "eyes": "heart", "acc": "heartclip", "fx": "sparkle", "desc": "Édition Saint-Valentin, disponible quelques jours seulement." },
+    { "id": "glitch", "name": "Erreur 404", "rarity": "evenement", "gacha": false, "body": "#b8ffdd", "accent": "#ff00aa", "pattern": "pixel", "eyes": "x", "acc": "none", "fx": "glitch", "desc": "Un bug dans la machine à capsules. Introuvable une fois corrigé." },
+    { "id": "erable", "name": "Feuille d'Érable", "rarity": "evenement", "gacha": false, "body": "#ffe2c2", "accent": "#e2572b", "pattern": "leaves", "eyes": "closed", "acc": "bow", "desc": "Édition limitée d'automne : disparaît avec les dernières feuilles." },
+    { "id": "ete", "name": "Plage Tropicale", "rarity": "evenement", "gacha": false, "body": "#ffe9a8", "accent": "#23b5d3", "pattern": "waves", "eyes": "normal", "acc": "sunglasses", "desc": "Édition été : sable chaud et glace à l'eau." },
+
+    { "id": "dentelle", "name": "Dentelle Royale", "rarity": "couture", "gacha": false, "body": "#ffffff", "accent": "#c9a0dc", "pattern": "lace", "eyes": "closed", "acc": "tiara", "fx": "sparkle", "desc": "Cousue main à l'Atelier, point par point." },
+    { "id": "soie", "name": "Soie de Lune", "rarity": "couture", "gacha": false, "body": "#e6e9ff", "accent": "#7c88d8", "pattern": "moons", "eyes": "sleepy", "acc": "bow", "fx": "glossy", "desc": "Tissée avec un fil de clair de lune." },
+
+    { "id": "aurore", "name": "Impératrice Aurore", "rarity": "arcenciel", "gacha": false, "mega": 1, "body": "#ffe1f0", "body2": "#9fe7ff", "accent": "#ff5fb0", "pattern": "rainbow", "eyes": "sparkle", "acc": "crown", "fx": "rainbow", "desc": "Offerte à la 1re Renaissance Arc-en-ciel." },
+    { "id": "eclipse", "name": "Reine Éclipse", "rarity": "arcenciel", "gacha": false, "mega": 2, "body": "#1b1035", "body2": "#5b2a9e", "accent": "#ffd86b", "pattern": "galaxy", "eyes": "star", "acc": "angel", "fx": "galaxy", "desc": "Offerte à la 2e Renaissance Arc-en-ciel." },
+    { "id": "infini", "name": "Pantsu Infinie", "rarity": "arcenciel", "gacha": false, "mega": 3, "body": "#fff6c2", "body2": "#ff9ad5", "accent": "#7a5cff", "pattern": "galaxy", "eyes": "heart", "acc": "unicorn", "fx": "rainbow", "desc": "Offerte à la 3e Renaissance Arc-en-ciel. Au-delà du mignon." }
+  ]
+}

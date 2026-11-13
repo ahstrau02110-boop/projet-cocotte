@@ -1,0 +1,26 @@
+{ "_doc": "Missions du jour (3 : facile, moyenne, difficile) et de la semaine (3, plus dures). stat = compteur suivi (voir GameState.counters). n et reward par difficulté. allBonus = Gemmes si les 3 sont faites.",
+  "allBonus": 20, "weeklyAllBonus": 60,
+  "missions": [
+    { "id": "clicks", "text": "Tapoter la Pantsu {n} fois", "stat": "clicks", "n": [150, 400, 800], "reward": [10, 10, 20] },
+    { "id": "bought", "text": "Acheter {n} bâtiments", "stat": "bought", "n": [5, 15, 30], "reward": [10, 15, 20] },
+    { "id": "upg", "text": "Acheter {n} amélioration(s)", "stat": "upgBought", "n": [1, 2, 4], "reward": [10, 15, 20] },
+    { "id": "golden", "text": "Attraper {n} Pantsu dorée(s)", "stat": "golden", "n": [1, 2, 4], "reward": [10, 15, 25] },
+    { "id": "pulls", "text": "Ouvrir {n} capsule(s)", "stat": "pulls", "n": [1, 3, 10], "reward": [5, 10, 20] },
+    { "id": "games", "text": "Terminer {n} mini-jeu(x)", "stat": "plays", "n": [1, 2, 4], "reward": [10, 15, 25] },
+    { "id": "stars", "text": "Gagner {n} étoiles en mini-jeux", "stat": "stars", "n": [2, 5, 9], "reward": [10, 15, 25] },
+    { "id": "craft", "text": "Coudre {n} création(s) à l'Atelier", "stat": "crafted", "n": [1, 2, 3], "reward": [10, 15, 20] },
+    { "id": "mats", "text": "Trouver {n} matériaux", "stat": "matsGot", "n": [5, 12, 25], "reward": [10, 15, 20] },
+    { "id": "collect", "text": "Vider le Coffre de la Ville {n} fois", "stat": "cityCollect", "n": [1, 2, 4], "reward": [10, 15, 20] },
+    { "id": "place", "text": "Poser {n} élément(s) en Ville", "stat": "cityPlace", "n": [1, 3, 6], "reward": [10, 15, 20] },
+    { "id": "shop", "text": "Acheter {n} article(s) en Boutique", "stat": "shopBought", "n": [1, 2, 3], "reward": [5, 10, 15] },
+    { "id": "orders", "text": "Livrer {n} commande(s)", "stat": "orders", "n": [1, 1, 2], "reward": [10, 15, 25] }
+  ],
+  "weekly": [
+    { "id": "w-clicks", "text": "Tapoter la Pantsu {n} fois", "stat": "clicks", "n": [3000, 6000, 12000], "reward": [30, 40, 60] },
+    { "id": "w-golden", "text": "Attraper {n} Pantsu dorées", "stat": "golden", "n": [8, 15, 25], "reward": [30, 40, 60] },
+    { "id": "w-games", "text": "Gagner {n} étoiles en mini-jeux", "stat": "stars", "n": [15, 30, 45], "reward": [30, 40, 60] },
+    { "id": "w-city", "text": "Vider le Coffre de la Ville {n} fois", "stat": "cityCollect", "n": [8, 14, 21], "reward": [30, 40, 60] },
+    { "id": "w-missions", "text": "Réussir {n} missions du jour", "stat": "missions", "n": [9, 15, 21], "reward": [30, 40, 60] },
+    { "id": "w-pulls", "text": "Ouvrir {n} capsules", "stat": "pulls", "n": [10, 20, 40], "reward": [30, 40, 60] }
+  ]
+}

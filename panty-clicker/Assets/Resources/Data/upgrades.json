@@ -1,0 +1,33 @@
+{
+  "_doc": "buildingTiers : générées pour CHAQUE bâtiment (production x2) quand on en possède « owned » ; coût = baseCost x costMult. upgrades : type click (clics x mult), clickCps (+pct % de la production par clic), global (production x mult), building (target x mult). unlock : clicks | earned | cps | era.",
+  "buildingTiers": [
+    { "owned": 1, "costMult": 10, "name": "Fil doré" },
+    { "owned": 5, "costMult": 50, "name": "Aiguilles magiques" },
+    { "owned": 25, "costMult": 500, "name": "Patron secret" },
+    { "owned": 50, "costMult": 50000, "name": "Mode turbo" },
+    { "owned": 100, "costMult": 5000000, "name": "Savoir-faire légendaire" },
+    { "owned": 150, "costMult": 500000000, "name": "Bénédiction kawaii" },
+    { "owned": 200, "costMult": 50000000000, "name": "Mythe vivant" }
+  ],
+  "upgrades": [
+    { "id": "doigts", "name": "Doigts de fée", "type": "click", "mult": 2, "cost": 100, "unlock": { "clicks": 30 }, "desc": "Les clics rapportent 2 fois plus." },
+    { "id": "de", "name": "Dé à coudre doré", "type": "click", "mult": 2, "cost": 600, "unlock": { "clicks": 200 }, "desc": "Les clics rapportent 2 fois plus." },
+    { "id": "patte", "name": "Patte de chat", "type": "click", "mult": 2, "cost": 12000, "unlock": { "clicks": 800 }, "desc": "Nya ! Les clics rapportent 2 fois plus." },
+    { "id": "pawpaw", "name": "Paw-Paw Power", "type": "clickCps", "pct": 1, "cost": 60000, "unlock": { "clicks": 1500 }, "desc": "Chaque clic rapporte en plus 1 % de la production par seconde." },
+    { "id": "baguette", "name": "Baguette magique", "type": "clickCps", "pct": 1, "cost": 6000000, "unlock": { "clicks": 3000 }, "desc": "Chaque clic rapporte en plus 1 % de la production par seconde." },
+    { "id": "combo", "name": "Combo x100", "type": "clickCps", "pct": 2, "cost": 600000000, "unlock": { "clicks": 6000 }, "desc": "Chaque clic rapporte en plus 2 % de la production par seconde." },
+    { "id": "ultime", "name": "Attaque ultime : Froufrou Final", "type": "clickCps", "pct": 3, "cost": 60000000000, "unlock": { "clicks": 12000 }, "desc": "Chaque clic rapporte en plus 3 % de la production par seconde." },
+    { "id": "lessive", "name": "Lessive parfumée", "type": "global", "mult": 1.05, "cost": 50000, "unlock": { "earned": 20000 }, "desc": "Toute la production +5 %." },
+    { "id": "adoucissant", "name": "Adoucissant nuage", "type": "global", "mult": 1.1, "cost": 5000000, "unlock": { "earned": 1000000 }, "desc": "Toute la production +10 %." },
+    { "id": "senpai", "name": "Senpai m'a remarquée", "type": "global", "mult": 1.15, "cost": 500000000, "unlock": { "earned": 100000000 }, "desc": "Toute la production +15 %." },
+    { "id": "ost", "name": "Bande-son d'opening", "type": "global", "mult": 1.2, "cost": 50000000000, "unlock": { "earned": 10000000000 }, "desc": "Toute la production +20 %." },
+    { "id": "isekai", "name": "Réincarnée dans un monde mignon", "type": "global", "mult": 1.25, "cost": 5000000000000, "unlock": { "earned": 1000000000000 }, "desc": "Toute la production +25 %." },
+    { "id": "collab1", "name": "Collab Chats & Couture", "type": "building", "target": "nekocafe", "mult": 3, "cost": 300000, "unlock": { "era": 2 }, "desc": "Café Neko x3." },
+    { "id": "collab2", "name": "Défilé Purikura", "type": "building", "target": "purikura", "mult": 3, "cost": 40000000, "unlock": { "era": 2 }, "desc": "Studio Purikura x3." },
+    { "id": "collab3", "name": "Tournée des Idoles", "type": "building", "target": "idoles", "mult": 3, "cost": 80000000000, "unlock": { "era": 3 }, "desc": "Concert d'Idoles x3." },
+    { "id": "collab4", "name": "Tournoi Arcade", "type": "building", "target": "arcade", "mult": 3, "cost": 9000000000, "unlock": { "era": 3 }, "desc": "Arcade Rétro x3." },
+    { "id": "collab5", "name": "Pacte des Licornes", "type": "building", "target": "chateau", "mult": 3, "cost": 20000000000000, "unlock": { "era": 4 }, "desc": "Château Licorne x3." },
+    { "id": "collab6", "name": "Transformation de groupe", "type": "building", "target": "guilde", "mult": 3, "cost": 60000000000000000, "unlock": { "era": 4 }, "desc": "Guilde des Magical Girls x3." },
+    { "id": "collab7", "name": "Lancement lunaire", "type": "building", "target": "lunaire", "mult": 3, "cost": 1e18, "unlock": { "era": 5 }, "desc": "Station Lunaire Usagi x3." }
+  ]
+}

@@ -1,0 +1,12 @@
+{ "_doc": "Événements à durée limitée (FOMO). start/end = MM-JJ, répétés chaque année (end < start = à cheval sur le nouvel an). weekdays = jours de la semaine (0 = dimanche) pour les événements récurrents. bonusPct = production en plus ; shopDiscount = réduction Boutique ; gachaRateUp = chance Légendaire x ; offers = objets exclusifs vendus en Gemmes (kind skin | bg).",
+  "events": [
+    { "id": "valentin", "name": "Saint-Valentin Kawaii", "start": "02-07", "end": "02-16", "bonusPct": 10, "desc": "Des cœurs partout ! Le skin Cœur Fondant n'est là que quelques jours.", "offers": [ { "kind": "skin", "id": "valentin", "price": 300 } ] },
+    { "id": "ete", "name": "Vacances à la Plage", "start": "07-01", "end": "08-31", "bonusPct": 10, "desc": "Sable chaud, glaces et maillots à froufrous.", "offers": [ { "kind": "skin", "id": "ete", "price": 300 }, { "kind": "bg", "id": "plage", "price": 150 } ] },
+    { "id": "halloween", "name": "Halloween Boo", "start": "10-20", "end": "11-03", "bonusPct": 15, "desc": "Des bonbons ou une culotte !", "offers": [ { "kind": "skin", "id": "halloween", "price": 350 } ] },
+    { "id": "erable", "name": "Festival des Érables", "start": "11-04", "end": "11-19", "bonusPct": 10, "desc": "Les feuilles rougissent, les culottes aussi. Skin d'automne en édition limitée.", "offers": [ { "kind": "skin", "id": "erable", "price": 280 } ] },
+    { "id": "blackfriday", "name": "Black Froufrou Friday", "start": "11-20", "end": "11-30", "bonusPct": 0, "shopDiscount": 30, "desc": "Toute la Boutique du jour à -30 % ! Ne rate pas ça.", "offers": [] },
+    { "id": "noel", "name": "Noël des Neiges", "start": "12-01", "end": "12-31", "bonusPct": 15, "desc": "La ville se couvre de neige et de guirlandes.", "offers": [ { "kind": "skin", "id": "noel", "price": 350 }, { "kind": "bg", "id": "ev-neige", "price": 180 } ] },
+    { "id": "weekend", "name": "Week-end Capsules", "weekdays": [6, 0], "bonusPct": 0, "gachaRateUp": 2, "desc": "Tout le week-end : chances de Légendaire x2 aux capsules.", "offers": [] },
+    { "id": "glitch", "name": "Erreur 404", "monthDays": [4], "bonusPct": 4, "desc": "Le 4 de chaque mois, la machine bugge… et crache une Pantsu introuvable.", "offers": [ { "kind": "skin", "id": "glitch", "price": 404 }, { "kind": "bg", "id": "ev-glitch", "price": 202 } ] }
+  ]
+}

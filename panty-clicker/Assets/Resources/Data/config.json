@@ -1,0 +1,35 @@
+{
+  "_doc": "Réglages généraux de Panty Clicker. Toutes les durées en secondes sauf mention contraire.",
+  "costGrowth": 1.15,
+  "offlineMaxHours": 8,
+  "offlineRate": 0.5,
+  "autosaveSec": 10,
+  "welcomeGems": 50,
+  "eraGems": 10,
+  "achievements": { "prodBonusPct": 0.4, "milestones": [ { "n": 25, "gems": 15 }, { "n": 50, "gems": 25 }, { "n": 100, "gems": 50 }, { "n": 150, "gems": 75 }, { "n": 200, "gems": 100 } ] },
+  "gacha": { "cost1": 25, "cost10": 225, "pityLegendary": 60, "collectionBonusPct": 0.5, "collectionBgPct": 0.2, "dupPct": 0.2,
+             "refund": { "commune": 2, "rare": 6, "epique": 16, "legendaire": 40 },
+             "bannerDays": 3, "bannerRateUp": 0.5 },
+  "golden": { "minSec": 120, "maxSec": 300, "lifeSec": 13 },
+  "prestige": { "petalPct": 1.5, "divisor": 1000000000, "minEra": 3, "seasonGems": 10 },
+  "mega": { "minEra": 5, "minSeasons": 3, "bonusPct": 25, "startGems": 50 },
+  "daily": { "rewards": [5, 8, 10, 12, 15, 20, 30], "day7BoostMult": 2, "day7BoostMin": 5 },
+  "minigames": { "dailyGemCap": 60, "coinSecondsPerStar": 10, "gemsPerGame": 10 },
+  "materials": { "clickChance": 0.008, "goldenRain": [2, 4], "perStar": 1, "mission": 1, "daily": 1,
+    "kinds": [
+      { "id": "coton", "name": "Coton", "weight": 40 },
+      { "id": "dentelle", "name": "Dentelle", "weight": 30 },
+      { "id": "soie", "name": "Soie", "weight": 22 },
+      { "id": "paillettes", "name": "Paillettes", "weight": 8 }
+    ] },
+  "orders": { "max": 2, "everyMin": 90, "durationH": [4, 10], "repPerLevel": 20, "repPct": 1 },
+  "fomo": {
+    "_doc": "happyHours : heures locales [début, fin) avec production x mult. starterHours : durée de l'offre de bienvenue. flashEveryH / flashMin : vente flash. freeGiftH : cadeau gratuit de la boutique.",
+    "happyHours": [ [12, 13], [19, 20] ], "happyMult": 2,
+    "starterHours": 72,
+    "flashEveryH": 4, "flashMin": 30, "flashDiscount": 50,
+    "freeGiftH": 8, "freeGiftGems": 5,
+    "dailyShopSlots": 6
+  },
+  "music": { "bpm": 96 }
+}

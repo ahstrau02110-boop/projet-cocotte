@@ -1,0 +1,27 @@
+{
+  "_doc": "Bâtiments (production automatique de Rubans). Coût réel = baseCost x 1,15^possédés. shape/roof/wall/sign : rendu de Tools/gen_sprites.py -> Sprites/buildings/<id>.png (même image dans la Ville). cityHappy = Bonheur donné par un exemplaire posé en Ville.",
+  "buildings": [
+    { "id": "couturiere", "name": "Petite Couturière", "era": 1, "baseCost": 15, "baseCps": 0.1, "shape": "house", "roof": "#ff8fb8", "wall": "#fff4f8", "sign": "classique", "cityHappy": 1, "desc": "Une aiguille, un fil, et des culottes cousues avec amour." },
+    { "id": "machine", "name": "Machine à Coudre", "era": 1, "baseCost": 100, "baseCps": 1, "shape": "shop", "roof": "#8fd6ff", "wall": "#f4fbff", "sign": "menthe", "cityHappy": 2, "desc": "Tac-tac-tac : elle coud plus vite que son ombre." },
+    { "id": "laverie", "name": "Laverie Bubbles", "era": 1, "baseCost": 1100, "baseCps": 8, "shape": "laundry", "roof": "#b9a2ff", "wall": "#f6f2ff", "sign": "lavande", "cityHappy": 3, "desc": "Des bulles, de la mousse, du linge tout doux." },
+
+    { "id": "nekocafe", "name": "Café Neko", "era": 2, "baseCost": 12000, "baseCps": 47, "shape": "cafe", "roof": "#ffb36b", "wall": "#fff6ea", "sign": "neko", "cityHappy": 4, "desc": "Thé matcha, chats câlins et culottes à oreilles." },
+    { "id": "ruban", "name": "Boutique Ruban", "era": 2, "baseCost": 130000, "baseCps": 260, "shape": "shop", "roof": "#ff6fa0", "wall": "#fff0f6", "sign": "fraise", "cityHappy": 5, "desc": "Des rubans de toutes les couleurs, du sol au plafond." },
+    { "id": "purikura", "name": "Studio Purikura", "era": 2, "baseCost": 1400000, "baseCps": 1400, "shape": "booth", "roof": "#6fe0c8", "wall": "#effffb", "sign": "gamer", "cityHappy": 6, "desc": "Photos stickers, filtres paillettes et grands yeux brillants." },
+    { "id": "dentelle", "name": "Atelier Dentelle", "era": 2, "baseCost": 20000000, "baseCps": 7800, "shape": "house", "roof": "#c9a0dc", "wall": "#fffaff", "sign": "maid", "cityHappy": 7, "desc": "Chaque motif est unique, comme un flocon de neige." },
+
+    { "id": "arcade", "name": "Arcade Rétro", "era": 3, "baseCost": 330000000, "baseCps": 44000, "shape": "arcade", "roof": "#5a6bd8", "wall": "#eef0ff", "sign": "gamer", "cityHappy": 8, "desc": "Insert coin. High score : 999 999 culottes." },
+    { "id": "idoles", "name": "Concert d'Idoles", "era": 3, "baseCost": 5100000000, "baseCps": 260000, "shape": "stage", "roof": "#ff3f98", "wall": "#fff0f8", "sign": "idol", "cityHappy": 10, "desc": "Lumières roses, bâtons lumineux et refrains entêtants." },
+    { "id": "train", "name": "Train Bonbon", "era": 3, "baseCost": 75000000000, "baseCps": 1600000, "shape": "train", "roof": "#ff7f7f", "wall": "#fff3e6", "sign": "chef", "cityHappy": 11, "desc": "Livre des culottes fraîches dans toute la ville, tchou-tchou !" },
+
+    { "id": "chateau", "name": "Château Licorne", "era": 4, "baseCost": 1000000000000, "baseCps": 10000000, "shape": "castle", "roof": "#b36bff", "wall": "#fff7ff", "sign": "licorne", "cityHappy": 13, "desc": "Des tours en guimauve et un pont-levis en ruban." },
+    { "id": "jardin", "name": "Jardin Sakura", "era": 4, "baseCost": 14000000000000, "baseCps": 65000000, "shape": "temple", "roof": "#e0445e", "wall": "#fff1f3", "sign": "sakura", "cityHappy": 14, "desc": "Sous les cerisiers, on plie le linge en méditant." },
+    { "id": "matsuri", "name": "Festival Matsuri", "era": 4, "baseCost": 200000000000000, "baseCps": 430000000, "shape": "tent", "roof": "#ff5a5a", "wall": "#fff6e0", "sign": "kitsune", "cityHappy": 15, "desc": "Lanternes, yukatas et pêche aux culottes." },
+    { "id": "guilde", "name": "Guilde des Magical Girls", "era": 4, "baseCost": 3300000000000000, "baseCps": 2900000000, "shape": "tower", "roof": "#ff4fa8", "wall": "#fff0fa", "sign": "magical", "cityHappy": 16, "desc": "Elles protègent la ville… et repassent le linge." },
+
+    { "id": "lunaire", "name": "Station Lunaire Usagi", "era": 5, "baseCost": 5e16, "baseCps": 20000000000.0, "shape": "dome", "roof": "#a68be0", "wall": "#f4f0ff", "sign": "usagi", "cityHappy": 18, "desc": "La première laverie en apesanteur." },
+    { "id": "megamecha", "name": "Méga-Mecha Couture", "era": 5, "baseCost": 8e17, "baseCps": 140000000000.0, "shape": "mecha", "roof": "#ff6b3d", "wall": "#e6ecf4", "sign": "mecha", "cityHappy": 20, "desc": "Un robot géant qui coud 10 000 culottes par seconde." },
+    { "id": "academie", "name": "Académie Kawaii", "era": 5, "baseCost": 1.3e19, "baseCps": 1000000000000.0, "shape": "castle", "roof": "#4aa3ff", "wall": "#f4f9ff", "sign": "marin", "cityHappy": 22, "desc": "On y apprend la mignonnerie avancée, niveau doctorat." },
+    { "id": "constellation", "name": "Constellation Pantsu", "era": 5, "baseCost": 2.2e20, "baseCps": 7000000000000.0, "shape": "star", "roof": "#ffd86b", "wall": "#2a1b5e", "sign": "galaxie", "cityHappy": 25, "desc": "Quand on lève les yeux, le ciel dessine une culotte." }
+  ]
+}

@@ -1,0 +1,16 @@
+{ "_doc": "Talents achetés avec les Pétales (conservés à chaque Grand Lavage). need = talent requis.",
+  "talents": [
+  { "id": "depart", "name": "Départ lancé", "cost": 1, "desc": "Chaque Grand Lavage commence avec 1 000 Rubans." },
+  { "id": "couturieres", "name": "Couturières fidèles", "cost": 2, "need": "depart", "desc": "Chaque Grand Lavage commence avec 10 Petites Couturières." },
+  { "id": "mains", "name": "Mains de fée", "cost": 2, "desc": "Les clics rapportent 2 fois plus." },
+  { "id": "aimant", "name": "Aimant à Pantsu dorées", "cost": 3, "desc": "Les Pantsu dorées apparaissent 25 % plus souvent." },
+  { "id": "patiente", "name": "Pantsu patiente", "cost": 3, "need": "aimant", "desc": "Les Pantsu dorées restent 5 secondes de plus." },
+  { "id": "nuit", "name": "Couture de nuit", "cost": 4, "desc": "Production hors-ligne : 75 % au lieu de 50 %." },
+  { "id": "grasse", "name": "Grasse matinée", "cost": 5, "need": "nuit", "desc": "Gains hors-ligne plafonnés à 16 h au lieu de 8 h." },
+  { "id": "soldes", "name": "Soldes permanentes", "cost": 4, "desc": "Bâtiments 5 % moins chers." },
+  { "id": "capsule", "name": "Main heureuse", "cost": 5, "desc": "Le tirage x10 coûte 25 Gemmes de moins." },
+  { "id": "coffre", "name": "Grand Coffre à Cœurs", "cost": 3, "desc": "Le Coffre de la Ville stocke 4 h de plus." },
+  { "id": "bonheur", "name": "Ville heureuse", "cost": 4, "need": "coffre", "desc": "Bonheur de la Ville +25 %." },
+  { "id": "fil", "name": "Bobines infinies", "cost": 3, "desc": "Matériaux trouvés x1,5." },
+  { "id": "vip", "name": "Carte VIP", "cost": 6, "desc": "Boutique du jour : 10 % de réduction en Gemmes." }
+] }
