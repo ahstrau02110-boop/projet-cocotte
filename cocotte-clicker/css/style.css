@@ -1361,3 +1361,12 @@ html.dark .mats-bar, html.dark .mat-chip, html.dark .craft, html.dark .order, ht
 html.dark .craft.can, html.dark .order.can { background: #4a3d12; }
 html.dark .orders-rep, html.dark .stats-top div { background: #22324a; color: var(--ink); }
 html.dark .mtabs [aria-selected="true"] { background: var(--c-yellow); color: #141414; }
+
+/* ===== Sections repliables ===== */
+.folded { display: none !important; }
+.fold-btn { margin-left: auto; border: 2px solid #000; border-radius: 999px; background: #fff; font-family: var(--f-body, inherit); font-size: .75rem; font-weight: 700; padding: .1rem .55rem; min-height: 30px; white-space: nowrap; color: #141414; }
+.fold-btn:hover { background: var(--c-yellow); }
+.fold-head { display: flex; align-items: center; gap: .4rem; width: 100%; margin: .2rem 0 0; font-family: var(--f-title); font-size: 1.05rem; }
+.missions-head .fold-btn { margin-left: .3rem; }
+.missions-head .mtabs { margin-left: auto; }
+html.dark .fold-btn { background: #2a2540; color: var(--ink); }

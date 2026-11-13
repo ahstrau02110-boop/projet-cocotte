@@ -19,6 +19,7 @@ import { initMaterials, renderMatsBar, clickDrop } from './materials.js';
 import { initCraft, renderCraftTile, setRecipes } from './craft.js';
 import { initOrders, renderOrdersTile, setOrdersData } from './orders.js';
 import { initStats } from './stats.js';
+import { initFold } from './fold.js';
 import { buildProgress, initProgress, renderUpgrades, checkAchievements, openAchievements } from './progress.js';
 import { decorFor } from './decor.js';
 import { initTutorial } from './tutorial.js';
@@ -146,6 +147,7 @@ async function boot() {
   initCraft();
   initOrders();
   initStats();
+  initFold();
   initCommunity();
   initDaily();
   on('tutoEnd', () => setTimeout(checkDaily, 600));

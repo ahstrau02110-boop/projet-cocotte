@@ -82,6 +82,7 @@
         <p class="per-click">+<span id="click-value">1</span> par clic</p>
       </div>
 
+      <h3 class="fold-head" data-fold="act" data-fold-targets="#mats-bar,.actions">Activités</h3>
       <!-- Matériaux récupérés (clic : Établi de fabrication) -->
       <button type="button" id="mats-bar" class="mats-bar" aria-label="Matériaux : ouvrir l'Établi de fabrication"></button>
 
@@ -115,7 +116,7 @@
       </div>
       <!-- Missions du jour -->
       <section class="missions-card" aria-labelledby="missions-title">
-        <h3 id="missions-title" class="missions-head">🎯 Missions <span id="missions-count" class="small"></span>
+        <h3 id="missions-title" class="missions-head" data-fold="mis" data-fold-targets="#missions-list">🎯 Missions <span id="missions-count" class="small"></span>
           <span class="mtabs" role="tablist" aria-label="Type de missions">
             <button type="button" role="tab" data-mtab="day" aria-selected="true">Du jour</button>
             <button type="button" role="tab" data-mtab="week" aria-selected="false">Semaine</button>
@@ -153,14 +154,14 @@
           <button role="radio" data-qty="100" aria-checked="false">×100</button>
         </div>
       </div>
-      <h3 class="shop-sub">Améliorations <span id="upg-count"></span></h3>
+      <h3 class="shop-sub" data-fold="upg" data-fold-targets="#upgrades">Améliorations <span id="upg-count"></span></h3>
       <ul id="upgrades" class="upgrades"></ul>
       <div id="projects-wrap" hidden>
-        <h3 class="shop-sub">Projets de La Co'Cotte</h3>
+        <h3 class="shop-sub" data-fold="proj" data-fold-targets="#projects-progress,#projects">Projets de La Co'Cotte</h3>
         <p id="projects-progress" class="projects-progress"></p>
         <ul id="projects" class="projects"></ul>
       </div>
-      <h3 class="shop-sub">Bâtiments</h3>
+      <h3 class="shop-sub" data-fold="bld" data-fold-targets=".shop-help,#buildings">Bâtiments</h3>
       <p class="shop-help">Chaque bâtiment produit des Co'Coins tout seul, même quand vous ne cliquez pas.</p>
       <ul id="buildings" class="buildings"></ul>
     </section>
