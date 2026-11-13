@@ -107,10 +107,16 @@ export const achievementBonus = () => Object.keys(state.achievements).length * (
 
 export function buildingCps(b) { return b.baseCps * buildingMult(b.id) * globalMult(); }
 
-// Bonus de collection : +X % de production par skin différent obtenu (hors skin de départ)
+// Doublons : chaque exemplaire en plus du premier (skins et décors)
+const extra = o => Object.values(o).reduce((a, n) => a + Math.max(0, (n | 0) - 1), 0);
+export const skinDupes = () => extra(state.skins);
+export const bgDupes = () => extra(state.bgs);
+export const dupBonus = () => skinDupes() * (DATA.config.gacha?.dupSkinPct ?? 1) + bgDupes() * (DATA.config.gacha?.dupBgPct ?? 0.5);
+
+// Bonus de collection : +X % de production par skin différent obtenu (hors skin de départ) + doublons (sans plafond)
 export function collectionBonus() {
   const pct = DATA.config.gacha?.collectionBonusPct ?? 1, bgPct = DATA.config.gacha?.collectionBgPct ?? 0.5;
-  return (Object.keys(state.skins).length - 1) * pct + Object.keys(state.bgs).length * bgPct;
+  return (Object.keys(state.skins).length - 1) * pct + Object.keys(state.bgs).length * bgPct + dupBonus();
 }
 export function globalMult() {
   return (1 + collectionBonus() / 100) * (1 + achievementBonus() / 100) * (1 + seedBonus() / 100) * (1 + communityPct() / 100) * (1 + teamPct() / 100) * (1 + eventPct() / 100) * upgradesGlobal()

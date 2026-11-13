@@ -1258,3 +1258,7 @@ html.dark .maj-item.fresh { background: #3a3350; }
 .cloud-repair { display: grid; gap: .45rem; background: #fff3cc; color: #141414; border: 2px solid #000; border-radius: 12px; padding: .6rem .8rem; }
 .cloud-repair p, .cloud-repair ul { margin: 0; }
 .cloud-repair ul { padding-left: 1.1rem; display: grid; gap: .25rem; }
+
+/* ===== Doublons ===== */
+.skin-card { position: relative; }
+.dup-badge { position: absolute; top: 6px; right: 6px; z-index: 2; font-family: var(--f-mono); font-weight: 700; font-size: .78rem; background: #000; color: #fff; border: 2px solid #fff; border-radius: 999px; padding: .05rem .45rem; box-shadow: 0 2px 0 rgba(0,0,0,.25); }

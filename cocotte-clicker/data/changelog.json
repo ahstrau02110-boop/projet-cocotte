@@ -2,6 +2,16 @@
   "_doc": "Onglet « Maj » du jeu : la plus récente en premier. id unique (sert au point « nouveau »), date AAAA-MM-JJ, titre, liste de lignes (emoji en début de ligne).",
   "updates": [
     {
+      "id": "2026-11-13a",
+      "date": "2026-11-13",
+      "title": "Les doublons comptent !",
+      "items": [
+        "🔁 Chaque doublon de Cocotte donne +1 % de production, chaque doublon de décor +0,5 %, sans limite.",
+        "🏷️ Un badge « ×N » indique combien d'exemplaires vous avez dans la Collection.",
+        "✨ Les doublons déjà obtenus comptent tout de suite !"
+      ]
+    },
+    {
       "id": "2026-11-12b",
       "date": "2026-11-12",
       "title": "Votre partie vous suit partout",

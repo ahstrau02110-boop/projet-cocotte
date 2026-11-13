@@ -1,5 +1,5 @@
 // Imprimantes mystère : tirage de skins de Cocotte ou de décors du plan de travail + collection
-import { DATA, state, addCrystals, collectionBonus, hasTalent } from './state.js';
+import { DATA, state, addCrystals, collectionBonus, hasTalent, dupBonus, skinDupes, bgDupes } from './state.js';
 import { $, $$, emit, toast, sleep, reducedMotion, esc } from './core.js';
 import { skinById, rarityOf, skinImage } from './skins.js';
 import { bgById, bgThumb } from './backgrounds.js';
@@ -98,15 +98,17 @@ async function animate(m, results) {
     li.className = `skin-card r-${r.rarity}${r.isNew ? ' is-new' : ''}`;
     li.style.setProperty('--rc', rar.color);
     li.style.animationDelay = (reducedMotion ? 0 : i * 90) + 'ms';
+    const dupPct = m === M.cocotte ? (cfg().dupSkinPct ?? 1) : (cfg().dupBgPct ?? 0.5);
     li.innerHTML = `${m.visual(r.item)}
       <span class="rar">${rar.label}</span>
+      ${r.isNew ? '' : `<span class="dup-badge">×${m.owned()[r.item.id]}</span>`}
       <b>${esc(r.item.name)}</b>
-      <small>${r.isNew ? 'Nouveau !' : `Doublon : +${r.refund} 💎`}</small>
+      <small>${r.isNew ? 'Nouveau !' : `Doublon ! +${fmtPct(dupPct)} de production · +${r.refund} 💎`}</small>
       ${results.length === 1 ? `<button class="equip-btn" data-equip="${machine}:${r.item.id}">Équiper</button>` : ''}`;
     out.appendChild(li);
   });
   $$('#pull1, #pull10').forEach(b => (b.disabled = false));
-  if (results.some(r => r.isNew)) toast(`Bonus de collection : +${fmtPct(collectionBonus())} de production`);
+  toast(`Bonus de collection${results.some(r => !r.isNew) ? ' et doublons' : ''} : +${fmtPct(collectionBonus())} de production`);
 }
 
 const fmtPct = n => (Math.round(n * 10) / 10).toLocaleString('fr-FR') + ' %';
@@ -141,7 +143,11 @@ export function renderCollection() {
   const all = m.all(), got = all.filter(s => m.owned()[s.id]).length;
   const skinsGot = DATA.skins.filter(s => state.skins[s.id]).length, bgGot = DATA.backgrounds.filter(b => state.bgs[b.id]).length;
   $('#coll-count').textContent = `${skinsGot + bgGot}/${DATA.skins.length + DATA.backgrounds.length}`;
-  $('#coll-bonus').innerHTML = `Chaque nouveau skin de Cocotte donne +${cfg().collectionBonusPct ?? 1} % de production, chaque décor +${cfg().collectionBgPct ?? 0.5} %. Bonus actuel : <strong>+${fmtPct(collectionBonus())}</strong>.`;
+  const sd = skinDupes(), bd = bgDupes();
+  $('#coll-bonus').innerHTML = `Chaque nouveau skin de Cocotte donne +${cfg().collectionBonusPct ?? 1} % de production, chaque décor +${fmtPct(cfg().collectionBgPct ?? 0.5)}.
+    Chaque <b>doublon</b> ajoute encore +${cfg().dupSkinPct ?? 1} % (Cocotte) ou +${fmtPct(cfg().dupBgPct ?? 0.5)} (décor), sans limite.<br>
+    Doublons : <strong>${sd}</strong> Cocotte${sd > 1 ? 's' : ''} · <strong>${bd}</strong> décor${bd > 1 ? 's' : ''} (+${fmtPct(dupBonus())}).
+    Bonus total : <strong>+${fmtPct(collectionBonus())}</strong>.`;
   $$('[data-coll]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.coll === collView)));
   $('#coll-sub').textContent = `${got}/${all.length}`;
   const grid = $('#skin-grid');
@@ -151,9 +157,9 @@ export function renderCollection() {
         <span class="rar">Par défaut</span><b>Décor de l'ère</b><small>Change avec chaque ère</small>
         <button class="equip-btn" data-equip="decor:auto" ${state.bg === 'auto' ? 'disabled' : ''}>${state.bg === 'auto' ? 'Équipé' : 'Équiper'}</button></li>` : '';
   html += order.map(s => {
-    const has = !!m.owned()[s.id], rar = rarityOf(s.rarity), on = m.equipped(s.id);
+    const has = !!m.owned()[s.id], rar = rarityOf(s.rarity), on = m.equipped(s.id), n = m.owned()[s.id] | 0;
     return `<li class="skin-card r-${s.rarity}${has ? '' : ' locked'}${on ? ' equipped' : ''}" style="--rc:${rar.color}">
-      ${m.visual(s)}<span class="rar">${rar.label}</span>
+      ${m.visual(s)}<span class="rar">${rar.label}</span>${n > 1 ? `<span class="dup-badge" title="${n - 1} doublon${n > 2 ? 's' : ''}">×${n}</span>` : ''}
       ${has ? `<b>${esc(s.name)}</b>${s.desc ? `<small>${esc(s.desc)}</small>` : ''}
         <button class="equip-btn" data-equip="${collView}:${s.id}" ${on ? 'disabled' : ''}>${on ? 'Équipé' : 'Équiper'}</button>`
         : s.event ? `<b>${esc(s.name)}</b><small>Objet d'événement (onglet 🎉)</small>` : '<b>???</b><small>À imprimer</small>'}</li>`;

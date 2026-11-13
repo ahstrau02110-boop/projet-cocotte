@@ -28,7 +28,9 @@
       "epique": 16,
       "legendaire": 40
     },
-    "collectionBgPct": 0.5
+    "collectionBgPct": 0.5,
+    "dupSkinPct": 1,
+    "dupBgPct": 0.5
   },
   "minigames": {
     "dailyCrystalCap": 100,
