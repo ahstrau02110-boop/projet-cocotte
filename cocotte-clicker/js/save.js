@@ -1,8 +1,10 @@
 // Sauvegarde locale, export / import, gains hors-ligne
 import { state, replaceState, freshState, CONFIG, totalCps, earn, hasTalent, projectEffects } from './state.js';
+import { sign, report } from './integrity.js';
 
 const KEY = 'cocotte-clicker-save';
 const PREFIX = 'COCOTTE1:';
+const SIG = 'cocotte-clicker-sig'; // empreinte de la sauvegarde (repère une modification à la main)
 
 // Session en pause (jeu ouvert ailleurs) : plus aucune écriture
 let blocked = false;
@@ -11,8 +13,12 @@ export const blockSaves = () => { blocked = true; };
 export function save() {
   if (blocked) return false;
   state.lastSave = Date.now();
-  try { localStorage.setItem(KEY, JSON.stringify(state)); return true; }
-  catch { return false; } // navigation privée / quota
+  try {
+    const json = JSON.stringify(state);
+    localStorage.setItem(KEY, json);
+    localStorage.setItem(SIG, sign(json));
+    return true;
+  } catch { return false; } // navigation privée / quota
 }
 
 // Fusionne une sauvegarde avec un état neuf (tolère les anciennes versions) et valide chaque champ
@@ -80,7 +86,7 @@ function sanitize(raw) {
     hiddenAnnounce: int(on.hiddenAnnounce) };
   const ne = obj(raw.net);
   s.net = { token: typeof ne.token === 'string' && ne.token.length >= 16 ? ne.token : '', listed: ne.listed !== false,
-    total: num(ne.total), players: int(ne.players), lastSync: num(ne.lastSync) };
+    total: num(ne.total), players: int(ne.players), lastSync: num(ne.lastSync), tamper: typeof ne.tamper === 'string' ? ne.tamper.slice(0, 300) : '' };
   const cl = obj(raw.cloud);
   s.cloud = { on: cl.on !== false, rev: int(cl.rev), last: num(cl.last), recovery: !!cl.recovery };
   const da = obj(raw.daily);
@@ -112,20 +118,25 @@ export function load() {
     const raw = localStorage.getItem(KEY);
     if (!raw) return false;
     replaceState(sanitize(JSON.parse(raw)));
+    const sig = localStorage.getItem(SIG);
+    if (sig && sig !== sign(raw)) report('Sauvegarde modifiée dans le navigateur');
     return true;
   } catch { return false; }
 }
 
 export function exportSave() {
   save();
-  return PREFIX + btoa(unescape(encodeURIComponent(JSON.stringify(state))));
+  const json = JSON.stringify(state);
+  return PREFIX + btoa(unescape(encodeURIComponent(json))) + '~' + sign(json);
 }
 
 export function importSave(code) {
   code = code.trim();
   if (!code.startsWith(PREFIX)) throw new Error('Code invalide');
-  const json = decodeURIComponent(escape(atob(code.slice(PREFIX.length))));
+  const [b64, sig] = code.slice(PREFIX.length).split('~');
+  const json = decodeURIComponent(escape(atob(b64)));
   replaceState(sanitize(JSON.parse(json)));
+  if (sig && sig !== sign(json)) report('Code de sauvegarde modifié avant import');
   save();
 }
 

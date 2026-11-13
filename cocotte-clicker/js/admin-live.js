@@ -1,6 +1,7 @@
 // Espace équipe → onglet « En direct » : annonce, boss collectif, chasse au trésor, galerie (serveur Supabase)
 import { $, toast, esc } from './core.js';
 import { qrSVG, baseUrl } from './qr.js';
+import { fmt } from './format.js';
 
 const KEY = 'coclicker-server-key';
 let config = {};
@@ -47,6 +48,29 @@ function printHunt(name, spots) {
   $('#btn-hunt-print').addEventListener('click', () => { document.body.classList.add('print-hunt'); print(); document.body.classList.remove('print-hunt'); });
 }
 
+// Joueurs signalés par l'anti-triche
+const fmtN = n => fmt(n);
+const REASONS = { production: 'Co\'Coins impossibles', vitesse: 'Production/s impossible', succes: 'Succès en trop', saisons: 'Saisons en trop',
+  clics: 'Clics trop rapides', minijeux: 'Mini-jeux trop rapides', sauvegarde: 'Sauvegarde modifiée', debut: 'Démarrage suspect' };
+async function renderSuspects() {
+  const ul = $('#live-suspects');
+  if (!serverKey()) { ul.innerHTML = '<li class="muted">Enregistrez la clé serveur pour voir cette liste.</li>'; return; }
+  try {
+    const r = await admin('admin_suspects');
+    if (!r?.ok) { ul.innerHTML = `<li class="muted">${r?.error === 'key' ? 'Clé serveur refusée.' : 'Indisponible (script supabase/anticheat.sql installé ?).'}</li>`; return; }
+    ul.innerHTML = r.players.length ? r.players.map(p => `<li class="suspect${p.banned ? ' banned' : ''}">
+      <div class="suspect-head"><b>${esc(p.pseudo)}</b> <code>${esc(p.id)}</code>
+        ${p.banned ? '<span class="tag-ban">Exclu</span>' : `<span class="tag-flag">🚩 ${p.flags}</span>`}
+        <small>${fmtN(p.lifetime)} Co'Coins · ${fmtN(p.cps)}/s · ${fmtN(p.tot_clicks)} clics · ${p.tot_games} mini-jeux · inscrit le ${new Date(p.created_at).toLocaleDateString('fr-FR')}</small></div>
+      <ul class="suspect-ev">${(p.events || []).map(e => `<li><b>${esc(REASONS[e.reason] || e.reason)}</b> · ${new Date(e.at).toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' })}<br><small>${esc(e.detail)}</small></li>`).join('')}</ul>
+      <div class="row">
+        ${p.banned ? `<button type="button" class="ghost-btn" data-unban="${p.id}">↩️ Réintégrer</button>`
+          : `<button type="button" class="danger" data-ban="${p.id}">⛔ Exclure</button>`}
+        <button type="button" class="ghost-btn" data-clear="${p.id}">🧹 Effacer les signalements</button>
+      </div></li>`).join('') : '<li class="muted">Aucun joueur signalé. 👍</li>';
+  } catch { ul.innerHTML = '<li class="muted">Serveur injoignable.</li>'; }
+}
+
 async function renderGallery() {
   try {
     const g = await rpc('gallery_list', { p_limit: 60 });
@@ -60,7 +84,7 @@ export function initLive(cfg) {
   $('#live-key').value = serverKey();
   $('#btn-live-key').addEventListener('click', async () => {
     localStorage.setItem(KEY, $('#live-key').value.trim());
-    if (await renderStatus()) { toast('✅ Clé serveur enregistrée sur cet appareil.'); renderLive(); renderGallery(); }
+    if (await renderStatus()) { toast('✅ Clé serveur enregistrée sur cet appareil.'); renderLive(); renderGallery(); renderSuspects(); }
   });
   $('#btn-announce').addEventListener('click', async () => {
     const r = await admin('admin_announce', { p_text: $('#ann-text').value, p_hours: +$('#ann-hours').value || 24 }).catch(() => null);
@@ -99,5 +123,18 @@ export function initLive(cfg) {
     const r = await admin('admin_gallery_remove', { p_owner: b.dataset.galDel }).catch(() => null);
     if (okOr(r, 'Retirée de la galerie.')) renderGallery();
   });
-  renderStatus(); renderLive(); renderGallery();
+  $('#btn-suspects').addEventListener('click', renderSuspects);
+  $('#live-suspects').addEventListener('click', async e => {
+    const ban = e.target.closest('[data-ban]'), unban = e.target.closest('[data-unban]'), clear = e.target.closest('[data-clear]');
+    if (ban && confirm(`Exclure le joueur ${ban.dataset.ban} des classements, du compteur collectif, de la galerie et des équipes ?`)) {
+      const r = await admin('admin_ban', { p_id: ban.dataset.ban, p_ban: true }).catch(() => null);
+      if (okOr(r, 'Joueur exclu.')) renderSuspects();
+    }
+    if (unban) { const r = await admin('admin_ban', { p_id: unban.dataset.unban, p_ban: false }).catch(() => null); if (okOr(r, 'Joueur réintégré (il doit réactiver le classement dans le jeu).')) renderSuspects(); }
+    if (clear && confirm('Effacer les signalements de ce joueur (faux positif) ?')) {
+      const r = await admin('admin_clear_flags', { p_id: clear.dataset.clear }).catch(() => null);
+      if (okOr(r, 'Signalements effacés.')) renderSuspects();
+    }
+  });
+  renderStatus(); renderLive(); renderGallery(); renderSuspects();
 }

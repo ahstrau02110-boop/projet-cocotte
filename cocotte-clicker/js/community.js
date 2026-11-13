@@ -38,7 +38,7 @@ const METRICS = {
   missions: ['🎯', 'missions du jour réussies'], clicks: ['👆', 'clics sur la Cocotte'],
 };
 const TEAMS = { atelier: ['🔧', 'Atelier', '#90C060'], fablab: ['🖨️', 'FabLab', '#7b3fe4'], tierslieu: ['🎪', 'Tiers-lieu', '#E41E6C'] };
-const GAMES = { bubbles: '🫧 Bulles', catcher: '🧺 Attrape-tout', memory: '🃏 Memory', match3: '🧩 Fab\'Match', bugs: '🐞 Bugs', simon: '🎹 Séquence', puzzle: '🖼️ Puzzle' };
+const GAMES = { bubbles: '🫧 Bulles', catcher: '🧺 Attrape-tout', memory: '🃏 Memory', match3: '🧩 Fab\'Match', bugs: '🐞 Bugs', simon: '🎹 Séquence', puzzle: '🖼️ Puzzle', recycle: '♻️ Recyclerie', laser: '🔥 Laser' };
 
 // ---------- Synchronisation ----------
 export async function sync(full = false) {
@@ -51,7 +51,8 @@ export async function sync(full = false) {
       p_lifetime: state.prestige.lifetime, p_cps: totalCps() / buffMult('cps'),
       p_seasons: state.prestige.seasons, p_achievements: Object.keys(state.achievements).length,
       p_games: state.mini.plays, p_golden: state.golden, p_clicks: state.totalClicks, p_missions: state.counters.missions,
-    }).catch(() => null); // limite de fréquence : sans gravité
+      ...(state.net.tamper ? { p_tamper: state.net.tamper } : {}),
+    }).then(r => { if (r?.ok && state.net.tamper) { state.net.tamper = ''; save(); } }).catch(() => null); // limite de fréquence : sans gravité
     const st = await rpc('community_stats');
     state.net.total = +st.total || 0;
     state.net.players = +st.players || 0;

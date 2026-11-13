@@ -448,3 +448,10 @@ Bouton 🆕 Maj en haut du jeu : liste des nouveautés, lue dans **`data/changel
 - **Missions de la semaine** (`missions.json → weekly`) et nouveaux types de missions du jour.
 - **Succès** : nouvelles catégories, succès secrets (`hidden`), paliers de cristaux (`config.json → achievements.milestones`).
 - **Ère 5 « Grand Réseau »** et 4 bâtiments. Onglet **📊 Production** (`js/stats.js`).
+
+## Anti-triche
+
+Le jeu tourne dans le navigateur : une partie peut toujours être modifiée en local (outils du navigateur). On ne peut pas l'empêcher, mais on protège tout ce qui est partagé et on repère les tricheurs.
+- **Serveur** (`supabase/anticheat.sql`) : chaque valeur envoyée est plafonnée selon le temps écoulé ; une valeur impossible (Co'Coins, production, clics, mini-jeux, saisons, succès, score de mini-jeu) crée un signalement (`cheat_events`).
+- **Jeu** (`js/integrity.js`) : la sauvegarde et les codes de sauvegarde portent une empreinte ; une modification à la main, ou un état impossible (Co'Coins > total produit, bâtiments trop chers, plus de Cocottes que d'impressions…), est signalée au serveur avec le score.
+- **Espace équipe** → 📡 En direct → 🚩 Joueurs suspects : détail des signalements, boutons Exclure / Réintégrer / Effacer. Un joueur exclu disparaît des classements, du compteur collectif, de la galerie et des équipes.

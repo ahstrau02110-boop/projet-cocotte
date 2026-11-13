@@ -1370,3 +1370,15 @@ html.dark .mtabs [aria-selected="true"] { background: var(--c-yellow); color: #1
 .missions-head .fold-btn { margin-left: .3rem; }
 .missions-head .mtabs { margin-left: auto; }
 html.dark .fold-btn { background: #2a2540; color: var(--ink); }
+
+/* ===== Espace équipe : joueurs suspects ===== */
+.suspects { list-style: none; padding: 0; display: grid; gap: .6rem; }
+.suspect { border: 2px solid #000; border-radius: 14px; padding: .6rem .8rem; background: #fff6f6; display: grid; gap: .4rem; }
+.suspect.banned { background: #eee; opacity: .85; }
+.suspect-head small { display: block; color: var(--muted); }
+.suspect-head code { font-family: var(--f-mono); font-size: .85rem; }
+.tag-flag, .tag-ban { font-size: .75rem; font-weight: 700; border: 2px solid #000; border-radius: 999px; padding: 0 .45rem; background: #ffd3e3; }
+.tag-ban { background: #000; color: #fff; }
+.suspect-ev { list-style: none; padding: 0; margin: 0; display: grid; gap: .25rem; font-size: .88rem; }
+.suspect-ev li { border-left: 4px solid #E41E6C; padding-left: .5rem; }
+.suspect-ev small { color: var(--muted); }

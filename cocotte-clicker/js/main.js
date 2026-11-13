@@ -20,6 +20,7 @@ import { initCraft, renderCraftTile, setRecipes } from './craft.js';
 import { initOrders, renderOrdersTile, setOrdersData } from './orders.js';
 import { initStats } from './stats.js';
 import { initFold } from './fold.js';
+import { initIntegrity } from './integrity.js';
 import { buildProgress, initProgress, renderUpgrades, checkAchievements, openAchievements } from './progress.js';
 import { decorFor } from './decor.js';
 import { initTutorial } from './tutorial.js';
@@ -148,6 +149,7 @@ async function boot() {
   initOrders();
   initStats();
   initFold();
+  initIntegrity();
   initCommunity();
   initDaily();
   on('tutoEnd', () => setTimeout(checkDaily, 600));
