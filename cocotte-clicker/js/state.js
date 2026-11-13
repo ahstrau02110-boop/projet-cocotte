@@ -55,7 +55,7 @@ export function freshState() {
     weekly: { week: '', list: [], bonus: false }, // missions de la semaine
     flags: {},                         // succès secrets (actions particulières)
     mega: { level: 0 },                // Méga-Prestige (niveau)
-    surv: { bolts: 0, up: {}, best: 0, bestKills: 0, runs: 0, wins: 0, kills: 0, day: '', cToday: 0 }, // Co'Survivor (jeu à part)
+    surv: { bolts: 0, up: {}, best: 0, bestKills: 0, runs: 0, wins: 0, kills: 0, day: '', cToday: 0, heat: 0, heatMax: 0, bestHeat: 0, tools: ['laser'], tool: 'laser' }, // Co'Survivor (jeu à part)
     achMilestones: [],                 // paliers de succès déjà récompensés
     missions: { day: '', list: [], bonus: false },  // missions du jour
     helpSeen: {},                      // explications des activités déjà vues

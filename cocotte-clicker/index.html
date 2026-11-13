@@ -506,15 +506,27 @@
       </div>
       <p class="muted">Les pannes envahissent le FabLab ! Déplacez la Cocotte : ses outils attaquent tout seuls. Tenez <b>15 minutes</b> pour sauver l'atelier. Un jeu à part : il n'influence pas vos Co'Coins.</p>
       <div class="rk-top" id="sv-stats"></div>
+      <h3>🔥 Surchauffe</h3>
+      <div id="sv-heat" class="sv-chips" role="group" aria-label="Niveau de Surchauffe"></div>
+      <p id="sv-heat-info" class="muted small"></p>
+      <h3>🧰 Outil de départ</h3>
+      <div id="sv-tools" class="sv-chips" role="group" aria-label="Outil de départ"></div>
       <button id="sv-play" type="button" class="big-btn sv-play">▶️ Jouer</button>
       <p id="sv-cryst" class="muted small"></p>
       <details class="sv-how"><summary>Comment jouer ?</summary>
         <ul>
           <li>Déplacement : flèches, ZQSD ou WASD ; sur téléphone, posez le doigt n'importe où et glissez.</li>
+          <li>Esquive 💨 : Espace, Maj ou le bouton en bas à droite. Une courte ruée sans prendre de dégâts (toutes les 3,5 s).</li>
           <li>Ramassez les gemmes laissées par les pannes pour monter de niveau et choisir une amélioration (4 outils et 4 bonus au maximum, niveau 5 chacun).</li>
-          <li>Un boss à 5, 10 et 14 minutes. ☕ soigne, 🧲 attire toutes les gemmes. Pause : P ou Échap.</li>
-          <li>Les Boulons 🔩 gagnés à chaque partie achètent des améliorations permanentes ci-dessous.</li>
+          <li>Attention aux pannes spéciales : 📡 tire de loin, 🔋 clignote puis fonce, 📦 libère des bugs. Les pannes d'élite (cercle doré) lâchent un coffre 🎁.</li>
+          <li>Boss à 5, 10 et 14 minutes : salves de tirs et renforts. Ils lâchent aussi un coffre.</li>
+          <li>☕ soigne, 🧲 attire toutes les gemmes. Pause : P ou Échap.</li>
+          <li>Les Boulons 🔩 achètent des améliorations permanentes et de nouveaux outils de départ.</li>
         </ul>
+      </details>
+      <details class="sv-how"><summary>✨ Évolutions</summary>
+        <p class="small">Montez un outil au niveau 5, prenez le bonus associé, puis ouvrez un coffre : l'outil évolue.</p>
+        <ul id="sv-evos"></ul>
       </details>
       <h3>🔩 Atelier des Boulons</h3>
       <ul id="sv-shop" class="sv-shop"></ul>
@@ -525,6 +537,7 @@
     <div id="sv-game" class="sv-game" hidden>
       <canvas id="sv-canvas" tabindex="0" aria-label="Zone de jeu Co'Survivor"></canvas>
       <button id="sv-pause" type="button" class="sv-pause" aria-label="Pause">⏸</button>
+      <button id="sv-dash" type="button" class="sv-dash" aria-label="Esquive (Espace)">💨</button>
       <div id="sv-overlay" class="sv-overlay" hidden></div>
     </div>
   </dialog>

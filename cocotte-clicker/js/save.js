@@ -67,7 +67,10 @@ function sanitize(raw) {
   s.mega = { level: Math.min(int(obj(raw.mega).level), 99) };
   const sv = obj(raw.surv);
   s.surv = { bolts: int(sv.bolts), up: {}, best: Math.min(int(sv.best), 900), bestKills: int(sv.bestKills), runs: int(sv.runs), wins: int(sv.wins),
-    kills: int(sv.kills), day: typeof sv.day === 'string' ? sv.day : '', cToday: int(sv.cToday) };
+    kills: int(sv.kills), day: typeof sv.day === 'string' ? sv.day : '', cToday: int(sv.cToday),
+    heat: Math.min(int(sv.heat), 5), heatMax: Math.min(int(sv.heatMax), 5), bestHeat: Math.min(int(sv.bestHeat), 5),
+    tools: [...new Set(['laser', ...(Array.isArray(sv.tools) ? sv.tools.filter(t => typeof t === 'string' && /^[a-z]{2,10}$/.test(t)) : [])])].slice(0, 8),
+    tool: typeof sv.tool === 'string' ? sv.tool : 'laser' };
   for (const [k, v] of Object.entries(obj(sv.up))) if (/^[a-z]{2,8}$/.test(k)) s.surv.up[k] = Math.min(int(v), 5);
   s.achMilestones = Array.isArray(raw.achMilestones) ? raw.achMilestones.filter(x => typeof x === 'number').slice(0, 20) : [];
   for (const k of Object.keys(obj(raw.upgrades))) s.upgrades[k] = true;
