@@ -1,7 +1,7 @@
 // Mode en ligne (Supabase) : compteur collectif, classements, défi de la semaine, équipes, cadeaux,
 // galerie, annonces, boss collectif et chasse au trésor.
 // Le jeu reste 100 % jouable en solo si le serveur n'est pas configuré ou inaccessible.
-import { DATA, state, totalCps, buffMult, addCrystals } from './state.js';
+import { DATA, state, totalCps, buffMult, addCrystals, freshState, replaceState } from './state.js';
 import { $, $$, emit, esc, toast, on } from './core.js';
 import { fmt } from './format.js';
 import { save } from './save.js';
@@ -40,6 +40,17 @@ const METRICS = {
 const TEAMS = { atelier: ['🔧', 'Atelier', '#90C060'], fablab: ['🖨️', 'FabLab', '#7b3fe4'], tierslieu: ['🎪', 'Tiers-lieu', '#E41E6C'] };
 const GAMES = { bubbles: '🫧 Bulles', catcher: '🧺 Attrape-tout', memory: '🃏 Memory', match3: '🧩 Fab\'Match', bugs: '🐞 Bugs', simon: '🎹 Séquence', puzzle: '🖼️ Puzzle', recycle: '♻️ Recyclerie', laser: '🔥 Laser' };
 
+// ---------- Remise à zéro demandée par l'équipe ----------
+// On garde l'identité (code joueur, jeton, pseudo) et les réglages ; tout le reste repart de zéro
+export function applyReset(gen) {
+  const keep = { playerId: state.playerId, pseudo: state.pseudo, settings: state.settings, tuto: true, welcomed: true,
+    net: { ...freshState().net, token: state.net.token, listed: state.net.listed, resetGen: gen }, cloud: { ...state.cloud, rev: 0, last: 0 } };
+  replaceState(Object.assign(freshState(), keep));
+  save();
+  sessionStorage.setItem('coclicker-reset-msg', '1');
+  location.replace(location.pathname + location.search);
+}
+
 // ---------- Synchronisation ----------
 export async function sync(full = false) {
   if (!netEnabled() || busy) return;
@@ -52,7 +63,12 @@ export async function sync(full = false) {
       p_seasons: state.prestige.seasons, p_achievements: Object.keys(state.achievements).length,
       p_games: state.mini.plays, p_golden: state.golden, p_clicks: state.totalClicks, p_missions: state.counters.missions,
       ...(state.net.tamper ? { p_tamper: state.net.tamper } : {}),
-    }).then(r => { if (r?.ok && state.net.tamper) { state.net.tamper = ''; save(); } }).catch(() => null); // limite de fréquence : sans gravité
+      ...(state.net.resetGen ? { p_reset_gen: state.net.resetGen } : {}),
+    }).then(r => {
+      // Compte remis à zéro par l'équipe : cette partie est effacée
+      if (r?.reset_gen > (state.net.resetGen || 0)) { applyReset(r.reset_gen); return; }
+      if (r?.ok && state.net.tamper) { state.net.tamper = ''; save(); }
+    }).catch(() => null); // limite de fréquence : sans gravité
     const st = await rpc('community_stats');
     state.net.total = +st.total || 0;
     state.net.players = +st.players || 0;
@@ -325,6 +341,10 @@ export async function openCommunity() {
 }
 
 export function initCommunity() {
+  if (sessionStorage.getItem('coclicker-reset-msg')) {
+    sessionStorage.removeItem('coclicker-reset-msg');
+    setTimeout(() => toast('🔄 Votre partie a été remise à zéro par l\'équipe de La Co\'Cotte. Bonne nouvelle partie !', 9000), 1200);
+  }
   if (!state.net.token) { state.net.token = b64u(crypto.getRandomValues(new Uint8Array(24))); save(); }
   $('#btn-community').addEventListener('click', openCommunity);
   $('#community-body').addEventListener('click', e => {

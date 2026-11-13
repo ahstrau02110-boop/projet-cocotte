@@ -180,6 +180,11 @@
         <p class="muted">Le serveur signale les valeurs impossibles (Co'Coins ou clics qui explosent, scores au-delà du maximum, saisons ou succès en trop) et le jeu signale les sauvegardes modifiées à la main. Un signalement isolé peut être un faux positif : regardez le détail avant d'exclure. Un joueur exclu disparaît des classements, du compteur collectif, de la galerie et des équipes (il peut continuer à jouer seul).</p>
         <div class="row"><button type="button" id="btn-suspects" class="ghost-btn">🔄 Actualiser</button></div>
         <ul id="live-suspects" class="suspects"></ul>
+        <h3>🔎 Rechercher un joueur</h3>
+        <p class="muted">Par pseudo ou code joueur. « Remettre à zéro » efface sa partie en ligne et sur tous ses appareils (à leur prochaine connexion) : il repart de zéro avec le même code joueur.</p>
+        <div class="row"><input id="find-q" class="grow" maxlength="20" placeholder="Pseudo ou code joueur" autocomplete="off" aria-label="Pseudo ou code joueur">
+          <button type="button" id="btn-find" class="primary">Rechercher</button></div>
+        <ul id="live-find" class="suspects"></ul>
       </div>
       <div class="panel">
         <h2 class="tape">🖼️ Galerie (modération)</h2>

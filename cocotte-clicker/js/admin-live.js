@@ -51,24 +51,37 @@ function printHunt(name, spots) {
 // Joueurs signalés par l'anti-triche
 const fmtN = n => fmt(n);
 const REASONS = { production: 'Co\'Coins impossibles', vitesse: 'Production/s impossible', succes: 'Succès en trop', saisons: 'Saisons en trop',
-  clics: 'Clics trop rapides', minijeux: 'Mini-jeux trop rapides', sauvegarde: 'Sauvegarde modifiée', debut: 'Démarrage suspect' };
+  clics: 'Clics trop rapides', minijeux: 'Mini-jeux trop rapides', sauvegarde: 'Sauvegarde modifiée', debut: 'Démarrage suspect', remise: '🔄 Remise à zéro' };
+// Carte d'un joueur (suspects et recherche)
+const card = p => `<li class="suspect${p.banned ? ' banned' : ''}">
+  <div class="suspect-head"><b>${esc(p.pseudo)}</b> <code>${esc(p.id)}</code>
+    ${p.banned ? '<span class="tag-ban">Exclu</span>' : p.flags ? `<span class="tag-flag">🚩 ${p.flags}</span>` : ''}
+    <small>${fmtN(p.lifetime)} Co'Coins · ${fmtN(p.cps)}/s · ${fmtN(p.tot_clicks)} clics · ${p.tot_games} mini-jeux · inscrit le ${new Date(p.created_at).toLocaleDateString('fr-FR')}${p.reset_gen ? ` · remis à zéro ${p.reset_gen} fois` : ''}</small></div>
+  ${p.events ? `<ul class="suspect-ev">${p.events.map(e => `<li><b>${esc(REASONS[e.reason] || e.reason)}</b> · ${new Date(e.at).toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' })}<br><small>${esc(e.detail)}</small></li>`).join('')}</ul>` : ''}
+  <div class="row">
+    ${p.banned ? `<button type="button" class="ghost-btn" data-unban="${p.id}">↩️ Réintégrer</button>` : `<button type="button" class="danger" data-ban="${p.id}">⛔ Exclure</button>`}
+    <button type="button" class="danger" data-reset="${p.id}" data-name="${esc(p.pseudo)}">🔄 Remettre à zéro</button>
+    ${p.flags ? `<button type="button" class="ghost-btn" data-clear="${p.id}">🧹 Effacer les signalements</button>` : ''}
+  </div></li>`;
+
 async function renderSuspects() {
   const ul = $('#live-suspects');
   if (!serverKey()) { ul.innerHTML = '<li class="muted">Enregistrez la clé serveur pour voir cette liste.</li>'; return; }
   try {
     const r = await admin('admin_suspects');
     if (!r?.ok) { ul.innerHTML = `<li class="muted">${r?.error === 'key' ? 'Clé serveur refusée.' : 'Indisponible (script supabase/anticheat.sql installé ?).'}</li>`; return; }
-    ul.innerHTML = r.players.length ? r.players.map(p => `<li class="suspect${p.banned ? ' banned' : ''}">
-      <div class="suspect-head"><b>${esc(p.pseudo)}</b> <code>${esc(p.id)}</code>
-        ${p.banned ? '<span class="tag-ban">Exclu</span>' : `<span class="tag-flag">🚩 ${p.flags}</span>`}
-        <small>${fmtN(p.lifetime)} Co'Coins · ${fmtN(p.cps)}/s · ${fmtN(p.tot_clicks)} clics · ${p.tot_games} mini-jeux · inscrit le ${new Date(p.created_at).toLocaleDateString('fr-FR')}</small></div>
-      <ul class="suspect-ev">${(p.events || []).map(e => `<li><b>${esc(REASONS[e.reason] || e.reason)}</b> · ${new Date(e.at).toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' })}<br><small>${esc(e.detail)}</small></li>`).join('')}</ul>
-      <div class="row">
-        ${p.banned ? `<button type="button" class="ghost-btn" data-unban="${p.id}">↩️ Réintégrer</button>`
-          : `<button type="button" class="danger" data-ban="${p.id}">⛔ Exclure</button>`}
-        <button type="button" class="ghost-btn" data-clear="${p.id}">🧹 Effacer les signalements</button>
-      </div></li>`).join('') : '<li class="muted">Aucun joueur signalé. 👍</li>';
+    ul.innerHTML = r.players.length ? r.players.map(card).join('') : '<li class="muted">Aucun joueur signalé. 👍</li>';
   } catch { ul.innerHTML = '<li class="muted">Serveur injoignable.</li>'; }
+}
+
+async function renderFind() {
+  const ul = $('#live-find'), q = $('#find-q').value.trim();
+  if (!q) { ul.innerHTML = ''; return; }
+  try {
+    const r = await admin('admin_find', { p_query: q });
+    if (!r?.ok) { ul.innerHTML = `<li class="muted">${r?.error === 'key' ? 'Clé serveur refusée.' : 'Indisponible (script supabase/reset.sql installé ?).'}</li>`; return; }
+    ul.innerHTML = r.players.length ? r.players.map(card).join('') : '<li class="muted">Aucun joueur trouvé.</li>';
+  } catch { ul.innerHTML = '<li class="muted">Recherche impossible (script supabase/reset.sql installé ?).</li>'; }
 }
 
 async function renderGallery() {
@@ -124,17 +137,26 @@ export function initLive(cfg) {
     if (okOr(r, 'Retirée de la galerie.')) renderGallery();
   });
   $('#btn-suspects').addEventListener('click', renderSuspects);
-  $('#live-suspects').addEventListener('click', async e => {
-    const ban = e.target.closest('[data-ban]'), unban = e.target.closest('[data-unban]'), clear = e.target.closest('[data-clear]');
+  // Actions sur un joueur (liste des suspects et résultats de recherche)
+  const onPlayer = async e => {
+    const ban = e.target.closest('[data-ban]'), unban = e.target.closest('[data-unban]'), clear = e.target.closest('[data-clear]'), reset = e.target.closest('[data-reset]');
+    let done = false;
     if (ban && confirm(`Exclure le joueur ${ban.dataset.ban} des classements, du compteur collectif, de la galerie et des équipes ?`)) {
-      const r = await admin('admin_ban', { p_id: ban.dataset.ban, p_ban: true }).catch(() => null);
-      if (okOr(r, 'Joueur exclu.')) renderSuspects();
+      done = okOr(await admin('admin_ban', { p_id: ban.dataset.ban, p_ban: true }).catch(() => null), 'Joueur exclu.');
     }
-    if (unban) { const r = await admin('admin_ban', { p_id: unban.dataset.unban, p_ban: false }).catch(() => null); if (okOr(r, 'Joueur réintégré (il doit réactiver le classement dans le jeu).')) renderSuspects(); }
+    if (unban) done = okOr(await admin('admin_ban', { p_id: unban.dataset.unban, p_ban: false }).catch(() => null), 'Joueur réintégré (il doit réactiver le classement dans le jeu).');
     if (clear && confirm('Effacer les signalements de ce joueur (faux positif) ?')) {
-      const r = await admin('admin_clear_flags', { p_id: clear.dataset.clear }).catch(() => null);
-      if (okOr(r, 'Signalements effacés.')) renderSuspects();
+      done = okOr(await admin('admin_clear_flags', { p_id: clear.dataset.clear }).catch(() => null), 'Signalements effacés.');
     }
-  });
+    if (reset && confirm(`Remettre à zéro la partie de « ${reset.dataset.name} » (${reset.dataset.reset}) ?\n\nSes Co'Coins, bâtiments, cristaux, collection, succès et scores seront effacés, en ligne et sur tous ses appareils. C'est définitif.`)
+      && prompt('Pour confirmer, tapez RESET') === 'RESET') {
+      done = okOr(await admin('admin_reset', { p_id: reset.dataset.reset }).catch(() => null), '🔄 Compte remis à zéro. Ses appareils effaceront la partie à leur prochaine connexion.');
+    }
+    if (done) { renderSuspects(); renderFind(); }
+  };
+  $('#live-suspects').addEventListener('click', onPlayer);
+  $('#live-find').addEventListener('click', onPlayer);
+  $('#btn-find').addEventListener('click', renderFind);
+  $('#find-q').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); renderFind(); } });
   renderStatus(); renderLive(); renderGallery(); renderSuspects();
 }

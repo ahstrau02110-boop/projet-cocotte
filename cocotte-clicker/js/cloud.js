@@ -78,8 +78,10 @@ export async function push(force = false) {
   if (!force && (document.hidden || Date.now() - state.cloud.last < PUSH_EVERY - 2000)) return;
   busy = true;
   try {
-    const r = await rpc('cloud_put', { ...me(), p_data: exportSave(), p_progress: progress(), p_base_rev: state.cloud.rev, p_sid: sid });
-    if (r?.error === 'taken') pause('device');
+    const r = await rpc('cloud_put', { ...me(), p_data: exportSave(), p_progress: progress(), p_base_rev: state.cloud.rev, p_sid: sid,
+      ...(state.net.resetGen ? { p_gen: state.net.resetGen } : {}) });
+    if (r?.error === 'reset') sync(); // compte remis à zéro : la synchro efface la partie
+    else if (r?.error === 'taken') pause('device');
     else if (r?.ok) {
       state.cloud.rev = r.rev; state.cloud.last = Date.now(); save();
       failures = 0; lastError = '';

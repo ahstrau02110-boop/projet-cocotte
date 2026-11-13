@@ -86,7 +86,7 @@ function sanitize(raw) {
     hiddenAnnounce: int(on.hiddenAnnounce) };
   const ne = obj(raw.net);
   s.net = { token: typeof ne.token === 'string' && ne.token.length >= 16 ? ne.token : '', listed: ne.listed !== false,
-    total: num(ne.total), players: int(ne.players), lastSync: num(ne.lastSync), tamper: typeof ne.tamper === 'string' ? ne.tamper.slice(0, 300) : '' };
+    total: num(ne.total), players: int(ne.players), lastSync: num(ne.lastSync), tamper: typeof ne.tamper === 'string' ? ne.tamper.slice(0, 300) : '', resetGen: int(ne.resetGen) };
   const cl = obj(raw.cloud);
   s.cloud = { on: cl.on !== false, rev: int(cl.rev), last: num(cl.last), recovery: !!cl.recovery };
   const da = obj(raw.daily);
