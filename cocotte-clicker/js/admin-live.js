@@ -51,7 +51,7 @@ function printHunt(name, spots) {
 // Joueurs signalés par l'anti-triche
 const fmtN = n => fmt(n);
 const REASONS = { production: 'Co\'Coins impossibles', vitesse: 'Production/s impossible', succes: 'Succès en trop', saisons: 'Saisons en trop',
-  clics: 'Clics trop rapides', minijeux: 'Mini-jeux trop rapides', sauvegarde: 'Sauvegarde modifiée', debut: 'Démarrage suspect', remise: '🔄 Remise à zéro' };
+  clics: 'Clics trop rapides', minijeux: 'Mini-jeux trop rapides', sauvegarde: 'Sauvegarde modifiée', debut: 'Démarrage suspect', remise: '🔄 Remise à zéro', 'auto-exclu': '⛔ Exclu automatiquement' };
 // Carte d'un joueur (suspects et recherche)
 const card = p => `<li class="suspect${p.banned ? ' banned' : ''}">
   <div class="suspect-head"><b>${esc(p.pseudo)}</b> <code>${esc(p.id)}</code>
