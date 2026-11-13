@@ -13,6 +13,8 @@ const dice = `<rect x="14" y="44" width="38" height="38" rx="8" fill="#fff" ${K}
 const pin = (x, y, c) => `<path d="M${x} ${y}c-10-12-14-18-14-24a14 14 0 0 1 28 0c0 6-4 12-14 24z" fill="${c}" ${K}/><circle cx="${x}" cy="${y - 24}" r="5" fill="#fff"/>`;
 const village = `<path d="M6 90V62l16-14 16 14v28zM44 90V54h14V40l8-12 8 12v14h14v36z" fill="#f5f0e6" ${K}/><path d="M18 90V76h8v14M60 90V72h12v18" fill="#8a5a2b" ${K}/>`;
 
+const satellite = `<rect x="38" y="38" width="24" height="24" rx="4" fill="#ccc" ${K}/><rect x="6" y="42" width="26" height="16" fill="#3C2472" ${K}/><rect x="68" y="42" width="26" height="16" fill="#3C2472" ${K}/><path d="M32 50h6M62 50h6M50 38V24" ${K}/><circle cx="50" cy="20" r="5" fill="#5ef2c5" ${K}/>`;
+const antenna = `<path d="M50 90L36 30h28z" fill="none" ${K}/><path d="M40 50h20M44 70h12" ${K}/><circle cx="50" cy="24" r="7" fill="#E41E6C" ${K}/><path d="M66 16q8 8 0 16M74 10q14 14 0 28" stroke="#5ef2c5" stroke-width="3" fill="none" stroke-linecap="round"/>`;
 const svg = (cls, body, vb = '0 0 100 100') => `<svg class="dec ${cls}" viewBox="${vb}" aria-hidden="true">${body}</svg>`;
 
 // Guirlande de fanions sur toute la largeur
@@ -34,6 +36,7 @@ export function decorFor(era) {
     case 3: return bunting() + svg('dec-bl', plant) + svg('dec-br', dice);
     case 4: return svg('dec-tl', pin(50, 80, '#E41E6C')) + svg('dec-tr', pin(50, 80, '#3C2472')) + svg('dec-bl', village)
       + `<svg class="dec dec-route" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M8 20C40 40 20 70 50 80S90 60 92 22" stroke="#3C2472" stroke-width="1.2" stroke-dasharray="3 3" fill="none" vector-effect="non-scaling-stroke"/></svg>`;
+    case 5: return svg('dec-tr', satellite) + svg('dec-bl', antenna) + svg('dec-tl', pin(50, 80, '#2ab3a6'));
     default: return '';
   }
 }

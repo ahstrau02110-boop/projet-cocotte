@@ -30,6 +30,12 @@
       "label": "Événement",
       "color": "#E41E6C",
       "weight": 0
+    },
+    {
+      "id": "fabrication",
+      "label": "Fabriquée",
+      "color": "#8a5a2b",
+      "weight": 0
     }
   ],
   "skins": [
@@ -668,6 +674,99 @@
       "eyes": "happy",
       "fx": "glow",
       "desc": "Fabriquée pendant l'Avent du FabLab."
+    },
+    {
+      "id": "f-bois",
+      "rarity": "fabrication",
+      "craft": true,
+      "name": "Cocotte en bois",
+      "colors": {
+        "body": "#c58b4e",
+        "shade": "#8a5a2b",
+        "rim": "#5c3a1a"
+      },
+      "pattern": "wood",
+      "accessory": "helmet",
+      "eyes": "happy",
+      "desc": "Taillée, poncée et vernie à l'Établi."
+    },
+    {
+      "id": "f-arcenciel",
+      "rarity": "fabrication",
+      "craft": true,
+      "name": "Cocotte arc-en-ciel",
+      "gradient": [
+        "#ff9ac1",
+        "#FCD260",
+        "#5ac8fa"
+      ],
+      "pattern": "stripes",
+      "accessory": "cap",
+      "eyes": "star",
+      "fx": "glow",
+      "desc": "Imprimée avec toutes les bobines de filament."
+    },
+    {
+      "id": "f-circuit",
+      "rarity": "fabrication",
+      "craft": true,
+      "name": "Cocotte circuit",
+      "colors": {
+        "body": "#2f7d5b",
+        "shade": "#1d5a40",
+        "rim": "#c9a227"
+      },
+      "pattern": "circuit",
+      "accessory": "antenna",
+      "eyes": "led",
+      "desc": "Soudée composant par composant."
+    },
+    {
+      "id": "f-led",
+      "rarity": "fabrication",
+      "craft": true,
+      "name": "Cocotte LED",
+      "gradient": [
+        "#1b1035",
+        "#3C2472",
+        "#7b3fe4"
+      ],
+      "pattern": "sparkles",
+      "accessory": "led",
+      "eyes": "led",
+      "fx": "holo",
+      "desc": "Elle s'allume toute seule grâce aux batteries."
+    },
+    {
+      "id": "f-recyclee",
+      "rarity": "fabrication",
+      "craft": true,
+      "name": "Cocotte recyclée",
+      "colors": {
+        "body": "#90C060",
+        "shade": "#5f8f3a",
+        "rim": "#3a5a24"
+      },
+      "pattern": "pixel",
+      "accessory": "bandana",
+      "eyes": "wink",
+      "desc": "100 % chutes de l'atelier, 0 % gaspillage."
+    },
+    {
+      "id": "f-reseau",
+      "rarity": "fabrication",
+      "craft": true,
+      "name": "Cocotte Grand Réseau",
+      "gradient": [
+        "#c8fff4",
+        "#2ab3a6",
+        "#1b6b63"
+      ],
+      "pattern": "galaxy",
+      "accessory": "headset",
+      "eyes": "star",
+      "fx": "glow",
+      "desc": "Fabriquée avec des pièces venues de toute la région."
     }
   ]
 }

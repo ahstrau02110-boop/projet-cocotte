@@ -1,21 +1,565 @@
 {
-  "_doc": "Projets de La Co'Cotte : achats uniques (remis à zéro à chaque Nouvelle saison). era = ère minimale pour les voir. effects : building (target ×mult), global (×mult), minigameCoins (×mult), golden (fréquence ×freq), music (débloque la piste « track »). Complétez librement desc pour présenter le vrai projet.",
+  "_doc": "Projets de La Co'Cotte : achats uniques (remis à zéro à chaque Nouvelle saison). era = ère minimale. cost = Co'Coins, mats = matériaux. effects : building (target ×mult), global (×mult), minigameCoins (×mult), golden (fréquence ×freq), music (piste « track »), click (×mult), mats (matériaux trouvés ×mult), matsHour (n matériaux par heure), orders (récompenses des commandes ×mult), offline (gains hors ligne +add). Tous les 5 projets réalisés : +5 % de production (config.json → projects).",
   "projects": [
-    { "id": "creagames", "name": "Créagames", "icon": "🎲", "era": 2, "cost": 5000000,
+    {
+      "id": "repaircafe",
+      "name": "Repair Café",
+      "icon": "🔧",
+      "era": 1,
+      "cost": 5000,
+      "desc": "On répare ensemble au lieu de jeter : grille-pains, vélos, lampes…",
+      "effectText": "Bricol'Café ×2 · Établi ×2",
+      "effects": [
+        {
+          "type": "building",
+          "target": "bricolcafe",
+          "mult": 2
+        },
+        {
+          "type": "building",
+          "target": "etabli",
+          "mult": 2
+        }
+      ],
+      "mats": {
+        "bois": 5
+      }
+    },
+    {
+      "id": "jardin",
+      "name": "Jardin partagé",
+      "icon": "🌱",
+      "era": 1,
+      "cost": 30000,
+      "desc": "Des bacs en bois fabriqués à l'atelier, des légumes pour tout le quartier.",
+      "effectText": "+2 matériaux par heure, même jeu fermé",
+      "effects": [
+        {
+          "type": "matsHour",
+          "n": 2
+        }
+      ],
+      "mats": {
+        "bois": 8
+      }
+    },
+    {
+      "id": "outiltheque",
+      "name": "Outilthèque",
+      "icon": "🧰",
+      "era": 1,
+      "cost": 150000,
+      "desc": "On emprunte une perceuse comme on emprunte un livre.",
+      "effectText": "Bénévoles ×3 · clics ×2",
+      "effects": [
+        {
+          "type": "building",
+          "target": "benevole",
+          "mult": 3
+        },
+        {
+          "type": "click",
+          "mult": 2
+        }
+      ],
+      "mats": {
+        "bois": 5,
+        "composants": 3
+      }
+    },
+    {
+      "id": "impression3d",
+      "name": "Atelier impression 3D",
+      "icon": "🖨️",
+      "era": 2,
+      "cost": 2000000.0,
+      "desc": "Initiation à la modélisation et à l'impression 3D.",
+      "effectText": "Imprimante 3D ×2 · matériaux ×1,5",
+      "effects": [
+        {
+          "type": "building",
+          "target": "imprimante3d",
+          "mult": 2
+        },
+        {
+          "type": "mats",
+          "mult": 1.5
+        }
+      ],
+      "mats": {
+        "filament": 10
+      }
+    },
+    {
+      "id": "creagames",
+      "name": "Créagames",
+      "icon": "🎲",
+      "era": 2,
+      "cost": 5000000,
       "desc": "Les ateliers de création de jeux de La Co'Cotte.",
       "effectText": "Mini-jeux : Co'Coins ×3 · Poste informatique ×2",
-      "effects": [ { "type": "minigameCoins", "mult": 3 }, { "type": "building", "target": "pc", "mult": 2 } ] },
-    { "id": "antre", "name": "Antre en Ligne", "icon": "🕸️", "era": 3, "cost": 2000000000,
+      "effects": [
+        {
+          "type": "minigameCoins",
+          "mult": 3
+        },
+        {
+          "type": "building",
+          "target": "pc",
+          "mult": 2
+        }
+      ],
+      "mats": {
+        "filament": 4,
+        "composants": 2
+      }
+    },
+    {
+      "id": "pixelart",
+      "name": "Atelier Pixel Art",
+      "icon": "👾",
+      "era": 2,
+      "cost": 20000000.0,
+      "desc": "Du pixel à l'écran au pixel brodé ou imprimé.",
+      "effectText": "Poste informatique ×2 · mini-jeux : Co'Coins ×2",
+      "effects": [
+        {
+          "type": "building",
+          "target": "pc",
+          "mult": 2
+        },
+        {
+          "type": "minigameCoins",
+          "mult": 2
+        }
+      ],
+      "mats": {
+        "filament": 6,
+        "composants": 4
+      }
+    },
+    {
+      "id": "laserproj",
+      "name": "Atelier découpe laser",
+      "icon": "🔥",
+      "era": 2,
+      "cost": 80000000.0,
+      "desc": "Enseignes, boîtes, jeux en bois : tout se découpe au laser.",
+      "effectText": "Graveuse laser ×3",
+      "effects": [
+        {
+          "type": "building",
+          "target": "graveuse",
+          "mult": 3
+        }
+      ],
+      "mats": {
+        "bois": 10,
+        "composants": 4
+      }
+    },
+    {
+      "id": "couture",
+      "name": "Atelier couture & broderie",
+      "icon": "🧵",
+      "era": 2,
+      "cost": 300000000.0,
+      "desc": "Réparer, customiser, broder son prénom sur un sac.",
+      "effectText": "Brodeuse numérique ×3",
+      "effects": [
+        {
+          "type": "building",
+          "target": "brodeuse",
+          "mult": 3
+        }
+      ],
+      "mats": {
+        "filament": 15
+      }
+    },
+    {
+      "id": "recyclerie",
+      "name": "Recyclerie partagée",
+      "icon": "♻️",
+      "era": 2,
+      "cost": 1000000000.0,
+      "desc": "Les chutes de l'atelier ont une seconde vie.",
+      "effectText": "+4 matériaux par heure · matériaux ×1,5",
+      "effects": [
+        {
+          "type": "matsHour",
+          "n": 4
+        },
+        {
+          "type": "mats",
+          "mult": 1.5
+        }
+      ],
+      "mats": {
+        "bois": 10,
+        "filament": 10
+      }
+    },
+    {
+      "id": "antre",
+      "name": "Antre en Ligne",
+      "icon": "🕸️",
+      "era": 3,
+      "cost": 2000000000,
       "desc": "Le projet de la Numériteam de La Co'Cotte.",
       "effectText": "Atelier numérique ×3 · Poste informatique ×2",
-      "effects": [ { "type": "building", "target": "ateliernum", "mult": 3 }, { "type": "building", "target": "pc", "mult": 2 } ] },
-    { "id": "musique", "name": "Atelier Musique", "icon": "🎹", "era": 3, "cost": 30000000000,
+      "effects": [
+        {
+          "type": "building",
+          "target": "ateliernum",
+          "mult": 3
+        },
+        {
+          "type": "building",
+          "target": "pc",
+          "mult": 2
+        }
+      ],
+      "mats": {
+        "composants": 6,
+        "batteries": 2
+      }
+    },
+    {
+      "id": "numeriteam",
+      "name": "Numériteam",
+      "icon": "💻",
+      "era": 3,
+      "cost": 8000000000.0,
+      "desc": "Des jeunes qui accompagnent les habitants dans le numérique.",
+      "effectText": "Atelier numérique ×2 · commandes : récompenses +50 %",
+      "effects": [
+        {
+          "type": "building",
+          "target": "ateliernum",
+          "mult": 2
+        },
+        {
+          "type": "orders",
+          "mult": 1.5
+        }
+      ],
+      "mats": {
+        "composants": 8,
+        "batteries": 3
+      }
+    },
+    {
+      "id": "musique",
+      "name": "Atelier Musique",
+      "icon": "🎹",
+      "era": 3,
+      "cost": 30000000000,
       "desc": "L'atelier musique de La Co'Cotte.",
       "effectText": "Production +10 % · nouvelle musique « Atelier Musique » (Options)",
-      "effects": [ { "type": "global", "mult": 1.1 }, { "type": "music", "track": "atelier" } ] },
-    { "id": "vanbreak", "name": "Prison Van Break", "icon": "🚐", "era": 3, "cost": 200000000000,
+      "effects": [
+        {
+          "type": "global",
+          "mult": 1.1
+        },
+        {
+          "type": "music",
+          "track": "atelier"
+        }
+      ],
+      "mats": {
+        "bois": 8,
+        "composants": 6
+      }
+    },
+    {
+      "id": "cafeasso",
+      "name": "Café associatif",
+      "icon": "☕",
+      "era": 3,
+      "cost": 100000000000.0,
+      "desc": "Le cœur du tiers-lieu : on y boit un café, on y monte des projets.",
+      "effectText": "Soirée événement ×3 · gains hors ligne +15 %",
+      "effects": [
+        {
+          "type": "building",
+          "target": "evenements",
+          "mult": 3
+        },
+        {
+          "type": "offline",
+          "add": 0.15
+        }
+      ],
+      "mats": {
+        "bois": 10,
+        "filament": 5
+      }
+    },
+    {
+      "id": "vanbreak",
+      "name": "Prison Van Break",
+      "icon": "🚐",
+      "era": 3,
+      "cost": 200000000000,
       "desc": "Le projet Prison Van Break de La Co'Cotte.",
       "effectText": "Tournée itinérante ×3 · Cocottes dorées 30 % plus fréquentes",
-      "effects": [ { "type": "building", "target": "tournee", "mult": 3 }, { "type": "golden", "freq": 1.3 } ] }
+      "effects": [
+        {
+          "type": "building",
+          "target": "tournee",
+          "mult": 3
+        },
+        {
+          "type": "golden",
+          "freq": 1.3
+        }
+      ],
+      "mats": {
+        "bois": 12,
+        "batteries": 4
+      }
+    },
+    {
+      "id": "petitsmakers",
+      "name": "Club des petits makers",
+      "icon": "🧒",
+      "era": 3,
+      "cost": 600000000000.0,
+      "desc": "Le mercredi, les enfants inventent, codent et fabriquent.",
+      "effectText": "Clics ×3 · mini-jeux : Co'Coins ×2",
+      "effects": [
+        {
+          "type": "click",
+          "mult": 3
+        },
+        {
+          "type": "minigameCoins",
+          "mult": 2
+        }
+      ],
+      "mats": {
+        "filament": 10,
+        "composants": 6
+      }
+    },
+    {
+      "id": "gazette",
+      "name": "La Gazette du Vermandois",
+      "icon": "📰",
+      "era": 4,
+      "cost": 3000000000000.0,
+      "desc": "Le journal des projets du territoire, écrit par les habitants.",
+      "effectText": "Réseau de partenaires ×3 · commandes : récompenses +50 %",
+      "effects": [
+        {
+          "type": "building",
+          "target": "partenaires",
+          "mult": 3
+        },
+        {
+          "type": "orders",
+          "mult": 1.5
+        }
+      ],
+      "mats": {
+        "composants": 10,
+        "batteries": 5
+      }
+    },
+    {
+      "id": "solaire",
+      "name": "Panneaux solaires",
+      "icon": "☀️",
+      "era": 4,
+      "cost": 20000000000000.0,
+      "desc": "Un toit qui produit l'énergie de l'atelier.",
+      "effectText": "Production +15 % · +4 matériaux par heure",
+      "effects": [
+        {
+          "type": "global",
+          "mult": 1.15
+        },
+        {
+          "type": "matsHour",
+          "n": 4
+        }
+      ],
+      "mats": {
+        "composants": 15,
+        "batteries": 10
+      }
+    },
+    {
+      "id": "festivalmakers",
+      "name": "Festival des makers",
+      "icon": "🎪",
+      "era": 4,
+      "cost": 200000000000000.0,
+      "desc": "Un week-end de démonstrations et d'ateliers ouverts à tous.",
+      "effectText": "Festival Co'Cotte ×3 · Cocottes dorées 30 % plus fréquentes",
+      "effects": [
+        {
+          "type": "building",
+          "target": "festival",
+          "mult": 3
+        },
+        {
+          "type": "golden",
+          "freq": 1.3
+        }
+      ],
+      "mats": {
+        "bois": 20,
+        "filament": 20
+      }
+    },
+    {
+      "id": "ecoles",
+      "name": "Tournée des écoles",
+      "icon": "🏫",
+      "era": 4,
+      "cost": 2000000000000000.0,
+      "desc": "Le FabLab s'invite dans les écoles du Vermandois.",
+      "effectText": "Rayonnement ×3 · production +10 %",
+      "effects": [
+        {
+          "type": "building",
+          "target": "rayonnement",
+          "mult": 3
+        },
+        {
+          "type": "global",
+          "mult": 1.1
+        }
+      ],
+      "mats": {
+        "composants": 15,
+        "batteries": 10
+      }
+    },
+    {
+      "id": "charte",
+      "name": "Charte des tiers-lieux",
+      "icon": "🤝",
+      "era": 4,
+      "cost": 2e+16,
+      "desc": "Les lieux du territoire s'engagent ensemble.",
+      "effectText": "Réseau des tiers-lieux ×3 · gains hors ligne +15 %",
+      "effects": [
+        {
+          "type": "building",
+          "target": "reseau",
+          "mult": 3
+        },
+        {
+          "type": "offline",
+          "add": 0.15
+        }
+      ],
+      "mats": {
+        "composants": 25,
+        "batteries": 15
+      }
+    },
+    {
+      "id": "studio",
+      "name": "Studio radio",
+      "icon": "🎙️",
+      "era": 5,
+      "cost": 1e+17,
+      "desc": "Un vrai studio pour les émissions des habitants.",
+      "effectText": "Radio Co'Cotte ×3",
+      "effects": [
+        {
+          "type": "building",
+          "target": "radio",
+          "mult": 3
+        }
+      ],
+      "mats": {
+        "composants": 20,
+        "batteries": 15
+      }
+    },
+    {
+      "id": "fabbusproj",
+      "name": "Fab'Bus sur les routes",
+      "icon": "🚌",
+      "era": 5,
+      "cost": 2e+18,
+      "desc": "Le bus aménagé part à la rencontre des villages.",
+      "effectText": "Fab'Bus ×3 · matériaux ×2",
+      "effects": [
+        {
+          "type": "building",
+          "target": "fabbus",
+          "mult": 3
+        },
+        {
+          "type": "mats",
+          "mult": 2
+        }
+      ],
+      "mats": {
+        "bois": 30,
+        "filament": 20,
+        "batteries": 10
+      }
+    },
+    {
+      "id": "campusouvert",
+      "name": "Campus ouvert",
+      "icon": "🎓",
+      "era": 5,
+      "cost": 4e+19,
+      "desc": "Des formations libres et gratuites pour tous les âges.",
+      "effectText": "Campus des makers ×3 · production +20 %",
+      "effects": [
+        {
+          "type": "building",
+          "target": "campus",
+          "mult": 3
+        },
+        {
+          "type": "global",
+          "mult": 1.2
+        }
+      ],
+      "mats": {
+        "composants": 30,
+        "batteries": 25
+      }
+    },
+    {
+      "id": "galaxie",
+      "name": "Constellation",
+      "icon": "✨",
+      "era": 5,
+      "cost": 8e+20,
+      "desc": "Toutes les Co'Cottes de la région réunies.",
+      "effectText": "Constellation ×3 · production +25 % · Cocottes dorées 30 % plus fréquentes",
+      "effects": [
+        {
+          "type": "building",
+          "target": "constellation",
+          "mult": 3
+        },
+        {
+          "type": "global",
+          "mult": 1.25
+        },
+        {
+          "type": "golden",
+          "freq": 1.3
+        }
+      ],
+      "mats": {
+        "bois": 40,
+        "filament": 40,
+        "composants": 40,
+        "batteries": 40
+      }
+    }
   ]
 }

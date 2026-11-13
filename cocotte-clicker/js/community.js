@@ -138,7 +138,7 @@ export async function huntFind(code) {
     const r = await rpc('hunt_find', { ...me(), p_code: code });
     if (!r.ok) { toast(r.error === 'closed' ? 'Cette chasse au trésor est terminée.' : 'QR de chasse au trésor inconnu.'); sfx.deny(); return; }
     let msg = `🗺️ ${r.hunt} : balise ${r.num} trouvée (${r.found}/${r.total})`;
-    if (r.new) { addCrystals(r.reward); msg += ` · +${r.reward} 💎`; }
+    if (r.new) { addCrystals(r.reward); state.counters.huntFinds++; msg += ` · +${r.reward} 💎`; }
     else msg += ' (déjà trouvée)';
     if (r.complete && !state.online.huntBonus.includes(r.hunt_id)) {
       state.online.huntBonus.push(r.hunt_id);
@@ -281,12 +281,13 @@ const galleryCard = g => {
 };
 
 async function panelGallery() {
-  $('#com-panel').innerHTML = `<div class="row"><button type="button" class="big-btn" id="btn-share">📸 Exposer ma Cocotte</button>
+  $('#com-panel').innerHTML = `<div class="row"><button type="button" class="big-btn" id="btn-gal-share">📸 Exposer ma Cocotte</button>
       <span class="small">Votre skin et votre décor actuels, avec votre pseudo.</span></div>
     <ul class="gallery" id="gallery"><li class="muted">Chargement…</li></ul>`;
-  $('#btn-share').addEventListener('click', async () => {
+  $('#btn-gal-share').addEventListener('click', async () => {
     const r = await rpc('share_gallery', { ...me(), p_skin: state.skin, p_bg: state.bg }).catch(() => null);
     if (!r?.ok) { toast('Partage impossible pour le moment.'); return; }
+    state.counters.galleryShared++; save();
     sfx.buy(); toast('📸 Votre Cocotte est exposée dans la galerie !'); panelGallery();
   });
   try { gallery = await rpc('gallery_list', { p_id: state.playerId, p_limit: 40 }); } catch { gallery = []; }
@@ -295,7 +296,7 @@ async function panelGallery() {
   ul.addEventListener('click', async e => {
     const b = e.target.closest('[data-like]'); if (!b) return;
     const r = await rpc('like_gallery', { ...me(), p_owner: b.dataset.like }).catch(() => null);
-    if (r?.ok) { sfx.ui(); panelGallery(); }
+    if (r?.ok) { if (r.liked !== false) state.counters.likes++; save(); sfx.ui(); panelGallery(); }
   });
 }
 
@@ -311,7 +312,7 @@ function panelGifts() {
     const r = await rpc('send_gift', { ...me(), p_to: to }).catch(() => null);
     const err = { self: 'C\'est votre propre code !', unknown: 'Code joueur inconnu (il doit avoir joué en ligne au moins une fois).', daily: 'Vous avez déjà offert un cadeau aujourd\'hui.' };
     if (!r?.ok) { sfx.deny(); toast(err[r?.error] || 'Envoi impossible pour le moment.'); return; }
-    state.online.giftDay = new Date().toLocaleDateString('sv-SE'); save();
+    state.online.giftDay = new Date().toLocaleDateString('sv-SE'); state.counters.giftsSent++; save();
     sfx.unlock(); toast('🎁 Cadeau envoyé !'); panelGifts();
   });
 }

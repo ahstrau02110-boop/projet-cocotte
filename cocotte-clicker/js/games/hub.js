@@ -11,9 +11,12 @@ import simon from './simon.js';
 import puzzle from './puzzle.js';
 import bubbles from './bubbles.js';
 import catcher from './catcher.js';
+import recycle from './recycle.js';
+import laser from './laser.js';
+import { addMats, randomMats, matsText } from '../materials.js';
 
 // Les jeux les plus simples en premier (enfants)
-export const GAMES = [bubbles, catcher, memory, match3, bugs, simon, puzzle];
+export const GAMES = [bubbles, catcher, recycle, memory, match3, laser, bugs, simon, puzzle];
 let cleanup = null, current = null;
 
 const cfg = () => DATA.config.minigames || {};
@@ -54,6 +57,7 @@ function start(game) {
   cleanup = game.start(area, {
     hud: html => ($('#play-hud').innerHTML = html),
     finish: res => finish(game, res),
+    flag: name => { state.flags[name] = 1; },
   });
 }
 
@@ -74,8 +78,14 @@ function finish(game, { score, stars }) {
   const coins = stars ? Math.max(25, totalCps() * (cfg().coinSecondsPerStar ?? 20)) * stars * boost : 0;
   earn(coins);
   const record = score > (state.mini.best[game.id] || 0);
-  if (record) state.mini.best[game.id] = score;
+  if (record) { if (state.mini.best[game.id]) state.counters.records++; state.mini.best[game.id] = score; }
   state.mini.plays++;
+  state.mini.by[game.id] = (state.mini.by[game.id] || 0) + 1;
+  const h = new Date().getHours();
+  if (h >= 2 && h < 5) state.flags.nuit = 1;
+  // Matériaux : 1 par étoile (+ 1 au hasard pour 3 étoiles)
+  const mats = randomMats(stars * (DATA.config.materials?.perStar ?? 1) + (stars === 3 ? 1 : 0));
+  addMats(mats);
   emit('gameEnd', { game: game.id, score });
   state.mini.stars += stars;
   if (stars === 3) state.mini.perfect++;
@@ -90,6 +100,7 @@ function finish(game, { score, stars }) {
       <ul class="end-rewards">
         <li>+${fmt(coins)} Co'Coins</li>
         <li>+${crystals} 💎${crystals < wanted ? ' <small>(limite du jour atteinte)</small>' : ''}</li>
+        ${matsText(mats) ? `<li>+${matsText(mats)}</li>` : ''}
       </ul>
       <div class="row center">
         <button class="big-btn" data-replay>Rejouer</button>

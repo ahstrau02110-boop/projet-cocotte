@@ -1,5 +1,5 @@
 // Sauvegarde locale, export / import, gains hors-ligne
-import { state, replaceState, freshState, CONFIG, totalCps, earn, hasTalent } from './state.js';
+import { state, replaceState, freshState, CONFIG, totalCps, earn, hasTalent, projectEffects } from './state.js';
 
 const KEY = 'cocotte-clicker-save';
 const PREFIX = 'COCOTTE1:';
@@ -44,7 +44,21 @@ function sanitize(raw) {
   if (Array.isArray(raw.claimed)) s.claimed = raw.claimed.filter(x => typeof x === 'string').slice(-300);
   const m = obj(raw.mini);
   s.mini = { day: typeof m.day === 'string' ? m.day : '', crystalsToday: int(m.crystalsToday), plays: int(m.plays),
-    stars: int(m.stars), perfect: int(m.perfect), puzzles: int(m.puzzles), best: {} };
+    stars: int(m.stars), perfect: int(m.perfect), puzzles: int(m.puzzles), best: {}, by: {} };
+  for (const [k, v] of Object.entries(obj(m.by))) s.mini.by[k] = int(v);
+  // Matériaux, commandes, missions de la semaine, succès secrets
+  const ma = obj(raw.mats);
+  for (const k of Object.keys(s.mats)) s.mats[k] = int(ma[k]);
+  s.matsTick = Math.min(num(raw.matsTick, Date.now()) || Date.now(), Date.now());
+  const od = obj(raw.orders);
+  s.orders = { rep: int(od.rep), next: num(od.next), list: (Array.isArray(od.list) ? od.list : []).filter(o => o && typeof o.id === 'string').slice(0, 5)
+    .map(o => ({ id: o.id, who: String(o.who || ''), what: String(o.what || ''), icon: String(o.icon || '📦'), need: Object.fromEntries(Object.entries(obj(o.need)).filter(([k]) => k in s.mats).map(([k, v]) => [k, int(v)])),
+      coins: num(o.coins), crystals: int(o.crystals), rep: int(o.rep, 1), bonus: typeof o.bonus === 'string' && o.bonus in s.mats ? o.bonus : '', until: num(o.until) })) };
+  const wk = obj(raw.weekly);
+  if (typeof wk.week === 'string' && Array.isArray(wk.list)) s.weekly = { week: wk.week, bonus: !!wk.bonus,
+    list: wk.list.filter(m => m && typeof m.id === 'string').slice(0, 3).map(m => ({ id: m.id, lvl: int(m.lvl), n: Math.max(1, int(m.n, 1)), reward: int(m.reward), start: num(m.start), claimed: !!m.claimed })) };
+  for (const [k, v] of Object.entries(obj(raw.flags))) if (v) s.flags[k] = 1;
+  s.achMilestones = Array.isArray(raw.achMilestones) ? raw.achMilestones.filter(x => typeof x === 'number').slice(0, 20) : [];
   for (const k of Object.keys(obj(raw.upgrades))) s.upgrades[k] = true;
   for (const k of Object.keys(obj(raw.projects))) s.projects[k] = true;
   if (Array.isArray(raw.buffs)) s.buffs = raw.buffs.filter(b => b && typeof b.until === 'number' && b.until > Date.now())
@@ -123,7 +137,8 @@ export function hardReset() {
 // Gains pendant l'absence : CPS × durée (plafonnée) × efficacité. Retourne { gain, seconds }
 export function applyOffline(seconds) {
   const capped = Math.min(seconds, (hasTalent('nuit2') ? 16 : CONFIG.offlineMaxHours) * 3600);
-  const gain = totalCps() * capped * (hasTalent('nuit') ? 0.75 : CONFIG.offlineRate);
+  const rate = (hasTalent('nuit') ? 0.75 : CONFIG.offlineRate) + projectEffects('offline').reduce((a, e) => a + e.add, 0);
+  const gain = totalCps() * capped * Math.min(1, rate);
   if (gain > 0) earn(gain);
   return { gain, seconds: capped };
 }

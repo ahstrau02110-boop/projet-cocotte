@@ -38,7 +38,33 @@
     "crystalsPerGame": 10
   },
   "achievements": {
-    "prodBonusPct": 1
+    "prodBonusPct": 1,
+    "milestones": [
+      {
+        "n": 25,
+        "crystals": 25
+      },
+      {
+        "n": 50,
+        "crystals": 50
+      },
+      {
+        "n": 100,
+        "crystals": 100
+      },
+      {
+        "n": 150,
+        "crystals": 150
+      },
+      {
+        "n": 200,
+        "crystals": 200
+      },
+      {
+        "n": 250,
+        "crystals": 250
+      }
+    ]
   },
   "prestige": {
     "seedPct": 2,
@@ -124,5 +150,62 @@
     "weeklyReward": 150,
     "teamBonusPct": 10
   },
-  "repoUploadUrl": "https://github.com/ahstrau02110-boop/projet-cocotte/upload/main/cocotte-clicker/data"
+  "repoUploadUrl": "https://github.com/ahstrau02110-boop/projet-cocotte/upload/main/cocotte-clicker/data",
+  "materials": {
+    "_doc": "Matériaux : clickChance = probabilité par clic ; goldenRain = [min, max] avec la Cocotte dorée ; perStar = matériaux par étoile de mini-jeu ; mission / daily / voucher = matériaux donnés par mission réussie, bonus du jour, QR de l'équipe.",
+    "clickChance": 0.025,
+    "goldenRain": [
+      4,
+      10
+    ],
+    "perStar": 1,
+    "mission": 2,
+    "weeklyMission": 6,
+    "daily": 3,
+    "voucher": 3,
+    "kinds": [
+      {
+        "id": "bois",
+        "icon": "🪵",
+        "name": "Bois",
+        "weight": 40
+      },
+      {
+        "id": "filament",
+        "icon": "🧵",
+        "name": "Filament",
+        "weight": 30
+      },
+      {
+        "id": "composants",
+        "icon": "⚙️",
+        "name": "Composants",
+        "weight": 22
+      },
+      {
+        "id": "batteries",
+        "icon": "🔋",
+        "name": "Batteries",
+        "weight": 8
+      }
+    ]
+  },
+  "orders": {
+    "_doc": "Tableau des commandes : max = commandes affichées en même temps ; everyMin = arrivée d'une nouvelle commande ; durationH = durée [min, max] ; réputation : +repPct % de production par niveau (repPerLevel points).",
+    "max": 3,
+    "everyMin": 40,
+    "durationH": [
+      3,
+      8
+    ],
+    "repPerLevel": 10,
+    "repPct": 1
+  },
+  "projects": {
+    "milestoneEvery": 5,
+    "milestonePct": 5
+  },
+  "weekly": {
+    "allBonus": 100
+  }
 }

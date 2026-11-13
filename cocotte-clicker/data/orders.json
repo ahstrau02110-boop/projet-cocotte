@@ -1,0 +1,93 @@
+{
+  "_doc": "Tableau des commandes : clients (qui) et demandes (quoi). Les quantités sont calculées par le jeu selon l'ère.",
+  "clients": [
+    "Mme Lefèvre, de Bohain",
+    "le club de foot de Busigny",
+    "l'école de Fresnoy-le-Grand",
+    "la mairie de Seboncourt",
+    "un artisan de Saint-Quentin",
+    "la médiathèque de Guise",
+    "le comité des fêtes d'Étreux",
+    "une association du Catelet",
+    "le collège de Bohain",
+    "M. Martin, retraité de Vaux-Andigny",
+    "la boulangerie de Prémont",
+    "le marché de Wassigny",
+    "la crèche de Bohain",
+    "le club photo de Saint-Quentin",
+    "une famille de Becquigny",
+    "l'EHPAD de Bohain"
+  ],
+  "requests": [
+    {
+      "what": "un panneau gravé pour la kermesse",
+      "icon": "🪧",
+      "main": "bois"
+    },
+    {
+      "what": "des porte-clés imprimés en 3D",
+      "icon": "🔑",
+      "main": "filament"
+    },
+    {
+      "what": "la réparation d'un grille-pain",
+      "icon": "🍞",
+      "main": "composants"
+    },
+    {
+      "what": "un nichoir pour le jardin",
+      "icon": "🐦",
+      "main": "bois"
+    },
+    {
+      "what": "des écussons brodés",
+      "icon": "🧵",
+      "main": "filament"
+    },
+    {
+      "what": "une lampe en matériaux recyclés",
+      "icon": "💡",
+      "main": "composants"
+    },
+    {
+      "what": "des jetons de jeu de société",
+      "icon": "🎲",
+      "main": "filament"
+    },
+    {
+      "what": "un support de téléphone",
+      "icon": "📱",
+      "main": "filament"
+    },
+    {
+      "what": "une enseigne lumineuse",
+      "icon": "✨",
+      "main": "batteries"
+    },
+    {
+      "what": "des boîtes de rangement",
+      "icon": "📦",
+      "main": "bois"
+    },
+    {
+      "what": "une radio réparée",
+      "icon": "📻",
+      "main": "composants"
+    },
+    {
+      "what": "des trophées pour le tournoi",
+      "icon": "🏆",
+      "main": "filament"
+    },
+    {
+      "what": "un jeu en bois pour les enfants",
+      "icon": "🧸",
+      "main": "bois"
+    },
+    {
+      "what": "une guirlande LED pour la fête",
+      "icon": "🎉",
+      "main": "batteries"
+    }
+  ]
+}

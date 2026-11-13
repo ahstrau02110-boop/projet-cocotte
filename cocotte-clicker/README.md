@@ -437,3 +437,14 @@ Nécessite le script **`supabase/session.sql`**.
 ## Onglet « Maj » (mises à jour)
 
 Bouton 🆕 Maj en haut du jeu : liste des nouveautés, lue dans **`data/changelog.json`** (la plus récente en premier). Un point rose apparaît quand une nouvelle entrée (nouvel `id`) n'a pas encore été lue sur l'appareil. Pour annoncer une mise à jour : ajouter une entrée en tête de `updates` (id unique, date, titre, lignes).
+
+## Grosse maj « Atelier en folie »
+
+- **Matériaux** (`js/materials.js`, réglages `config.json → materials`) : bois, filament, composants, batteries. Clics (petite chance), Cocottes dorées, mini-jeux (1 par étoile), missions, bonus du jour, QR de l'équipe, projets « matériaux par heure ».
+- **Établi de fabrication** (`js/craft.js`, `data/recipes.json`) : recettes → bonus, cristaux, impressions offertes, Cocottes exclusives (`skins.json`, `"craft": true`, rareté « Fabriquée »).
+- **Commandes** (`js/orders.js`, `data/orders.json`, `config.json → orders`) : livraisons contre cristaux et réputation (+1 % de production par niveau).
+- **Projets** : 24, avec coût en matériaux et nouveaux effets (click, mats, matsHour, orders, offline) ; +5 % tous les 5 projets.
+- **Mini-jeux** : La Recyclerie (`games/recycle.js`) et Découpe laser (`games/laser.js`).
+- **Missions de la semaine** (`missions.json → weekly`) et nouveaux types de missions du jour.
+- **Succès** : nouvelles catégories, succès secrets (`hidden`), paliers de cristaux (`config.json → achievements.milestones`).
+- **Ère 5 « Grand Réseau »** et 4 bâtiments. Onglet **📊 Production** (`js/stats.js`).

@@ -34,7 +34,7 @@ export function freshState() {
     bgs: {},                           // décors obtenus { id: nombre }
     bg: 'auto',                        // décor équipé ('auto' = décor de l'ère)
     claimed: [],                       // bons QR déjà encaissés (anti-rejeu)
-    mini: { day: '', crystalsToday: 0, plays: 0, stars: 0, perfect: 0, puzzles: 0, best: {} },
+    mini: { day: '', crystalsToday: 0, plays: 0, stars: 0, perfect: 0, puzzles: 0, best: {}, by: {} },
     upgrades: {},                      // { id: true } améliorations achetées
     achievements: {},                  // { id: horodatage } succès obtenus
     projects: {},                      // { id: true } projets de La Co'Cotte réalisés (remis à zéro par saison)
@@ -46,7 +46,15 @@ export function freshState() {
     daily: { last: '', streak: 0, best: 0 },   // bonus quotidien
     net: { token: '', listed: true, total: 0, players: 0, lastSync: 0 }, // mode communautaire
     cloud: { on: true, rev: 0, last: 0, recovery: false }, // sauvegarde en ligne (version connue, dernier envoi)
-    counters: { bought: 0, upgBought: 0, tips: 0, infos: 0, missions: 0 }, // compteurs pour les missions
+    counters: { bought: 0, upgBought: 0, tips: 0, infos: 0, missions: 0, // compteurs pour les missions et succès
+      matsGot: 0, batGot: 0, crafted: 0, orders: 0, projBought: 0, equips: 0, records: 0, weekly: 0,
+      giftsSent: 0, likes: 0, galleryShared: 0, huntFinds: 0, bossWins: 0 },
+    mats: { bois: 0, filament: 0, composants: 0, batteries: 0 }, // matériaux récupérés
+    matsTick: Date.now(),              // dernier calcul des matériaux produits par les projets
+    orders: { list: [], next: 0, rep: 0 }, // tableau des commandes + réputation
+    weekly: { week: '', list: [], bonus: false }, // missions de la semaine
+    flags: {},                         // succès secrets (actions particulières)
+    achMilestones: [],                 // paliers de succès déjà récompensés
     missions: { day: '', list: [], bonus: false },  // missions du jour
     helpSeen: {},                      // explications des activités déjà vues
     online: { claimedWeeks: [], team: null, teamWinner: null, bossClaimed: [], huntBonus: [], giftDay: '', hiddenAnnounce: 0 }, // fonctions en ligne
@@ -118,9 +126,18 @@ export function collectionBonus() {
   const pct = DATA.config.gacha?.collectionBonusPct ?? 1, bgPct = DATA.config.gacha?.collectionBgPct ?? 0.5;
   return (Object.keys(state.skins).length - 1) * pct + Object.keys(state.bgs).length * bgPct + dupBonus();
 }
+// Paliers de projets réalisés (cette saison) : +X % tous les N projets
+export const projMilestonePct = () => {
+  const c = DATA.config.projects || {};
+  return Math.floor(Object.keys(state.projects).length / (c.milestoneEvery ?? 5)) * (c.milestonePct ?? 5);
+};
+// Réputation (commandes livrées) : +X % par niveau
+export const repLevel = () => Math.floor(state.orders.rep / (DATA.config.orders?.repPerLevel ?? 10));
+export const repPct = () => repLevel() * (DATA.config.orders?.repPct ?? 1);
+
 export function globalMult() {
   return (1 + collectionBonus() / 100) * (1 + achievementBonus() / 100) * (1 + seedBonus() / 100) * (1 + communityPct() / 100) * (1 + teamPct() / 100) * (1 + eventPct() / 100) * upgradesGlobal()
-    * projectEffects('global').reduce((m, e) => m * e.mult, 1);
+    * projectEffects('global').reduce((m, e) => m * e.mult, 1) * (1 + projMilestonePct() / 100) * (1 + repPct() / 100);
 }
 
 export function totalCps() {
@@ -129,7 +146,8 @@ export function totalCps() {
 
 // Valeur d'un clic : base × améliorations de clic + % de la production
 export function clickValue() {
-  const mult = bought('click').reduce((m, u) => m * u.mult, 1) * (hasTalent('mains') ? 2 : 1);
+  const mult = bought('click').reduce((m, u) => m * u.mult, 1) * (hasTalent('mains') ? 2 : 1)
+    * projectEffects('click').reduce((m, e) => m * e.mult, 1);
   const pct = bought('clickCps').reduce((p, u) => p + u.pct, 0);
   return (mult + totalCps() * pct / 100) * buffMult('click');
 }

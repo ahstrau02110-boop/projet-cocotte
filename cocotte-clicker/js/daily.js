@@ -4,6 +4,7 @@ import { $, toast, emit, today } from './core.js';
 import { save } from './save.js';
 import { sfx } from './audio.js';
 import { addBuff } from './golden.js';
+import { addMats, randomMats, matsText } from './materials.js';
 
 const cfg = () => DATA.config.daily || {};
 const rewards = () => cfg().rewards || [3, 4, 5, 6, 8, 10, 15];
@@ -31,7 +32,9 @@ export function checkDaily() {
     d.streak = streak;
     d.best = Math.max(d.best, streak);
     addCrystals(gain);
-    let extra = '';
+    const mats = randomMats((DATA.config.materials?.daily ?? 3) + Math.min(6, streak - 1));
+    addMats(mats);
+    let extra = ' · ' + matsText(mats);
     if (idx === 6) {
       addBuff({ id: 'daily', name: 'Semaine complète', cps: cfg().day7BoostMult ?? 2, sec: cfg().day7BoostSec ?? 300 });
       extra = ` + production ×${cfg().day7BoostMult ?? 2} pendant ${(cfg().day7BoostSec ?? 300) / 60} min`;

@@ -26,5 +26,12 @@
     "unlockAt": 400000000000,
     "color": "#FCD260",
     "tagline": "La Co'Cotte rayonne sur tout le Vermandois."
+  },
+  {
+    "id": 5,
+    "name": "Grand Réseau",
+    "unlockAt": 3e+16,
+    "color": "#2ab3a6",
+    "tagline": "De Bohain à toute la région : les tiers-lieux font réseau."
   }
 ]

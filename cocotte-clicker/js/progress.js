@@ -1,5 +1,5 @@
 // Améliorations et succès : génération à partir des données, achat, vérification, affichage
-import { DATA, state, owned, totalCps, currentEra, achievementBonus, hasTalent } from './state.js';
+import { DATA, state, owned, totalCps, currentEra, achievementBonus, hasTalent, addCrystals, skinDupes, bgDupes, repLevel } from './state.js';
 import { $, asset, toast, emit, esc } from './core.js';
 import { fmt } from './format.js';
 import { sfx } from './audio.js';
@@ -118,6 +118,18 @@ function stats() {
     infos: state.boosts.infoSeen.length,
     quizOk: state.boosts.quizOk,
     streak: state.daily.best,
+    // Grosse maj : matériaux, fabrication, commandes, doublons, mini-jeux, en ligne
+    matsGot: state.counters.matsGot, batGot: state.counters.batGot, crafted: state.counters.crafted,
+    craftSkins: DATA.skins.filter(s => s.craft && state.skins[s.id]).length,
+    orders: state.counters.orders, repLevel: repLevel(), projBought: state.counters.projBought,
+    dupes: skinDupes() + bgDupes(), dupMax: Math.max(0, ...Object.values(state.skins), ...Object.values(state.bgs)),
+    gamesTried: Object.keys(state.mini.by).length, records: state.counters.records,
+    weeklyClaimed: state.online.claimedWeeks.length, team: state.online.team ? 1 : 0,
+    giftsSent: state.counters.giftsSent, galleryShared: state.counters.galleryShared, likes: state.counters.likes,
+    bossWins: state.online.bossClaimed.length, huntFinds: state.counters.huntFinds, huntComplete: state.online.huntBonus.length,
+    weekly: state.counters.weekly,
+    ...Object.fromEntries(Object.entries(state.mini.by).map(([g, n]) => ['play_' + g, n])),
+    ...Object.fromEntries(Object.keys(state.flags).map(k => ['flag_' + k, 1])),
   };
 }
 function met(cond, st) {
@@ -135,24 +147,44 @@ export function checkAchievements() {
   if (n > 2) toast(`🏆 ${n} succès débloqués d'un coup ! (+${n * pct} % de production)`, 5000);
   else fresh.forEach(a => toast(`🏆 Succès : ${a.name} (+${pct} % de production)`, 5000));
   if (n) { sfx.unlock(); save(); emit('refresh'); }
+  checkMilestones();
   return n;
+}
+
+// Paliers de succès : des cristaux à 25, 50, 100… succès
+const milestones = () => DATA.config.achievements?.milestones || [];
+function checkMilestones() {
+  const got = Object.keys(state.achievements).length;
+  for (const m of milestones()) {
+    if (got >= m.n && !state.achMilestones.includes(m.n)) {
+      state.achMilestones.push(m.n);
+      addCrystals(m.crystals);
+      toast(`🏅 Palier de ${m.n} succès atteint : +${m.crystals} 💎 !`, 6000);
+      save();
+    }
+  }
 }
 
 const medal = a => a.img ? `<img src="${asset(a.img)}" alt="">` : `<span aria-hidden="true">${a.icon || '🏆'}</span>`;
 
 export function openAchievements() {
   const got = DATA.achList.filter(a => state.achievements[a.id]).length;
-  $('#ach-summary').innerHTML = `<strong>${got}/${DATA.achList.length}</strong> succès · bonus de production <strong>+${achievementBonus()} %</strong>`;
+  const next = milestones().find(m => got < m.n);
+  $('#ach-summary').innerHTML = `<strong>${got}/${DATA.achList.length}</strong> succès · bonus de production <strong>+${achievementBonus()} %</strong>`
+    + `<span class="ach-miles">${milestones().map(m => `<span class="${state.achMilestones.includes(m.n) ? 'on' : ''}">🏅 ${m.n} : ${m.crystals} 💎</span>`).join('')}</span>`
+    + (next ? `<small>Prochain palier : encore ${next.n - got} succès pour ${next.crystals} 💎.</small>` : '');
   const cats = [['clic', 'Clics'], ['prod', 'Production'], ['cps', 'Vitesse'], ['era', 'Ères'], ['building', 'Bâtiments'],
-    ['gacha', 'Imprimante mystère'], ['mini', 'Mini-jeux'], ['special', 'À La Co\'Cotte']];
+    ['gacha', 'Imprimante mystère et doublons'], ['mats', 'Matériaux et fabrication'], ['orders', 'Commandes et projets'],
+    ['mini', 'Mini-jeux'], ['online', 'Communauté en ligne'], ['special', 'À La Co\'Cotte'], ['secret', 'Succès secrets']];
   $('#ach-list').innerHTML = cats.map(([cat, label]) => {
     const items = DATA.achList.filter(a => a.cat === cat);
     if (!items.length) return '';
-    return `<h3>${label}</h3><ul class="ach-grid">${items.map(a => {
-      const ok = !!state.achievements[a.id];
-      return `<li class="ach cat-${cat}${ok ? ' got' : ''}">
-        <span class="medal">${medal(a)}</span>
-        <span><b>${esc(a.name)}</b><small>${esc(a.desc)}</small></span>
+    const n = items.filter(a => state.achievements[a.id]).length;
+    return `<h3>${label} <small>${n}/${items.length}</small></h3><ul class="ach-grid">${items.map(a => {
+      const ok = !!state.achievements[a.id], hide = a.hidden && !ok;
+      return `<li class="ach cat-${cat}${ok ? ' got' : ''}${hide ? ' secret' : ''}">
+        <span class="medal">${hide ? '<span aria-hidden="true">❔</span>' : medal(a)}</span>
+        <span><b>${hide ? '???' : esc(a.name)}</b><small>${hide ? 'Succès secret : à vous de le découvrir !' : esc(a.desc)}</small></span>
         <span class="sr">${ok ? 'obtenu' : 'pas encore obtenu'}</span></li>`;
     }).join('')}</ul>`;
   }).join('');

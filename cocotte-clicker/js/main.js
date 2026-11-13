@@ -15,6 +15,10 @@ import { initTransfer } from './transfer.js';
 import { initCloud } from './cloud.js';
 import { claimLocal, setBooted } from './session.js';
 import { initMaj } from './maj.js';
+import { initMaterials, renderMatsBar, clickDrop } from './materials.js';
+import { initCraft, renderCraftTile, setRecipes } from './craft.js';
+import { initOrders, renderOrdersTile, setOrdersData } from './orders.js';
+import { initStats } from './stats.js';
 import { buildProgress, initProgress, renderUpgrades, checkAchievements, openAchievements } from './progress.js';
 import { decorFor } from './decor.js';
 import { initTutorial } from './tutorial.js';
@@ -59,6 +63,8 @@ async function boot() {
     DATA.events = (await loadJSON('data/events.json')).events;
     DATA.missions = await loadJSON('data/missions.json');
     DATA.calendar = (await loadJSON('data/calendar.json').catch(() => ({ calendar: [] }))).calendar || [];
+    setRecipes((await loadJSON('data/recipes.json')).recipes);
+    setOrdersData(await loadJSON('data/orders.json'));
     // Contenu modifié depuis l'espace équipe : version publiée, puis brouillon en aperçu (appareil de l'équipe)
     applyOverrides(DATA, await loadJSON('data/overrides.json').catch(() => null));
     if (previewOn() && readDraft()) {
@@ -136,12 +142,16 @@ async function boot() {
   initTransfer();
   initCloud();
   initMaj();
+  initMaterials();
+  initCraft();
+  initOrders();
+  initStats();
   initCommunity();
   initDaily();
   on('tutoEnd', () => setTimeout(checkDaily, 600));
   on('season', afterStateChange);
   applySkin();
-  $('#opt-dark').addEventListener('change', e => { state.settings.dark = e.target.checked; applyDark(); save(); });
+  $('#opt-dark').addEventListener('change', e => { state.settings.dark = e.target.checked; if (e.target.checked) state.flags.sombre = 1; applyDark(); save(); });
   on('refresh', updateUI);
   on('skin', applySkin);
   renderShop();
@@ -205,6 +215,8 @@ function updateUI() {
   renderEventTile();
   renderMissions();
   renderCommunityCard();
+  renderCraftTile();
+  renderOrdersTile();
   $$('.js-crystals').forEach(e => (e.textContent = fmt(state.crystals)));
 
   const era = currentEra();
@@ -321,6 +333,7 @@ function onBuy(b) {
   } else sfx.deny();
 }
 
+const clickTimes = [];
 function onPotClick(e) {
   const v = clickValue();
   earn(v);
@@ -335,6 +348,13 @@ function onPotClick(e) {
   const x = kb ? r.width / 2 : e.clientX - r.left;
   const y = kb ? r.height * .35 : e.clientY - r.top;
   floatText(wrap, x, y, '+' + fmt(v));
+  clickDrop(wrap, x, y);
+  // Succès secrets : clic de minuit, rafale de 15 clics en 2 s
+  const now = Date.now();
+  if (new Date().getHours() === 0) state.flags.minuit = 1;
+  clickTimes.push(now);
+  while (clickTimes.length && now - clickTimes[0] > 2000) clickTimes.shift();
+  if (clickTimes.length >= 15) state.flags.rafale = 1;
   puff(8);
   sfx.click();
 
@@ -356,6 +376,7 @@ function updateSound() {
   bs.setAttribute('aria-pressed', String(st.sound));
   bs.querySelector('.ico').textContent = st.sound ? '🔔' : '🔕';
   bs.setAttribute('aria-label', st.sound ? 'Couper les effets sonores' : 'Activer les effets sonores');
+  if (st.music && st.track === 'atelier') state.flags.musique = 1;
   const bm = $('#btn-music');
   bm.setAttribute('aria-pressed', String(st.music));
   bm.classList.toggle('playing', st.music);

@@ -15,7 +15,7 @@ let busy = false, machine = 'cocotte', collView = 'cocotte';
 const M = {
   cocotte: {
     title: 'Imprimante à Cocottes', label: 'COCOTTE·PRINT', unit: 'skin',
-    items: () => DATA.skins.filter(s => !s.default && !s.event), all: () => DATA.skins,
+    items: () => DATA.skins.filter(s => !s.default && !s.event && !s.craft), all: () => DATA.skins,
     owned: () => state.skins, pity: 'sinceLegend', pulls: 'pulls',
     visual: s => `<img src="${skinImage(s.id)}" alt="">`,
     equipped: id => state.skin === id, equip: id => { state.skin = id; }, byId: skinById,
@@ -51,6 +51,15 @@ function rollOne(m, minRare) {
   const refund = isNew ? 0 : (cfg().refund?.[rarity] ?? 2);
   addCrystals(refund);
   return { item, rarity, isNew, refund };
+}
+
+// Impression offerte (recettes de l'Établi) : un tirage sans animation
+export function freePull(mk) {
+  const m = M[mk];
+  if (!m) return null;
+  const r = rollOne(m, false);
+  renderCollection();
+  return r;
 }
 
 async function pull(n) {
@@ -118,6 +127,9 @@ function equip(key) {
   const m = M[mk];
   if (id !== 'auto' && !m.owned()[id]) return;
   if (mk === 'decor' && id === 'auto') state.bg = 'auto'; else m.equip(id);
+  state.counters.equips++;
+  if (mk === 'cocotte' && id === 'glitch') state.flags.glitch = 1;
+  if (mk === 'cocotte' && DATA.skins.find(s => s.id === id)?.default && Object.keys(state.skins).length >= 20) state.flags.retour = 1;
   save();
   sfx.buy();
   emit('skin');
@@ -162,7 +174,8 @@ export function renderCollection() {
       ${m.visual(s)}<span class="rar">${rar.label}</span>${n > 1 ? `<span class="dup-badge" title="${n - 1} doublon${n > 2 ? 's' : ''}">×${n}</span>` : ''}
       ${has ? `<b>${esc(s.name)}</b>${s.desc ? `<small>${esc(s.desc)}</small>` : ''}
         <button class="equip-btn" data-equip="${collView}:${s.id}" ${on ? 'disabled' : ''}>${on ? 'Équipé' : 'Équiper'}</button>`
-        : s.event ? `<b>${esc(s.name)}</b><small>Objet d'événement (onglet 🎉)</small>` : '<b>???</b><small>À imprimer</small>'}</li>`;
+        : s.event ? `<b>${esc(s.name)}</b><small>Objet d'événement (onglet 🎉)</small>`
+        : s.craft ? `<b>${esc(s.name)}</b><small>À fabriquer (🛠️ Établi)</small>` : '<b>???</b><small>À imprimer</small>'}</li>`;
   }).join('');
   grid.innerHTML = html;
 }

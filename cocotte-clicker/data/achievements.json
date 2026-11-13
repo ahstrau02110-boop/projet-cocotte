@@ -1,5 +1,5 @@
 {
-  "_doc": "Succès. Chaque succès donne un bonus de production (config.json → achievements.prodBonusPct). cond : toutes les conditions doivent être vraies. Clés : clicks, earned, cps, era, buildings (total), pulls, skins, legendary, plays, stars, perfect, claims, upgrades, golden, seasons, projects, tips, bgs, bgLegendary, infos, quizOk, streak, tipsAll, infosAll. buildingTemplates : générés pour chaque bâtiment ({b} = nom). eventItems, glitch. missions.",
+  "_doc": "Succès. Chaque succès donne un bonus de production (config.json → achievements.prodBonusPct). cond : toutes les conditions doivent être vraies. Clés : clicks, earned, cps, era, buildings (total), pulls, skins, legendary, plays, stars, perfect, claims, upgrades, golden, seasons, projects, tips, bgs, bgLegendary, infos, quizOk, streak, tipsAll, infosAll. buildingTemplates : générés pour chaque bâtiment ({b} = nom). eventItems, glitch. missions. Nouveaux : matsGot, batGot, crafted, craftSkins, orders, repLevel, projBought, dupes, dupMax, play_<jeu>, gamesTried, records, weeklyClaimed, team, giftsSent, galleryShared, likes, bossWins, huntFinds, huntComplete, weekly, flag_<nom>. hidden : succès secret. Paliers de succès : config.json → achievements.milestones.",
   "buildingTemplates": [
     {
       "n": 1,
@@ -393,9 +393,9 @@
       "cat": "special",
       "icon": "🧩",
       "name": "Tous les projets",
-      "desc": "Réaliser les 4 projets de La Co'Cotte.",
+      "desc": "Réaliser les 24 projets dans la même saison.",
       "cond": {
-        "projects": 4
+        "projects": 24
       }
     },
     {
@@ -817,6 +817,976 @@
       "cond": {
         "missions": 30
       }
+    },
+    {
+      "id": "mats10",
+      "cat": "mats",
+      "icon": "🪵",
+      "name": "Premiers copeaux",
+      "desc": "Récolter 10 matériaux.",
+      "cond": {
+        "matsGot": 10
+      }
+    },
+    {
+      "id": "mats50",
+      "cat": "mats",
+      "icon": "🪵",
+      "name": "Petit stock",
+      "desc": "Récolter 50 matériaux.",
+      "cond": {
+        "matsGot": 50
+      }
+    },
+    {
+      "id": "mats100",
+      "cat": "mats",
+      "icon": "🪵",
+      "name": "Réserve d'atelier",
+      "desc": "Récolter 100 matériaux.",
+      "cond": {
+        "matsGot": 100
+      }
+    },
+    {
+      "id": "mats250",
+      "cat": "mats",
+      "icon": "🪵",
+      "name": "Entrepôt",
+      "desc": "Récolter 250 matériaux.",
+      "cond": {
+        "matsGot": 250
+      }
+    },
+    {
+      "id": "mats500",
+      "cat": "mats",
+      "icon": "🪵",
+      "name": "Caverne d'Ali Bricol",
+      "desc": "Récolter 500 matériaux.",
+      "cond": {
+        "matsGot": 500
+      }
+    },
+    {
+      "id": "mats1000",
+      "cat": "mats",
+      "icon": "🪵",
+      "name": "Montagne de matériaux",
+      "desc": "Récolter 1 000 matériaux.",
+      "cond": {
+        "matsGot": 1000
+      }
+    },
+    {
+      "id": "mats2500",
+      "cat": "mats",
+      "icon": "🪵",
+      "name": "Mine à ciel ouvert",
+      "desc": "Récolter 2 500 matériaux.",
+      "cond": {
+        "matsGot": 2500
+      }
+    },
+    {
+      "id": "mats5000",
+      "cat": "mats",
+      "icon": "🪵",
+      "name": "Empire des matières",
+      "desc": "Récolter 5 000 matériaux.",
+      "cond": {
+        "matsGot": 5000
+      }
+    },
+    {
+      "id": "batt10",
+      "cat": "mats",
+      "icon": "🔋",
+      "name": "Pile électrique",
+      "desc": "Récolter 10 batteries.",
+      "cond": {
+        "batGot": 10
+      }
+    },
+    {
+      "id": "batt50",
+      "cat": "mats",
+      "icon": "🔋",
+      "name": "Centrale à piles",
+      "desc": "Récolter 50 batteries.",
+      "cond": {
+        "batGot": 50
+      }
+    },
+    {
+      "id": "batt200",
+      "cat": "mats",
+      "icon": "🔋",
+      "name": "Usine à énergie",
+      "desc": "Récolter 200 batteries.",
+      "cond": {
+        "batGot": 200
+      }
+    },
+    {
+      "id": "craft1",
+      "cat": "mats",
+      "icon": "🛠️",
+      "name": "Premier objet",
+      "desc": "Fabriquer 1 objet à l'Établi.",
+      "cond": {
+        "crafted": 1
+      }
+    },
+    {
+      "id": "craft5",
+      "cat": "mats",
+      "icon": "🛠️",
+      "name": "Apprenti fabricant",
+      "desc": "Fabriquer 5 objets à l'Établi.",
+      "cond": {
+        "crafted": 5
+      }
+    },
+    {
+      "id": "craft10",
+      "cat": "mats",
+      "icon": "🛠️",
+      "name": "Fabricant",
+      "desc": "Fabriquer 10 objets à l'Établi.",
+      "cond": {
+        "crafted": 10
+      }
+    },
+    {
+      "id": "craft25",
+      "cat": "mats",
+      "icon": "🛠️",
+      "name": "Artisan",
+      "desc": "Fabriquer 25 objets à l'Établi.",
+      "cond": {
+        "crafted": 25
+      }
+    },
+    {
+      "id": "craft50",
+      "cat": "mats",
+      "icon": "🛠️",
+      "name": "Maître artisan",
+      "desc": "Fabriquer 50 objets à l'Établi.",
+      "cond": {
+        "crafted": 50
+      }
+    },
+    {
+      "id": "craft100",
+      "cat": "mats",
+      "icon": "🛠️",
+      "name": "Compagnon du devoir",
+      "desc": "Fabriquer 100 objets à l'Établi.",
+      "cond": {
+        "crafted": 100
+      }
+    },
+    {
+      "id": "craft250",
+      "cat": "mats",
+      "icon": "🛠️",
+      "name": "Légende de l'Établi",
+      "desc": "Fabriquer 250 objets à l'Établi.",
+      "cond": {
+        "crafted": 250
+      }
+    },
+    {
+      "id": "fskin1",
+      "cat": "mats",
+      "icon": "🎨",
+      "name": "Cocotte maison",
+      "desc": "Fabriquer 1 Cocotte exclusive.",
+      "cond": {
+        "craftSkins": 1
+      }
+    },
+    {
+      "id": "fskin3",
+      "cat": "mats",
+      "icon": "🎨",
+      "name": "Collection artisanale",
+      "desc": "Fabriquer 3 Cocottes exclusives.",
+      "cond": {
+        "craftSkins": 3
+      }
+    },
+    {
+      "id": "fskin6",
+      "cat": "mats",
+      "icon": "🎨",
+      "name": "Toutes faites main",
+      "desc": "Fabriquer 6 Cocottes exclusives.",
+      "cond": {
+        "craftSkins": 6
+      }
+    },
+    {
+      "id": "ord1",
+      "cat": "orders",
+      "icon": "📋",
+      "name": "Première livraison",
+      "desc": "Livrer 1 commande.",
+      "cond": {
+        "orders": 1
+      }
+    },
+    {
+      "id": "ord5",
+      "cat": "orders",
+      "icon": "📋",
+      "name": "Livreur du coin",
+      "desc": "Livrer 5 commandes.",
+      "cond": {
+        "orders": 5
+      }
+    },
+    {
+      "id": "ord10",
+      "cat": "orders",
+      "icon": "📋",
+      "name": "Service rapide",
+      "desc": "Livrer 10 commandes.",
+      "cond": {
+        "orders": 10
+      }
+    },
+    {
+      "id": "ord25",
+      "cat": "orders",
+      "icon": "📋",
+      "name": "Commerce local",
+      "desc": "Livrer 25 commandes.",
+      "cond": {
+        "orders": 25
+      }
+    },
+    {
+      "id": "ord50",
+      "cat": "orders",
+      "icon": "📋",
+      "name": "Fournisseur officiel",
+      "desc": "Livrer 50 commandes.",
+      "cond": {
+        "orders": 50
+      }
+    },
+    {
+      "id": "ord100",
+      "cat": "orders",
+      "icon": "📋",
+      "name": "Pilier du Vermandois",
+      "desc": "Livrer 100 commandes.",
+      "cond": {
+        "orders": 100
+      }
+    },
+    {
+      "id": "ord250",
+      "cat": "orders",
+      "icon": "📋",
+      "name": "Plus de 250 sourires",
+      "desc": "Livrer 250 commandes.",
+      "cond": {
+        "orders": 250
+      }
+    },
+    {
+      "id": "rep1",
+      "cat": "orders",
+      "icon": "🤝",
+      "name": "On parle de vous",
+      "desc": "Atteindre le niveau 1 de réputation.",
+      "cond": {
+        "repLevel": 1
+      }
+    },
+    {
+      "id": "rep3",
+      "cat": "orders",
+      "icon": "🤝",
+      "name": "Bonne réputation",
+      "desc": "Atteindre le niveau 3 de réputation.",
+      "cond": {
+        "repLevel": 3
+      }
+    },
+    {
+      "id": "rep5",
+      "cat": "orders",
+      "icon": "🤝",
+      "name": "Adresse recommandée",
+      "desc": "Atteindre le niveau 5 de réputation.",
+      "cond": {
+        "repLevel": 5
+      }
+    },
+    {
+      "id": "rep10",
+      "cat": "orders",
+      "icon": "🤝",
+      "name": "Incontournable",
+      "desc": "Atteindre le niveau 10 de réputation.",
+      "cond": {
+        "repLevel": 10
+      }
+    },
+    {
+      "id": "rep20",
+      "cat": "orders",
+      "icon": "🤝",
+      "name": "Célébrité locale",
+      "desc": "Atteindre le niveau 20 de réputation.",
+      "cond": {
+        "repLevel": 20
+      }
+    },
+    {
+      "id": "proj5",
+      "cat": "orders",
+      "icon": "📌",
+      "name": "Projets en route",
+      "desc": "Réaliser 5 projets dans la même saison.",
+      "cond": {
+        "projects": 5
+      }
+    },
+    {
+      "id": "proj10",
+      "cat": "orders",
+      "icon": "📌",
+      "name": "Lieu foisonnant",
+      "desc": "Réaliser 10 projets dans la même saison.",
+      "cond": {
+        "projects": 10
+      }
+    },
+    {
+      "id": "proj15",
+      "cat": "orders",
+      "icon": "📌",
+      "name": "Fourmilière",
+      "desc": "Réaliser 15 projets dans la même saison.",
+      "cond": {
+        "projects": 15
+      }
+    },
+    {
+      "id": "proj20",
+      "cat": "orders",
+      "icon": "📌",
+      "name": "Tiers-lieu modèle",
+      "desc": "Réaliser 20 projets dans la même saison.",
+      "cond": {
+        "projects": 20
+      }
+    },
+    {
+      "id": "projb10",
+      "cat": "orders",
+      "icon": "📌",
+      "name": "Bâtisseur de projets",
+      "desc": "Réaliser 10 projets au total (toutes saisons).",
+      "cond": {
+        "projBought": 10
+      }
+    },
+    {
+      "id": "projb50",
+      "cat": "orders",
+      "icon": "📌",
+      "name": "Chef de projet",
+      "desc": "Réaliser 50 projets au total (toutes saisons).",
+      "cond": {
+        "projBought": 50
+      }
+    },
+    {
+      "id": "dup1",
+      "cat": "gacha",
+      "icon": "🔁",
+      "name": "Encore elle !",
+      "desc": "Avoir 1 doublon (Cocottes et décors).",
+      "cond": {
+        "dupes": 1
+      }
+    },
+    {
+      "id": "dup10",
+      "cat": "gacha",
+      "icon": "🔁",
+      "name": "Collectionneur de doubles",
+      "desc": "Avoir 10 doublons (Cocottes et décors).",
+      "cond": {
+        "dupes": 10
+      }
+    },
+    {
+      "id": "dup25",
+      "cat": "gacha",
+      "icon": "🔁",
+      "name": "Pile de doublons",
+      "desc": "Avoir 25 doublons (Cocottes et décors).",
+      "cond": {
+        "dupes": 25
+      }
+    },
+    {
+      "id": "dup50",
+      "cat": "gacha",
+      "icon": "🔁",
+      "name": "Usine à doublons",
+      "desc": "Avoir 50 doublons (Cocottes et décors).",
+      "cond": {
+        "dupes": 50
+      }
+    },
+    {
+      "id": "dup100",
+      "cat": "gacha",
+      "icon": "🔁",
+      "name": "Cent fois la même",
+      "desc": "Avoir 100 doublons (Cocottes et décors).",
+      "cond": {
+        "dupes": 100
+      }
+    },
+    {
+      "id": "dup250",
+      "cat": "gacha",
+      "icon": "🔁",
+      "name": "Marée de doublons",
+      "desc": "Avoir 250 doublons (Cocottes et décors).",
+      "cond": {
+        "dupes": 250
+      }
+    },
+    {
+      "id": "dup500",
+      "cat": "gacha",
+      "icon": "🔁",
+      "name": "Doublons à l'infini",
+      "desc": "Avoir 500 doublons (Cocottes et décors).",
+      "cond": {
+        "dupes": 500
+      }
+    },
+    {
+      "id": "dupmax10",
+      "cat": "gacha",
+      "icon": "🔟",
+      "name": "Dix fois la même",
+      "desc": "Avoir 10 exemplaires d'une même Cocotte ou d'un même décor.",
+      "cond": {
+        "dupMax": 10
+      }
+    },
+    {
+      "id": "habitue-bubbles",
+      "cat": "mini",
+      "icon": "🫧",
+      "name": "Habitué : Bulles de savon",
+      "desc": "Jouer 10 fois à « Bulles de savon ».",
+      "cond": {
+        "play_bubbles": 10
+      }
+    },
+    {
+      "id": "habitue-catcher",
+      "cat": "mini",
+      "icon": "🧺",
+      "name": "Habitué : Attrape-tout",
+      "desc": "Jouer 10 fois à « Attrape-tout ».",
+      "cond": {
+        "play_catcher": 10
+      }
+    },
+    {
+      "id": "habitue-memory",
+      "cat": "mini",
+      "icon": "🃏",
+      "name": "Habitué : Memory des machines",
+      "desc": "Jouer 10 fois à « Memory des machines ».",
+      "cond": {
+        "play_memory": 10
+      }
+    },
+    {
+      "id": "habitue-match3",
+      "cat": "mini",
+      "icon": "🧩",
+      "name": "Habitué : Fab'Match",
+      "desc": "Jouer 10 fois à « Fab'Match ».",
+      "cond": {
+        "play_match3": 10
+      }
+    },
+    {
+      "id": "habitue-bugs",
+      "cat": "mini",
+      "icon": "🐞",
+      "name": "Habitué : Chasse aux bugs",
+      "desc": "Jouer 10 fois à « Chasse aux bugs ».",
+      "cond": {
+        "play_bugs": 10
+      }
+    },
+    {
+      "id": "habitue-simon",
+      "cat": "mini",
+      "icon": "🎹",
+      "name": "Habitué : Séquence",
+      "desc": "Jouer 10 fois à « Séquence ».",
+      "cond": {
+        "play_simon": 10
+      }
+    },
+    {
+      "id": "habitue-puzzle",
+      "cat": "mini",
+      "icon": "🖼️",
+      "name": "Habitué : Puzzle",
+      "desc": "Jouer 10 fois à « Puzzle ».",
+      "cond": {
+        "play_puzzle": 10
+      }
+    },
+    {
+      "id": "habitue-recycle",
+      "cat": "mini",
+      "icon": "♻️",
+      "name": "Habitué : La Recyclerie",
+      "desc": "Jouer 10 fois à « La Recyclerie ».",
+      "cond": {
+        "play_recycle": 10
+      }
+    },
+    {
+      "id": "habitue-laser",
+      "cat": "mini",
+      "icon": "🔥",
+      "name": "Habitué : Découpe laser",
+      "desc": "Jouer 10 fois à « Découpe laser ».",
+      "cond": {
+        "play_laser": 10
+      }
+    },
+    {
+      "id": "allgames",
+      "cat": "mini",
+      "icon": "🎮",
+      "name": "Touche-à-tout",
+      "desc": "Jouer au moins une fois aux 9 mini-jeux.",
+      "cond": {
+        "gamesTried": 9
+      }
+    },
+    {
+      "id": "perf25",
+      "cat": "mini",
+      "icon": "🌟",
+      "name": "Orfèvre du mini-jeu",
+      "desc": "Réussir 25 mini-jeux avec 3 étoiles.",
+      "cond": {
+        "perfect": 25
+      }
+    },
+    {
+      "id": "rec10",
+      "cat": "mini",
+      "icon": "📈",
+      "name": "Briseur de records",
+      "desc": "Battre 10 records de mini-jeu.",
+      "cond": {
+        "records": 10
+      }
+    },
+    {
+      "id": "plays250",
+      "cat": "mini",
+      "icon": "🕹️",
+      "name": "Pilier de la salle de jeux",
+      "desc": "Terminer 250 mini-jeux.",
+      "cond": {
+        "plays": 250
+      }
+    },
+    {
+      "id": "weekly1",
+      "cat": "online",
+      "icon": "🎯",
+      "name": "Défi relevé",
+      "desc": "Récupérer la récompense d'un défi de la semaine.",
+      "cond": {
+        "weeklyClaimed": 1
+      }
+    },
+    {
+      "id": "weekly5",
+      "cat": "online",
+      "icon": "🎯",
+      "name": "Habitué des défis",
+      "desc": "Récupérer 5 récompenses de défis de la semaine.",
+      "cond": {
+        "weeklyClaimed": 5
+      }
+    },
+    {
+      "id": "team",
+      "cat": "online",
+      "icon": "🛡️",
+      "name": "Esprit d'équipe",
+      "desc": "Rejoindre une équipe.",
+      "cond": {
+        "team": 1
+      }
+    },
+    {
+      "id": "gift1",
+      "cat": "online",
+      "icon": "🎁",
+      "name": "Petit cadeau",
+      "desc": "Offrir des cristaux à un ami.",
+      "cond": {
+        "giftsSent": 1
+      }
+    },
+    {
+      "id": "gift10",
+      "cat": "online",
+      "icon": "🎁",
+      "name": "Cœur sur la main",
+      "desc": "Offrir 10 cadeaux.",
+      "cond": {
+        "giftsSent": 10
+      }
+    },
+    {
+      "id": "gallery",
+      "cat": "online",
+      "icon": "🖼️",
+      "name": "Exposition",
+      "desc": "Exposer sa Cocotte dans la galerie.",
+      "cond": {
+        "galleryShared": 1
+      }
+    },
+    {
+      "id": "likes10",
+      "cat": "online",
+      "icon": "❤️",
+      "name": "Fan club",
+      "desc": "Liker 10 Cocottes dans la galerie.",
+      "cond": {
+        "likes": 10
+      }
+    },
+    {
+      "id": "boss1",
+      "cat": "online",
+      "icon": "👾",
+      "name": "Chasseur de bugs géants",
+      "desc": "Vaincre un boss collectif.",
+      "cond": {
+        "bossWins": 1
+      }
+    },
+    {
+      "id": "boss5",
+      "cat": "online",
+      "icon": "👾",
+      "name": "Terreur des méga-bugs",
+      "desc": "Vaincre 5 boss collectifs.",
+      "cond": {
+        "bossWins": 5
+      }
+    },
+    {
+      "id": "hunt1",
+      "cat": "online",
+      "icon": "🗺️",
+      "name": "Première balise",
+      "desc": "Trouver une balise de chasse au trésor.",
+      "cond": {
+        "huntFinds": 1
+      }
+    },
+    {
+      "id": "hunt10",
+      "cat": "online",
+      "icon": "🗺️",
+      "name": "Pisteur",
+      "desc": "Trouver 10 balises de chasse au trésor.",
+      "cond": {
+        "huntFinds": 10
+      }
+    },
+    {
+      "id": "huntall",
+      "cat": "online",
+      "icon": "🏴‍☠️",
+      "name": "Trésor trouvé",
+      "desc": "Trouver toutes les balises d'une chasse.",
+      "cond": {
+        "huntComplete": 1
+      }
+    },
+    {
+      "id": "era5",
+      "cat": "era",
+      "icon": "🛰️",
+      "name": "Grand Réseau",
+      "desc": "Atteindre l'ère 5 : Grand Réseau.",
+      "cond": {
+        "era": 5
+      }
+    },
+    {
+      "id": "prod1e18",
+      "cat": "prod",
+      "icon": "🌌",
+      "name": "Trésor régional",
+      "desc": "Produire 1 trillion de Co'Coins.",
+      "cond": {
+        "earned": 1e+18
+      }
+    },
+    {
+      "id": "prod1e21",
+      "cat": "prod",
+      "icon": "🌌",
+      "name": "Fortune des tiers-lieux",
+      "desc": "Produire 1 trilliard de Co'Coins.",
+      "cond": {
+        "earned": 1e+21
+      }
+    },
+    {
+      "id": "prod1e24",
+      "cat": "prod",
+      "icon": "🌌",
+      "name": "Au-delà des étoiles",
+      "desc": "Produire 1 quadrillion de Co'Coins.",
+      "cond": {
+        "earned": 1e+24
+      }
+    },
+    {
+      "id": "cps1e15",
+      "cat": "cps",
+      "icon": "⚡",
+      "name": "Turbine régionale",
+      "desc": "Produire 1 billiard de Co'Coins par seconde.",
+      "cond": {
+        "cps": 1000000000000000.0
+      }
+    },
+    {
+      "id": "cps1e18",
+      "cat": "cps",
+      "icon": "⚡",
+      "name": "Fusion créative",
+      "desc": "Produire 1 trillion de Co'Coins par seconde.",
+      "cond": {
+        "cps": 1e+18
+      }
+    },
+    {
+      "id": "clic100k",
+      "cat": "clic",
+      "icon": "🦾",
+      "name": "Clic légendaire",
+      "desc": "Cliquer 100 000 fois.",
+      "cond": {
+        "clicks": 100000
+      }
+    },
+    {
+      "id": "gold250",
+      "cat": "special",
+      "icon": "🌟",
+      "name": "Midas de l'atelier",
+      "desc": "Attraper 250 Cocottes dorées.",
+      "cond": {
+        "golden": 250
+      }
+    },
+    {
+      "id": "miss50",
+      "cat": "special",
+      "icon": "🎯",
+      "name": "Missionnaire",
+      "desc": "Réussir 50 missions du jour.",
+      "cond": {
+        "missions": 50
+      }
+    },
+    {
+      "id": "miss100",
+      "cat": "special",
+      "icon": "🎯",
+      "name": "Agent très spécial",
+      "desc": "Réussir 100 missions du jour.",
+      "cond": {
+        "missions": 100
+      }
+    },
+    {
+      "id": "miss250",
+      "cat": "special",
+      "icon": "🎯",
+      "name": "Agent du mois",
+      "desc": "Réussir 250 missions du jour.",
+      "cond": {
+        "missions": 250
+      }
+    },
+    {
+      "id": "week1",
+      "cat": "special",
+      "icon": "📆",
+      "name": "Semaine réussie",
+      "desc": "Réussir une mission de la semaine.",
+      "cond": {
+        "weekly": 1
+      }
+    },
+    {
+      "id": "week10",
+      "cat": "special",
+      "icon": "📆",
+      "name": "Régularité",
+      "desc": "Réussir 10 missions de la semaine.",
+      "cond": {
+        "weekly": 10
+      }
+    },
+    {
+      "id": "skins40",
+      "cat": "gacha",
+      "icon": "🍲",
+      "name": "Grande collection",
+      "desc": "Obtenir 40 Cocottes différentes.",
+      "cond": {
+        "skins": 40
+      }
+    },
+    {
+      "id": "s-minuit",
+      "cat": "secret",
+      "icon": "🌙",
+      "name": "Clic de minuit",
+      "desc": "Cliquer sur la Cocotte entre minuit et 1 h du matin.",
+      "cond": {
+        "flag_minuit": 1
+      },
+      "hidden": true
+    },
+    {
+      "id": "s-nuit",
+      "cat": "secret",
+      "icon": "🦉",
+      "name": "Oiseau de nuit",
+      "desc": "Terminer un mini-jeu entre 2 h et 5 h du matin.",
+      "cond": {
+        "flag_nuit": 1
+      },
+      "hidden": true
+    },
+    {
+      "id": "s-rafale",
+      "cat": "secret",
+      "icon": "⚡",
+      "name": "Rafale",
+      "desc": "Cliquer 15 fois en moins de 2 secondes.",
+      "cond": {
+        "flag_rafale": 1
+      },
+      "hidden": true
+    },
+    {
+      "id": "s-sombre",
+      "cat": "secret",
+      "icon": "🌑",
+      "name": "Du côté obscur",
+      "desc": "Activer le mode sombre.",
+      "cond": {
+        "flag_sombre": 1
+      },
+      "hidden": true
+    },
+    {
+      "id": "s-musique",
+      "cat": "secret",
+      "icon": "🎹",
+      "name": "Mélomane",
+      "desc": "Écouter la piste « Atelier Musique ».",
+      "cond": {
+        "flag_musique": 1
+      },
+      "hidden": true
+    },
+    {
+      "id": "s-partage",
+      "cat": "secret",
+      "icon": "📤",
+      "name": "Ambassadeur",
+      "desc": "Ouvrir l'onglet Partager.",
+      "cond": {
+        "flag_partage": 1
+      },
+      "hidden": true
+    },
+    {
+      "id": "s-maj",
+      "cat": "secret",
+      "icon": "🆕",
+      "name": "Curieux",
+      "desc": "Lire les nouveautés de l'onglet Maj.",
+      "cond": {
+        "flag_maj": 1
+      },
+      "hidden": true
+    },
+    {
+      "id": "s-glitch",
+      "cat": "secret",
+      "icon": "👾",
+      "name": "Bug assumé",
+      "desc": "Équiper la Cocotte glitchée.",
+      "cond": {
+        "flag_glitch": 1
+      },
+      "hidden": true
+    },
+    {
+      "id": "s-retour",
+      "cat": "secret",
+      "icon": "🍲",
+      "name": "Retour aux sources",
+      "desc": "Rééquiper la Cocotte classique après en avoir obtenu 20.",
+      "cond": {
+        "flag_retour": 1
+      },
+      "hidden": true
+    },
+    {
+      "id": "s-tri",
+      "cat": "secret",
+      "icon": "♻️",
+      "name": "Tri parfait",
+      "desc": "Finir une partie de Recyclerie sans aucune erreur (15 objets au moins).",
+      "cond": {
+        "flag_triparfait": 1
+      },
+      "hidden": true
     }
   ]
 }

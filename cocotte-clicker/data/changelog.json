@@ -2,6 +2,24 @@
   "_doc": "Onglet « Maj » du jeu : la plus récente en premier. id unique (sert au point « nouveau »), date AAAA-MM-JJ, titre, liste de lignes (emoji en début de ligne).",
   "updates": [
     {
+      "id": "2026-11-13b",
+      "date": "2026-11-13",
+      "title": "Atelier en folie : la grosse mise à jour !",
+      "items": [
+        "🪵 Nouvelle ressource : les matériaux (bois, filament, composants, batteries), à récupérer en cliquant, avec les Cocottes dorées, les mini-jeux, les missions, le bonus du jour et les QR de l'équipe.",
+        "🛠️ Établi de fabrication : 21 recettes pour fabriquer des bonus, des cristaux, des impressions offertes… et 6 Cocottes exclusives, introuvables dans les imprimantes.",
+        "📋 Tableau des commandes : les habitants du Vermandois passent commande. Livrez-les pour gagner des cristaux et de la réputation (+1 % de production par niveau).",
+        "📌 Projets de La Co'Cotte : 24 projets au lieu de 4 (Repair Café, Jardin partagé, Pixel Art, découpe laser…), et +5 % de production tous les 5 projets réalisés.",
+        "♻️ 2 nouveaux mini-jeux : La Recyclerie (le tri des déchets, pour les enfants) et la Découpe laser.",
+        "🎯 Missions : 25 types de missions du jour, et 3 missions de la semaine avec de grosses récompenses.",
+        "🌟 Cocottes dorées : pluie de matériaux, main de maître et géode de cristaux.",
+        "🏆 265 succès (au lieu de 169), dont 10 succès secrets, et des cristaux offerts à 25, 50, 100, 150, 200 et 250 succès.",
+        "🛰️ Ère 5 « Grand Réseau » avec 4 nouveaux bâtiments : Radio Co'Cotte, Fab'Bus, Campus des makers et Constellation des tiers-lieux.",
+        "📊 Onglet Production : le détail de tous vos bonus.",
+        "🖼️ Correction : le bouton « Exposer ma Cocotte » de la galerie fonctionne de nouveau."
+      ]
+    },
+    {
       "id": "2026-11-13a",
       "date": "2026-11-13",
       "title": "Les doublons comptent !",

@@ -1,5 +1,5 @@
 {
-  "_doc": "Missions du jour : 3 tirées au hasard chaque jour (une facile, une moyenne, une difficile). n = objectif par difficulté, reward = cristaux par difficulté. stat : clicks, plays, stars, bought, upgBought, golden, tips, quizOk, infos, pulls. allBonus = cristaux en plus si les 3 sont faites.",
+  "_doc": "Missions du jour : 3 tirées au hasard chaque jour (facile, moyenne, difficile). n = objectif par difficulté, reward = cristaux. weekly : missions de la semaine (3 tirées chaque lundi). stat : clicks, plays, stars, bought, upgBought, golden, tips, quizOk, infos, pulls, bgPulls, matsGot, batGot, crafted, orders, dupes, perfect, records, equips, rep, missions, play_<jeu>. allBonus = cristaux si les 3 sont faites.",
   "allBonus": 30,
   "missions": [
     {
@@ -160,6 +160,408 @@
         10,
         15,
         25
+      ]
+    },
+    {
+      "id": "mats",
+      "icon": "🪵",
+      "text": "Récolter {n} matériaux",
+      "stat": "matsGot",
+      "n": [
+        3,
+        8,
+        15
+      ],
+      "reward": [
+        15,
+        25,
+        40
+      ]
+    },
+    {
+      "id": "batteries",
+      "icon": "🔋",
+      "text": "Récolter {n} batterie(s)",
+      "stat": "batGot",
+      "n": [
+        1,
+        2,
+        3
+      ],
+      "reward": [
+        20,
+        30,
+        45
+      ]
+    },
+    {
+      "id": "craft",
+      "icon": "🛠️",
+      "text": "Fabriquer {n} objet(s) à l'Établi",
+      "stat": "crafted",
+      "n": [
+        1,
+        2,
+        4
+      ],
+      "reward": [
+        15,
+        25,
+        40
+      ]
+    },
+    {
+      "id": "orders",
+      "icon": "📋",
+      "text": "Livrer {n} commande(s)",
+      "stat": "orders",
+      "n": [
+        1,
+        1,
+        2
+      ],
+      "reward": [
+        20,
+        30,
+        45
+      ]
+    },
+    {
+      "id": "dupes",
+      "icon": "🔁",
+      "text": "Obtenir {n} doublon(s)",
+      "stat": "dupes",
+      "n": [
+        1,
+        2,
+        4
+      ],
+      "reward": [
+        10,
+        20,
+        30
+      ]
+    },
+    {
+      "id": "perfect",
+      "icon": "🌟",
+      "text": "Réussir {n} mini-jeu(x) avec 3 étoiles",
+      "stat": "perfect",
+      "n": [
+        1,
+        1,
+        2
+      ],
+      "reward": [
+        20,
+        25,
+        40
+      ]
+    },
+    {
+      "id": "records",
+      "icon": "📈",
+      "text": "Battre {n} record(s) de mini-jeu",
+      "stat": "records",
+      "n": [
+        1,
+        1,
+        2
+      ],
+      "reward": [
+        15,
+        25,
+        40
+      ]
+    },
+    {
+      "id": "equips",
+      "icon": "👗",
+      "text": "Changer {n} fois de Cocotte ou de décor",
+      "stat": "equips",
+      "n": [
+        1,
+        2,
+        3
+      ],
+      "reward": [
+        10,
+        15,
+        20
+      ]
+    },
+    {
+      "id": "bgpulls",
+      "icon": "🖼️",
+      "text": "Lancer {n} impression(s) de décor",
+      "stat": "bgPulls",
+      "n": [
+        1,
+        2,
+        4
+      ],
+      "reward": [
+        10,
+        15,
+        25
+      ]
+    },
+    {
+      "id": "play-recycle",
+      "icon": "♻️",
+      "text": "Jouer {n} fois à la Recyclerie",
+      "stat": "play_recycle",
+      "n": [
+        1,
+        2,
+        3
+      ],
+      "reward": [
+        15,
+        20,
+        30
+      ]
+    },
+    {
+      "id": "play-laser",
+      "icon": "🔥",
+      "text": "Jouer {n} fois à la Découpe laser",
+      "stat": "play_laser",
+      "n": [
+        1,
+        2,
+        3
+      ],
+      "reward": [
+        15,
+        20,
+        30
+      ]
+    },
+    {
+      "id": "play-match3",
+      "icon": "🧩",
+      "text": "Jouer {n} fois au Fab'Match",
+      "stat": "play_match3",
+      "n": [
+        1,
+        2,
+        3
+      ],
+      "reward": [
+        15,
+        20,
+        30
+      ]
+    },
+    {
+      "id": "play-memory",
+      "icon": "🃏",
+      "text": "Jouer {n} fois au Memory",
+      "stat": "play_memory",
+      "n": [
+        1,
+        2,
+        3
+      ],
+      "reward": [
+        15,
+        20,
+        30
+      ]
+    },
+    {
+      "id": "play-bubbles",
+      "icon": "🫧",
+      "text": "Jouer {n} fois aux Bulles de savon",
+      "stat": "play_bubbles",
+      "n": [
+        1,
+        2,
+        3
+      ],
+      "reward": [
+        15,
+        20,
+        30
+      ]
+    },
+    {
+      "id": "rep",
+      "icon": "🤝",
+      "text": "Gagner {n} point(s) de réputation",
+      "stat": "rep",
+      "n": [
+        1,
+        3,
+        5
+      ],
+      "reward": [
+        15,
+        25,
+        40
+      ]
+    }
+  ],
+  "weekly": [
+    {
+      "id": "w-clicks",
+      "icon": "👆",
+      "text": "Cliquer {n} fois sur la Cocotte",
+      "stat": "clicks",
+      "n": [
+        3000,
+        6000,
+        10000
+      ],
+      "reward": [
+        60,
+        90,
+        130
+      ]
+    },
+    {
+      "id": "w-games",
+      "icon": "🎮",
+      "text": "Terminer {n} mini-jeux",
+      "stat": "plays",
+      "n": [
+        10,
+        20,
+        35
+      ],
+      "reward": [
+        60,
+        90,
+        130
+      ]
+    },
+    {
+      "id": "w-stars",
+      "icon": "⭐",
+      "text": "Gagner {n} étoiles en mini-jeux",
+      "stat": "stars",
+      "n": [
+        20,
+        40,
+        70
+      ],
+      "reward": [
+        60,
+        90,
+        130
+      ]
+    },
+    {
+      "id": "w-mats",
+      "icon": "🪵",
+      "text": "Récolter {n} matériaux",
+      "stat": "matsGot",
+      "n": [
+        30,
+        60,
+        100
+      ],
+      "reward": [
+        60,
+        90,
+        130
+      ]
+    },
+    {
+      "id": "w-craft",
+      "icon": "🛠️",
+      "text": "Fabriquer {n} objets à l'Établi",
+      "stat": "crafted",
+      "n": [
+        5,
+        10,
+        18
+      ],
+      "reward": [
+        60,
+        90,
+        130
+      ]
+    },
+    {
+      "id": "w-orders",
+      "icon": "📋",
+      "text": "Livrer {n} commandes",
+      "stat": "orders",
+      "n": [
+        4,
+        8,
+        14
+      ],
+      "reward": [
+        70,
+        100,
+        150
+      ]
+    },
+    {
+      "id": "w-golden",
+      "icon": "🌟",
+      "text": "Attraper {n} Cocottes dorées",
+      "stat": "golden",
+      "n": [
+        8,
+        15,
+        25
+      ],
+      "reward": [
+        60,
+        90,
+        130
+      ]
+    },
+    {
+      "id": "w-missions",
+      "icon": "🎯",
+      "text": "Réussir {n} missions du jour",
+      "stat": "missions",
+      "n": [
+        9,
+        15,
+        21
+      ],
+      "reward": [
+        70,
+        100,
+        150
+      ]
+    },
+    {
+      "id": "w-pulls",
+      "icon": "🎁",
+      "text": "Lancer {n} impressions mystère",
+      "stat": "pulls",
+      "n": [
+        10,
+        20,
+        35
+      ],
+      "reward": [
+        60,
+        90,
+        130
+      ]
+    },
+    {
+      "id": "w-build",
+      "icon": "🏗️",
+      "text": "Acheter {n} bâtiments",
+      "stat": "bought",
+      "n": [
+        100,
+        200,
+        400
+      ],
+      "reward": [
+        60,
+        90,
+        130
       ]
     }
   ]

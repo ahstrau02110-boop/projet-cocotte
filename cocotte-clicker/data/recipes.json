@@ -1,0 +1,335 @@
+{
+  "_doc": "Établi de fabrication. cost : matériaux (bois, filament, composants, batteries). era = ère minimale. result : buff (cps/click ×, min), crystals (n), skin (id), golden (fait apparaître une Cocotte dorée), mats (matériaux), coinsSec (secondes de production), pull (impression mystère gratuite : cocotte | decor).",
+  "recipes": [
+    {
+      "id": "cafe",
+      "icon": "☕",
+      "name": "Café des bénévoles",
+      "era": 1,
+      "cost": {
+        "bois": 2,
+        "filament": 1
+      },
+      "result": {
+        "type": "buff",
+        "cps": 2,
+        "min": 10
+      },
+      "desc": "Production ×2 pendant 10 min."
+    },
+    {
+      "id": "gants",
+      "icon": "🧤",
+      "name": "Gants renforcés",
+      "era": 1,
+      "cost": {
+        "bois": 3,
+        "composants": 1
+      },
+      "result": {
+        "type": "buff",
+        "click": 5,
+        "min": 10
+      },
+      "desc": "Clics ×5 pendant 10 min."
+    },
+    {
+      "id": "coffre",
+      "icon": "🪙",
+      "name": "Tirelire en bois",
+      "era": 1,
+      "cost": {
+        "bois": 5,
+        "composants": 2
+      },
+      "result": {
+        "type": "coinsSec",
+        "sec": 900
+      },
+      "desc": "Gagnez tout de suite 15 min de production."
+    },
+    {
+      "id": "polish",
+      "icon": "💎",
+      "name": "Polissage de cristal",
+      "era": 1,
+      "cost": {
+        "bois": 4,
+        "filament": 2
+      },
+      "result": {
+        "type": "crystals",
+        "n": 20
+      },
+      "desc": "+20 cristaux."
+    },
+    {
+      "id": "appeau",
+      "icon": "🌟",
+      "name": "Appeau doré",
+      "era": 1,
+      "cost": {
+        "filament": 2,
+        "composants": 2
+      },
+      "result": {
+        "type": "golden"
+      },
+      "desc": "Fait apparaître une Cocotte dorée."
+    },
+    {
+      "id": "tri",
+      "icon": "♻️",
+      "name": "Tri des chutes",
+      "era": 1,
+      "cost": {
+        "bois": 6
+      },
+      "result": {
+        "type": "mats",
+        "mats": {
+          "filament": 2,
+          "composants": 1
+        }
+      },
+      "desc": "6 bois → 2 filaments + 1 composant."
+    },
+    {
+      "id": "pile",
+      "icon": "🔋",
+      "name": "Pile maison",
+      "era": 1,
+      "cost": {
+        "composants": 4,
+        "filament": 2
+      },
+      "result": {
+        "type": "mats",
+        "mats": {
+          "batteries": 1
+        }
+      },
+      "desc": "Fabrique 1 batterie."
+    },
+    {
+      "id": "bon",
+      "icon": "🎫",
+      "name": "Bon d'impression",
+      "era": 2,
+      "cost": {
+        "filament": 4,
+        "composants": 2
+      },
+      "result": {
+        "type": "pull",
+        "machine": "cocotte"
+      },
+      "desc": "Une impression mystère de Cocotte offerte."
+    },
+    {
+      "id": "bondecor",
+      "icon": "🖼️",
+      "name": "Bon d'impression décor",
+      "era": 2,
+      "cost": {
+        "bois": 4,
+        "filament": 3
+      },
+      "result": {
+        "type": "pull",
+        "machine": "decor"
+      },
+      "desc": "Une impression mystère de décor offerte."
+    },
+    {
+      "id": "veilleuse",
+      "icon": "🌙",
+      "name": "Veilleuse d'atelier",
+      "era": 2,
+      "cost": {
+        "composants": 2,
+        "batteries": 1
+      },
+      "result": {
+        "type": "buff",
+        "cps": 3,
+        "min": 20
+      },
+      "desc": "Production ×3 pendant 20 min."
+    },
+    {
+      "id": "turbo",
+      "icon": "🚀",
+      "name": "Turbo-imprimante",
+      "era": 2,
+      "cost": {
+        "filament": 4,
+        "composants": 2,
+        "batteries": 1
+      },
+      "result": {
+        "type": "buff",
+        "cps": 5,
+        "click": 10,
+        "min": 5
+      },
+      "desc": "Production ×5 et clics ×10 pendant 5 min."
+    },
+    {
+      "id": "geode",
+      "icon": "🔮",
+      "name": "Géode imprimée",
+      "era": 2,
+      "cost": {
+        "filament": 5,
+        "composants": 3
+      },
+      "result": {
+        "type": "crystals",
+        "n": 50
+      },
+      "desc": "+50 cristaux."
+    },
+    {
+      "id": "kit",
+      "icon": "🧰",
+      "name": "Kit atelier longue durée",
+      "era": 3,
+      "cost": {
+        "bois": 3,
+        "filament": 3,
+        "composants": 3,
+        "batteries": 2
+      },
+      "result": {
+        "type": "buff",
+        "cps": 2,
+        "min": 120
+      },
+      "desc": "Production ×2 pendant 2 h."
+    },
+    {
+      "id": "cristalled",
+      "icon": "💠",
+      "name": "Cristal LED",
+      "era": 3,
+      "cost": {
+        "composants": 4,
+        "batteries": 3
+      },
+      "result": {
+        "type": "crystals",
+        "n": 110
+      },
+      "desc": "+110 cristaux."
+    },
+    {
+      "id": "temps",
+      "icon": "⏳",
+      "name": "Machine à remonter le temps",
+      "era": 4,
+      "cost": {
+        "composants": 6,
+        "batteries": 4
+      },
+      "result": {
+        "type": "coinsSec",
+        "sec": 3600
+      },
+      "desc": "Gagnez tout de suite 1 h de production."
+    },
+    {
+      "id": "skin-bois",
+      "icon": "🪵",
+      "name": "Cocotte en bois",
+      "era": 1,
+      "cost": {
+        "bois": 15,
+        "composants": 5
+      },
+      "result": {
+        "type": "skin",
+        "id": "f-bois"
+      },
+      "desc": "Une Cocotte exclusive, introuvable dans les imprimantes."
+    },
+    {
+      "id": "skin-arcenciel",
+      "icon": "🌈",
+      "name": "Cocotte arc-en-ciel",
+      "era": 2,
+      "cost": {
+        "filament": 20,
+        "bois": 5
+      },
+      "result": {
+        "type": "skin",
+        "id": "f-arcenciel"
+      },
+      "desc": "Une Cocotte exclusive, introuvable dans les imprimantes."
+    },
+    {
+      "id": "skin-circuit",
+      "icon": "🔌",
+      "name": "Cocotte circuit",
+      "era": 2,
+      "cost": {
+        "composants": 15,
+        "batteries": 5
+      },
+      "result": {
+        "type": "skin",
+        "id": "f-circuit"
+      },
+      "desc": "Une Cocotte exclusive, introuvable dans les imprimantes."
+    },
+    {
+      "id": "skin-led",
+      "icon": "💡",
+      "name": "Cocotte LED",
+      "era": 3,
+      "cost": {
+        "batteries": 10,
+        "composants": 10
+      },
+      "result": {
+        "type": "skin",
+        "id": "f-led"
+      },
+      "desc": "Une Cocotte exclusive, introuvable dans les imprimantes."
+    },
+    {
+      "id": "skin-recyclee",
+      "icon": "♻️",
+      "name": "Cocotte recyclée",
+      "era": 3,
+      "cost": {
+        "bois": 12,
+        "filament": 12,
+        "composants": 12
+      },
+      "result": {
+        "type": "skin",
+        "id": "f-recyclee"
+      },
+      "desc": "Une Cocotte exclusive, introuvable dans les imprimantes."
+    },
+    {
+      "id": "skin-reseau",
+      "icon": "🛰️",
+      "name": "Cocotte Grand Réseau",
+      "era": 4,
+      "cost": {
+        "bois": 20,
+        "filament": 20,
+        "composants": 20,
+        "batteries": 10
+      },
+      "result": {
+        "type": "skin",
+        "id": "f-reseau"
+      },
+      "desc": "Une Cocotte exclusive, introuvable dans les imprimantes."
+    }
+  ]
+}

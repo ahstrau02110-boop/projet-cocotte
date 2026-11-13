@@ -82,10 +82,15 @@
         <p class="per-click">+<span id="click-value">1</span> par clic</p>
       </div>
 
+      <!-- Matériaux récupérés (clic : Établi de fabrication) -->
+      <button type="button" id="mats-bar" class="mats-bar" aria-label="Matériaux : ouvrir l'Établi de fabrication"></button>
+
       <!-- Raccourcis : mini-jeux, gacha, QR -->
       <nav class="actions" aria-label="Activités">
         <button id="btn-games" class="action a-games"><span class="a-ico" aria-hidden="true">🎮</span><span><b>Mini-jeux</b><small>Gagnez des cristaux</small></span></button>
         <button id="btn-gacha" class="action a-gacha"><span class="a-ico" aria-hidden="true">🎁</span><span><b>Imprimantes mystère</b><small>Skins et décors</small></span></button>
+        <button id="btn-craft" class="action a-craft"><span class="a-ico" aria-hidden="true">🛠️</span><span><b>Fabrication</b><small id="craft-mini">Matériaux → objets</small></span></button>
+        <button id="btn-orders" class="action a-orders"><span class="a-ico" aria-hidden="true">📋</span><span><b>Commandes</b><small id="orders-mini">Des habitants comptent sur vous</small></span></button>
         <button id="btn-ach" class="action a-ach"><span class="a-ico" aria-hidden="true">🏆</span><span><b>Succès</b><small id="ach-mini">Badges et bonus</small></span></button>
         <button id="btn-events" class="action a-events"><span class="a-ico" aria-hidden="true">🎉</span><span><b>Événements</b><small id="ev-mini">Objets exclusifs</small></span></button>
         <button id="btn-boost" class="action a-boost"><span class="a-ico" aria-hidden="true">⚡</span><span><b>Boosts</b><small id="boost-mini">Le saviez-vous, quiz</small></span></button>
@@ -93,6 +98,7 @@
         <button id="btn-scan" class="action a-scan"><span class="a-ico" aria-hidden="true">📷</span><span><b>Scanner</b><small>QR de récompense</small></span></button>
         <button id="btn-myqr" class="action a-qr"><span class="a-ico" aria-hidden="true">📱</span><span><b>Mon QR code</b><small>Cristaux à La Co'Cotte</small></span></button>
         <button id="btn-share" class="action a-share"><span class="a-ico" aria-hidden="true">📤</span><span><b>Partager</b><small>Invitez vos proches</small></span></button>
+        <button id="btn-stats" class="action a-stats"><span class="a-ico" aria-hidden="true">📊</span><span><b>Production</b><small>Détail des bonus</small></span></button>
       </nav>
 
       <!-- Progression des ères -->
@@ -109,7 +115,11 @@
       </div>
       <!-- Missions du jour -->
       <section class="missions-card" aria-labelledby="missions-title">
-        <h3 id="missions-title">🎯 Missions du jour <span id="missions-count" class="small"></span></h3>
+        <h3 id="missions-title" class="missions-head">🎯 Missions <span id="missions-count" class="small"></span>
+          <span class="mtabs" role="tablist" aria-label="Type de missions">
+            <button type="button" role="tab" data-mtab="day" aria-selected="true">Du jour</button>
+            <button type="button" role="tab" data-mtab="week" aria-selected="false">Semaine</button>
+          </span></h3>
         <ul id="missions-list" class="missions"></ul>
       </section>
 
@@ -147,6 +157,7 @@
       <ul id="upgrades" class="upgrades"></ul>
       <div id="projects-wrap" hidden>
         <h3 class="shop-sub">Projets de La Co'Cotte</h3>
+        <p id="projects-progress" class="projects-progress"></p>
         <ul id="projects" class="projects"></ul>
       </div>
       <h3 class="shop-sub">Bâtiments</h3>
@@ -454,6 +465,61 @@
   </dialog>
 
   <!-- QR code du joueur -->
+  <dialog id="dlg-craft" aria-labelledby="craft-title">
+    <div class="dlg">
+      <div class="dlg-head">
+        <h2 id="craft-title" class="tape">🛠️ Établi de fabrication</h2>
+        <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
+      </div>
+      <p class="muted">Transformez vos matériaux en bonus, en cristaux… ou en Cocottes exclusives, introuvables dans les imprimantes. Les matériaux se trouvent en cliquant, avec les Cocottes dorées, les mini-jeux, les missions et les commandes.</p>
+      <div id="craft-stock" class="craft-stock"></div>
+      <div id="craft-list"></div>
+    </div>
+  </dialog>
+
+  <dialog id="dlg-orders" aria-labelledby="orders-title">
+    <div class="dlg">
+      <div class="dlg-head">
+        <h2 id="orders-title" class="tape">📋 Tableau des commandes</h2>
+        <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
+      </div>
+      <p class="muted">Des habitants du Vermandois passent commande à l'atelier. Livrez-les avec vos matériaux et des Co'Coins : cristaux et réputation à la clé. Chaque niveau de réputation donne +1 % de production.</p>
+      <div id="orders-rep" class="orders-rep"></div>
+      <ul id="orders-list" class="orders"></ul>
+      <p id="orders-next" class="muted"></p>
+    </div>
+  </dialog>
+
+  <dialog id="dlg-stats" aria-labelledby="stats-title">
+    <div class="dlg">
+      <div class="dlg-head">
+        <h2 id="stats-title" class="tape">📊 Production</h2>
+        <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
+      </div>
+      <div id="stats-top" class="stats-top"></div>
+      <h3>D'où viennent vos bonus</h3>
+      <ul id="stats-rows" class="stats-rows"></ul>
+      <h3>Statistiques</h3>
+      <ul id="stats-more" class="stats-rows"></ul>
+    </div>
+  </dialog>
+
+  <dialog id="dlg-mats-intro" aria-labelledby="mi-title">
+    <div class="dlg small-dlg">
+      <div class="dlg-head">
+        <h2 id="mi-title" class="tape tape-green">Premier matériau !</h2>
+        <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
+      </div>
+      <p class="mi-intro-ico" aria-hidden="true">🪵 🧵 ⚙️ 🔋</p>
+      <ul class="help-list">
+        <li>Vous venez de récupérer un <b>matériau</b> ! Vos matériaux s'affichent sous la Cocotte.</li>
+        <li>On en trouve en cliquant, avec les Cocottes dorées, les mini-jeux (1 par étoile), les missions et le bonus du jour.</li>
+        <li>Utilisez-les à l'<b>🛠️ Établi</b> (bonus, cristaux, Cocottes exclusives), pour les <b>projets</b> et pour livrer les <b>📋 commandes</b> des habitants.</li>
+      </ul>
+      <form method="dialog" class="row center"><button class="big-btn">C'est compris !</button></form>
+    </div>
+  </dialog>
+
   <dialog id="dlg-maj" aria-labelledby="maj-title">
     <div class="dlg">
       <div class="dlg-head">

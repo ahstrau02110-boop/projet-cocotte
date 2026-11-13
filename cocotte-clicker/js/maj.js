@@ -22,6 +22,7 @@ export function openMaj() {
   }).join('') : '<li class="muted">Impossible de charger les nouveautés.</li>';
   if (updates.length) localStorage.setItem(SEEN, updates[0].id);
   renderDot();
+  import('./state.js').then(m => { m.state.flags.maj = 1; });
   $('#dlg-maj').showModal();
 }
 

@@ -5,6 +5,7 @@ import { skinSVG } from './skins.js';
 import { fmt } from './format.js';
 import { sfx } from './audio.js';
 import { save } from './save.js';
+import { addMats, randomMats, matsText } from './materials.js';
 
 const cfg = () => DATA.config.golden || {};
 let timer = null, el = null, img = '';
@@ -16,8 +17,11 @@ function nextDelay() {
 }
 function schedule() { clearTimeout(timer); timer = setTimeout(spawn, nextDelay()); }
 
-function spawn() {
-  if (document.hidden || el) return schedule();
+// Apparition immédiate (recette « Appeau doré »)
+export function spawnGolden() { if (el) return; clearTimeout(timer); spawn(true); }
+
+function spawn(force = false) {
+  if ((document.hidden && !force) || el) return schedule();
   img ||= 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(skinSVG({ gradient: ['#fff6c2', '#FCD260', '#d9a400'], eyes: 'star', accessory: 'crown' }));
   el = document.createElement('button');
   el.className = 'golden';
@@ -48,24 +52,36 @@ function catchIt() {
   state.golden++;
   const r = Math.random() * 100, cp = cfg().crystalChancePct ?? 3;
   let msg;
+  // Tirage : pépite de cristal, géode, pluie de matériaux, main de maître, inspiration, coup de main, portes ouvertes, jackpot, coup de feu
   if (r < cp) {
     const g = cfg().crystalGain ?? 4;
     addCrystals(g);
     msg = `Pépite de cristal : +${g} 💎`;
-  } else if (r < cp + 10) {
+  } else if (r < cp + 2) {
+    addCrystals(12);
+    msg = 'Géode ! +12 💎';
+  } else if (r < cp + 14) {
+    const [a, b] = DATA.config.materials?.goldenRain || [4, 10];
+    const got = randomMats(a + Math.floor(Math.random() * (b - a + 1)));
+    addMats(got);
+    msg = `Pluie de matériaux ! ${matsText(got)}`;
+  } else if (r < cp + 20) {
+    addBuff({ id: 'maitre', name: 'Main de maître', click: 15, sec: 60 });
+    msg = 'Main de maître ! Clics ×15 pendant 60 s';
+  } else if (r < cp + 28) {
     addBuff({ id: 'inspiration', name: 'Inspiration', click: 77, sec: 13 });
     msg = 'Inspiration ! Clics ×77 pendant 13 s';
-  } else if (r < cp + 20) {
+  } else if (r < cp + 36) {
     // Coup de main : des bénévoles offrent 1 à 3 bâtiments déjà débloqués
     const ownedB = DATA.buildings.filter(b => b.era <= currentEra().id && state.buildings[b.id] > 0);
     const pool = ownedB.length ? ownedB : DATA.buildings.slice(0, 1);
     const b = pool[(Math.random() * pool.length) | 0], n = 1 + ((Math.random() * 3) | 0);
     state.buildings[b.id] = (state.buildings[b.id] || 0) + n;
     msg = `Coup de main ! ${n} × ${b.name} offert${n > 1 ? 's' : ''}`;
-  } else if (r < cp + 32) {
+  } else if (r < cp + 46) {
     addBuff({ id: 'portesouvertes', name: 'Portes ouvertes', cps: 3, click: 7, sec: 30 });
     msg = 'Portes ouvertes ! Production ×3 et clics ×7 pendant 30 s';
-  } else if (r < cp + 67) {
+  } else if (r < cp + 76) {
     const gain = Math.min(state.coins * 0.15, totalCps() * 900) + 13;
     earn(gain);
     msg = `Jackpot ! +${fmt(gain)} Co'Coins`;
@@ -104,7 +120,8 @@ export function renderBuffs() {
       el.innerHTML = `🌟 ${b.name} · ${eff} · <b></b>`;
       box.appendChild(el);
     }
-    el.querySelector('b').textContent = Math.ceil((b.until - Date.now()) / 1000) + ' s';
+    const s = Math.ceil((b.until - Date.now()) / 1000);
+    el.querySelector('b').textContent = s >= 3600 ? `${Math.floor(s / 3600)} h ${String(Math.floor(s % 3600 / 60)).padStart(2, '0')}` : s >= 60 ? `${Math.floor(s / 60)} min ${String(s % 60).padStart(2, '0')}` : s + ' s';
   }
 }
 

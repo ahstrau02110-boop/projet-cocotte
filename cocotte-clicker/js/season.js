@@ -4,32 +4,42 @@ import { $, asset, toast, emit, esc } from './core.js';
 import { fmt } from './format.js';
 import { sfx, setTrack, music } from './audio.js';
 import { save } from './save.js';
+import { hasMats, spendMats, matsHTML } from './materials.js';
+import { projMilestonePct } from './state.js';
 
 // ---------- Projets ----------
 const projCost = p => p.cost * (hasTalent('projets') ? 0.75 : 1);
 let projSig = '';
 export function renderProjects() {
   const era = currentEra().id;
-  const list = DATA.projects.filter(p => p.era <= era + 1); // ère suivante visible en aperçu
+  // Ère suivante visible en aperçu ; ordre : à réaliser, puis à venir, puis déjà réalisés
+  const rank = p => (state.projects[p.id] ? 2 : p.era > era ? 1 : 0);
+  const list = DATA.projects.filter(p => p.era <= era + 1).sort((a, b) => rank(a) - rank(b));
   const box = $('#projects');
   // Reconstruction seulement si la liste change ; sinon mise à jour de l'état « achetable »
   const sig = era + '|' + list.map(p => p.id + (state.projects[p.id] ? '1' : '0')).join();
   if (sig === projSig) {
     for (const b of box.querySelectorAll('.proj:not(.done):not(.locked)')) {
       const p = DATA.projects.find(x => x.id === b.dataset.proj);
-      b.classList.toggle('can', state.coins >= projCost(p));
+      b.classList.toggle('can', state.coins >= projCost(p) && hasMats(p.mats));
+      b.querySelectorAll('.mat').forEach(m => m.classList.toggle('miss', (state.mats[m.dataset.k] || 0) < +m.dataset.n));
     }
     return;
   }
   projSig = sig;
   $('#projects-wrap').hidden = !list.length;
+  // Paliers : tous les 5 projets réalisés, +5 % de production
+  const nDone = Object.keys(state.projects).length, every = DATA.config.projects?.milestoneEvery ?? 5;
+  $('#projects-progress').innerHTML = `${nDone}/${DATA.projects.length} réalisés · bonus de paliers <b>+${projMilestonePct()} %</b>`
+    + ` <small>(prochain palier à ${(Math.floor(nDone / every) + 1) * every} projets)</small>`;
   box.innerHTML = list.map(p => {
     const done = !!state.projects[p.id], locked = p.era > era;
-    const can = !done && !locked && state.coins >= projCost(p);
+    const can = !done && !locked && state.coins >= projCost(p) && hasMats(p.mats);
     return `<li><button class="proj${done ? ' done' : ''}${locked ? ' locked' : ''}${can ? ' can' : ''}" data-proj="${p.id}" ${done || locked ? 'aria-disabled="true"' : ''}>
       <span class="proj-ico" aria-hidden="true">${p.icon}</span>
       <span class="proj-txt"><b>${esc(p.name)}</b><small>${esc(p.desc)}</small><em>${esc(p.effectText)}</em></span>
-      <span class="proj-cost">${done ? '✔ Réalisé' : locked ? `Ère ${p.era}` : `<img src="${asset('cocoin')}" alt="">${fmt(projCost(p))}`}</span>
+      <span class="proj-cost">${done ? '✔ Réalisé' : locked ? `Ère ${p.era}` : `<span><img src="${asset('cocoin')}" alt="">${fmt(projCost(p))}</span>`
+        + (p.mats ? `<span class="proj-mats">${Object.entries(p.mats).map(([k, n]) => `<span class="mat${(state.mats[k] || 0) < n ? ' miss' : ''}" data-k="${k}" data-n="${n}">${matsHTML({ [k]: n }).replace(/<[^>]+>/g, '')}</span>`).join(' ')}</span>` : '')}</span>
     </button></li>`;
   }).join('');
 }
@@ -37,9 +47,11 @@ export function renderProjects() {
 function buyProject(id) {
   const p = DATA.projects.find(x => x.id === id);
   if (!p || state.projects[id] || p.era > currentEra().id) return;
-  if (state.coins < projCost(p)) { sfx.deny(); return; }
+  if (state.coins < projCost(p) || !hasMats(p.mats)) { sfx.deny(); if (!hasMats(p.mats)) toast('Il manque des matériaux pour ce projet (🛠️ voir la barre des matériaux).'); return; }
   state.coins -= projCost(p);
+  spendMats(p.mats);
   state.projects[id] = true;
+  state.counters.projBought++;
   sfx.unlock();
   toast(`📌 Projet réalisé : ${p.name} ! ${p.effectText}`, 6000);
   applyMusicUnlocks();

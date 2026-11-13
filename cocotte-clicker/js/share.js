@@ -1,5 +1,5 @@
 // Onglet « Partager » : QR code et lien du jeu pour inviter d'autres joueurs
-import { DATA } from './state.js';
+import { DATA, state } from './state.js';
 import { $, toast } from './core.js';
 import { baseUrl, qrSVG, qrDataURL } from './qr.js';
 
@@ -10,6 +10,7 @@ export function openShare() {
   $('#share-qr').innerHTML = qrSVG(gameUrl(), "QR code du jeu Co'Clicker");
   $('#share-url').textContent = gameUrl();
   $('#btn-share-native').hidden = !navigator.share;
+  state.flags.partage = 1;
   $('#dlg-share').showModal();
 }
 

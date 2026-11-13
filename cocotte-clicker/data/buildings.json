@@ -110,5 +110,37 @@
     "baseCost": 3300000000000000,
     "baseCps": 2900000000,
     "desc": "Les tiers-lieux des Hauts-de-France partagent outils et savoir-faire."
+  },
+  {
+    "id": "radio",
+    "name": "Radio Co'Cotte",
+    "era": 5,
+    "baseCost": 5e+16,
+    "baseCps": 20000000000.0,
+    "desc": "L'émission des makers, en direct du Vermandois."
+  },
+  {
+    "id": "fabbus",
+    "name": "Fab'Bus",
+    "era": 5,
+    "baseCost": 8e+17,
+    "baseCps": 140000000000.0,
+    "desc": "Un FabLab sur roues qui passe dans tous les villages."
+  },
+  {
+    "id": "campus",
+    "name": "Campus des makers",
+    "era": 5,
+    "baseCost": 1.3e+19,
+    "baseCps": 1000000000000.0,
+    "desc": "On y apprend à tout fabriquer, à tout âge."
+  },
+  {
+    "id": "constellation",
+    "name": "Constellation des tiers-lieux",
+    "era": 5,
+    "baseCost": 2.2e+20,
+    "baseCps": 7000000000000.0,
+    "desc": "Des centaines de lieux reliés, une seule grande famille."
   }
 ]

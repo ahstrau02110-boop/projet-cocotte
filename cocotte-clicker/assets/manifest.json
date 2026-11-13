@@ -19,5 +19,9 @@
   "building.partenaires": "assets/img/b-partenaires.svg",
   "building.rayonnement": "assets/img/b-rayonnement.svg",
   "building.festival": "assets/img/b-festival.svg",
-  "building.reseau": "assets/img/b-reseau.svg"
+  "building.reseau": "assets/img/b-reseau.svg",
+  "building.radio": "assets/img/b-radio.svg",
+  "building.fabbus": "assets/img/b-fabbus.svg",
+  "building.campus": "assets/img/b-campus.svg",
+  "building.constellation": "assets/img/b-constellation.svg"
 }

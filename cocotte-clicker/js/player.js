@@ -6,6 +6,7 @@ import { sfx } from './audio.js';
 import { baseUrl, qrSVG, qrDataURL, verifyVoucher } from './qr.js';
 import { startScanner } from './scanner.js';
 import { huntFind } from './community.js';
+import { addMats, randomMats } from './materials.js';
 import { takeTransfer } from './transfer.js';
 
 // Lien encodé dans le QR du joueur : ouvre l'espace équipe avec son code
@@ -49,6 +50,8 @@ export async function claim(token) {
   if (!group && Date.now() - v.ts > (R.voucherDays ?? 7) * 86400e3) { toast('Ce code a expiré. Demandez-en un nouveau à l\'équipe.'); return; }
   const amount = Math.min(Math.max(0, v.amount | 0), R.qrMax ?? 1000);
   addCrystals(amount);
+  const mats = randomMats(DATA.config.materials?.voucher ?? 3);
+  addMats(mats);
   state.claimed.push(v.nonce);
   save();
   emit('refresh');
