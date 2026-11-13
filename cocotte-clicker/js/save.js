@@ -65,6 +65,10 @@ function sanitize(raw) {
     list: wk.list.filter(m => m && typeof m.id === 'string').slice(0, 3).map(m => ({ id: m.id, lvl: int(m.lvl), n: Math.max(1, int(m.n, 1)), reward: int(m.reward), start: num(m.start), claimed: !!m.claimed })) };
   for (const [k, v] of Object.entries(obj(raw.flags))) if (v) s.flags[k] = 1;
   s.mega = { level: Math.min(int(obj(raw.mega).level), 99) };
+  const sv = obj(raw.surv);
+  s.surv = { bolts: int(sv.bolts), up: {}, best: Math.min(int(sv.best), 900), bestKills: int(sv.bestKills), runs: int(sv.runs), wins: int(sv.wins),
+    kills: int(sv.kills), day: typeof sv.day === 'string' ? sv.day : '', cToday: int(sv.cToday) };
+  for (const [k, v] of Object.entries(obj(sv.up))) if (/^[a-z]{2,8}$/.test(k)) s.surv.up[k] = Math.min(int(v), 5);
   s.achMilestones = Array.isArray(raw.achMilestones) ? raw.achMilestones.filter(x => typeof x === 'number').slice(0, 20) : [];
   for (const k of Object.keys(obj(raw.upgrades))) s.upgrades[k] = true;
   for (const k of Object.keys(obj(raw.projects))) s.projects[k] = true;

@@ -1423,3 +1423,33 @@ html.dark .rk-last { background: #22331d; }
 .mega-skin b { font-family: var(--f-title); font-size: 1.2rem; }
 .mega-skin small { color: var(--muted); }
 .mega-check { margin: .6rem 0; }
+
+/* ---------- Co'Survivor ---------- */
+.a-surv { background: #ffe0e0; }
+.sv-play { width: 100%; font-size: 1.25rem; margin: .3rem 0; }
+.sv-how { margin: .4rem 0; } .sv-how summary { cursor: pointer; font-weight: 700; } .sv-how ul { margin: .3rem 0; padding-left: 1.2rem; }
+.sv-shop { list-style: none; padding: 0; margin: 0 0 .8rem; display: grid; grid-template-columns: 1fr 1fr; gap: .4rem; }
+@media (max-width: 560px) { .sv-shop { grid-template-columns: 1fr; } }
+.sv-meta { width: 100%; display: grid; grid-template-columns: 34px 1fr auto; gap: .45rem; align-items: center; padding: .4rem .55rem; border: 2px solid #000; border-radius: 12px; background: #eee; text-align: left; font: inherit; color: inherit; }
+.sv-meta.can { background: #fff; box-shadow: var(--lift-sm); cursor: pointer; }
+.sv-meta:disabled { cursor: default; }
+.sv-meta small { color: var(--muted); } .sv-meta .d { display: block; }
+.sv-mi { font-size: 1.5rem; text-align: center; } .sv-mc { font-weight: 700; white-space: nowrap; }
+.com-board li.me { background: #fff3cc; font-weight: 700; }
+dialog.surv-dlg.playing { max-width: none; width: 100vw; height: 100dvh; max-height: none; margin: 0; border: 0; border-radius: 0; box-shadow: none; }
+.sv-game { position: relative; width: 100%; height: 100%; }
+.sv-game canvas { display: block; width: 100%; height: 100%; touch-action: none; outline: none; user-select: none; -webkit-user-select: none; }
+.sv-pause { position: absolute; top: 14px; right: 12px; width: 46px; height: 46px; border: 3px solid #000; border-radius: 50%; background: #fff; font-size: 1.2rem; box-shadow: var(--lift-sm); }
+.sv-overlay { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(20,10,40,.55); padding: 1rem; overflow: auto; }
+.sv-overlay[hidden] { display: none; }
+.sv-card { background: #fff; border: 4px solid #000; border-radius: 22px; box-shadow: 0 6px 0 #000; padding: 1rem 1.2rem; width: min(560px, 100%); text-align: center; }
+.sv-card h3 { font-family: var(--f-title); font-size: 1.5rem; margin: 0 0 .3rem; }
+.sv-opts { display: grid; gap: .5rem; margin: .6rem 0; }
+.sv-opt { display: grid; grid-template-columns: 44px 1fr; grid-template-rows: auto auto; column-gap: .6rem; align-items: center; text-align: left; padding: .6rem .8rem; border: 3px solid #000; border-radius: 14px; background: #fff8dc; box-shadow: var(--lift-sm); font: inherit; color: inherit; cursor: pointer; }
+.sv-opt:hover, .sv-opt:focus-visible { background: #fcd260; }
+.sv-opt > span { grid-row: 1 / 3; font-size: 1.9rem; text-align: center; }
+.sv-opt b { font-family: var(--f-title); } .sv-opt i { font-style: normal; font-size: .8rem; color: var(--muted); } .sv-opt i.new { color: var(--c-pink); }
+.sv-opt small { color: var(--muted); }
+.sv-res { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; margin: .6rem 0; }
+.sv-res div { border: 2px solid #000; border-radius: 14px; padding: .4rem; background: #fff8dc; } .sv-res b { display: block; font-family: var(--f-title); font-size: 1.3rem; } .sv-res small { color: var(--muted); }
+.sv-rec { font-weight: 700; color: var(--c-pink); }

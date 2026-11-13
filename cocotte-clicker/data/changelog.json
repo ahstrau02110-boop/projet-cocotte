@@ -2,6 +2,17 @@
   "_doc": "Onglet « Maj » du jeu : la plus récente en premier. id unique (sert au point « nouveau »), date AAAA-MM-JJ, titre, liste de lignes (emoji en début de ligne).",
   "updates": [
     {
+      "id": "2026-11-13d",
+      "date": "2026-11-13",
+      "title": "Nouveau jeu : Co'Survivor !",
+      "items": [
+        "🧟 Nouveau : Co'Survivor, un jeu d'action à part (tuile dans les Activités). Les pannes envahissent le FabLab : déplacez la Cocotte, ses outils attaquent tout seuls, et tenez 15 minutes !",
+        "🛠️ 6 outils à faire évoluer (graveuse laser, buses 3D, fer à souder, imprimante-tourelle, onde Wi-Fi, scie circulaire), 7 bonus, 6 types de pannes et 3 boss.",
+        "🔩 Les Boulons gagnés à chaque partie achètent des améliorations permanentes dans l'Atelier des Boulons.",
+        "🏆 Classement des meilleures survies, chronométré par le serveur. Jusqu'à 25 💎 par jour à gagner (1 💎 par minute survécue, +10 💎 en cas de victoire)."
+      ]
+    },
+    {
       "id": "2026-11-13c",
       "date": "2026-11-13",
       "title": "Ligue classée, Méga-Prestige et rééquilibrage",

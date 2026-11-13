@@ -23,6 +23,7 @@ import { initFold } from './fold.js';
 import { initIntegrity } from './integrity.js';
 import { initRanked } from './ranked.js';
 import { initMega, renderMega } from './mega.js';
+import { initSurvivor } from './survivor.js';
 import { buildProgress, initProgress, renderUpgrades, checkAchievements, openAchievements } from './progress.js';
 import { decorFor } from './decor.js';
 import { initTutorial } from './tutorial.js';
@@ -156,6 +157,7 @@ async function boot() {
   initIntegrity();
   initRanked();
   initMega();
+  initSurvivor();
   initCommunity();
   initDaily();
   on('tutoEnd', () => setTimeout(checkDaily, 600));

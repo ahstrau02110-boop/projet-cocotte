@@ -37,12 +37,12 @@ function doMega() {
   if (!canMega() || !$('#mega-confirm').checked) return;
   const sk = nextSkin(), s = state;
   // Conservé : identité, réglages, connexion en ligne, skins, décors, compteurs d'impressions (cohérence anti-triche),
-  // bons QR déjà utilisés (anti-rejeu), explications déjà vues
+  // bons QR déjà utilisés (anti-rejeu), explications déjà vues, Co'Survivor (jeu à part)
   const keep = {
     playerId: s.playerId, pseudo: s.pseudo, settings: s.settings, tuto: true, welcomed: true,
     net: { ...s.net }, cloud: { ...s.cloud }, online: { ...s.online }, claimed: [...s.claimed], helpSeen: { ...s.helpSeen },
     skins: { ...s.skins }, bgs: { ...s.bgs }, skin: s.skin, bg: s.bg, gacha: { ...s.gacha, sinceLegend: s.gacha.sinceLegend, bgSinceLegend: s.gacha.bgSinceLegend },
-    mega: { level: s.mega.level + 1 }, flags: { matsIntro: 1 }, daily: { ...s.daily },
+    mega: { level: s.mega.level + 1 }, surv: { ...s.surv, up: { ...s.surv.up } }, flags: { matsIntro: 1 }, daily: { ...s.daily },
   };
   const fresh = Object.assign(freshState(), keep);
   fresh.crystals = cfg().startCrystals ?? 50;

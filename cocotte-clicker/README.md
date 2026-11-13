@@ -462,6 +462,10 @@ Le jeu tourne dans le navigateur : une partie peut toujours être modifiée en l
 
 `supabase/ranked.sql` : une partie de la semaine calculée entièrement par le serveur (`js/ranked.js`). Le jeu n'envoie que des actions : clics (15/s au maximum, chaque clic vaut 1 + 2 % de la production) et achats de bâtiments (coût calculé par le serveur). Production ×2 à 10, 25, 50, 100, 150 et 200 exemplaires. Remise à zéro chaque lundi ; récompenses de la semaine précédente : 150 / 100 / 75 💎, top 10 : 40 💎, participation : 15 💎.
 
+### Co'Survivor
+
+`js/survivor.js` : jeu d'action à part (genre « survivor », canvas 2D). Progression propre dans `state.surv` (Boulons, améliorations permanentes), sans effet sur le clicker ; conservée au Méga-Prestige. Jusqu'à 25 💎 par jour. `supabase/survivor.sql` : classement des meilleures survies ; le serveur ouvre (`surv_start`) et ferme (`surv_end`) chaque partie avec son horloge, le temps annoncé est plafonné au temps réel écoulé (+5 s) et à 15 min, les éliminations à 20 par seconde. Annonce impossible → signalement « survivor » (sans exclusion automatique).
+
 ## Méga-Prestige
 
 `js/mega.js`, réglages `config.json → mega` : disponible à l'ère 5 après 3 Nouvelles saisons. Tout recommence (saisons, graines, talents, succès, cristaux, matériaux…) sauf les skins et les décors. Chaque niveau : +25 % de production pour toujours et une Cocotte exclusive (`skins.json`, `"mega": niveau`).
