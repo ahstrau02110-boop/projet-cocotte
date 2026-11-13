@@ -7,15 +7,15 @@
       "name": "Café des bénévoles",
       "era": 1,
       "cost": {
-        "bois": 2,
-        "filament": 1
+        "bois": 8,
+        "filament": 6
       },
       "result": {
         "type": "buff",
-        "cps": 2,
+        "cps": 1.5,
         "min": 10
       },
-      "desc": "Production ×2 pendant 10 min."
+      "desc": "Production ×1,5 pendant 10 min. Un seul bonus de l'Établi à la fois."
     },
     {
       "id": "gants",
@@ -23,30 +23,15 @@
       "name": "Gants renforcés",
       "era": 1,
       "cost": {
-        "bois": 3,
-        "composants": 1
+        "bois": 10,
+        "composants": 4
       },
       "result": {
         "type": "buff",
-        "click": 5,
+        "click": 3,
         "min": 10
       },
-      "desc": "Clics ×5 pendant 10 min."
-    },
-    {
-      "id": "coffre",
-      "icon": "🪙",
-      "name": "Tirelire en bois",
-      "era": 1,
-      "cost": {
-        "bois": 5,
-        "composants": 2
-      },
-      "result": {
-        "type": "coinsSec",
-        "sec": 900
-      },
-      "desc": "Gagnez tout de suite 15 min de production."
+      "desc": "Clics ×3 pendant 10 min. Un seul bonus de l'Établi à la fois."
     },
     {
       "id": "polish",
@@ -54,14 +39,14 @@
       "name": "Polissage de cristal",
       "era": 1,
       "cost": {
-        "bois": 4,
-        "filament": 2
+        "bois": 10,
+        "filament": 6
       },
       "result": {
         "type": "crystals",
-        "n": 20
+        "n": 8
       },
-      "desc": "+20 cristaux."
+      "desc": "+8 cristaux."
     },
     {
       "id": "appeau",
@@ -69,8 +54,8 @@
       "name": "Appeau doré",
       "era": 1,
       "cost": {
-        "filament": 2,
-        "composants": 2
+        "filament": 6,
+        "composants": 6
       },
       "result": {
         "type": "golden"
@@ -83,16 +68,16 @@
       "name": "Tri des chutes",
       "era": 1,
       "cost": {
-        "bois": 6
+        "bois": 8
       },
       "result": {
         "type": "mats",
         "mats": {
-          "filament": 2,
+          "filament": 1,
           "composants": 1
         }
       },
-      "desc": "6 bois → 2 filaments + 1 composant."
+      "desc": "6 bois → 1 filament + 1 composant."
     },
     {
       "id": "pile",
@@ -100,8 +85,8 @@
       "name": "Pile maison",
       "era": 1,
       "cost": {
-        "composants": 4,
-        "filament": 2
+        "composants": 6,
+        "filament": 4
       },
       "result": {
         "type": "mats",
@@ -117,8 +102,8 @@
       "name": "Bon d'impression",
       "era": 2,
       "cost": {
-        "filament": 4,
-        "composants": 2
+        "filament": 10,
+        "composants": 6
       },
       "result": {
         "type": "pull",
@@ -132,8 +117,8 @@
       "name": "Bon d'impression décor",
       "era": 2,
       "cost": {
-        "bois": 4,
-        "filament": 3
+        "bois": 10,
+        "filament": 8
       },
       "result": {
         "type": "pull",
@@ -147,33 +132,15 @@
       "name": "Veilleuse d'atelier",
       "era": 2,
       "cost": {
-        "composants": 2,
-        "batteries": 1
+        "composants": 8,
+        "batteries": 3
       },
       "result": {
         "type": "buff",
-        "cps": 3,
-        "min": 20
+        "cps": 2,
+        "min": 15
       },
-      "desc": "Production ×3 pendant 20 min."
-    },
-    {
-      "id": "turbo",
-      "icon": "🚀",
-      "name": "Turbo-imprimante",
-      "era": 2,
-      "cost": {
-        "filament": 4,
-        "composants": 2,
-        "batteries": 1
-      },
-      "result": {
-        "type": "buff",
-        "cps": 5,
-        "click": 10,
-        "min": 5
-      },
-      "desc": "Production ×5 et clics ×10 pendant 5 min."
+      "desc": "Production ×2 pendant 15 min. Un seul bonus de l'Établi à la fois."
     },
     {
       "id": "geode",
@@ -181,32 +148,14 @@
       "name": "Géode imprimée",
       "era": 2,
       "cost": {
-        "filament": 5,
-        "composants": 3
+        "filament": 12,
+        "composants": 8
       },
       "result": {
         "type": "crystals",
-        "n": 50
+        "n": 20
       },
-      "desc": "+50 cristaux."
-    },
-    {
-      "id": "kit",
-      "icon": "🧰",
-      "name": "Kit atelier longue durée",
-      "era": 3,
-      "cost": {
-        "bois": 3,
-        "filament": 3,
-        "composants": 3,
-        "batteries": 2
-      },
-      "result": {
-        "type": "buff",
-        "cps": 2,
-        "min": 120
-      },
-      "desc": "Production ×2 pendant 2 h."
+      "desc": "+20 cristaux."
     },
     {
       "id": "cristalled",
@@ -214,29 +163,14 @@
       "name": "Cristal LED",
       "era": 3,
       "cost": {
-        "composants": 4,
-        "batteries": 3
+        "composants": 12,
+        "batteries": 6
       },
       "result": {
         "type": "crystals",
-        "n": 110
+        "n": 45
       },
-      "desc": "+110 cristaux."
-    },
-    {
-      "id": "temps",
-      "icon": "⏳",
-      "name": "Machine à remonter le temps",
-      "era": 4,
-      "cost": {
-        "composants": 6,
-        "batteries": 4
-      },
-      "result": {
-        "type": "coinsSec",
-        "sec": 3600
-      },
-      "desc": "Gagnez tout de suite 1 h de production."
+      "desc": "+45 cristaux."
     },
     {
       "id": "skin-bois",

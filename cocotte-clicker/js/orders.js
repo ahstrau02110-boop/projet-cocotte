@@ -16,7 +16,7 @@ const rewardMult = () => projectEffects('orders').reduce((m, e) => m * e.mult, 1
 // Nouvelle commande, proportionnée à l'ère et à la réputation
 function makeOrder() {
   const era = currentEra().id, req = rnd(data.requests), lvl = repLevel();
-  const size = 3 + era + Math.min(6, Math.floor(lvl / 2)) + ((Math.random() * 3) | 0);
+  const size = 5 + era * 2 + Math.min(8, lvl) + ((Math.random() * 4) | 0);
   const need = { [req.main]: Math.ceil(size * 0.6) };
   const others = ['bois', 'filament', 'composants'].filter(k => k !== req.main);
   need[rnd(others)] = (need[rnd(others)] || 0) + Math.max(1, Math.floor(size * 0.4));
@@ -24,10 +24,10 @@ function makeOrder() {
   const [hMin, hMax] = cfg().durationH || [3, 8];
   return {
     id: Math.random().toString(36).slice(2, 9), who: rnd(data.clients), what: req.what, icon: req.icon, need,
-    coins: Math.round(totalCps() * (60 + Math.random() * 240)),     // une à cinq minutes de production
-    crystals: Math.round((10 + size * 3) * rewardMult()),
-    rep: 1 + (size >= 9 ? 1 : 0) + (need.batteries ? 1 : 0),
-    bonus: Math.random() < 0.3 ? 'batteries' : '',
+    coins: Math.round(totalCps() * (300 + Math.random() * 600)),    // cinq à quinze minutes de production
+    crystals: Math.round((4 + size) * rewardMult()),
+    rep: 1 + (size >= 14 ? 1 : 0),
+    bonus: Math.random() < 0.12 ? 'batteries' : '',
     until: Date.now() + (hMin + Math.random() * (hMax - hMin)) * 3600e3,
   };
 }
@@ -79,7 +79,7 @@ function deliver(id) {
   if (x.bonus) addMats({ [x.bonus]: 1 });
   o.list = o.list.filter(y => y !== x);
   state.counters.orders++;
-  if (o.next > Date.now() + 5 * 60e3) o.next = Date.now() + 5 * 60e3; // la suivante arrive vite
+  if (o.next > Date.now() + 30 * 60e3) o.next = Date.now() + 30 * 60e3; // la suivante arrive dans 30 min au plus
   sfx.unlock();
   toast(`📋 Commande livrée à ${x.who} ! +${x.crystals} 💎, +${x.rep} réputation${repLevel() > lvlBefore ? ` · Niveau ${repLevel()} : +${repPct()} % de production !` : ''}`, 6000);
   save();

@@ -216,7 +216,8 @@ function panelRank() {
       return `<li class="${ok ? 'ok' : ''}"><span>${ok ? '✅' : '🎯'} <b>${esc(g.name)}</b> : ${fmt(g.at)} · production +${g.pct} % pour tous</span>
         <span class="bar"><span style="width:${pct}%"></span></span></li>`;
     }).join('')}</ul>
-    <h3>Classement ${myRank ? `<small>· vous êtes ${myRank}<sup>e</sup></small>` : ''}</h3>
+    <h3>Classement général ${myRank ? `<small>· vous êtes ${myRank}<sup>e</sup></small>` : ''}</h3>
+    <p class="muted small">Pour une compétition 100 % vérifiée par le serveur, rejoignez la <b>🏆 Ligue classée</b> de la semaine.</p>
     <ol class="com-board">${board.length ? board.map(r => `<li${r.pseudo === state.pseudo && state.pseudo ? ' class="me"' : ''}><span>${r.rank}</span><b>${esc(r.pseudo)}</b><span>${fmt(r.lifetime)}</span></li>`).join('') : '<li class="muted">Classement indisponible pour le moment.</li>'}</ol>
     <label class="switch"><input type="checkbox" id="com-listed" ${state.net.listed ? 'checked' : ''}> <span>Apparaître dans les classements</span></label>
     <label for="com-pseudo">Pseudo affiché (facultatif, sans nom de famille)</label>

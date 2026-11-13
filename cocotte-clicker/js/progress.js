@@ -127,7 +127,7 @@ function stats() {
     weeklyClaimed: state.online.claimedWeeks.length, team: state.online.team ? 1 : 0,
     giftsSent: state.counters.giftsSent, galleryShared: state.counters.galleryShared, likes: state.counters.likes,
     bossWins: state.online.bossClaimed.length, huntFinds: state.counters.huntFinds, huntComplete: state.online.huntBonus.length,
-    weekly: state.counters.weekly,
+    weekly: state.counters.weekly, mega: state.mega?.level || 0,
     ...Object.fromEntries(Object.entries(state.mini.by).map(([g, n]) => ['play_' + g, n])),
     ...Object.fromEntries(Object.keys(state.flags).map(k => ['flag_' + k, 1])),
   };
@@ -140,12 +140,13 @@ function met(cond, st) {
 export function checkAchievements() {
   const st = stats();
   const pct = DATA.config.achievements?.prodBonusPct ?? 1;
+  const P = x => (Math.round(x * 10) / 10).toLocaleString('fr-FR');
   const fresh = DATA.achList.filter(a => !state.achievements[a.id] && met(a.cond, st));
   fresh.forEach(a => (state.achievements[a.id] = Date.now()));
   const n = fresh.length;
   // Au-delà de 2 d'un coup (ex. reprise d'une ancienne partie) : une seule notification groupée
-  if (n > 2) toast(`🏆 ${n} succès débloqués d'un coup ! (+${n * pct} % de production)`, 5000);
-  else fresh.forEach(a => toast(`🏆 Succès : ${a.name} (+${pct} % de production)`, 5000));
+  if (n > 2) toast(`🏆 ${n} succès débloqués d'un coup ! (+${P(n * pct)} % de production)`, 5000);
+  else fresh.forEach(a => toast(`🏆 Succès : ${a.name} (+${P(pct)} % de production)`, 5000));
   if (n) { sfx.unlock(); save(); emit('refresh'); }
   checkMilestones();
   return n;
@@ -170,7 +171,7 @@ const medal = a => a.img ? `<img src="${asset(a.img)}" alt="">` : `<span aria-hi
 export function openAchievements() {
   const got = DATA.achList.filter(a => state.achievements[a.id]).length;
   const next = milestones().find(m => got < m.n);
-  $('#ach-summary').innerHTML = `<strong>${got}/${DATA.achList.length}</strong> succès · bonus de production <strong>+${achievementBonus()} %</strong>`
+  $('#ach-summary').innerHTML = `<strong>${got}/${DATA.achList.length}</strong> succès · bonus de production <strong>+${(Math.round(achievementBonus() * 10) / 10).toLocaleString('fr-FR')} %</strong>`
     + `<span class="ach-miles">${milestones().map(m => `<span class="${state.achMilestones.includes(m.n) ? 'on' : ''}">🏅 ${m.n} : ${m.crystals} 💎</span>`).join('')}</span>`
     + (next ? `<small>Prochain palier : encore ${next.n - got} succès pour ${next.crystals} 💎.</small>` : '');
   const cats = [['clic', 'Clics'], ['prod', 'Production'], ['cps', 'Vitesse'], ['era', 'Ères'], ['building', 'Bâtiments'],

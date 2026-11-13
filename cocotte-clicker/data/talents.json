@@ -108,7 +108,7 @@
       "icon": "🌳",
       "name": "Graines fertiles",
       "cost": 15,
-      "desc": "Chaque graine de saison donne +3 % de production au lieu de +2 %.",
+      "desc": "Chaque graine de saison donne +2,5 % de production au lieu de +1,5 %.",
       "need": "depart"
     }
   ]

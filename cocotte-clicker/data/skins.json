@@ -36,6 +36,12 @@
       "label": "Fabriquée",
       "color": "#8a5a2b",
       "weight": 0
+    },
+    {
+      "id": "mega",
+      "label": "Méga-Prestige",
+      "color": "#1b1035",
+      "weight": 0
     }
   ],
   "skins": [
@@ -767,6 +773,86 @@
       "eyes": "star",
       "fx": "glow",
       "desc": "Fabriquée avec des pièces venues de toute la région."
+    },
+    {
+      "id": "m-cosmique",
+      "name": "Cocotte cosmique",
+      "rarity": "mega",
+      "mega": 1,
+      "gradient": [
+        "#2a1458",
+        "#7b3fe4",
+        "#5ef2c5"
+      ],
+      "pattern": "galaxy",
+      "accessory": "antenna",
+      "eyes": "star",
+      "fx": "holo",
+      "desc": "Elle a vu naître et renaître des univers d'ateliers."
+    },
+    {
+      "id": "m-phenix",
+      "name": "Cocotte phénix",
+      "rarity": "mega",
+      "mega": 2,
+      "gradient": [
+        "#fff1a8",
+        "#F07E36",
+        "#E41E6C"
+      ],
+      "pattern": "flames",
+      "accessory": "crown",
+      "eyes": "happy",
+      "fx": "glow",
+      "desc": "Elle renaît de ses cendres à chaque Méga-Prestige."
+    },
+    {
+      "id": "m-diamant",
+      "name": "Cocotte diamant",
+      "rarity": "mega",
+      "mega": 3,
+      "gradient": [
+        "#ffffff",
+        "#bfe6f2",
+        "#7fd3ff"
+      ],
+      "pattern": "sparkles",
+      "accessory": "crown",
+      "eyes": "star",
+      "fx": "holo",
+      "desc": "Taillée dans le plus dur des matériaux : la persévérance."
+    },
+    {
+      "id": "m-aurore",
+      "name": "Cocotte aurore",
+      "rarity": "mega",
+      "mega": 4,
+      "gradient": [
+        "#90C060",
+        "#5ef2c5",
+        "#7b3fe4"
+      ],
+      "pattern": "galaxy",
+      "accessory": "headphones",
+      "eyes": "heart",
+      "fx": "glow",
+      "desc": "Les couleurs du ciel du Vermandois au petit matin."
+    },
+    {
+      "id": "m-infini",
+      "name": "Cocotte infinie",
+      "rarity": "mega",
+      "mega": 5,
+      "gradient": [
+        "#000000",
+        "#3C2472",
+        "#FCD260"
+      ],
+      "pattern": "glitch",
+      "accessory": "vr",
+      "eyes": "glitch",
+      "fx": "glitch",
+      "desc": "Au-delà de toutes les saisons, une légende de La Co'Cotte."
     }
   ]
 }

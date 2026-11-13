@@ -32,7 +32,7 @@ export function checkDaily() {
     d.streak = streak;
     d.best = Math.max(d.best, streak);
     addCrystals(gain);
-    const mats = randomMats((DATA.config.materials?.daily ?? 3) + Math.min(6, streak - 1));
+    const mats = randomMats((DATA.config.materials?.daily ?? 1) + Math.min(3, streak - 1));
     addMats(mats);
     let extra = ' · ' + matsText(mats);
     if (idx === 6) {

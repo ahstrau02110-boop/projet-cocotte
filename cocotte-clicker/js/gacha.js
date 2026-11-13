@@ -15,7 +15,7 @@ let busy = false, machine = 'cocotte', collView = 'cocotte';
 const M = {
   cocotte: {
     title: 'Imprimante à Cocottes', label: 'COCOTTE·PRINT', unit: 'skin',
-    items: () => DATA.skins.filter(s => !s.default && !s.event && !s.craft), all: () => DATA.skins,
+    items: () => DATA.skins.filter(s => !s.default && !s.event && !s.craft && !s.mega), all: () => DATA.skins,
     owned: () => state.skins, pity: 'sinceLegend', pulls: 'pulls',
     visual: s => `<img src="${skinImage(s.id)}" alt="">`,
     equipped: id => state.skin === id, equip: id => { state.skin = id; }, byId: skinById,
@@ -156,8 +156,8 @@ export function renderCollection() {
   const skinsGot = DATA.skins.filter(s => state.skins[s.id]).length, bgGot = DATA.backgrounds.filter(b => state.bgs[b.id]).length;
   $('#coll-count').textContent = `${skinsGot + bgGot}/${DATA.skins.length + DATA.backgrounds.length}`;
   const sd = skinDupes(), bd = bgDupes();
-  $('#coll-bonus').innerHTML = `Chaque nouveau skin de Cocotte donne +${cfg().collectionBonusPct ?? 1} % de production, chaque décor +${fmtPct(cfg().collectionBgPct ?? 0.5)}.
-    Chaque <b>doublon</b> ajoute encore +${cfg().dupSkinPct ?? 1} % (Cocotte) ou +${fmtPct(cfg().dupBgPct ?? 0.5)} (décor), sans limite.<br>
+  $('#coll-bonus').innerHTML = `Chaque nouveau skin de Cocotte donne +${fmtPct(cfg().collectionBonusPct ?? 1)} de production, chaque décor +${fmtPct(cfg().collectionBgPct ?? 0.5)}.
+    Chaque <b>doublon</b> ajoute encore +${fmtPct(cfg().dupSkinPct ?? 1)} (Cocotte) ou +${fmtPct(cfg().dupBgPct ?? 0.5)} (décor), sans limite.<br>
     Doublons : <strong>${sd}</strong> Cocotte${sd > 1 ? 's' : ''} · <strong>${bd}</strong> décor${bd > 1 ? 's' : ''} (+${fmtPct(dupBonus())}).
     Bonus total : <strong>+${fmtPct(collectionBonus())}</strong>.`;
   $$('[data-coll]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.coll === collView)));
@@ -175,7 +175,8 @@ export function renderCollection() {
       ${has ? `<b>${esc(s.name)}</b>${s.desc ? `<small>${esc(s.desc)}</small>` : ''}
         <button class="equip-btn" data-equip="${collView}:${s.id}" ${on ? 'disabled' : ''}>${on ? 'Équipé' : 'Équiper'}</button>`
         : s.event ? `<b>${esc(s.name)}</b><small>Objet d'événement (onglet 🎉)</small>`
-        : s.craft ? `<b>${esc(s.name)}</b><small>À fabriquer (🛠️ Établi)</small>` : '<b>???</b><small>À imprimer</small>'}</li>`;
+        : s.craft ? `<b>${esc(s.name)}</b><small>À fabriquer (🛠️ Établi)</small>`
+        : s.mega ? `<b>${esc(s.name)}</b><small>Méga-Prestige niveau ${s.mega} 🌌</small>` : '<b>???</b><small>À imprimer</small>'}</li>`;
   }).join('');
   grid.innerHTML = html;
 }

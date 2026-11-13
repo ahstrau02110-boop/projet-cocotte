@@ -457,3 +457,11 @@ Le jeu tourne dans le navigateur : une partie peut toujours être modifiée en l
 - **Espace équipe** → 📡 En direct → 🚩 Joueurs suspects : détail des signalements, boutons Exclure / Réintégrer / Effacer. Un joueur exclu disparaît des classements, du compteur collectif, de la galerie et des équipes.
 - **Remise à zéro** (`supabase/reset.sql`) : Espace équipe → 📡 En direct → 🔎 Rechercher un joueur → 🔄 Remettre à zéro. Le serveur efface ses scores et augmente son numéro de remise à zéro ; chaque appareil du joueur efface sa partie à la connexion suivante (même code joueur, réglages conservés). Tant qu'un appareil ne l'a pas fait, rien de ce qu'il envoie n'est compté. Ce script resserre aussi les plafonds (production/s au plus ×3 entre deux envois).
 - **Anti-triche renforcé** (`supabase/anticheat2.sql`) : la production/s comptée en ligne double au plus toutes les 15 min de temps réel (sauf pour revenir à son record, après une Nouvelle saison) ; signalement quand le jeu annonce un bond impossible par rapport à son envoi précédent ; **exclusion automatique** à 2 signalements graves en 24 h (réversible dans l'espace équipe) ; clic automatique signalé au-delà de 25 clics/s.
+
+## Ligue classée (zéro triche)
+
+`supabase/ranked.sql` : une partie de la semaine calculée entièrement par le serveur (`js/ranked.js`). Le jeu n'envoie que des actions : clics (15/s au maximum, chaque clic vaut 1 + 2 % de la production) et achats de bâtiments (coût calculé par le serveur). Production ×2 à 10, 25, 50, 100, 150 et 200 exemplaires. Remise à zéro chaque lundi ; récompenses de la semaine précédente : 150 / 100 / 75 💎, top 10 : 40 💎, participation : 15 💎.
+
+## Méga-Prestige
+
+`js/mega.js`, réglages `config.json → mega` : disponible à l'ère 5 après 3 Nouvelles saisons. Tout recommence (saisons, graines, talents, succès, cristaux, matériaux…) sauf les skins et les décors. Chaque niveau : +25 % de production pour toujours et une Cocotte exclusive (`skins.json`, `"mega": niveau`).

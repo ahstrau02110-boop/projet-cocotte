@@ -21,53 +21,53 @@
     "cost1": 25,
     "cost10": 225,
     "pityLegendary": 60,
-    "collectionBonusPct": 1,
+    "collectionBonusPct": 0.5,
     "refund": {
       "commune": 2,
       "rare": 6,
       "epique": 16,
       "legendaire": 40
     },
-    "collectionBgPct": 0.5,
-    "dupSkinPct": 1,
-    "dupBgPct": 0.5
+    "collectionBgPct": 0.2,
+    "dupSkinPct": 0.2,
+    "dupBgPct": 0.05
   },
   "minigames": {
-    "dailyCrystalCap": 100,
-    "coinSecondsPerStar": 20,
+    "dailyCrystalCap": 60,
+    "coinSecondsPerStar": 10,
     "crystalsPerGame": 10
   },
   "achievements": {
-    "prodBonusPct": 1,
+    "prodBonusPct": 0.4,
     "milestones": [
       {
         "n": 25,
-        "crystals": 25
+        "crystals": 15
       },
       {
         "n": 50,
-        "crystals": 50
+        "crystals": 25
       },
       {
         "n": 100,
-        "crystals": 100
+        "crystals": 50
       },
       {
         "n": 150,
-        "crystals": 150
+        "crystals": 75
       },
       {
         "n": 200,
-        "crystals": 200
+        "crystals": 100
       },
       {
         "n": 250,
-        "crystals": 250
+        "crystals": 125
       }
     ]
   },
   "prestige": {
-    "seedPct": 2,
+    "seedPct": 1.5,
     "divisor": 1000000000,
     "minEra": 3,
     "seasonCrystals": 10
@@ -81,7 +81,7 @@
   },
   "tips": {
     "intervalMin": 60,
-    "crystals": 10,
+    "crystals": 5,
     "readSec": 8
   },
   "boosts": {
@@ -96,13 +96,13 @@
   },
   "daily": {
     "rewards": [
+      5,
+      8,
       10,
+      12,
       15,
       20,
-      25,
-      30,
-      40,
-      60
+      30
     ],
     "day7BoostMult": 2,
     "day7BoostSec": 300
@@ -153,16 +153,16 @@
   "repoUploadUrl": "https://github.com/ahstrau02110-boop/projet-cocotte/upload/main/cocotte-clicker/data",
   "materials": {
     "_doc": "Matériaux : clickChance = probabilité par clic ; goldenRain = [min, max] avec la Cocotte dorée ; perStar = matériaux par étoile de mini-jeu ; mission / daily / voucher = matériaux donnés par mission réussie, bonus du jour, QR de l'équipe.",
-    "clickChance": 0.025,
+    "clickChance": 0.008,
     "goldenRain": [
-      4,
-      10
+      2,
+      4
     ],
     "perStar": 1,
-    "mission": 2,
-    "weeklyMission": 6,
-    "daily": 3,
-    "voucher": 3,
+    "mission": 1,
+    "weeklyMission": 3,
+    "daily": 1,
+    "voucher": 2,
     "kinds": [
       {
         "id": "bois",
@@ -192,20 +192,27 @@
   },
   "orders": {
     "_doc": "Tableau des commandes : max = commandes affichées en même temps ; everyMin = arrivée d'une nouvelle commande ; durationH = durée [min, max] ; réputation : +repPct % de production par niveau (repPerLevel points).",
-    "max": 3,
-    "everyMin": 40,
+    "max": 2,
+    "everyMin": 90,
     "durationH": [
-      3,
-      8
+      4,
+      10
     ],
-    "repPerLevel": 10,
+    "repPerLevel": 20,
     "repPct": 1
   },
   "projects": {
     "milestoneEvery": 5,
-    "milestonePct": 5
+    "milestonePct": 2
   },
   "weekly": {
-    "allBonus": 100
+    "allBonus": 60
+  },
+  "mega": {
+    "_doc": "Méga-Prestige : condition = ère minEra atteinte et au moins minSeasons Nouvelles saisons. Chaque Méga-Prestige : production +bonusPct % pour toujours et une Cocotte exclusive (skins.json, \"mega\": niveau). Seuls les skins et les décors sont conservés.",
+    "minEra": 5,
+    "minSeasons": 3,
+    "bonusPct": 25,
+    "startCrystals": 50
   }
 }

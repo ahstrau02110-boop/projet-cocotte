@@ -42,8 +42,8 @@ function craft(id) {
   let msg = '';
   switch (res.type) {
     case 'buff':
-      addBuff({ id: 'craft-' + r.id, name: r.name, cps: res.cps || 1, click: res.click || 1, sec: res.min * 60 });
-      msg = `${r.name} : ${[res.cps && `production ×${res.cps}`, res.click && `clics ×${res.click}`].filter(Boolean).join(' et ')} pendant ${fmtMin(res.min)} !`;
+      addBuff({ id: 'craft', name: r.name, cps: res.cps || 1, click: res.click || 1, sec: res.min * 60 });
+      msg = `${r.name} : ${[res.cps && `production ×${String(res.cps).replace('.', ',')}`, res.click && `clics ×${res.click}`].filter(Boolean).join(' et ')} pendant ${fmtMin(res.min)} ! (remplace le bonus d'Établi précédent)`;
       break;
     case 'crystals': addCrystals(res.n); msg = `+${res.n} 💎`; break;
     case 'coinsSec': { const g = totalCps() * res.sec; earn(g); msg = `+${fmt(g)} Co'Coins`; break; }

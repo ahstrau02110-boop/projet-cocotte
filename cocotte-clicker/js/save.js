@@ -64,6 +64,7 @@ function sanitize(raw) {
   if (typeof wk.week === 'string' && Array.isArray(wk.list)) s.weekly = { week: wk.week, bonus: !!wk.bonus,
     list: wk.list.filter(m => m && typeof m.id === 'string').slice(0, 3).map(m => ({ id: m.id, lvl: int(m.lvl), n: Math.max(1, int(m.n, 1)), reward: int(m.reward), start: num(m.start), claimed: !!m.claimed })) };
   for (const [k, v] of Object.entries(obj(raw.flags))) if (v) s.flags[k] = 1;
+  s.mega = { level: Math.min(int(obj(raw.mega).level), 99) };
   s.achMilestones = Array.isArray(raw.achMilestones) ? raw.achMilestones.filter(x => typeof x === 'number').slice(0, 20) : [];
   for (const k of Object.keys(obj(raw.upgrades))) s.upgrades[k] = true;
   for (const k of Object.keys(obj(raw.projects))) s.projects[k] = true;

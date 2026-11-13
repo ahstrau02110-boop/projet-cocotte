@@ -283,48 +283,48 @@
       "name": "Atelier mobile",
       "icon": "🚐",
       "type": "global",
-      "mult": 1.2,
+      "mult": 1.1,
       "cost": 5e+17,
       "unlock": {
         "earned": 1e+17
       },
-      "desc": "Toute la production +20 %."
+      "desc": "Toute la production +10 %."
     },
     {
       "id": "open-source",
       "name": "Plans en open source",
       "icon": "📐",
       "type": "global",
-      "mult": 1.25,
+      "mult": 1.1,
       "cost": 5e+18,
       "unlock": {
         "earned": 1e+18
       },
-      "desc": "Toute la production +25 %."
+      "desc": "Toute la production +10 %."
     },
     {
       "id": "region",
       "name": "Label régional",
       "icon": "🏅",
       "type": "global",
-      "mult": 1.3,
+      "mult": 1.15,
       "cost": 5e+19,
       "unlock": {
         "earned": 1e+19
       },
-      "desc": "Toute la production +30 %."
+      "desc": "Toute la production +15 %."
     },
     {
       "id": "cosmos",
       "name": "Tiers-lieux en orbite",
       "icon": "🛰️",
       "type": "global",
-      "mult": 1.5,
+      "mult": 1.2,
       "cost": 5e+21,
       "unlock": {
         "earned": 1e+21
       },
-      "desc": "Toute la production +50 %."
+      "desc": "Toute la production +20 %."
     },
     {
       "id": "tournevis-or",
@@ -343,12 +343,12 @@
       "name": "Exosquelette de maker",
       "icon": "🦿",
       "type": "clickCps",
-      "pct": 2,
+      "pct": 1,
       "cost": 6e+16,
       "unlock": {
         "clicks": 40000
       },
-      "desc": "Chaque clic rapporte en plus 2 % de la production par seconde."
+      "desc": "Chaque clic rapporte en plus 1 % de la production par seconde."
     }
   ]
 }

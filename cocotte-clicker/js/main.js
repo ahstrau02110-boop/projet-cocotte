@@ -21,6 +21,8 @@ import { initOrders, renderOrdersTile, setOrdersData } from './orders.js';
 import { initStats } from './stats.js';
 import { initFold } from './fold.js';
 import { initIntegrity } from './integrity.js';
+import { initRanked } from './ranked.js';
+import { initMega, renderMega } from './mega.js';
 import { buildProgress, initProgress, renderUpgrades, checkAchievements, openAchievements } from './progress.js';
 import { decorFor } from './decor.js';
 import { initTutorial } from './tutorial.js';
@@ -109,6 +111,8 @@ async function boot() {
   await claimLocal(); // un seul onglet actif : les autres enregistrent puis se mettent en pause
   const hadSave = load();
   setBooted();
+  // Rééquilibrage : les anciens bonus de l'Établi (cumulables) sont retirés
+  state.buffs = state.buffs.filter(b => !String(b.id).startsWith('craft-'));
   // Oublie les bâtiments retirés des données (anciennes sauvegardes)
   for (const id of Object.keys(state.buildings))
     if (!DATA.buildings.some(b => b.id === id)) delete state.buildings[id];
@@ -150,6 +154,8 @@ async function boot() {
   initStats();
   initFold();
   initIntegrity();
+  initRanked();
+  initMega();
   initCommunity();
   initDaily();
   on('tutoEnd', () => setTimeout(checkDaily, 600));
@@ -213,6 +219,7 @@ function updateUI() {
   renderUpgrades();
   renderProjects();
   renderSeason();
+  renderMega();
   renderBuffs();
   renderTipTile();
   renderBoostTile();

@@ -32,11 +32,11 @@
       "era": 1,
       "cost": 30000,
       "desc": "Des bacs en bois fabriqués à l'atelier, des légumes pour tout le quartier.",
-      "effectText": "+2 matériaux par heure, même jeu fermé",
+      "effectText": "+1 matériau par heure, même jeu fermé",
       "effects": [
         {
           "type": "matsHour",
-          "n": 2
+          "n": 1
         }
       ],
       "mats": {
@@ -50,12 +50,12 @@
       "era": 1,
       "cost": 150000,
       "desc": "On emprunte une perceuse comme on emprunte un livre.",
-      "effectText": "Bénévoles ×3 · clics ×2",
+      "effectText": "Bénévoles ×2 · clics ×2",
       "effects": [
         {
           "type": "building",
           "target": "benevole",
-          "mult": 3
+          "mult": 2
         },
         {
           "type": "click",
@@ -97,7 +97,7 @@
       "era": 2,
       "cost": 5000000,
       "desc": "Les ateliers de création de jeux de La Co'Cotte.",
-      "effectText": "Mini-jeux : Co'Coins ×3 · Poste informatique ×2",
+      "effectText": "Mini-jeux : Co'Coins ×2 · Poste informatique ×2",
       "effects": [
         {
           "type": "minigameCoins",
@@ -145,12 +145,12 @@
       "era": 2,
       "cost": 80000000.0,
       "desc": "Enseignes, boîtes, jeux en bois : tout se découpe au laser.",
-      "effectText": "Graveuse laser ×3",
+      "effectText": "Graveuse laser ×2",
       "effects": [
         {
           "type": "building",
           "target": "graveuse",
-          "mult": 3
+          "mult": 2
         }
       ],
       "mats": {
@@ -165,12 +165,12 @@
       "era": 2,
       "cost": 300000000.0,
       "desc": "Réparer, customiser, broder son prénom sur un sac.",
-      "effectText": "Brodeuse numérique ×3",
+      "effectText": "Brodeuse numérique ×2",
       "effects": [
         {
           "type": "building",
           "target": "brodeuse",
-          "mult": 3
+          "mult": 2
         }
       ],
       "mats": {
@@ -184,11 +184,11 @@
       "era": 2,
       "cost": 1000000000.0,
       "desc": "Les chutes de l'atelier ont une seconde vie.",
-      "effectText": "+4 matériaux par heure · matériaux ×1,5",
+      "effectText": "+2 matériaux par heure · matériaux ×1,5",
       "effects": [
         {
           "type": "matsHour",
-          "n": 4
+          "n": 2
         },
         {
           "type": "mats",
@@ -207,12 +207,12 @@
       "era": 3,
       "cost": 2000000000,
       "desc": "Le projet de la Numériteam de La Co'Cotte.",
-      "effectText": "Atelier numérique ×3 · Poste informatique ×2",
+      "effectText": "Atelier numérique ×2 · Poste informatique ×2",
       "effects": [
         {
           "type": "building",
           "target": "ateliernum",
-          "mult": 3
+          "mult": 2
         },
         {
           "type": "building",
@@ -256,11 +256,11 @@
       "era": 3,
       "cost": 30000000000,
       "desc": "L'atelier musique de La Co'Cotte.",
-      "effectText": "Production +10 % · nouvelle musique « Atelier Musique » (Options)",
+      "effectText": "Production +5 % · nouvelle musique « Atelier Musique » (Options)",
       "effects": [
         {
           "type": "global",
-          "mult": 1.1
+          "mult": 1.05
         },
         {
           "type": "music",
@@ -279,12 +279,12 @@
       "era": 3,
       "cost": 100000000000.0,
       "desc": "Le cœur du tiers-lieu : on y boit un café, on y monte des projets.",
-      "effectText": "Soirée événement ×3 · gains hors ligne +15 %",
+      "effectText": "Soirée événement ×2 · gains hors ligne +15 %",
       "effects": [
         {
           "type": "building",
           "target": "evenements",
-          "mult": 3
+          "mult": 2
         },
         {
           "type": "offline",
@@ -303,12 +303,12 @@
       "era": 3,
       "cost": 200000000000,
       "desc": "Le projet Prison Van Break de La Co'Cotte.",
-      "effectText": "Tournée itinérante ×3 · Cocottes dorées 30 % plus fréquentes",
+      "effectText": "Tournée itinérante ×2 · Cocottes dorées 30 % plus fréquentes",
       "effects": [
         {
           "type": "building",
           "target": "tournee",
-          "mult": 3
+          "mult": 2
         },
         {
           "type": "golden",
@@ -327,7 +327,7 @@
       "era": 3,
       "cost": 600000000000.0,
       "desc": "Le mercredi, les enfants inventent, codent et fabriquent.",
-      "effectText": "Clics ×3 · mini-jeux : Co'Coins ×2",
+      "effectText": "Clics ×2 · mini-jeux : Co'Coins ×2",
       "effects": [
         {
           "type": "click",
@@ -350,12 +350,12 @@
       "era": 4,
       "cost": 3000000000000.0,
       "desc": "Le journal des projets du territoire, écrit par les habitants.",
-      "effectText": "Réseau de partenaires ×3 · commandes : récompenses +50 %",
+      "effectText": "Réseau de partenaires ×2 · commandes : récompenses +50 %",
       "effects": [
         {
           "type": "building",
           "target": "partenaires",
-          "mult": 3
+          "mult": 2
         },
         {
           "type": "orders",
@@ -374,15 +374,15 @@
       "era": 4,
       "cost": 20000000000000.0,
       "desc": "Un toit qui produit l'énergie de l'atelier.",
-      "effectText": "Production +15 % · +4 matériaux par heure",
+      "effectText": "Production +8 % · +2 matériaux par heure",
       "effects": [
         {
           "type": "global",
-          "mult": 1.15
+          "mult": 1.08
         },
         {
           "type": "matsHour",
-          "n": 4
+          "n": 2
         }
       ],
       "mats": {
@@ -397,12 +397,12 @@
       "era": 4,
       "cost": 200000000000000.0,
       "desc": "Un week-end de démonstrations et d'ateliers ouverts à tous.",
-      "effectText": "Festival Co'Cotte ×3 · Cocottes dorées 30 % plus fréquentes",
+      "effectText": "Festival Co'Cotte ×2 · Cocottes dorées 30 % plus fréquentes",
       "effects": [
         {
           "type": "building",
           "target": "festival",
-          "mult": 3
+          "mult": 2
         },
         {
           "type": "golden",
@@ -421,16 +421,16 @@
       "era": 4,
       "cost": 2000000000000000.0,
       "desc": "Le FabLab s'invite dans les écoles du Vermandois.",
-      "effectText": "Rayonnement ×3 · production +10 %",
+      "effectText": "Rayonnement ×2 · production +5 %",
       "effects": [
         {
           "type": "building",
           "target": "rayonnement",
-          "mult": 3
+          "mult": 2
         },
         {
           "type": "global",
-          "mult": 1.1
+          "mult": 1.05
         }
       ],
       "mats": {
@@ -445,12 +445,12 @@
       "era": 4,
       "cost": 2e+16,
       "desc": "Les lieux du territoire s'engagent ensemble.",
-      "effectText": "Réseau des tiers-lieux ×3 · gains hors ligne +15 %",
+      "effectText": "Réseau des tiers-lieux ×2 · gains hors ligne +15 %",
       "effects": [
         {
           "type": "building",
           "target": "reseau",
-          "mult": 3
+          "mult": 2
         },
         {
           "type": "offline",
@@ -469,12 +469,12 @@
       "era": 5,
       "cost": 1e+17,
       "desc": "Un vrai studio pour les émissions des habitants.",
-      "effectText": "Radio Co'Cotte ×3",
+      "effectText": "Radio Co'Cotte ×2",
       "effects": [
         {
           "type": "building",
           "target": "radio",
-          "mult": 3
+          "mult": 2
         }
       ],
       "mats": {
@@ -489,12 +489,12 @@
       "era": 5,
       "cost": 2e+18,
       "desc": "Le bus aménagé part à la rencontre des villages.",
-      "effectText": "Fab'Bus ×3 · matériaux ×2",
+      "effectText": "Fab'Bus ×2 · matériaux ×2",
       "effects": [
         {
           "type": "building",
           "target": "fabbus",
-          "mult": 3
+          "mult": 2
         },
         {
           "type": "mats",
@@ -514,16 +514,16 @@
       "era": 5,
       "cost": 4e+19,
       "desc": "Des formations libres et gratuites pour tous les âges.",
-      "effectText": "Campus des makers ×3 · production +20 %",
+      "effectText": "Campus des makers ×2 · production +10 %",
       "effects": [
         {
           "type": "building",
           "target": "campus",
-          "mult": 3
+          "mult": 2
         },
         {
           "type": "global",
-          "mult": 1.2
+          "mult": 1.1
         }
       ],
       "mats": {
@@ -538,16 +538,16 @@
       "era": 5,
       "cost": 8e+20,
       "desc": "Toutes les Co'Cottes de la région réunies.",
-      "effectText": "Constellation ×3 · production +25 % · Cocottes dorées 30 % plus fréquentes",
+      "effectText": "Constellation ×2 · production +12 % · Cocottes dorées 30 % plus fréquentes",
       "effects": [
         {
           "type": "building",
           "target": "constellation",
-          "mult": 3
+          "mult": 2
         },
         {
           "type": "global",
-          "mult": 1.25
+          "mult": 1.12
         },
         {
           "type": "golden",

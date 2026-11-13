@@ -54,6 +54,7 @@ export function freshState() {
     orders: { list: [], next: 0, rep: 0 }, // tableau des commandes + réputation
     weekly: { week: '', list: [], bonus: false }, // missions de la semaine
     flags: {},                         // succès secrets (actions particulières)
+    mega: { level: 0 },                // Méga-Prestige (niveau)
     achMilestones: [],                 // paliers de succès déjà récompensés
     missions: { day: '', list: [], bonus: false },  // missions du jour
     helpSeen: {},                      // explications des activités déjà vues
@@ -137,7 +138,8 @@ export const repPct = () => repLevel() * (DATA.config.orders?.repPct ?? 1);
 
 export function globalMult() {
   return (1 + collectionBonus() / 100) * (1 + achievementBonus() / 100) * (1 + seedBonus() / 100) * (1 + communityPct() / 100) * (1 + teamPct() / 100) * (1 + eventPct() / 100) * upgradesGlobal()
-    * projectEffects('global').reduce((m, e) => m * e.mult, 1) * (1 + projMilestonePct() / 100) * (1 + repPct() / 100);
+    * projectEffects('global').reduce((m, e) => m * e.mult, 1) * (1 + projMilestonePct() / 100) * (1 + repPct() / 100)
+    * (1 + (state.mega?.level || 0) * (DATA.config.mega?.bonusPct ?? 25) / 100);
 }
 
 export function totalCps() {

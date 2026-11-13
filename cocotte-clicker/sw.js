@@ -1,6 +1,6 @@
 // Service worker : jeu jouable hors connexion et installable (PWA)
 // Incrémenter VERSION à chaque mise en ligne pour que les joueurs récupèrent la nouvelle version.
-const VERSION = 'coclicker-v33';
+const VERSION = 'coclicker-v36';
 const CORE = [
   './',
   'admin.html',
@@ -96,6 +96,8 @@ const CORE = [
   'js/stats.js',
   'js/fold.js',
   'js/integrity.js',
+  'js/ranked.js',
+  'js/mega.js',
   'js/games/recycle.js',
   'js/games/laser.js',
   'js/progress.js',

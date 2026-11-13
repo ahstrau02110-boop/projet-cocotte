@@ -36,11 +36,13 @@ export function checkState() {
   const life = state.prestige.lifetime;
   if (state.coins > life * 1.01 + 100) report(`Co'Coins (${Math.round(state.coins)}) supérieurs au total produit (${Math.round(life)})`);
   if (buildingsCost() > life * 3 + 1e5) report(`Bâtiments achetés pour plus que le total produit`);
-  const gachaSkins = DATA.skins.filter(s => !s.default && !s.event && !s.craft && state.skins[s.id]).length;
+  const gachaSkins = DATA.skins.filter(s => !s.default && !s.event && !s.craft && !s.mega && state.skins[s.id]).length;
   if (gachaSkins > state.gacha.pulls) report(`${gachaSkins} Cocottes pour ${state.gacha.pulls} impressions`);
   const gachaBgs = DATA.backgrounds.filter(b => !b.event && state.bgs[b.id]).length;
   if (gachaBgs > state.gacha.bgPulls) report(`${gachaBgs} décors pour ${state.gacha.bgPulls} impressions`);
   if (Object.keys(state.achievements).length > DATA.achList.length) report('Plus de succès que le jeu n\'en propose');
+  const megaSkins = DATA.skins.filter(s => s.mega && state.skins[s.id]).length;
+  if (megaSkins > (state.mega?.level || 0)) report(`${megaSkins} Cocottes de Méga-Prestige pour le niveau ${state.mega?.level || 0}`);
   if (state.crystals > 200000) report(`${state.crystals} cristaux`);
   const mats = Object.values(state.mats).reduce((a, n) => a + n, 0);
   if (mats > state.counters.matsGot + 50) report(`${mats} matériaux pour ${state.counters.matsGot} récoltés`);

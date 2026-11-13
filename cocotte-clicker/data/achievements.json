@@ -1787,6 +1787,36 @@
         "flag_triparfait": 1
       },
       "hidden": true
+    },
+    {
+      "id": "mega1",
+      "cat": "special",
+      "icon": "🌌",
+      "name": "Légende naissante",
+      "desc": "Atteindre le Méga-Prestige niveau 1.",
+      "cond": {
+        "mega": 1
+      }
+    },
+    {
+      "id": "mega3",
+      "cat": "special",
+      "icon": "🌌",
+      "name": "Légende confirmée",
+      "desc": "Atteindre le Méga-Prestige niveau 3.",
+      "cond": {
+        "mega": 3
+      }
+    },
+    {
+      "id": "mega5",
+      "cat": "special",
+      "icon": "🌌",
+      "name": "Légende éternelle",
+      "desc": "Atteindre le Méga-Prestige niveau 5.",
+      "cond": {
+        "mega": 5
+      }
     }
   ]
 }

@@ -84,7 +84,7 @@ function finish(game, { score, stars }) {
   const h = new Date().getHours();
   if (h >= 2 && h < 5) state.flags.nuit = 1;
   // Matériaux : 1 par étoile (+ 1 au hasard pour 3 étoiles)
-  const mats = randomMats(stars * (DATA.config.materials?.perStar ?? 1) + (stars === 3 ? 1 : 0));
+  const mats = randomMats(Math.floor(stars * (DATA.config.materials?.perStar ?? 1) * 0.67)); // 0, 1, 1 ou 2 matériaux
   addMats(mats);
   emit('gameEnd', { game: game.id, score });
   state.mini.stars += stars;

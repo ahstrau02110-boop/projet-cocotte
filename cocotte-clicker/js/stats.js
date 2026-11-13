@@ -16,6 +16,7 @@ export function openStats() {
     ['🔁', `Doublons (${skinDupes()} Cocotte${skinDupes() > 1 ? 's' : ''}, ${bgDupes()} décor${bgDupes() > 1 ? 's' : ''})`, '+' + pct(dupBonus())],
     ['🏆', `Succès (${Object.keys(state.achievements).length})`, '+' + pct(achievementBonus())],
     ['🌱', 'Graines de saison', '+' + pct(seedBonus())],
+    ['🌌', `Méga-Prestige (niveau ${state.mega?.level || 0})`, '+' + pct((state.mega?.level || 0) * (DATA.config.mega?.bonusPct ?? 25))],
     ['📌', `Paliers de projets (${Object.keys(state.projects).length} réalisés)`, '+' + pct(projMilestonePct())],
     ['🤝', `Réputation (niveau ${repLevel()})`, '+' + pct(repPct())],
     ['🌍', 'Objectifs collectifs', '+' + pct(communityPct())],

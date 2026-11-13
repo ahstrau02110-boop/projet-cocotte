@@ -2,6 +2,21 @@
   "_doc": "Onglet « Maj » du jeu : la plus récente en premier. id unique (sert au point « nouveau »), date AAAA-MM-JJ, titre, liste de lignes (emoji en début de ligne).",
   "updates": [
     {
+      "id": "2026-11-13c",
+      "date": "2026-11-13",
+      "title": "Ligue classée, Méga-Prestige et rééquilibrage",
+      "items": [
+        "🏆 Nouveau : la Ligue classée de la semaine ! Une partie à part, calculée entièrement par le serveur : impossible de tricher. Tout le monde repart de zéro chaque lundi, et les meilleurs gagnent des cristaux (jusqu'à 150 💎).",
+        "🌌 Nouveau : le Méga-Prestige ! À l'ère 5 après 3 Nouvelles saisons, recommencez vraiment de zéro (seuls vos skins et décors sont gardés) pour +25 % de production pour toujours et une Cocotte exclusive à chaque niveau (5 à collectionner).",
+        "⚖️ Gros rééquilibrage : les bonus étaient trop puissants. Succès +0,4 % (au lieu de +1 %), collection +0,5 % par Cocotte et +0,2 % par décor, doublons +0,2 % / +0,05 %, graines de saison +1,5 %, projets et améliorations de fin de jeu moins forts, ère 5 plus lointaine.",
+        "🛠️ Établi : la Tirelire, la Machine à remonter le temps, le Turbo et le Kit longue durée sont retirés ; les autres recettes coûtent beaucoup plus cher, et un seul bonus d'Établi peut être actif à la fois.",
+        "💎 Moins de cristaux : missions, bonus du jour, astuces (5 💎), paliers de succès, et 60 💎 par jour au maximum avec les mini-jeux (toujours 10 💎 par partie).",
+        "⚖️ Rééquilibrage : les matériaux sont plus rares (clics, Cocottes dorées, mini-jeux, missions, bonus du jour) et les recettes de cristaux rapportent moins.",
+        "📋 Commandes : plus exigeantes, moins de cristaux, 2 commandes à la fois, et une nouvelle toutes les 1 h 30. La réputation monte deux fois moins vite.",
+        "🛡️ Anti-triche renforcé sur les classements en ligne."
+      ]
+    },
+    {
       "id": "2026-11-13b",
       "date": "2026-11-13",
       "title": "Atelier en folie : la grosse mise à jour !",

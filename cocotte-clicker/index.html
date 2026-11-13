@@ -125,6 +125,11 @@
       </section>
 
       <!-- Communauté -->
+      <button class="community-card ranked-card" id="btn-ranked" hidden>
+        <span class="com-ico" aria-hidden="true">🏆</span>
+        <span><span class="com-title">Ligue classée de la semaine</span><span id="ranked-mini">Compétition 100 % vérifiée</span></span>
+        <span class="com-go" aria-hidden="true">›</span>
+      </button>
       <button class="community-card" id="btn-community" hidden data-card>
         <span class="com-ico" aria-hidden="true">🌍</span>
         <span><span class="com-title">Communauté Co'Clicker</span><span id="community-mini"></span></span>
@@ -139,6 +144,10 @@
         <div class="row">
           <button id="btn-season" class="big-btn">Lancer une nouvelle saison</button>
           <button id="btn-talents" class="ghost-btn">🌱 Talents de saison</button>
+        </div>
+        <div id="mega-box" class="mega-box" hidden>
+          <p id="mega-info"></p>
+          <button id="btn-mega" class="big-btn mega-btn">🌌 Méga-Prestige</button>
         </div>
       </div>
     </section>
@@ -317,6 +326,27 @@
   </dialog>
 
   <!-- Confirmation Nouvelle saison -->
+  <dialog id="dlg-mega" aria-labelledby="mega-title">
+    <div class="dlg">
+      <div class="dlg-head">
+        <h2 id="mega-title" class="tape">🌌 Méga-Prestige ?</h2>
+        <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
+      </div>
+      <p>Le grand recommencement : vous repartez <b>vraiment de zéro</b>, pour devenir une légende de La Co'Cotte.</p>
+      <div id="mega-skin" class="mega-skin"></div>
+      <p class="season-gain" id="mega-gain"></p>
+      <div class="two-cols">
+        <div><h3>Remis à zéro</h3><ul><li>Co'Coins, bâtiments, ères, améliorations, projets</li><li>Saisons, graines et talents</li><li>Succès et leur bonus</li><li>Cristaux, matériaux, commandes, réputation</li><li>Records et statistiques</li></ul></div>
+        <div><h3>Conservé</h3><ul><li>Toutes vos Cocottes 🍲</li><li>Tous vos décors 🖼️</li><li>Votre code joueur, pseudo et réglages</li><li>Le bonus de Méga-Prestige 🌌</li></ul></div>
+      </div>
+      <label class="switch mega-check"><input type="checkbox" id="mega-confirm"> <span>J'ai compris : tout recommence sauf mes skins et mes décors.</span></label>
+      <div class="row center">
+        <button id="btn-mega-ok" class="big-btn mega-btn" disabled>🌌 Lancer le Méga-Prestige</button>
+        <form method="dialog"><button class="ghost-btn">Pas maintenant</button></form>
+      </div>
+    </div>
+  </dialog>
+
   <dialog id="dlg-season" aria-labelledby="season-title">
     <div class="dlg">
       <div class="dlg-head">
@@ -466,6 +496,41 @@
   </dialog>
 
   <!-- QR code du joueur -->
+  <dialog id="dlg-ranked" aria-labelledby="rk-title">
+    <div class="dlg" id="rk-body">
+      <div class="dlg-head">
+        <h2 id="rk-title" class="tape tape-green">🏆 Ligue classée</h2>
+        <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
+      </div>
+      <p class="muted">Une partie à part, <b>calculée entièrement par le serveur</b> : impossible de tricher. Tout le monde repart de zéro chaque lundi, les meilleurs de la semaine gagnent des cristaux (1ᵉʳ : 150 💎, 2ᵉ : 100, 3ᵉ : 75, top 10 : 40, participation : 15).</p>
+      <div id="rk-last" class="rk-last" hidden></div>
+      <div class="rk-top">
+        <div><b id="rk-coins">…</b><small>Co'Coins classés</small></div>
+        <div><b id="rk-cps">…</b><small>par seconde</small></div>
+        <div><b id="rk-rank">—</b><small>rang</small></div>
+        <div><b id="rk-left">…</b><small>avant lundi</small></div>
+      </div>
+      <p id="rk-status" class="rk-status" role="status"></p>
+      <div class="rk-grid">
+        <div class="rk-play">
+          <button type="button" id="rk-pot" class="rk-pot" aria-label="Cliquer (Ligue classée)"><img alt=""></button>
+          <small class="muted">15 clics par seconde au maximum.</small>
+          <h3>Classement de la semaine</h3>
+          <ol id="rk-board" class="com-board"></ol>
+        </div>
+        <div>
+          <div class="qty rk-qty" role="radiogroup" aria-label="Quantité">
+            <button type="button" role="radio" data-rkqty="1" aria-checked="true">×1</button>
+            <button type="button" role="radio" data-rkqty="10" aria-checked="false">×10</button>
+            <button type="button" role="radio" data-rkqty="100" aria-checked="false">×100</button>
+          </div>
+          <ul id="rk-shop" class="rk-shop"></ul>
+          <p class="muted small">Production ×2 à 10, 25, 50, 100, 150 et 200 exemplaires d'un bâtiment.</p>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
   <dialog id="dlg-craft" aria-labelledby="craft-title">
     <div class="dlg">
       <div class="dlg-head">
@@ -514,7 +579,7 @@
       <p class="mi-intro-ico" aria-hidden="true">🪵 🧵 ⚙️ 🔋</p>
       <ul class="help-list">
         <li>Vous venez de récupérer un <b>matériau</b> ! Vos matériaux s'affichent sous la Cocotte.</li>
-        <li>On en trouve en cliquant, avec les Cocottes dorées, les mini-jeux (1 par étoile), les missions et le bonus du jour.</li>
+        <li>On en trouve (rarement !) en cliquant, avec les Cocottes dorées, les mini-jeux réussis, les missions et le bonus du jour.</li>
         <li>Utilisez-les à l'<b>🛠️ Établi</b> (bonus, cristaux, Cocottes exclusives), pour les <b>projets</b> et pour livrer les <b>📋 commandes</b> des habitants.</li>
       </ul>
       <form method="dialog" class="row center"><button class="big-btn">C'est compris !</button></form>
