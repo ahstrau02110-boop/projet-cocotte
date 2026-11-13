@@ -1,5 +1,5 @@
 // Co'Survivor : jeu à part (genre « survivor »). La Cocotte défend le FabLab contre des vagues de pannes.
-// Le joueur ne fait que se déplacer ; les armes tirent toutes seules. 15 minutes pour gagner.
+// Le joueur ne fait que se déplacer ; les armes tirent toutes seules. 5 minutes pour gagner.
 // Progression propre (Boulons 🔩 et améliorations permanentes) dans state.surv : n'influence pas le clicker.
 // Classement en ligne : le serveur ouvre et ferme chaque partie avec son horloge (supabase/survivor.sql).
 import { state, addCrystals } from './state.js';
@@ -9,7 +9,7 @@ import { sfx } from './audio.js';
 import { skinImage } from './skins.js';
 import { rpc, netEnabled, sync } from './community.js';
 
-const WIN = 900;            // secondes pour gagner
+const WIN = 300;            // secondes pour gagner
 const MAX_FOES = 380;
 const CRYST_DAY = 25;       // cristaux max par jour gagnés dans Co'Survivor
 const me = () => ({ p_id: state.playerId, p_token: state.net.token });
@@ -21,7 +21,7 @@ const pick = a => a[Math.floor(Math.random() * a.length)];
 // Armes : valeurs par niveau (1 à 5)
 const WEAPONS = {
   laser:   { icon: '🔴', name: 'Graveuse laser', desc: 'Tire sur la panne la plus proche.',
-             cd: [0.6, 0.55, 0.5, 0.45, 0.4], dmg: [10, 13, 16, 20, 25], n: [1, 2, 2, 3, 4], pierce: [1, 2, 2, 3, 4] },
+             cd: [0.6, 0.55, 0.5, 0.45, 0.4], dmg: [12, 15, 18, 22, 27], n: [1, 2, 2, 3, 4], pierce: [1, 2, 2, 3, 4] },
   buses:   { icon: '🟠', name: 'Buses 3D', desc: 'Des buses brûlantes tournent autour de vous.',
              n: [1, 2, 3, 3, 4], dmg: [8, 10, 12, 15, 18], r: [70, 75, 80, 85, 95] },
   soudure: { icon: '🔥', name: 'Fer à souder', desc: 'Brûle tout ce qui s\'approche.',
@@ -53,12 +53,12 @@ const EVOS = {
 };
 // Surchauffe : difficulté 0 à 5, débloquée en gagnant au niveau précédent
 const HEAT_MAX = 5;
-const heatOf = h => ({ hp: 1 + 0.3 * h, sp: 1 + 0.05 * h, spawn: 1 + 0.15 * h, dmg: 1 + 0.1 * h, bolts: 1 + 0.25 * h });
+const heatOf = h => ({ hp: 1 + 0.25 * h, sp: 1 + 0.04 * h, spawn: 1 + 0.12 * h, dmg: 1 + 0.08 * h, bolts: 1 + 0.25 * h });
 const TOOL_COST = 150; // débloquer un outil de départ
 // Améliorations permanentes (Boulons)
 const META = [
-  { id: 'pv', icon: '❤️', name: 'Blindage', desc: '+10 PV max', max: 5, base: 30 },
-  { id: 'dmg', icon: '🔧', name: 'Caisse à outils', desc: '+6 % de dégâts', max: 5, base: 40 },
+  { id: 'pv', icon: '❤️', name: 'Blindage', desc: '+15 PV max', max: 5, base: 30 },
+  { id: 'dmg', icon: '🔧', name: 'Caisse à outils', desc: '+8 % de dégâts', max: 5, base: 40 },
   { id: 'spd', icon: '👟', name: 'Baskets', desc: '+4 % de vitesse', max: 5, base: 30 },
   { id: 'mag', icon: '🧲', name: 'Gros aimant', desc: '+15 % de portée de ramassage', max: 5, base: 25 },
   { id: 'xp', icon: '📚', name: 'Tutos vidéo', desc: '+8 % d\'expérience', max: 5, base: 40 },
@@ -72,22 +72,25 @@ const meta = id => state.surv.up[id] || 0;
 // Pannes : apparaissent à partir de « from » secondes
 const FOES = [
   { e: '🐛', hp: 8, sp: 62, dmg: 6, xp: 1, r: 13, from: 0 },
-  { e: '🦠', hp: 14, sp: 72, dmg: 8, xp: 1, r: 13, from: 45 },
-  { e: '👾', hp: 18, sp: 118, dmg: 7, xp: 2, r: 13, from: 120 },
-  { e: '🔌', hp: 30, sp: 46, dmg: 12, xp: 3, r: 15, from: 180 },
-  { e: '📡', hp: 40, sp: 55, dmg: 8, xp: 4, r: 15, from: 240, ai: 'shoot' },   // garde ses distances et tire
-  { e: '💾', hp: 50, sp: 58, dmg: 12, xp: 3, r: 15, from: 300 },
-  { e: '🔋', hp: 35, sp: 50, dmg: 14, xp: 3, r: 14, from: 360, ai: 'charge' },  // se prépare puis fonce
-  { e: '🤖', hp: 110, sp: 52, dmg: 18, xp: 6, r: 18, from: 420 },
-  { e: '📦', hp: 90, sp: 48, dmg: 12, xp: 4, r: 16, from: 540, ai: 'split' },   // libère 3 bugs en cassant
+  { e: '🦠', hp: 14, sp: 72, dmg: 8, xp: 1, r: 13, from: 15 },
+  { e: '📡', hp: 30, sp: 55, dmg: 8, xp: 3, r: 15, from: 35, ai: 'shoot' },    // garde ses distances et tire
+  { e: '👾', hp: 18, sp: 118, dmg: 7, xp: 2, r: 13, from: 50 },
+  { e: '🔌', hp: 30, sp: 46, dmg: 12, xp: 3, r: 15, from: 70 },
+  { e: '🚁', hp: 40, sp: 70, dmg: 8, xp: 4, r: 15, from: 95, ai: 'spread' },   // drone : tourne autour, tire en éventail
+  { e: '💾', hp: 50, sp: 58, dmg: 12, xp: 3, r: 15, from: 115 },
+  { e: '🔋', hp: 35, sp: 50, dmg: 14, xp: 3, r: 14, from: 135, ai: 'charge' },  // se prépare puis fonce
+  { e: '💡', hp: 55, sp: 45, dmg: 10, xp: 5, r: 15, from: 160, ai: 'burst' },   // ampoule : explose en étoile de tirs
+  { e: '🤖', hp: 110, sp: 52, dmg: 18, xp: 6, r: 18, from: 185 },
+  { e: '🎮', hp: 60, sp: 60, dmg: 10, xp: 5, r: 16, from: 210, ai: 'sniper' },  // manette folle : tir rapide et visé
+  { e: '📦', hp: 90, sp: 48, dmg: 12, xp: 4, r: 16, from: 230, ai: 'split' },   // libère 3 bugs en cassant
 ];
 const BUG = FOES[0];
 const BOSSES = [
-  { at: 300, e: '🖨️', name: 'Imprimante folle', hp: 2500 },
-  { at: 600, e: '🌀', name: 'Le Grand Bug', hp: 7000 },
-  { at: 840, e: '☢️', name: 'Méga-Virus', hp: 15000 },
+  { at: 100, e: '🖨️', name: 'Imprimante folle', hp: 1300 },
+  { at: 200, e: '🌀', name: 'Le Grand Bug', hp: 5000 },
+  { at: 270, e: '☢️', name: 'Méga-Virus', hp: 9000 },
 ];
-const SWARMS = [150, 450, 750]; // encerclements
+const SWARMS = [60, 150, 240]; // encerclements
 
 // ---------- Rendu : cache d'émojis ----------
 const sprites = new Map();
@@ -111,21 +114,21 @@ let cv, ctx, W = 0, H = 0, Z = 1, run = null, raf = 0, last = 0, keys = new Set(
 function stats() {
   const p = id => run.p[id] || 0;
   run.st = {
-    dmg: (1 + 0.1 * p('degats')) * (1 + 0.06 * meta('dmg')),
+    dmg: (1 + 0.1 * p('degats')) * (1 + 0.08 * meta('dmg')),
     cd: Math.pow(0.92, p('cadence')),
     area: 1 + 0.1 * p('zone'),
     speed: 165 * (1 + 0.1 * p('vit')) * (1 + 0.04 * meta('spd')),
-    magnet: 70 * (1 + 0.35 * p('aimant')) * (1 + 0.15 * meta('mag')),
+    magnet: 90 * (1 + 0.35 * p('aimant')) * (1 + 0.15 * meta('mag')),
     xp: 1 + 0.08 * meta('xp'),
     regen: 0.5 * p('cafe'),
   };
-  run.maxHp = 100 + 10 * meta('pv') + 20 * p('pv');
+  run.maxHp = 100 + 15 * meta('pv') + 20 * p('pv');
 }
 
 function newRun() {
   const S = state.surv, heat = clamp(S.heat || 0, 0, Math.min(HEAT_MAX, S.heatMax || 0)), tool = (S.tools || []).includes(S.tool) && WEAPONS[S.tool] ? S.tool : 'laser';
   run = {
-    heat, H: heatOf(heat), evo: {}, nextElite: 90, eb: [], dashCd: 0, dashT: 0, dx: 0, dy: 0,
+    heat, H: heatOf(heat), evo: {}, nextElite: 40, eb: [], dashCd: 0, dashT: 0, dx: 0, dy: 0,
     t: 0, x: 0, y: 0, hp: 0, maxHp: 100, inv: 0, lvl: 1, xp: 0, kills: 0, bossKills: 0,
     w: { [tool]: 1 }, p: {}, wt: {}, foes: [], shots: [], gems: [], rings: [], turrets: [], items: [],
     orbA: 0, auraT: 0, spawnAcc: 0, bossDone: 0, swarmDone: 0, paused: false, over: false,
@@ -134,7 +137,7 @@ function newRun() {
   stats();
   run.hp = run.maxHp;
 }
-const need = l => Math.floor(4 + l * 2.5 + Math.pow(l, 1.45));
+const need = l => Math.floor(2 + l * 1.6 + Math.pow(l, 1.35));
 
 // Grille spatiale (requêtes de proximité rapides)
 const CELL = 64;
@@ -187,10 +190,10 @@ function kill(e) {
 
 function spawn(type, ang, dist, px, py) {
   const a = ang ?? Math.random() * Math.PI * 2, d = dist ?? (Math.hypot(W, H) / 2 / Z + 50), Hh = run.H;
-  const k = (1 + run.t / 200) * Hh.hp, ks = (1 + run.t / 1500) * Hh.sp; // plus solides et plus rapides avec le temps (et la Surchauffe)
+  const k = (1 + Math.pow(run.t / 120, 1.5)) * Hh.hp, ks = (1 + run.t / 500) * Hh.sp; // plus solides et plus rapides avec le temps (et la Surchauffe)
   const e = { ...type, sp: type.sp * ks, dmg: type.dmg * Hh.dmg, x: px ?? run.x + Math.cos(a) * d, y: py ?? run.y + Math.sin(a) * d, hp: type.hp * k, max: type.hp * k, flash: 0, ot: 0, at: Math.random() * 2, cs: 0 };
   // Panne d'élite : très solide, lâche un coffre
-  if (px === undefined && run.t >= run.nextElite) { run.nextElite += 60; e.elite = true; e.hp = e.max = e.hp * 8; e.r *= 1.5; e.dmg *= 1.5; e.sp *= 0.9; }
+  if (px === undefined && run.t >= run.nextElite) { run.nextElite += 30; e.elite = true; e.hp = e.max = e.hp * 8; e.r *= 1.5; e.dmg *= 1.5; e.sp *= 0.9; }
   run.foes.push(e);
 }
 function spawnBoss(b) {
@@ -200,7 +203,7 @@ function spawnBoss(b) {
   toast(`⚠️ Boss : ${b.name} !`, 3000);
 }
 
-function shootAt(x, y, a, sp = 170, dmg = 10) { run.eb.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: 4, dmg: dmg * run.H.dmg }); }
+function shootAt(x, y, a, sp = 170, dmg = 10, c = '#e41e6c', r = 6) { run.eb.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: 4, dmg: dmg * run.H.dmg, c, r }); }
 
 function hurt(dmg) {
   const R = run;
@@ -256,7 +259,7 @@ function update(dt) {
   if (R.dashCd > 0) R.dashCd -= dt;
 
   // Apparitions
-  R.spawnAcc += (0.9 + R.t / 60) * R.H.spawn * dt;
+  R.spawnAcc += (0.8 + R.t / 40 + Math.max(0, R.t - 150) / 60) * R.H.spawn * dt; // début calme, fin intense
   const pool = FOES.filter(f => R.t >= f.from);
   while (R.spawnAcc >= 1) {
     R.spawnAcc--;
@@ -282,6 +285,21 @@ function update(dt) {
       const k = d > 240 ? 1 : d < 180 ? -0.6 : 0;
       e.x += dx / d * e.sp * k * dt; e.y += dy / d * e.sp * k * dt;
       if ((e.at -= dt) <= 0 && d < 420) { e.at = 2.6; shootAt(e.x, e.y, Math.atan2(dy, dx)); }
+    } else if (e.ai === 'spread') {
+      // Drone : tourne autour à distance, éventail de 3 tirs
+      const k = d > 260 ? 1 : d < 200 ? -0.5 : 0;
+      e.x += (dx / d * k - dy / d * 0.8) * e.sp * dt; e.y += (dy / d * k + dx / d * 0.8) * e.sp * dt;
+      if ((e.at -= dt) <= 0 && d < 450) { e.at = 3; const a = Math.atan2(dy, dx); for (const o of [-0.25, 0, 0.25]) shootAt(e.x, e.y, a + o, 160, 7, '#2f9be0', 5); }
+    } else if (e.ai === 'burst') {
+      // Ampoule : avance, puis explose en étoile de 8 tirs quand elle est proche
+      e.x += dx / d * e.sp * dt; e.y += dy / d * e.sp * dt;
+      if ((e.at -= dt) <= 0 && d < 220) { e.at = 3.5; e.flash = 0.15; for (let i = 0; i < 8; i++) shootAt(e.x, e.y, i / 8 * Math.PI * 2 + Math.random() * 0.3, 130, 8, '#f5b400', 6); }
+    } else if (e.ai === 'sniper') {
+      // Manette folle : reste loin, rafale de 3 tirs rapides visés
+      const k = d > 340 ? 1 : d < 280 ? -0.7 : 0;
+      e.x += dx / d * e.sp * k * dt; e.y += dy / d * e.sp * k * dt;
+      if ((e.at -= dt) <= 0 && d < 520) { e.at = 3.2; e.burst = 3; e.bt = 0; }
+      if (e.burst > 0 && (e.bt -= dt) <= 0) { e.burst--; e.bt = 0.15; shootAt(e.x, e.y, Math.atan2(dy, dx), 290, 7, '#7a4bd0', 4); }
     } else if (e.ai === 'charge') {
       // Prépare (0,6 s, clignote) puis fonce en ligne droite
       if (e.cs > 0) { e.cs -= dt; if (e.cs <= 0) { e.dash = 0.55; } }
@@ -291,6 +309,7 @@ function update(dt) {
     if (e.boss) {
       // Boss : salves en cercle et renforts
       if ((e.at -= dt) <= 0) { e.at = 4 - e.lvl * 0.6; const n = 8 + e.lvl * 4, o = Math.random(); for (let i = 0; i < n; i++) shootAt(e.x, e.y, (i + o) / n * Math.PI * 2, 140, 8 + e.lvl * 3); }
+      if ((e.aim = (e.aim ?? 1.5) - dt) <= 0) { e.aim = 2.2 - e.lvl * 0.4; const a = Math.atan2(dy, dx); for (const o of [-0.15, 0, 0.15]) shootAt(e.x, e.y, a + o, 230, 10, '#3c2472', 8); }
       if ((e.st -= dt) <= 0) { e.st = 10; const t = pool[pool.length - 1]; for (let i = 0; i < 3 + e.lvl * 2; i++) spawn(t, null, null, e.x + Math.cos(i) * 50, e.y + Math.sin(i) * 50); }
     }
     near(e.x, e.y, e.r, (o, ox, oy) => { if (o === e) return; const od = Math.hypot(ox, oy) || 1, push = (e.r + o.r - od) * 0.25; e.x -= ox / od * push; e.y -= oy / od * push; });
@@ -300,7 +319,7 @@ function update(dt) {
   }
   for (const b of R.eb) {
     b.x += b.vx * dt; b.y += b.vy * dt; b.life -= dt;
-    if (Math.hypot(b.x - R.x, b.y - R.y) < 20 && R.inv <= 0) { b.life = 0; if (hurt(b.dmg)) return; }
+    if (Math.hypot(b.x - R.x, b.y - R.y) < 14 + b.r && R.inv <= 0) { b.life = 0; if (hurt(b.dmg)) return; }
   }
   R.eb = R.eb.filter(b => b.life > 0);
   if (R.inv > 0) R.inv -= dt;
@@ -488,8 +507,8 @@ function draw() {
     for (let k = 0; k < n; k++) { const a = R.orbA + k / n * Math.PI * 2; ctx.beginPath(); ctx.arc(R.x + Math.cos(a) * rad, R.y + Math.sin(a) * rad, (ev ? 14 : 10) * R.st.area, 0, 7); ctx.fill(); ctx.stroke(); }
   }
   // Tirs des pannes
-  ctx.fillStyle = '#e41e6c'; ctx.strokeStyle = '#000'; ctx.lineWidth = 1.5;
-  for (const b of R.eb) { ctx.beginPath(); ctx.arc(b.x, b.y, 6, 0, 7); ctx.fill(); ctx.stroke(); }
+  ctx.strokeStyle = '#000'; ctx.lineWidth = 1.5;
+  for (const b of R.eb) { ctx.fillStyle = b.c; ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, 7); ctx.fill(); ctx.stroke(); }
   if (R.dashT > 0) { ctx.fillStyle = 'rgba(47,155,224,.35)'; ctx.beginPath(); ctx.arc(R.x - R.dx * 18, R.y - R.dy * 18, 20, 0, 7); ctx.fill(); }
   // La Cocotte
   if (!(R.inv > 0 && Math.floor(R.t * 20) % 2)) {
@@ -578,11 +597,11 @@ function end(win) {
   const R = run; if (R.over) return;
   R.over = true; cancelAnimationFrame(raf);
   const S = state.surv, t = Math.floor(R.t);
-  const bolts = Math.round((R.kills / 8 + t / 10 + (win ? 60 : 0) + R.bossKills * 15 + (R.bonusBolts || 0)) * (1 + 0.1 * meta('bolt')) * R.H.bolts);
+  const bolts = Math.round((R.kills / 10 + t / 4 + (win ? 60 : 0) + R.bossKills * 15 + (R.bonusBolts || 0)) * (1 + 0.1 * meta('bolt')) * R.H.bolts);
   let unlocked = false;
   if (win && R.heat >= (S.heatMax || 0) && R.heat < HEAT_MAX) { S.heatMax = R.heat + 1; unlocked = true; }
   if (S.day !== today()) { S.day = today(); S.cToday = 0; }
-  const cr = Math.min(Math.floor(t / 60) + (win ? 10 : 0), Math.max(0, CRYST_DAY - S.cToday));
+  const cr = Math.min(Math.floor(t / 30) + (win ? 10 : 0), Math.max(0, CRYST_DAY - S.cToday));
   S.cToday += cr; S.bolts += bolts; S.runs++; S.kills += R.kills; if (win) S.wins++;
   const rec = R.heat > (S.bestHeat || 0) || (R.heat === (S.bestHeat || 0) && (t > S.best || (t === S.best && R.kills > S.bestKills)));
   if (rec) { S.best = t; S.bestKills = R.kills; S.bestHeat = R.heat; }
@@ -623,7 +642,7 @@ function renderLobby() {
   $('#sv-heat').innerHTML = Array.from({ length: HEAT_MAX + 1 }, (_, h) => `<button type="button" class="sv-chip${h === S.heat ? ' on' : ''}" data-heat="${h}" ${h > hm ? 'disabled' : ''} aria-pressed="${h === S.heat}">${h > hm ? '🔒' : '🔥'} ${h}</button>`).join('');
   const hh = heatOf(S.heat);
   $('#sv-heat-info').textContent = S.heat ? `Pannes +${Math.round((hh.hp - 1) * 100)} % de PV, +${Math.round((hh.sp - 1) * 100)} % de vitesse, +${Math.round((hh.spawn - 1) * 100)} % d'apparitions, +${Math.round((hh.dmg - 1) * 100)} % de dégâts. Boulons +${Math.round((hh.bolts - 1) * 100)} %.`
-    : (hm ? 'Choisissez un niveau de Surchauffe : plus dur, mais plus de Boulons et un meilleur classement.' : 'Gagnez une partie (15 min) pour débloquer la Surchauffe 1 : plus dur, plus de Boulons.');
+    : (hm ? 'Choisissez un niveau de Surchauffe : plus dur, mais plus de Boulons et un meilleur classement.' : 'Gagnez une partie (5 min) pour débloquer la Surchauffe 1 : plus dur, plus de Boulons.');
   // Outil de départ
   const tools = S.tools?.length ? S.tools : ['laser'];
   $('#sv-tools').innerHTML = Object.entries(WEAPONS).map(([id, w]) => tools.includes(id)
@@ -631,7 +650,7 @@ function renderLobby() {
     : `<button type="button" class="sv-chip locked" data-unlock="${id}" ${S.bolts < TOOL_COST ? 'disabled' : ''}>🔒 ${w.icon} ${w.name} · ${TOOL_COST} 🔩</button>`).join('');
   $('#sv-evos').innerHTML = Object.entries(EVOS).map(([id, e]) => `<li>${WEAPONS[id].icon} ${WEAPONS[id].name} niv. 5 + ${PASSIVES[e.need].icon} ${PASSIVES[e.need].name} → <b>${e.icon} ${e.name}</b> : ${e.desc}</li>`).join('');
   const crLeft = Math.max(0, CRYST_DAY - (S.day === today() ? S.cToday : 0));
-  $('#sv-cryst').textContent = crLeft ? `Encore ${crLeft} 💎 à gagner aujourd'hui (1 💎 par minute survécue, +10 💎 en cas de victoire).` : 'Cristaux du jour déjà gagnés : revenez demain !';
+  $('#sv-cryst').textContent = crLeft ? `Encore ${crLeft} 💎 à gagner aujourd'hui (1 💎 toutes les 30 s survécues, +10 💎 en cas de victoire).` : 'Cristaux du jour déjà gagnés : revenez demain !';
   renderBoard();
 }
 function renderBoard() {

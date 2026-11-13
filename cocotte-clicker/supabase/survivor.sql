@@ -16,7 +16,7 @@ create index if not exists surv_runs_player on public.surv_runs (player_id, star
 
 create table if not exists public.surv_best (
   player_id text primary key references public.players(id) on delete cascade,
-  time_s    int not null default 0,     -- secondes survécues (900 = victoire)
+  time_s    int not null default 0,     -- secondes survécues (300 = victoire)
   kills     int not null default 0,
   level     int not null default 0,
   runs      int not null default 0,
@@ -44,7 +44,7 @@ begin
   return json_build_object('ok', true, 'run', rid);
 end $$;
 
--- Fin de partie : temps plafonné au temps réel écoulé (+5 s de marge réseau) et à 15 min
+-- Fin de partie : temps plafonné au temps réel écoulé (+5 s de marge réseau) et à 5 min
 drop function if exists public.surv_end(text, text, uuid, int, int, int);
 create or replace function public.surv_end(p_id text, p_token text, p_run uuid, p_time int, p_kills int, p_level int, p_heat int default 0)
 returns json language plpgsql security definer set search_path = public, extensions as $$
@@ -57,10 +57,10 @@ begin
   if not found or r.ended then return json_build_object('ok', false, 'error', 'run'); end if;
   update surv_runs set ended = true where id = p_run;
   real_s := extract(epoch from now() - r.started_at);
-  t := least(greatest(coalesce(p_time, 0), 0), floor(real_s + 5)::int, 900);
-  k := least(greatest(coalesce(p_kills, 0), 0), 20 * t + 50);
-  lv := least(greatest(coalesce(p_level, 1), 1), 1 + t / 4);
-  if coalesce(p_time, 0) > real_s + 30 or coalesce(p_kills, 0) > 20 * coalesce(p_time, 0) + 200 or coalesce(p_time, 0) > 960 then
+  t := least(greatest(coalesce(p_time, 0), 0), floor(real_s + 5)::int, 300);
+  k := least(greatest(coalesce(p_kills, 0), 0), 40 * t + 50);
+  lv := least(greatest(coalesce(p_level, 1), 1), 1 + t / 2);
+  if coalesce(p_time, 0) > real_s + 30 or coalesce(p_kills, 0) > 40 * coalesce(p_time, 0) + 200 or coalesce(p_time, 0) > 360 then
     perform _flag(p_id, 'survivor', 'Co''Survivor : ' || p_time || ' s et ' || p_kills || ' éliminés annoncés pour ' || round(real_s) || ' s réelles');
   end if;
   insert into surv_best (player_id) values (p_id) on conflict do nothing;
@@ -68,7 +68,7 @@ begin
   h := least(greatest(coalesce(p_heat, 0), 0), b.heat_won + 1, 5);
   -- marge d'un niveau : victoire jouée hors ligne, pas enregistrée par le serveur
   if coalesce(p_heat, 0) > h + 1 then perform _flag(p_id, 'survivor', 'Co''Survivor : Surchauffe ' || p_heat || ' annoncée sans être débloquée'); end if;
-  if t >= 900 and h > b.heat_won then update surv_best set heat_won = h where player_id = p_id; end if;
+  if t >= 300 and h > b.heat_won then update surv_best set heat_won = h where player_id = p_id; end if;
   if h > b.heat or (h = b.heat and (t > b.time_s or (t = b.time_s and k > b.kills))) then
     rec := t > 0;
     update surv_best set time_s = t, kills = k, level = lv, heat = h, at = now(), runs = runs + 1 where player_id = p_id;
