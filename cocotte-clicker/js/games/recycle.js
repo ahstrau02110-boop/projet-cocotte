@@ -18,14 +18,14 @@ const ITEMS = [
 ];
 
 function start(area, api) {
-  let score = 0, streak = 0, errors = 0, sorted = 0, alive = true, item = null, timer = 0;
+  let score = 0, streak = 0, errors = 0, sorted = 0, alive = true, item = null, timer = 0, lockUntil = 0, lastAt = 0;
   const t0 = Date.now();
   area.innerHTML = `<div class="rec-zone">
       <div class="rec-item" aria-live="polite"><span class="rec-emoji"></span><b class="rec-name"></b></div>
       <p class="rec-msg" aria-live="polite"></p>
       <div class="rec-bins">${BINS.map(b => `<button type="button" class="rec-bin" data-bin="${b.id}" style="--bc:${b.color}"><span aria-hidden="true">🗑️</span><b>${b.label}</b></button>`).join('')}</div>
     </div>
-    <p class="play-tip">Triez chaque objet dans le bon bac ! Série de bonnes réponses = points bonus. Clavier : touches 1 à 4.</p>`;
+    <p class="play-tip">Triez chaque objet dans le bon bac ! Série de bonnes réponses = points bonus, mais une erreur coûte 1 point et bloque les bacs 1 seconde. Clavier : touches 1 à 4.</p>`;
   const $ = s => area.querySelector(s);
   const left = () => Math.max(0, DURATION - (Date.now() - t0) / 1000);
   const hud = () => {
@@ -40,8 +40,11 @@ function start(area, api) {
     $('.rec-name').textContent = it[1];
     const box = $('.rec-item'); box.classList.remove('in'); void box.offsetWidth; box.classList.add('in');
   }
+  // Anti-spam : une erreur coûte 1 point et bloque les bacs 1 s ; 0,4 s minimum entre deux réponses (score max ≈ 220, sous le plafond serveur de 250)
   function choose(bin) {
-    if (!alive || !item) return;
+    const now = Date.now();
+    if (!alive || !item || now < lockUntil || now - lastAt < 400) return;
+    lastAt = now;
     const ok = item[2] === bin, good = BINS.find(b => b.id === item[2]);
     const btn = area.querySelector(`[data-bin="${bin}"]`);
     btn.classList.remove('ok', 'ko'); void btn.offsetWidth; btn.classList.add(ok ? 'ok' : 'ko');
@@ -52,8 +55,12 @@ function start(area, api) {
       $('.rec-msg').textContent = streak >= 5 ? `Série de ${streak} ! +2` : 'Bravo !';
     } else {
       streak = 0; errors++;
+      score = Math.max(0, score - 1);
+      lockUntil = now + 1000;
+      area.querySelector('.rec-bins').classList.add('locked');
+      setTimeout(() => area.querySelector('.rec-bins')?.classList.remove('locked'), 1000);
       sfx.deny();
-      $('.rec-msg').textContent = `${item[1]} → ${good.icon} ${good.label}`;
+      $('.rec-msg').textContent = `−1 · ${item[1]} → ${good.icon} ${good.label}`;
     }
     next();
     hud();

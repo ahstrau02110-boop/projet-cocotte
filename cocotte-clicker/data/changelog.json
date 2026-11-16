@@ -2,6 +2,14 @@
   "_doc": "Onglet « Maj » du jeu : la plus récente en premier. id unique (sert au point « nouveau »), date AAAA-MM-JJ, titre, liste de lignes (emoji en début de ligne).",
   "updates": [
     {
+      "id": "2026-11-16a",
+      "date": "2026-11-16",
+      "title": "Correctif : La Recyclerie",
+      "items": [
+        "♻️ La Recyclerie : appuyer toujours sur le même bac ne rapporte plus de points. Une erreur coûte 1 point et bloque les bacs 1 seconde (merci au joueur qui l'a signalé !)."
+      ]
+    },
+    {
       "id": "2026-11-13d",
       "date": "2026-11-13",
       "title": "Nouveau jeu : Co'Survivor !",
