@@ -9,19 +9,16 @@ const line = (label, v, html = false) => (v ? `<li><b>${label} :</b> ${html ? v 
 function render() {
   const L = DATA.config.legal || {};
   const mail = L.email ? `<a href="mailto:${esc(L.email)}">${esc(L.email)}</a>` : '';
-  const contact = mail || `sur place, à ${esc(L.editor || "La Co'Cotte")}`;
+  const contact = mail || `en vous adressant à ${esc(L.editor || 'Val')} sur place, à ${esc(L.venue || "La Co'Cotte")}`;
   const date = L.updated ? new Date(L.updated + 'T12:00:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
   $('#legal-body').innerHTML = `
     <h3>Éditeur du jeu</h3>
+    <p>Co'Clicker est un jeu réalisé et publié <b>à titre personnel, bénévole et non professionnel</b> par ${esc(L.editor || 'Val')}, animateur à La Co'Cotte (espace de partage et de création de Bohain-en-Vermandois). Ce n'est pas un service édité par La Co'Cotte.</p>
     <ul>
-      ${line('Nom', L.editor)}
-      ${line('Statut', L.status)}
-      ${line('SIRET', L.siret)}
-      ${line('Adresse', L.address)}
-      ${line('Responsable de la publication', L.publisher)}
+      ${line('Responsable de la publication', L.editor)}
       ${line('Contact', mail, true)}
     </ul>
-    <p>Co'Clicker est un jeu gratuit, sans publicité ni achat, proposé par La Co'Cotte pour faire découvrir le lieu et ses activités.</p>
+    <p>Le jeu est gratuit, sans publicité ni achat. Conformément à l'article 6-III-2 de la loi n° 2004-575 du 21 juin 2004 (LCEN), l'éditeur non professionnel a communiqué ses coordonnées à l'hébergeur.</p>
 
     <h3>Hébergement</h3>
     <ul>
@@ -38,10 +35,10 @@ function render() {
       <li><b>Anti-triche :</b> les anomalies de jeu détectées sont enregistrées et effacées au bout de 90 jours.</li>
       <li><b>Caméra :</b> utilisée uniquement pour scanner les QR codes, sur votre appareil ; aucune image n'est envoyée.</li>
     </ul>
-    <p>Ces données servent uniquement au fonctionnement du jeu (base légale : intérêt légitime de La Co'Cotte à proposer le jeu). Elles ne sont ni vendues ni cédées. Vous pouvez à tout moment ne pas mettre de pseudo, vous retirer des classements, désactiver la sauvegarde en ligne (Options), ou demander l'accès, la rectification ou la suppression de vos données en donnant votre code joueur : ${contact}. En cas de difficulté, vous pouvez saisir la CNIL (cnil.fr).</p>
+    <p>Ces données servent uniquement au fonctionnement du jeu (base légale : intérêt légitime de l'éditeur à proposer le jeu). Le responsable de ces données est l'éditeur du jeu. Elles ne sont ni vendues ni cédées. Vous pouvez à tout moment ne pas mettre de pseudo, vous retirer des classements, désactiver la sauvegarde en ligne (Options), ou demander l'accès, la rectification ou la suppression de vos données en donnant votre code joueur : ${contact}. En cas de difficulté, vous pouvez saisir la CNIL (cnil.fr).</p>
 
     <h3>Propriété intellectuelle</h3>
-    <p>Le jeu, ses textes, images et Cocottes sont la propriété de La Co'Cotte, sauf les logos des partenaires, qui appartiennent à leurs détenteurs respectifs. Toute reproduction hors du cadre privé nécessite une autorisation.</p>
+    <p>Le code, les textes, les illustrations et les Cocottes du jeu sont la propriété de leur auteur, ${esc(L.editor || 'Val')}. Le nom et le logo de La Co'Cotte, ainsi que les logos des partenaires, appartiennent à leurs détenteurs respectifs. Toute reproduction hors du cadre privé nécessite une autorisation.</p>
     ${date ? `<p class="muted small">Mise à jour : ${date}.</p>` : ''}`;
 }
 
