@@ -187,6 +187,17 @@
   </footer>
 
   <!-- Options / sauvegarde -->
+  <!-- Mentions légales -->
+  <dialog id="dlg-legal" class="wide" aria-labelledby="legal-title">
+    <div class="dlg legal">
+      <div class="dlg-head">
+        <h2 id="legal-title" class="tape">⚖️ Mentions légales</h2>
+        <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
+      </div>
+      <div id="legal-body"></div>
+    </div>
+  </dialog>
+
   <dialog id="dlg-options" aria-labelledby="opt-title">
     <form method="dialog" class="dlg">
       <div class="dlg-head">
@@ -217,6 +228,7 @@
         <ol id="install-steps" class="install-steps"></ol>
       </div>
       <button type="button" id="btn-help-reset" class="ghost-btn">❔ Revoir les explications des activités</button>
+      <button type="button" id="btn-legal" class="ghost-btn">⚖️ Mentions légales et données personnelles</button>
 
       <h3>Sauvegarde</h3>
       <p>La partie est enregistrée automatiquement sur cet appareil.</p>

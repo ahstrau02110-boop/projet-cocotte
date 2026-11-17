@@ -1,0 +1,50 @@
+// Mentions légales et données personnelles (⚙️ Options). Coordonnées dans data/config.json → legal.
+import { DATA } from './state.js';
+import { $, esc } from './core.js';
+import { sfx } from './audio.js';
+
+// Ligne affichée seulement si la valeur est renseignée
+const line = (label, v, html = false) => (v ? `<li><b>${label} :</b> ${html ? v : esc(v)}</li>` : '');
+
+function render() {
+  const L = DATA.config.legal || {};
+  const mail = L.email ? `<a href="mailto:${esc(L.email)}">${esc(L.email)}</a>` : '';
+  const contact = mail || `sur place, à ${esc(L.editor || "La Co'Cotte")}`;
+  const date = L.updated ? new Date(L.updated + 'T12:00:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+  $('#legal-body').innerHTML = `
+    <h3>Éditeur du jeu</h3>
+    <ul>
+      ${line('Nom', L.editor)}
+      ${line('Statut', L.status)}
+      ${line('SIRET', L.siret)}
+      ${line('Adresse', L.address)}
+      ${line('Responsable de la publication', L.publisher)}
+      ${line('Contact', mail, true)}
+    </ul>
+    <p>Co'Clicker est un jeu gratuit, sans publicité ni achat, proposé par La Co'Cotte pour faire découvrir le lieu et ses activités.</p>
+
+    <h3>Hébergement</h3>
+    <ul>
+      <li><b>Site du jeu :</b> GitHub Pages, GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis.</li>
+      <li><b>Fonctions en ligne</b> (classements, sauvegarde en ligne, Ligue classée, Co'Survivor) : Supabase, Inc. (supabase.com).</li>
+      <li><b>Polices d'écriture :</b> Google Fonts (Google LLC), qui reçoit l'adresse IP de l'appareil lors du chargement.</li>
+    </ul>
+
+    <h3>Données personnelles</h3>
+    <p>Aucun compte, aucune adresse e-mail, aucun nom réel n'est demandé. Le jeu n'utilise ni cookie publicitaire ni outil de mesure d'audience.</p>
+    <ul>
+      <li><b>Sur votre appareil</b> (stockage local du navigateur) : votre partie et vos réglages. Ils restent sur l'appareil ; « Effacer la partie » dans les Options les supprime.</li>
+      <li><b>En ligne</b>, seulement pour les fonctions en ligne : un code joueur tiré au hasard, le pseudo que vous choisissez (facultatif), vos scores et statistiques de jeu, votre équipe, votre Cocotte partagée dans la galerie, et une copie de votre sauvegarde si la sauvegarde en ligne est activée. La clé secrète de l'appareil et le code de secours ne sont conservés que sous forme d'empreinte illisible.</li>
+      <li><b>Anti-triche :</b> les anomalies de jeu détectées sont enregistrées et effacées au bout de 90 jours.</li>
+      <li><b>Caméra :</b> utilisée uniquement pour scanner les QR codes, sur votre appareil ; aucune image n'est envoyée.</li>
+    </ul>
+    <p>Ces données servent uniquement au fonctionnement du jeu (base légale : intérêt légitime de La Co'Cotte à proposer le jeu). Elles ne sont ni vendues ni cédées. Vous pouvez à tout moment ne pas mettre de pseudo, vous retirer des classements, désactiver la sauvegarde en ligne (Options), ou demander l'accès, la rectification ou la suppression de vos données en donnant votre code joueur : ${contact}. En cas de difficulté, vous pouvez saisir la CNIL (cnil.fr).</p>
+
+    <h3>Propriété intellectuelle</h3>
+    <p>Le jeu, ses textes, images et Cocottes sont la propriété de La Co'Cotte, sauf les logos des partenaires, qui appartiennent à leurs détenteurs respectifs. Toute reproduction hors du cadre privé nécessite une autorisation.</p>
+    ${date ? `<p class="muted small">Mise à jour : ${date}.</p>` : ''}`;
+}
+
+export function initLegal() {
+  $('#btn-legal').addEventListener('click', () => { sfx.ui(); render(); $('#dlg-legal').showModal(); });
+}

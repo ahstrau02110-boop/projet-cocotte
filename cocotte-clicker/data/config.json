@@ -214,5 +214,15 @@
     "minSeasons": 3,
     "bonusPct": 25,
     "startCrystals": 50
+  },
+  "legal": {
+    "_doc": "Mentions légales (⚙️ Options). Une ligne vide n'est pas affichée : compléter publisher (responsable de la publication), email, status (statut juridique) et siret.",
+    "editor": "La Co'Cotte, espace de partage et de création",
+    "address": "6 rue Marcellin Berthelot, 02110 Bohain-en-Vermandois",
+    "status": "",
+    "siret": "",
+    "publisher": "",
+    "email": "",
+    "updated": "2026-11-17"
   }
 }

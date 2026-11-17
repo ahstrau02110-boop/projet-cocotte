@@ -1463,3 +1463,4 @@ dialog.surv-dlg.playing { max-width: none; width: 100vw; height: 100dvh; max-hei
   background-image: conic-gradient(rgba(0,0,0,.35) calc(var(--cd, 0) * 360deg), transparent 0); }
 .sv-dash.cd { opacity: .6; }
 .rec-bins.locked .rec-bin { opacity: .45; filter: grayscale(.6); cursor: not-allowed; }
+.legal h3 { margin: .8rem 0 .3rem; } .legal ul { padding-left: 1.2rem; margin: .2rem 0; } .legal li { margin: .2rem 0; } .legal p { margin: .4rem 0; }
