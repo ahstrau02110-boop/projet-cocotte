@@ -474,3 +474,8 @@ Le jeu tourne dans le navigateur : une partie peut toujours être modifiée en l
 ### Échecs
 
 `js/chess-engine.js` : moteur (coups légaux, roque, prise en passant, promotion, mat, pat, 50 coups, répétition, matériel insuffisant, notation française, IA alpha-bêta à 3 niveaux), validé par les tests « perft » de référence. `js/chess-lessons.js` : 14 leçons et 12 problèmes (chacun vérifié par le moteur). `js/chess.js` : l'onglet (IA, à deux, duel en ligne, tuto, entraînement). `supabase/chess.sql` : duels en ligne (`chess_create`, `chess_join`, `chess_state`, `chess_move`, `chess_end`, `chess_mine`) ; le serveur garde les coups, vérifie le tour et l'ordre ; chaque jeu vérifie la légalité des coups reçus (coup illégal → partie gagnée par l'adversaire et signalement « echecs », sans exclusion automatique). Ladder : Elo (départ 1200, K = 40 les 10 premières parties puis 24), `chess_ladder` ; partie classée si au moins 4 demi-coups (ou coup illégal / absence) et au plus 3 parties classées par 24 h entre les deux mêmes joueurs. Rangs côté jeu : Bois < 1000 ≤ Bronze < 1150 ≤ Argent < 1300 ≤ Or < 1450 ≤ Platine < 1600 ≤ Diamant. Lien de défi : `index.html#duel=CODE`. Aucune récompense en jeu. Ménage : défis non acceptés 2 jours, parties 30 jours.
+
+
+### Méga-Prestige en ligne
+
+`supabase/mega.sql` : `submit_score` reçoit `p_mega` ; au premier envoi après un Méga-Prestige (niveau + 1, avec au moins 3 saisons et 1e15 Co'Coins en ligne), le score du classement repart de zéro, le total d'avant passe dans `mega_banked` (toujours compté dans l'objectif collectif) et le classement affiche le badge 🌌. Annonce non méritée → signalement « mega » (sans exclusion automatique). `admin_reset` remet aussi le Méga-Prestige à zéro.

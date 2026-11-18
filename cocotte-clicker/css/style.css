@@ -1529,3 +1529,4 @@ html.dark .ch-lesson { background: #23331c; } html.dark .ch-banner { background:
 .ch-elo { font-weight: 400; color: var(--muted); }
 html.dark .ch-tier { background: #3a3220; }
 #ch-ladder li span:first-child::after { content: none; }
+.mega-badge { font-size: .8em; margin-left: .2rem; }

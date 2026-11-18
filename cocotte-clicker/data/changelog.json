@@ -2,6 +2,15 @@
   "_doc": "Onglet « Maj » du jeu : la plus récente en premier. id unique (sert au point « nouveau »), date AAAA-MM-JJ, titre, liste de lignes (emoji en début de ligne).",
   "updates": [
     {
+      "id": "2026-11-18b",
+      "date": "2026-11-18",
+      "title": "Méga-Prestige visible en ligne",
+      "items": [
+        "🌌 Après un Méga-Prestige, votre score repart aussi de zéro dans le classement en ligne, avec un badge 🌌 (et le niveau) visible par tous les joueurs.",
+        "🌍 Ce que vous aviez produit avant reste compté dans l'objectif collectif : personne ne perd de bonus."
+      ]
+    },
+    {
       "id": "2026-11-18a",
       "date": "2026-11-18",
       "title": "Nouveau : les Échecs !",

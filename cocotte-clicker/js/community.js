@@ -64,6 +64,8 @@ export async function sync(full = false) {
       p_games: state.mini.plays, p_golden: state.golden, p_clicks: state.totalClicks, p_missions: state.counters.missions,
       ...(state.net.tamper ? { p_tamper: state.net.tamper } : {}),
       ...(state.net.resetGen ? { p_reset_gen: state.net.resetGen } : {}),
+      // Méga-Prestige : le serveur remet le score en ligne à zéro (badge 🌌 dans le classement)
+      ...(state.mega?.level ? { p_mega: state.mega.level } : {}),
     }).then(r => {
       // Compte remis à zéro par l'équipe : cette partie est effacée
       if (r?.reset_gen > (state.net.resetGen || 0)) { applyReset(r.reset_gen); return; }
@@ -218,7 +220,7 @@ function panelRank() {
     }).join('')}</ul>
     <h3>Classement général ${myRank ? `<small>· vous êtes ${myRank}<sup>e</sup></small>` : ''}</h3>
     <p class="muted small">Pour une compétition 100 % vérifiée par le serveur, rejoignez la <b>🏆 Ligue classée</b> de la semaine.</p>
-    <ol class="com-board">${board.length ? board.map(r => `<li${r.pseudo === state.pseudo && state.pseudo ? ' class="me"' : ''}><span>${r.rank}</span><b>${esc(r.pseudo)}</b><span>${fmt(r.lifetime)}</span></li>`).join('') : '<li class="muted">Classement indisponible pour le moment.</li>'}</ol>
+    <ol class="com-board">${board.length ? board.map(r => `<li${r.pseudo === state.pseudo && state.pseudo ? ' class="me"' : ''}><span>${r.rank}</span><b>${esc(r.pseudo)}${r.mega ? ` <small class="mega-badge" title="Méga-Prestige niveau ${r.mega}">🌌${r.mega > 1 ? r.mega : ''}</small>` : ''}</b><span>${fmt(r.lifetime)}</span></li>`).join('') : '<li class="muted">Classement indisponible pour le moment.</li>'}</ol>
     <label class="switch"><input type="checkbox" id="com-listed" ${state.net.listed ? 'checked' : ''}> <span>Apparaître dans les classements</span></label>
     <label for="com-pseudo">Pseudo affiché (facultatif, sans nom de famille)</label>
     <input id="com-pseudo" maxlength="20" value="${esc(state.pseudo)}" placeholder="Anonyme" autocomplete="off">`;
