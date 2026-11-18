@@ -57,7 +57,7 @@ export async function sync(full = false) {
   busy = true;
   try {
     const before = communityBonus();
-    await rpc('submit_score', {
+    const body = {
       ...me(), p_pseudo: state.pseudo, p_listed: state.net.listed,
       p_lifetime: state.prestige.lifetime, p_cps: totalCps() / buffMult('cps'),
       p_seasons: state.prestige.seasons, p_achievements: Object.keys(state.achievements).length,
@@ -66,7 +66,9 @@ export async function sync(full = false) {
       ...(state.net.resetGen ? { p_reset_gen: state.net.resetGen } : {}),
       // Méga-Prestige : le serveur remet le score en ligne à zéro (badge 🌌 dans le classement)
       ...(state.mega?.level ? { p_mega: state.mega.level } : {}),
-    }).then(r => {
+    };
+    // Serveur sans supabase/mega.sql (404) : on renvoie sans p_mega pour ne jamais bloquer l'envoi du score
+    await rpc('submit_score', body).catch(e => { if (String(e.message) === '404' && body.p_mega) { delete body.p_mega; return rpc('submit_score', body); } throw e; }).then(r => {
       // Compte remis à zéro par l'équipe : cette partie est effacée
       if (r?.reset_gen > (state.net.resetGen || 0)) { applyReset(r.reset_gen); return; }
       if (r?.ok && state.net.tamper) { state.net.tamper = ''; save(); }
