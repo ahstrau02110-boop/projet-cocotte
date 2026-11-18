@@ -4,6 +4,8 @@
 -- Le serveur garde la liste des coups, vérifie que chacun joue à son tour, dans l'ordre, au bon format,
 -- et tient les résultats. Les deux jeux vérifient la légalité de chaque coup (un coup illégal reçu
 -- stoppe la partie et signale le joueur). Aucune récompense en jeu : rien à gagner à tricher.
+-- Ladder : classement Elo (départ 1200). Partie classée si au moins 4 demi-coups (ou coup illégal / absence),
+-- et au plus 3 parties classées par 24 h entre les deux mêmes joueurs (contre le « farming » entre comptes).
 
 create table if not exists public.chess_games (
   code        text primary key,                            -- 6 caractères, dans le QR
@@ -25,6 +27,12 @@ create table if not exists public.chess_stats (
   player_id text primary key references public.players(id) on delete cascade,
   wins int not null default 0, losses int not null default 0, draws int not null default 0
 );
+alter table public.chess_stats add column if not exists elo int not null default 1200;
+alter table public.chess_stats add column if not exists rated int not null default 0;        -- parties classées jouées
+alter table public.chess_stats add column if not exists best_elo int not null default 1200;
+alter table public.chess_games add column if not exists rated boolean not null default false;
+alter table public.chess_games add column if not exists d_white int;                          -- variation Elo des Blancs
+alter table public.chess_games add column if not exists d_black int;
 alter table public.chess_games enable row level security;
 alter table public.chess_stats enable row level security;
 revoke all on public.chess_games, public.chess_stats from anon, authenticated;
@@ -33,7 +41,8 @@ revoke all on public.chess_games, public.chess_stats from anon, authenticated;
 create or replace function public._chess_json(g public.chess_games, p_id text) returns json
 language sql stable security definer set search_path = public as $$
   select json_build_object('ok', true, 'code', g.code, 'moves', to_json(g.moves), 'status', g.status, 'result', g.result, 'reason', g.reason,
-    'draw_offer', g.draw_offer, 'updated_at', g.updated_at, 'server_time', now(),
+    'draw_offer', g.draw_offer, 'updated_at', g.updated_at, 'server_time', now(), 'rated', g.rated, 'd_white', g.d_white, 'd_black', g.d_black,
+    'elo_white', (select elo from chess_stats where player_id = g.white), 'elo_black', (select elo from chess_stats where player_id = g.black),
     'me', case when p_id = g.white then 'w' when p_id = g.black then 'b' else null end,
     'white', (select case when pseudo = '' then 'Anonyme' else pseudo end from players where id = g.white),
     'black', (select case when pseudo = '' then 'Anonyme' else pseudo end from players where id = g.black)) $$;
@@ -41,7 +50,7 @@ language sql stable security definer set search_path = public as $$
 -- Fin de partie : résultat + statistiques
 create or replace function public._chess_finish(p_code text, p_result text, p_reason text) returns void
 language plpgsql security definer set search_path = public as $$
-declare g chess_games;
+declare g chess_games; pair int; ew int; eb int; nw int; nb int; sw double precision; ex double precision; dw int; db int;
 begin
   update chess_games set status = 'end', result = p_result, reason = left(p_reason, 20), draw_offer = null, updated_at = now()
     where code = p_code and status = 'play' returning * into g;
@@ -52,6 +61,22 @@ begin
   else
     update chess_stats set wins = wins + 1 where player_id = case when p_result = 'w' then g.white else g.black end;
     update chess_stats set losses = losses + 1 where player_id = case when p_result = 'w' then g.black else g.white end;
+  end if;
+  -- Ladder (Elo)
+  if coalesce(array_length(g.moves, 1), 0) >= 4 or p_reason in ('illegal', 'timeout') then
+    select count(*) into pair from chess_games where rated and updated_at > now() - interval '24 hours'
+      and ((white = g.white and black = g.black) or (white = g.black and black = g.white));
+    if pair < 3 then
+      select elo, rated into ew, nw from chess_stats where player_id = g.white;
+      select elo, rated into eb, nb from chess_stats where player_id = g.black;
+      sw := case p_result when 'w' then 1 when 'b' then 0 else 0.5 end;
+      ex := 1 / (1 + power(10, (eb - ew) / 400.0));
+      dw := round((case when nw < 10 then 40 else 24 end) * (sw - ex));
+      db := round((case when nb < 10 then 40 else 24 end) * ((1 - sw) - (1 - ex)));
+      update chess_stats set elo = greatest(100, elo + dw), rated = rated + 1, best_elo = greatest(best_elo, elo + dw) where player_id = g.white;
+      update chess_stats set elo = greatest(100, elo + db), rated = rated + 1, best_elo = greatest(best_elo, elo + db) where player_id = g.black;
+      update chess_games set rated = true, d_white = dw, d_black = db where code = g.code;
+    end if;
   end if;
 end $$;
 
@@ -179,11 +204,24 @@ begin
         'opponent', (select case when pseudo = '' then 'Anonyme' else pseudo end from players where id = case when g.white = p_id then g.black else g.white end)) as x
       from chess_games g where (g.white = p_id or g.black = p_id) and (g.status <> 'end' or g.updated_at > now() - interval '7 days')
       order by g.updated_at desc limit 20) t), '[]'),
-    'stats', (select json_build_object('wins', wins, 'losses', losses, 'draws', draws) from chess_stats where player_id = p_id));
+    'stats', (select json_build_object('wins', wins, 'losses', losses, 'draws', draws, 'elo', elo, 'rated', rated, 'best_elo', best_elo) from chess_stats where player_id = p_id));
 end $$;
+
+-- Ladder : classement Elo des joueurs ayant au moins une partie classée
+create or replace function public.chess_ladder(p_id text default null, p_limit int default 20)
+returns json language sql stable security definer set search_path = public as $$
+  with r as (
+    select s.player_id, case when pl.pseudo = '' then 'Anonyme' else pl.pseudo end as pseudo, pl.listed, s.elo, s.best_elo, s.wins, s.draws, s.losses, s.rated,
+           row_number() over (order by s.elo desc, s.rated desc, s.player_id) as rank
+    from chess_stats s join players pl on pl.id = s.player_id where not pl.banned and s.rated > 0)
+  select json_build_object(
+    'players', (select count(*) from r),
+    'top', coalesce((select json_agg(json_build_object('rank', rank, 'pseudo', pseudo, 'elo', elo, 'wins', wins, 'draws', draws, 'losses', losses, 'me', player_id = p_id) order by rank)
+                     from (select * from r where listed or player_id = p_id order by rank limit least(greatest(coalesce(p_limit, 20), 1), 50)) t), '[]'),
+    'me', (select json_build_object('rank', rank, 'elo', elo, 'best_elo', best_elo, 'rated', rated) from r where player_id = p_id)) $$;
 
 revoke all on function public._chess_json(public.chess_games, text), public._chess_finish(text, text, text) from public, anon, authenticated;
 revoke all on function public.chess_create(text, text, text), public.chess_join(text, text, text), public.chess_state(text, text),
-  public.chess_move(text, text, text, int, text), public.chess_end(text, text, text, text, text, text), public.chess_mine(text, text) from public;
+  public.chess_move(text, text, text, int, text), public.chess_end(text, text, text, text, text, text), public.chess_mine(text, text), public.chess_ladder(text, int) from public;
 grant execute on function public.chess_create(text, text, text), public.chess_join(text, text, text), public.chess_state(text, text),
-  public.chess_move(text, text, text, int, text), public.chess_end(text, text, text, text, text, text), public.chess_mine(text, text) to anon, authenticated;
+  public.chess_move(text, text, text, int, text), public.chess_end(text, text, text, text, text, text), public.chess_mine(text, text), public.chess_ladder(text, int) to anon, authenticated;

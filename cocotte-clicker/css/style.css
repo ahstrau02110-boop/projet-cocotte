@@ -1524,3 +1524,8 @@ dialog.surv-dlg.playing { max-width: none; width: 100vw; height: 100dvh; max-hei
 html.dark .ch-card, html.dark .ch-game-btn, html.dark .ch-moves, html.dark .ch-actions button, html.dark .ch-lesson-btns button { background: #2a2540; color: #f2eefc; }
 html.dark .ch-lesson { background: #23331c; } html.dark .ch-banner { background: #3a3220; }
 @media (max-width: 760px) { .ch-game .ch-right { display: contents; } .ch-game .ch-lesson { order: -1; } .ch-left { order: 0; } .ch-status, .ch-banner, .ch-actions, .ch-moves { order: 1; } }
+.ch-tier { display: flex; align-items: center; gap: .6rem; border: 2px solid #000; border-radius: 14px; background: #fff3cc; padding: .4rem .7rem; margin-bottom: .5rem; }
+.ch-tier-ico { font-size: 2rem; } .ch-tier small { display: block; color: var(--muted); }
+.ch-elo { font-weight: 400; color: var(--muted); }
+html.dark .ch-tier { background: #3a3220; }
+#ch-ladder li span:first-child::after { content: none; }

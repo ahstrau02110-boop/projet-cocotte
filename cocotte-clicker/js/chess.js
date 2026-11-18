@@ -17,6 +17,10 @@ const LEVELS = { 1: 'Facile', 2: 'Moyen', 3: 'Difficile' };
 const REASONS = { mate: 'Échec et mat', stalemate: 'Pat', 50: 'Règle des 50 coups', material: 'Matériel insuffisant', repetition: 'Triple répétition',
   resign: 'Abandon', agreement: 'Nulle acceptée', illegal: 'Coup illégal reçu', timeout: 'Adversaire absent depuis 3 jours' };
 const me = () => ({ p_id: state.playerId, p_token: state.net.token });
+// Rangs du ladder selon l'Elo
+const TIERS = [[1600, '💎', 'Diamant'], [1450, '💠', 'Platine'], [1300, '🥇', 'Or'], [1150, '🥈', 'Argent'], [1000, '🥉', 'Bronze'], [0, '🪵', 'Bois']];
+export const tier = elo => TIERS.find(([min]) => elo >= min);
+const tierTxt = elo => { const [, i, n] = tier(elo); return `${i} ${n}`; };
 const duelUrl = code => baseUrl(DATA.config) + '#duel=' + code;
 
 let G = null, pollT = 0, stopScan = null, retried = false, mineT = 0;
@@ -153,7 +157,8 @@ function captured(color) {
 function playerBar(color) {
   const name = G.mode === 'learn' ? (color === G.me ? 'Vous' : 'Adversaire') : G.mode === 'ai' ? (color === G.me ? 'Vous' : `🍲 La Cocotte (${LEVELS[G.level]})`)
     : G.mode === 'local' ? (color === 'w' ? 'Blancs' : 'Noirs')
-    : (color === G.me ? 'Vous' : esc((color === 'w' ? G.white : G.black) || 'En attente…'));
+    : (color === G.me ? 'Vous' : esc((color === 'w' ? G.white : G.black) || 'En attente…'))
+      + ((color === 'w' ? G.eloW : G.eloB) ? ` <small class="ch-elo">${tier(color === 'w' ? G.eloW : G.eloB)[1]} ${color === 'w' ? G.eloW : G.eloB}</small>` : '');
   const turn = !G.over && G.s.turn === color;
   return `<span class="ch-dot ${color}"></span><b>${name}</b>${turn ? '<i class="ch-turn">au trait</i>' : ''}<span class="ch-caps">${G.mode === 'learn' ? '' : captured(color === 'w' ? 'b' : 'w')}</span>`;
 }
@@ -182,6 +187,7 @@ function render() {
     const win = G.over.result === 'd' ? 'Partie nulle' : (G.over.result === 'w' ? 'Les Blancs gagnent' : 'Les Noirs gagnent');
     const you = G.mode !== 'local' && G.over.result !== 'd' ? (G.over.result === G.me ? ' : vous avez gagné ! 🎉' : ' : vous avez perdu.') : '';
     st = `🏁 ${REASONS[G.over.reason] || 'Fin'} · ${win}${you}`;
+    if (G.mode === 'online' && G.over) st += G.rated && G.delta != null ? `<br>🏆 Ladder : ${G.delta >= 0 ? '+' : ''}${G.delta} Elo` : G.rated === false ? '<br><small>Partie non classée (trop courte ou limite de 3 parties par jour contre ce joueur).</small>' : '';
   } else if (G.thinking) st = '🍲 La Cocotte réfléchit…';
   else if (G.mode === 'online' && G.s.turn !== G.me) st = `⏳ Au tour de ${esc((G.me === 'w' ? G.black : G.white) || 'votre adversaire')}…`;
   else st = `${G.mode === 'local' ? (G.s.turn === 'w' ? 'Aux Blancs' : 'Aux Noirs') : 'À vous'} de jouer${E.inCheck(G.s) ? ' · ⚠️ Échec !' : ''}`;
@@ -241,6 +247,7 @@ async function sendMove(u) {
 function applyServer(st, rebuild = false) {
   if (!G || !st?.ok) return;
   G.white = st.white || ''; G.black = st.black || ''; G.drawOffer = st.draw_offer;
+  G.eloW = st.elo_white; G.eloB = st.elo_black; G.rated = st.rated; G.delta = G.me === 'w' ? st.d_white : st.d_black;
   if (rebuild || st.moves.length < G.moves.length || st.moves.slice(0, G.moves.length).join() !== G.moves.join()) {
     const over = G.over; G.s = E.fromFEN(); G.moves = []; G.sans = []; G.over = null;
     const bad = replay(st.moves); if (bad) G.over = over;
@@ -300,10 +307,11 @@ export async function joinDuel(code) {
 async function renderMine() {
   const ul = $('#ch-mine');
   if (!netEnabled()) { ul.innerHTML = '<li class="muted">Hors ligne.</li>'; return; }
-  if (!state.chess.online) { ul.innerHTML = '<li class="muted">Aucune partie pour l\'instant.</li>'; $('#ch-stats').textContent = ''; return; }
+  if (!state.chess.online) { ul.innerHTML = '<li class="muted">Aucune partie pour l\'instant.</li>'; $('#ch-stats').textContent = ''; renderLadder(); return; }
   const r = await call('chess_mine').catch(() => null);
   if (!r?.ok) { ul.innerHTML = '<li class="muted">Serveur injoignable.</li>'; return; }
   const s = r.stats; $('#ch-stats').textContent = s ? `· ${s.wins} V / ${s.draws} N / ${s.losses} D` : '';
+  renderLadder();
   ul.innerHTML = r.games.length ? r.games.map(g => {
     const mine = g.status === 'play' && (g.plies % 2 === 0) === (g.me === 'w');
     const txt = g.status === 'wait' ? 'En attente d\'un adversaire' : g.status === 'end'
@@ -311,6 +319,19 @@ async function renderMine() {
       : g.draw_offer && g.draw_offer !== g.me ? '🤝 Nulle proposée' : mine ? '👉 À vous de jouer' : 'Au tour de l\'adversaire';
     return `<li><button type="button" class="ch-game-btn${mine ? ' hot' : ''}" data-code="${g.code}"><b>${esc(g.opponent || '—')}</b><small>${txt} · ${g.code}</small></button></li>`;
   }).join('') : '<li class="muted">Aucune partie récente.</li>';
+}
+
+// Ladder : classement Elo des duels en ligne
+async function renderLadder() {
+  const ol = $('#ch-ladder');
+  if (!netEnabled()) { ol.innerHTML = '<li class="muted">Hors ligne.</li>'; return; }
+  const r = await rpc('chess_ladder', { p_id: state.playerId, p_limit: 20 }).catch(() => null);
+  if (!r) { ol.innerHTML = '<li class="muted">Serveur injoignable.</li>'; return; }
+  $('#ch-me-elo').innerHTML = r.me
+    ? `<div class="ch-tier"><span class="ch-tier-ico">${tier(r.me.elo)[1]}</span><span><b>${tierTxt(r.me.elo).slice(2).trim()} · ${r.me.elo} Elo</b><small>${r.me.rank}ᵉ / ${r.players} · record ${r.me.best_elo} · ${r.me.rated} partie${r.me.rated > 1 ? 's' : ''} classée${r.me.rated > 1 ? 's' : ''}</small></span></div>`
+    : '<p class="muted small">Jouez un duel en ligne pour entrer dans le ladder (départ : 🥈 Argent, 1200 Elo).</p>';
+  ol.innerHTML = r.top.length ? r.top.map(x => `<li${x.me ? ' class="me"' : ''}><span>${x.rank}</span><span>${tier(x.elo)[1]} ${esc(x.pseudo)} <small class="muted">${x.wins}V ${x.draws}N ${x.losses}D</small></span><b>${x.elo}</b></li>`).join('')
+    : '<li class="muted">Personne n\'est encore classé : lancez le premier duel !</li>';
 }
 
 // Petit rappel sur la tuile : une partie en ligne attend votre coup

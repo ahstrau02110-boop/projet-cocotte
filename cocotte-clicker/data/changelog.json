@@ -8,6 +8,7 @@
       "items": [
         "♟️ Nouvel onglet Échecs (dans les Activités) : jouez contre la Cocotte (3 niveaux), à deux sur le même appareil, ou en duel en ligne.",
         "📱 Duel en ligne par QR code : créez un défi, votre adversaire scanne le QR avec son téléphone (ou tape le code à 6 caractères), et la partie se joue chacun sur son appareil. Partie reprenable à tout moment, nulle, abandon, bilan de vos victoires.",
+        "🏆 Ladder des échecs : classement Elo des duels en ligne (départ 1200) avec des rangs, de 🪵 Bois à 💎 Diamant. Votre gain ou perte d'Elo s'affiche à la fin de chaque partie.",
         "📖 Tuto : les règles en 14 leçons à jouer (déplacement de chaque pièce, échec, roque, prise en passant, promotion, mat…).",
         "🎯 Entraînement : 12 problèmes « mat en 1 », et un bouton 💡 Indice dans les parties contre la Cocotte et à deux."
       ]
