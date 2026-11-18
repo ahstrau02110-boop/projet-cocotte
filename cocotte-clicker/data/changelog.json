@@ -2,6 +2,17 @@
   "_doc": "Onglet « Maj » du jeu : la plus récente en premier. id unique (sert au point « nouveau »), date AAAA-MM-JJ, titre, liste de lignes (emoji en début de ligne).",
   "updates": [
     {
+      "id": "2026-11-18c",
+      "date": "2026-11-18",
+      "title": "Échecs : corrections",
+      "items": [
+        "♟️ La Cocotte ne joue plus après un abandon ni dans une nouvelle partie lancée pendant qu'elle réfléchissait.",
+        "↩️ « Annuler » en jouant les Noirs : la Cocotte rejoue bien son coup (la partie ne reste plus bloquée).",
+        "📱 Duel en ligne : votre dernier coup ne disparaît plus un instant pendant son envoi.",
+        "👑 Promotion : toucher à côté du choix des pièces annule le coup."
+      ]
+    },
+    {
       "id": "2026-11-18b",
       "date": "2026-11-18",
       "title": "Méga-Prestige visible en ligne",

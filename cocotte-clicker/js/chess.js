@@ -103,7 +103,9 @@ function renderLesson() {
 }
 
 function play(m, fromOpponent = false) {
+  if (!G || !m) return;
   if (G.mode === 'learn') return learnMove(m);
+  if (G.over) return;
   const u = E.uci(m);
   G.sans.push(E.san(G.s, m));
   G.s = E.make(G.s, m); G.moves.push(u); G.sel = null; G.hint = null;
@@ -118,11 +120,13 @@ function play(m, fromOpponent = false) {
 
 function aiTurn() {
   G.thinking = true; render();
+  const g = G;
   setTimeout(() => {
-    if (!G || G.mode !== 'ai') return;
+    if (G !== g || G.mode !== 'ai') return; // partie quittée ou remplacée entre-temps
+    if (G.over || G.s.turn === G.me) { G.thinking = false; return render(); }
     const m = E.bestMove(G.s, G.level);
     G.thinking = false;
-    if (m) play(m);
+    if (m) play(m); else render();
   }, 350);
 }
 
@@ -230,14 +234,20 @@ function askPromo(ms) {
   const box = $('#ch-promo'), w = G.s.turn === 'w';
   box.innerHTML = `<p>Promotion : choisissez une pièce</p><div>${['q', 'r', 'b', 'n'].map(t => `<button type="button" data-promo="${t}">${glyph(w ? t.toUpperCase() : t)}</button>`).join('')}</div>`;
   box.hidden = false;
-  box.onclick = e => { const b = e.target.closest('[data-promo]'); if (!b) return; box.hidden = true; play(ms.find(m => m.promo === b.dataset.promo)); };
+  box.onclick = e => {
+    const b = e.target.closest('[data-promo]');
+    if (!b) { if (e.target === box) { box.hidden = true; G.sel = null; render(); } return; }
+    box.hidden = true; play(ms.find(m => m.promo === b.dataset.promo));
+  };
 }
 
 // ---------- En ligne ----------
 async function sendMove(u) {
   const ply = G.moves.length - 1, code = G.code;
+  G.sending = true;
   const r = await call('chess_move', { p_code: code, p_ply: ply, p_move: u }).catch(() => null);
   if (!G || G.code !== code) return;
+  G.sending = false;
   if (!r?.ok) { toast('⚠️ Coup non enregistré : resynchronisation…'); if (r?.state) applyServer(r.state, true); else poll(); }
   else {
     applyServer(r);
@@ -265,8 +275,12 @@ function applyServer(st, rebuild = false) {
 }
 async function poll() {
   if (!G || G.mode !== 'online' || !$('#dlg-chess').open) return;
-  const st = await rpc('chess_state', { p_id: state.playerId, p_code: G.code }).catch(() => null);
-  if (!G || !st?.ok) return;
+  if (G.sending || G.polling) return;
+  G.polling = true;
+  const code = G.code;
+  const st = await rpc('chess_state', { p_id: state.playerId, p_code: code }).catch(() => null);
+  if (G) G.polling = false;
+  if (!G || G.code !== code || !st?.ok || G.sending) return;
   if (!$('#ch-wait').hidden) {
     if (st.status !== 'wait') { G.white = st.white; G.black = st.black; show('game'); toast(`⚔️ ${esc(G.me === 'w' ? st.black : st.white)} a rejoint la partie !`); sfx.unlock(); }
     return;
@@ -436,6 +450,7 @@ export function initChess() {
     const back = G.mode === 'ai' ? (G.s.turn === G.me ? 2 : 1) : 1;
     const keep = G.moves.slice(0, Math.max(0, G.moves.length - back));
     const { mode, level, me: col, flip } = G; newGame(mode, { level, me: col }); G.flip = flip; replay(keep); render(); persist();
+    if (G.mode === 'ai' && G.s.turn !== G.me) aiTurn();
   });
   $('#ch-resign').addEventListener('click', async () => {
     if (!G || G.over || !confirm('Abandonner la partie ?')) return;
