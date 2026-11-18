@@ -469,3 +469,8 @@ Le jeu tourne dans le navigateur : une partie peut toujours être modifiée en l
 ## Méga-Prestige
 
 `js/mega.js`, réglages `config.json → mega` : disponible à l'ère 5 après 3 Nouvelles saisons. Tout recommence (saisons, graines, talents, succès, cristaux, matériaux…) sauf les skins et les décors. Chaque niveau : +25 % de production pour toujours et une Cocotte exclusive (`skins.json`, `"mega": niveau`).
+
+
+### Échecs
+
+`js/chess-engine.js` : moteur (coups légaux, roque, prise en passant, promotion, mat, pat, 50 coups, répétition, matériel insuffisant, notation française, IA alpha-bêta à 3 niveaux), validé par les tests « perft » de référence. `js/chess-lessons.js` : 14 leçons et 12 problèmes (chacun vérifié par le moteur). `js/chess.js` : l'onglet (IA, à deux, duel en ligne, tuto, entraînement). `supabase/chess.sql` : duels en ligne (`chess_create`, `chess_join`, `chess_state`, `chess_move`, `chess_end`, `chess_mine`) ; le serveur garde les coups, vérifie le tour et l'ordre ; chaque jeu vérifie la légalité des coups reçus (coup illégal → partie gagnée par l'adversaire et signalement « echecs », sans exclusion automatique). Lien de défi : `index.html#duel=CODE`. Aucune récompense en jeu. Ménage : défis non acceptés 2 jours, parties 30 jours.

@@ -65,6 +65,9 @@ function checkHash() {
   // Transfert de partie depuis un autre appareil
   const t = location.hash.match(/^#transfer=([A-Za-z0-9-]{8,9})$/);
   if (t) { history.replaceState(null, '', location.pathname + location.search); setTimeout(() => takeTransfer(t[1]), 600); return; }
+  // Défi d'échecs (QR scanné avec l'appareil photo)
+  const d = location.hash.match(/^#duel=([A-Za-z0-9]{6})$/);
+  if (d) { history.replaceState(null, '', location.pathname + location.search); setTimeout(() => emit('duel', d[1]), 900); return; }
   const h = location.hash.match(/^#hunt=([a-f0-9]{8,40})$/);
   if (h) { history.replaceState(null, '', location.pathname + location.search); huntFind(h[1]); return; }
   const m = location.hash.match(/^#claim=(.+)$/);
@@ -77,12 +80,14 @@ function checkHash() {
 let stopScan = null;
 export async function openScanner() {
   const dlg = $('#dlg-scan');
-  $('#scan-msg').textContent = 'Visez un QR de récompense, une balise de chasse au trésor ou un QR de transfert de partie.';
+  $('#scan-msg').textContent = 'Visez un QR de récompense, une balise de chasse au trésor, un QR de transfert de partie ou un défi d\'échecs.';
   dlg.showModal();
   try {
     stopScan = await startScanner($('#scan-video'), txt => {
       const hunt = txt.match(/#hunt=([a-f0-9]{8,40})$/);
       if (hunt) { dlg.close(); huntFind(hunt[1]); return true; }
+      const du = txt.match(/#duel=([A-Za-z0-9]{6})$/);
+      if (du) { dlg.close(); emit('duel', du[1]); return true; }
       const tr = txt.match(/#transfer=([A-Za-z0-9-]{8,9})$/);
       if (tr) { dlg.close(); takeTransfer(tr[1]); return true; }
       const m = txt.match(/#claim=(.+)$/);

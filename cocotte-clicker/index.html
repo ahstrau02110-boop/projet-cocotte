@@ -89,6 +89,7 @@
       <!-- Raccourcis : mini-jeux, gacha, QR -->
       <nav class="actions" aria-label="Activités">
         <button id="btn-surv" class="action a-surv"><span class="a-ico" aria-hidden="true">🧟</span><span><b>Co'Survivor</b><small>Le jeu d'action</small></span></button>
+        <button id="btn-chess" class="action a-chess"><span class="a-ico" aria-hidden="true">♟️</span><span><b>Échecs</b><small id="chess-mini">IA, à deux ou en duel</small></span></button>
         <button id="btn-games" class="action a-games"><span class="a-ico" aria-hidden="true">🎮</span><span><b>Mini-jeux</b><small>Gagnez des cristaux</small></span></button>
         <button id="btn-gacha" class="action a-gacha"><span class="a-ico" aria-hidden="true">🎁</span><span><b>Imprimantes mystère</b><small>Skins et décors</small></span></button>
         <button id="btn-craft" class="action a-craft"><span class="a-ico" aria-hidden="true">🛠️</span><span><b>Fabrication</b><small id="craft-mini">Matériaux → objets</small></span></button>
@@ -509,6 +510,86 @@
   </dialog>
 
   <!-- QR code du joueur -->
+  <!-- Échecs -->
+  <dialog id="dlg-chess" class="wide chess-dlg" aria-labelledby="ch-title">
+    <div class="dlg">
+      <div class="dlg-head">
+        <h2 id="ch-title" class="tape tape-green">♟️ Échecs</h2>
+        <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
+      </div>
+
+      <div id="ch-home">
+        <div id="ch-resume"></div>
+        <section class="ch-card">
+          <h3>📚 Apprendre</h3>
+          <p class="muted small">Débutant ? Les règles en 14 petites leçons à jouer, puis des problèmes pour s'entraîner.</p>
+          <div class="ch-row">
+            <button type="button" id="ch-tuto" class="big-btn">📖 Tuto : les bases</button>
+            <button type="button" id="ch-train" class="big-btn alt">🎯 Entraînement : mat en 1</button>
+          </div>
+          <p id="ch-learn-stats" class="muted small"></p>
+        </section>
+        <section class="ch-card">
+          <h3>🍲 Contre la Cocotte</h3>
+          <div id="ch-level" class="sv-chips" role="group" aria-label="Niveau"></div>
+          <div id="ch-color" class="sv-chips" role="group" aria-label="Couleur"></div>
+          <button type="button" id="ch-ai" class="big-btn">▶️ Jouer contre la Cocotte</button>
+          <p id="ch-ai-stats" class="muted small"></p>
+        </section>
+        <section class="ch-card">
+          <h3>👥 À deux sur cet appareil</h3>
+          <button type="button" id="ch-local" class="big-btn alt">▶️ Jouer à deux</button>
+        </section>
+        <section class="ch-card">
+          <h3>📱 Duel en ligne</h3>
+          <p class="muted small">Créez un défi : votre adversaire scanne le QR code (avec l'appareil photo ou ici avec 📷), ou tape le code à 6 caractères.</p>
+          <button type="button" id="ch-create" class="big-btn">⚔️ Créer un défi (QR code)</button>
+          <div class="row">
+            <input id="ch-code" class="mono grow" maxlength="6" placeholder="Code du défi" autocomplete="off" autocapitalize="characters" aria-label="Code du défi">
+            <button type="button" id="ch-join" class="primary">Rejoindre</button>
+            <button type="button" id="ch-scan" aria-label="Scanner un QR de défi">📷</button>
+          </div>
+          <video id="ch-video" class="ch-video" hidden playsinline muted></video>
+          <h4>Mes parties en ligne <small id="ch-stats"></small></h4>
+          <ul id="ch-mine" class="ch-mine"></ul>
+        </section>
+      </div>
+
+      <div id="ch-wait" class="ch-wait" hidden>
+        <p><b>Faites scanner ce QR code à votre adversaire</b> (appareil photo du téléphone, ou 📷 dans l'onglet Échecs).</p>
+        <div id="ch-wait-qr" class="qr-box"></div>
+        <p>Code du défi : <strong id="ch-wait-code" class="mono ch-code"></strong></p>
+        <p id="ch-wait-col"></p>
+        <p class="muted">⏳ En attente de l'adversaire…</p>
+        <div class="row"><button type="button" id="ch-share">📤 Envoyer le lien</button><button type="button" id="ch-cancel" class="ghost-btn">Annuler le défi</button></div>
+      </div>
+
+      <div id="ch-game" class="ch-game" hidden>
+        <div class="ch-left">
+          <div class="ch-player" id="ch-top"></div>
+          <div class="ch-board" id="ch-board" aria-label="Échiquier"></div>
+          <div class="ch-player" id="ch-bottom"></div>
+        </div>
+        <div class="ch-right">
+          <div id="ch-lesson" class="ch-lesson" hidden></div>
+          <p id="ch-status" class="ch-status" role="status"></p>
+          <div id="ch-banner" class="ch-banner" hidden></div>
+          <div class="ch-actions">
+            <button type="button" id="ch-hint">💡 Indice</button>
+            <button type="button" id="ch-undo">↩️ Annuler</button>
+            <button type="button" id="ch-draw">🤝 Proposer nulle</button>
+            <button type="button" id="ch-resign">🏳️ Abandonner</button>
+            <button type="button" id="ch-again" class="primary">🔁 Rejouer</button>
+            <button type="button" id="ch-turnboard">🔄 Tourner</button>
+            <button type="button" id="ch-home-btn">🏠 Menu</button>
+          </div>
+          <ol id="ch-moves" class="ch-moves" aria-label="Coups joués"></ol>
+        </div>
+        <div id="ch-promo" class="ch-promo" hidden></div>
+      </div>
+    </div>
+  </dialog>
+
   <!-- Co'Survivor : jeu d'action à part -->
   <dialog id="dlg-surv" class="surv-dlg" aria-labelledby="sv-title">
     <div id="sv-lobby" class="dlg">

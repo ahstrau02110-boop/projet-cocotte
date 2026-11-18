@@ -23,7 +23,7 @@ function render() {
     <h3>Hébergement</h3>
     <ul>
       <li><b>Site du jeu :</b> GitHub Pages, GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis.</li>
-      <li><b>Fonctions en ligne</b> (classements, sauvegarde en ligne, Ligue classée, Co'Survivor) : Supabase, Inc. (supabase.com).</li>
+      <li><b>Fonctions en ligne</b> (classements, sauvegarde en ligne, Ligue classée, Co'Survivor, duels d'échecs) : Supabase, Inc. (supabase.com).</li>
       <li><b>Polices d'écriture :</b> Google Fonts (Google LLC), qui reçoit l'adresse IP de l'appareil lors du chargement.</li>
     </ul>
 
@@ -31,7 +31,7 @@ function render() {
     <p>Aucun compte, aucune adresse e-mail, aucun nom réel n'est demandé. Le jeu n'utilise ni cookie publicitaire ni outil de mesure d'audience.</p>
     <ul>
       <li><b>Sur votre appareil</b> (stockage local du navigateur) : votre partie et vos réglages. Ils restent sur l'appareil ; « Effacer la partie » dans les Options les supprime.</li>
-      <li><b>En ligne</b>, seulement pour les fonctions en ligne : un code joueur tiré au hasard, le pseudo que vous choisissez (facultatif), vos scores et statistiques de jeu, votre équipe, votre Cocotte partagée dans la galerie, et une copie de votre sauvegarde si la sauvegarde en ligne est activée. La clé secrète de l'appareil et le code de secours ne sont conservés que sous forme d'empreinte illisible.</li>
+      <li><b>En ligne</b>, seulement pour les fonctions en ligne : un code joueur tiré au hasard, le pseudo que vous choisissez (facultatif), vos scores et statistiques de jeu, votre équipe, votre Cocotte partagée dans la galerie, vos parties d'échecs en ligne (coups et résultats, effacées après 30 jours), et une copie de votre sauvegarde si la sauvegarde en ligne est activée. La clé secrète de l'appareil et le code de secours ne sont conservés que sous forme d'empreinte illisible.</li>
       <li><b>Anti-triche :</b> les anomalies de jeu détectées sont enregistrées et effacées au bout de 90 jours.</li>
       <li><b>Caméra :</b> utilisée uniquement pour scanner les QR codes, sur votre appareil ; aucune image n'est envoyée.</li>
     </ul>

@@ -2,6 +2,17 @@
   "_doc": "Onglet « Maj » du jeu : la plus récente en premier. id unique (sert au point « nouveau »), date AAAA-MM-JJ, titre, liste de lignes (emoji en début de ligne).",
   "updates": [
     {
+      "id": "2026-11-18a",
+      "date": "2026-11-18",
+      "title": "Nouveau : les Échecs !",
+      "items": [
+        "♟️ Nouvel onglet Échecs (dans les Activités) : jouez contre la Cocotte (3 niveaux), à deux sur le même appareil, ou en duel en ligne.",
+        "📱 Duel en ligne par QR code : créez un défi, votre adversaire scanne le QR avec son téléphone (ou tape le code à 6 caractères), et la partie se joue chacun sur son appareil. Partie reprenable à tout moment, nulle, abandon, bilan de vos victoires.",
+        "📖 Tuto : les règles en 14 leçons à jouer (déplacement de chaque pièce, échec, roque, prise en passant, promotion, mat…).",
+        "🎯 Entraînement : 12 problèmes « mat en 1 », et un bouton 💡 Indice dans les parties contre la Cocotte et à deux."
+      ]
+    },
+    {
       "id": "2026-11-16a",
       "date": "2026-11-16",
       "title": "Correctif : La Recyclerie",

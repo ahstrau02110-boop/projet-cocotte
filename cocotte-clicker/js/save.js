@@ -65,6 +65,13 @@ function sanitize(raw) {
     list: wk.list.filter(m => m && typeof m.id === 'string').slice(0, 3).map(m => ({ id: m.id, lvl: int(m.lvl), n: Math.max(1, int(m.n, 1)), reward: int(m.reward), start: num(m.start), claimed: !!m.claimed })) };
   for (const [k, v] of Object.entries(obj(raw.flags))) if (v) s.flags[k] = 1;
   s.mega = { level: Math.min(int(obj(raw.mega).level), 99) };
+  // Échecs : bilans contre l'IA, partie en cours (coups rejoués et vérifiés à l'ouverture), progression du tuto
+  const ch = obj(raw.chess), le = obj(ch.learn), cur = obj(ch.cur);
+  s.chess = { ai: {}, cur: null, online: ch.online ? 1 : 0, level: [1, 2, 3].includes(ch.level) ? ch.level : 2, color: ['w', 'b', 'r'].includes(ch.color) ? ch.color : 'r',
+    learn: { lessons: (Array.isArray(le.lessons) ? le.lessons : []).filter(x => typeof x === 'string').slice(0, 50), puzzles: (Array.isArray(le.puzzles) ? le.puzzles : []).filter(Number.isInteger).slice(0, 100) } };
+  for (const k of ['1', '2', '3']) { const a = obj(obj(ch.ai)[k]); if (Object.keys(a).length) s.chess.ai[k] = { w: int(a.w), l: int(a.l), d: int(a.d) }; }
+  if (['ai', 'local'].includes(cur.mode) && Array.isArray(cur.moves)) s.chess.cur = { mode: cur.mode, level: [1, 2, 3].includes(cur.level) ? cur.level : 2,
+    me: cur.me === 'b' ? 'b' : 'w', moves: cur.moves.filter(u => typeof u === 'string' && /^[a-h][1-8][a-h][1-8][qrbn]?$/.test(u)).slice(0, 1200) };
   const sv = obj(raw.surv);
   s.surv = { bolts: int(sv.bolts), up: {}, best: Math.min(int(sv.best), 900), bestKills: int(sv.bestKills), runs: int(sv.runs), wins: int(sv.wins),
     kills: int(sv.kills), day: typeof sv.day === 'string' ? sv.day : '', cToday: int(sv.cToday),
