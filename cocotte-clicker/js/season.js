@@ -83,7 +83,7 @@ export function renderSeason() {
   if (!show) return;
   const n = pendingSeeds();
   $('#btn-talents').textContent = `🌱 Talents de saison (${state.prestige.seeds - state.prestige.spent} graine${state.prestige.seeds - state.prestige.spent > 1 ? 's' : ''} à dépenser)`;
-  $('#season-info').innerHTML = `🌱 <strong>${fmt(state.prestige.seeds)}</strong> graine${state.prestige.seeds > 1 ? 's' : ''} de saison · production <strong>+${fmt(seedBonus())} %</strong> pour toujours`
+  $('#season-info').innerHTML = `🌱 <strong>${fmt(state.prestige.seeds)}</strong> graine${state.prestige.seeds > 1 ? 's' : ''} de saison · production <strong>+${fmt(seedBonus())} %</strong>, gardée à chaque Nouvelle saison (jusqu'au Méga-Prestige)`
     + (state.prestige.seasons ? ` · saison n°${state.prestige.seasons + 1}` : '');
   $('#season-next').textContent = n > 0
     ? `Une nouvelle saison maintenant rapporterait +${fmt(n)} graine${n > 1 ? 's' : ''} (+${fmt(n * (P().seedPct ?? 2))} %).`
@@ -94,7 +94,7 @@ export function renderSeason() {
 function openSeasonDialog() {
   const n = pendingSeeds();
   if (n < 1) return;
-  $('#season-gain').textContent = `+${fmt(n)} graine${n > 1 ? 's' : ''} de saison (+${fmt(n * (P().seedPct ?? 2))} % de production, pour toujours)`;
+  $('#season-gain').textContent = `+${fmt(n)} graine${n > 1 ? 's' : ''} de saison (+${fmt(n * (P().seedPct ?? 2))} % de production, gardée jusqu'au Méga-Prestige)`;
   $('#dlg-season').showModal();
 }
 
