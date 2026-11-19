@@ -71,7 +71,8 @@ function rollOne(m, minRare) {
   const refund = isNew ? 0 : (cfg().refund?.[rarity] ?? 2);
   addCrystals(refund);
   if (!isNew && m === M.pet) state.adv.frag += 20; // doublon de compagnon : fragments pour l'Aventure
-  return { item, rarity, isNew, refund };
+  // Les compagnons n'ont pas de champ « name » (nom selon la forme) : on le fournit pour l'affichage
+  return { item: m === M.pet ? { ...item, name: petName(item.id) } : item, rarity, isNew, refund };
 }
 
 // Impression offerte (recettes de l'Établi) : un tirage sans animation
