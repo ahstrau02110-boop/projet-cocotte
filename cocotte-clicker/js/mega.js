@@ -42,7 +42,7 @@ function doMega() {
     playerId: s.playerId, pseudo: s.pseudo, settings: s.settings, tuto: true, welcomed: true,
     net: { ...s.net }, cloud: { ...s.cloud }, online: { ...s.online }, claimed: [...s.claimed], helpSeen: { ...s.helpSeen },
     skins: { ...s.skins }, bgs: { ...s.bgs }, skin: s.skin, bg: s.bg, gacha: { ...s.gacha, sinceLegend: s.gacha.sinceLegend, bgSinceLegend: s.gacha.bgSinceLegend },
-    mega: { level: s.mega.level + 1 }, surv: { ...s.surv, up: { ...s.surv.up } }, chess: s.chess, flags: { matsIntro: 1 }, daily: { ...s.daily },
+    mega: { level: s.mega.level + 1 }, surv: { ...s.surv, up: { ...s.surv.up } }, chess: s.chess, pets: { ...s.pets }, pet: s.pet, petLv: { ...s.petLv }, fxOwned: { ...s.fxOwned }, fx: s.fx, title: s.title, adv: { ...s.adv }, advent: { ...s.advent }, pixel: { ...s.pixel }, flags: { matsIntro: 1 }, daily: { ...s.daily },
   };
   const fresh = Object.assign(freshState(), keep);
   fresh.crystals = cfg().startCrystals ?? 50;

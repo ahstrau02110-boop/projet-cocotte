@@ -84,6 +84,27 @@ async function renderFind() {
   } catch { ul.innerHTML = '<li class="muted">Recherche impossible (script supabase/reset.sql installé ?).</li>'; }
 }
 
+// Atelier pixel : créations proposées par les joueurs (16 × 16, palette de 16 couleurs)
+const PAL = ['#000000', '#ffffff', '#e41e6c', '#f07e36', '#fcd260', '#90c060', '#3c2472', '#2f9be0', '#8b5a2b', '#9e9e9e', '#ff9ecb', '#c0392b', '#1b5e20', '#7fd8ff', '#5d4037', '#f5e6c8'];
+function pixelURL(art) {
+  const c = document.createElement('canvas'); c.width = c.height = 64;
+  const x = c.getContext('2d');
+  for (let i = 0; i < 256; i++) if (art[i] && art[i] !== '.') { x.fillStyle = PAL[parseInt(art[i], 16)]; x.fillRect((i % 16) * 4, Math.floor(i / 16) * 4, 4, 4); }
+  return c.toDataURL();
+}
+async function renderPixels() {
+  const ul = $('#live-pixels');
+  if (!serverKey()) { ul.innerHTML = '<li class="muted">Enregistrez la clé serveur pour voir cette liste.</li>'; return; }
+  try {
+    const r = await admin('admin_pixel_pending');
+    if (!r?.ok) { ul.innerHTML = `<li class="muted">${r?.error === 'key' ? 'Clé serveur refusée.' : 'Indisponible (script supabase/collection.sql installé ?).'}</li>`; return; }
+    ul.innerHTML = r.items.length ? r.items.map(x => `<li><img src="${pixelURL(x.art)}" alt="" width="96" height="96"><b>${esc(x.pseudo)}</b>
+      <small>${x.status === 'pending' ? '⏳ À valider' : '✅ Validée'} · ${new Date(x.created_at).toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' })}</small>
+      <span class="row">${x.status === 'pending' ? `<button type="button" class="ghost-btn" data-px-ok="${x.player_id}">✅ Valider</button>` : ''}<button type="button" class="danger" data-px-no="${x.player_id}">${x.status === 'pending' ? '❌ Refuser' : '🗑️ Retirer'}</button></span></li>`).join('')
+      : '<li class="muted">Aucune création à valider. 👍</li>';
+  } catch { ul.innerHTML = '<li class="muted">Indisponible (script supabase/collection.sql installé ?).</li>'; }
+}
+
 async function renderGallery() {
   try {
     const g = await rpc('gallery_list', { p_limit: 60 });
@@ -97,7 +118,7 @@ export function initLive(cfg) {
   $('#live-key').value = serverKey();
   $('#btn-live-key').addEventListener('click', async () => {
     localStorage.setItem(KEY, $('#live-key').value.trim());
-    if (await renderStatus()) { toast('✅ Clé serveur enregistrée sur cet appareil.'); renderLive(); renderGallery(); renderSuspects(); }
+    if (await renderStatus()) { toast('✅ Clé serveur enregistrée sur cet appareil.'); renderLive(); renderGallery(); renderSuspects(); renderPixels(); }
   });
   $('#btn-announce').addEventListener('click', async () => {
     const r = await admin('admin_announce', { p_text: $('#ann-text').value, p_hours: +$('#ann-hours').value || 24 }).catch(() => null);
@@ -137,6 +158,13 @@ export function initLive(cfg) {
     if (okOr(r, 'Retirée de la galerie.')) renderGallery();
   });
   $('#btn-suspects').addEventListener('click', renderSuspects);
+  $('#btn-pixels').addEventListener('click', renderPixels);
+  $('#live-pixels').addEventListener('click', async e => {
+    const ok = e.target.closest('[data-px-ok]'), no = e.target.closest('[data-px-no]');
+    if (!ok && !no) return;
+    const r = await admin('admin_pixel_review', { p_player: (ok || no).dataset[ok ? 'pxOk' : 'pxNo'], p_ok: !!ok }).catch(() => null);
+    if (okOr(r, ok ? '✅ Création ajoutée à la galerie.' : '❌ Création refusée.')) renderPixels();
+  });
   // Actions sur un joueur (liste des suspects et résultats de recherche)
   const onPlayer = async e => {
     const ban = e.target.closest('[data-ban]'), unban = e.target.closest('[data-unban]'), clear = e.target.closest('[data-clear]'), reset = e.target.closest('[data-reset]');
@@ -158,5 +186,5 @@ export function initLive(cfg) {
   $('#live-find').addEventListener('click', onPlayer);
   $('#btn-find').addEventListener('click', renderFind);
   $('#find-q').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); renderFind(); } });
-  renderStatus(); renderLive(); renderGallery(); renderSuspects();
+  renderStatus(); renderLive(); renderGallery(); renderSuspects(); renderPixels();
 }

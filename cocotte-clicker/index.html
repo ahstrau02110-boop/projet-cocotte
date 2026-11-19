@@ -69,6 +69,7 @@
         <div class="pot-wrap" id="pot-wrap">
           <canvas id="fx" aria-hidden="true"></canvas>
           <div class="rays" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <button type="button" id="pet" class="pet" hidden aria-label="Votre compagnon"></button>
           <button id="pot" class="pot" aria-describedby="pot-help">
             <img data-asset="marmite" alt="" draggable="false">
             <span class="sr">Cliquer sur la Cocotte</span>
@@ -88,6 +89,9 @@
 
       <!-- Raccourcis : mini-jeux, gacha, QR -->
       <nav class="actions" aria-label="Activités">
+        <button id="btn-advent" class="action a-advent" hidden><span class="a-ico" aria-hidden="true">🎄</span><span><b>Calendrier de l'Avent</b><small id="advent-mini">Une surprise par jour</small></span></button>
+        <button id="btn-adv" class="action a-adv"><span class="a-ico" aria-hidden="true">🦠</span><span><b>Aventure</b><small>Vos compagnons contre les virus</small></span></button>
+        <button id="btn-pixel" class="action a-pixel"><span class="a-ico" aria-hidden="true">🎨</span><span><b>Atelier pixel</b><small>Dessinez votre Cocotte</small></span></button>
         <button id="btn-surv" class="action a-surv"><span class="a-ico" aria-hidden="true">🧟</span><span><b>Co'Survivor</b><small>Le jeu d'action</small></span></button>
         <button id="btn-chess" class="action a-chess"><span class="a-ico" aria-hidden="true">♟️</span><span><b>Échecs</b><small id="chess-mini">IA, à deux ou en duel</small></span></button>
         <button id="btn-games" class="action a-games"><span class="a-ico" aria-hidden="true">🎮</span><span><b>Mini-jeux</b><small>Gagnez des cristaux</small></span></button>
@@ -312,6 +316,7 @@
       <div class="tabs" role="tablist">
         <button role="tab" id="tab-cocotte" aria-controls="panel-print" aria-selected="true">🍲 Cocottes</button>
         <button role="tab" id="tab-decor" aria-controls="panel-print" aria-selected="false">🖼️ Décors</button>
+        <button role="tab" id="tab-pet" aria-controls="panel-print" aria-selected="false">🐾 Compagnons</button>
         <button role="tab" id="tab-coll" aria-controls="panel-coll" aria-selected="false">Collection <span id="coll-count"></span></button>
       </div>
       <div id="panel-print" role="tabpanel">
@@ -332,6 +337,9 @@
         <div class="row" role="group" aria-label="Afficher">
           <button class="ghost-btn" data-coll="cocotte" aria-pressed="true">🍲 Cocottes</button>
           <button class="ghost-btn" data-coll="decor" aria-pressed="false">🖼️ Décors</button>
+          <button class="ghost-btn" data-coll="pet" aria-pressed="false">🐾 Compagnons</button>
+          <button class="ghost-btn" data-coll="fx" aria-pressed="false">✨ Effets</button>
+          <button class="ghost-btn" data-coll="title" aria-pressed="false">🏷️ Titres</button>
           <span id="coll-sub" class="small"></span>
         </div>
         <ul id="skin-grid" class="skin-grid"></ul>
@@ -351,7 +359,7 @@
       <p class="season-gain" id="mega-gain"></p>
       <div class="two-cols">
         <div><h3>Remis à zéro</h3><ul><li>Co'Coins, bâtiments, ères, améliorations, projets</li><li>Saisons, graines et talents</li><li>Succès et leur bonus</li><li>Cristaux, matériaux, commandes, réputation</li><li>Records et statistiques</li><li>Votre place au classement en ligne (avec un badge 🌌 visible par tous)</li></ul></div>
-        <div><h3>Conservé</h3><ul><li>Toutes vos Cocottes 🍲</li><li>Tous vos décors 🖼️</li><li>Votre code joueur, pseudo et réglages</li><li>Le bonus de Méga-Prestige 🌌</li></ul></div>
+        <div><h3>Conservé</h3><ul><li>Toutes vos Cocottes 🍲</li><li>Tous vos décors 🖼️</li><li>Vos compagnons 🐾, effets de clic ✨ et titres 🏷️</li><li>L'Aventure, le calendrier de l'Avent et l'Atelier pixel</li><li>Votre code joueur, pseudo et réglages</li><li>Le bonus de Méga-Prestige 🌌</li></ul></div>
       </div>
       <label class="switch mega-check"><input type="checkbox" id="mega-confirm"> <span>J'ai compris : tout recommence sauf mes skins et mes décors.</span></label>
       <div class="row center">
@@ -510,6 +518,73 @@
   </dialog>
 
   <!-- QR code du joueur -->
+  <!-- Aventure des compagnons (idle) -->
+  <dialog id="dlg-adv" class="wide" aria-labelledby="adv-title">
+    <div class="dlg">
+      <div class="dlg-head">
+        <h2 id="adv-title" class="tape tape-green">🦠 Aventure des compagnons</h2>
+        <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
+      </div>
+      <p class="muted">Vos compagnons combattent seuls les virus, étage après étage, à l'infini, même quand le jeu est fermé (8 h maximum). Gagnez des fragments 🧬 pour les faire monter de niveau : ils <b>évoluent</b> aux niveaux 10 et 30 !</p>
+      <div class="rk-top" id="adv-top"></div>
+      <div id="adv-arena" class="adv-arena">
+        <div id="adv-team" class="adv-side"></div>
+        <span class="adv-vs" aria-hidden="true">⚔️</span>
+        <div id="adv-enemy" class="adv-side"></div>
+      </div>
+      <label class="switch"><input type="checkbox" id="adv-auto"> <span>Avancer automatiquement (sinon, l'équipe reste à l'étage en cours pour s'entraîner)</span></label>
+      <ul id="adv-log" class="adv-log" aria-live="polite"></ul>
+      <h3>🐾 Votre équipe (3 compagnons maximum)</h3>
+      <p class="muted small">⚔️ Attaque : bat les virus plus vite · 🛡️ Défense : beaucoup de PV · 💚 Soin : réduit les dégâts reçus. Obtenez d'autres compagnons dans l'Imprimante à compagnons (🎁 Imprimantes mystère).</p>
+      <ul id="adv-pets" class="adv-pets"></ul>
+      <p id="adv-caps" class="muted small"></p>
+    </div>
+  </dialog>
+
+  <!-- Calendrier de l'Avent -->
+  <dialog id="dlg-advent" aria-labelledby="advent-title">
+    <div class="dlg">
+      <div class="dlg-head">
+        <h2 id="advent-title" class="tape">🎄 Calendrier de l'Avent</h2>
+        <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
+      </div>
+      <p id="advent-info" class="muted"></p>
+      <div id="advent-grid" class="advent-grid"></div>
+    </div>
+  </dialog>
+
+  <!-- Atelier pixel -->
+  <dialog id="dlg-pixel" class="wide" aria-labelledby="pixel-title">
+    <div class="dlg">
+      <div class="dlg-head">
+        <h2 id="pixel-title" class="tape tape-purple">🎨 Atelier pixel</h2>
+        <form method="dialog"><button class="dlg-close" aria-label="Fermer">✕</button></form>
+      </div>
+      <p class="muted">Dessinez votre propre Cocotte en 16 × 16 pixels, portez-la dans le jeu, et proposez-la à la galerie de La Co'Cotte (après validation par l'équipe).</p>
+      <div class="px-wrap">
+        <canvas id="px-canvas" class="px-canvas" width="384" height="384" aria-label="Zone de dessin"></canvas>
+        <div class="px-side">
+          <div id="px-tools" class="px-tools">
+            <button type="button" data-tool="pen">✏️ Crayon</button><button type="button" data-tool="eraser">🧽 Gomme</button>
+            <button type="button" data-tool="fill">🪣 Remplir</button><button type="button" data-tool="pick">💧 Pipette</button>
+            <button type="button" data-act="undo">↩️ Annuler</button><button type="button" data-act="clear">🗑️ Tout effacer</button>
+            <button type="button" data-act="template">🍲 Modèle de Cocotte</button>
+          </div>
+          <div id="px-palette" class="px-palette" role="group" aria-label="Couleurs"></div>
+          <div class="px-prev"><img id="px-preview" alt="Aperçu"><small>Aperçu</small></div>
+          <div class="px-actions">
+            <button type="button" id="px-save">💾 Enregistrer</button>
+            <button type="button" id="px-wear" class="primary">🍲 Porter ma Cocotte</button>
+            <button type="button" id="px-share">📤 Proposer à la galerie</button>
+          </div>
+          <p id="px-status" class="small" role="status"></p>
+        </div>
+      </div>
+      <h3>🖼️ Galerie des créations</h3>
+      <ul id="px-gallery" class="px-gallery"></ul>
+    </div>
+  </dialog>
+
   <!-- Échecs -->
   <dialog id="dlg-chess" class="wide chess-dlg" aria-labelledby="ch-title">
     <div class="dlg">

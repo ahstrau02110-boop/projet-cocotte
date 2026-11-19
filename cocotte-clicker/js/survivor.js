@@ -2,7 +2,7 @@
 // Le joueur ne fait que se déplacer ; les armes tirent toutes seules. 5 minutes pour gagner.
 // Progression propre (Boulons 🔩 et améliorations permanentes) dans state.surv : n'influence pas le clicker.
 // Classement en ligne : le serveur ouvre et ferme chaque partie avec son horloge (supabase/survivor.sql).
-import { state, addCrystals } from './state.js';
+import { DATA, state, addCrystals } from './state.js';
 import { $, toast, esc, today } from './core.js';
 import { save } from './save.js';
 import { sfx } from './audio.js';
@@ -15,6 +15,7 @@ const CRYST_DAY = 25;       // cristaux max par jour gagnés dans Co'Survivor
 const me = () => ({ p_id: state.playerId, p_token: state.net.token });
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const mmss = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+const titleOf = id => (id && DATA.titles.find(t => t.id === id)?.label) || '';
 const pick = a => a[Math.floor(Math.random() * a.length)];
 
 // ---------- Contenu ----------
@@ -658,7 +659,7 @@ function renderBoard() {
   if (!netEnabled()) { el.innerHTML = '<li class="muted">Classement indisponible hors ligne.</li>'; return; }
   if (!board) { el.innerHTML = '<li class="muted">Chargement…</li>'; return; }
   const hs = h => (h ? `🔥${h} ` : '');
-  el.innerHTML = board.top?.length ? board.top.map(r => `<li${r.me ? ' class="me"' : ''}><span>${r.rank}</span><span>${esc(r.pseudo)}</span><b>${hs(r.heat)}${mmss(r.time)} · 💀 ${r.kills}</b></li>`).join('')
+  el.innerHTML = board.top?.length ? board.top.map(r => `<li${r.me ? ' class="me"' : ''}><span>${r.rank}</span><span>${esc(r.pseudo)}${titleOf(r.title) ? `<small class="player-title">« ${esc(titleOf(r.title))} »</small>` : ''}</span><b>${hs(r.heat)}${mmss(r.time)} · 💀 ${r.kills}</b></li>`).join('')
     + (board.me && !board.top.some(r => r.me) ? `<li class="me"><span>${board.me.rank}</span><span>Vous</span><b>${hs(board.me.heat)}${mmss(board.me.time)}</b></li>` : '')
     : '<li class="muted">Personne n\'a encore joué : à vous l\'honneur !</li>';
 }

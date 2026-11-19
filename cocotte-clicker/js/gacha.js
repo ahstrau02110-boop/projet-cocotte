@@ -4,6 +4,7 @@ import { $, $$, emit, toast, sleep, reducedMotion, esc } from './core.js';
 import { skinById, rarityOf, skinImage } from './skins.js';
 import { bgById, bgThumb } from './backgrounds.js';
 import { save } from './save.js';
+import { petById, petEmoji, petName, fxById, titleUnlocked, setTitle, petLevel } from './cosmetics.js';
 import { sfx } from './audio.js';
 
 const RANK = { commune: 0, rare: 1, epique: 2, legendaire: 3, evenement: 4 };
@@ -27,7 +28,26 @@ const M = {
     visual: b => bgThumb(b),
     equipped: id => state.bg === id, equip: id => { state.bg = id; }, byId: bgById,
   },
+  pet: {
+    title: 'Imprimante à compagnons', label: 'COMPAGNON·PRINT', unit: 'compagnon',
+    items: () => DATA.pets.filter(p => p.src === 'print'), all: () => DATA.pets,
+    owned: () => state.pets, pity: 'petSinceLegend', pulls: 'petPulls',
+    visual: p => `<span class="pet-card-ico" aria-hidden="true">${state.pets[p.id] ? petEmoji(p.id) : p.forms[0].e}</span>`,
+    equipped: id => state.pet === id, equip: id => { state.pet = id; }, byId: id => ({ ...petById(id), name: petName(id) || petById(id)?.forms[0].name }),
+  },
+  // Collections sans imprimante
+  fx: {
+    unit: 'effet', all: () => DATA.effects, owned: () => state.fxOwned,
+    visual: f => `<span class="pet-card-ico" aria-hidden="true">${f.icon}</span>`,
+    equipped: id => state.fx === id, equip: id => { state.fx = id; }, byId: fxById,
+  },
+  title: {
+    unit: 'titre', all: () => DATA.titles, owned: () => Object.fromEntries(DATA.titles.filter(t => titleUnlocked(t.id)).map(t => [t.id, 1])),
+    visual: t => `<span class="title-card">« ${esc(t.label)} »</span>`,
+    equipped: id => state.title === id, equip: id => { setTitle(id); }, byId: id => ({ name: DATA.titles.find(t => t.id === id)?.label }),
+  },
 };
+const HOW = { advent: 'Calendrier de l\'Avent 🎄', survivor: 'Co\'Survivor 🧟', chess: 'Échecs ♟️', mega: 'Méga-Prestige 🌌', craft: 'À fabriquer (🛠️ Établi)', ach: 'Succès 🏆' };
 
 function rollRarity(m, minRare) {
   const pity = cfg().pityLegendary || 60;
@@ -50,6 +70,7 @@ function rollOne(m, minRare) {
   owned[item.id] = (owned[item.id] || 0) + 1;
   const refund = isNew ? 0 : (cfg().refund?.[rarity] ?? 2);
   addCrystals(refund);
+  if (!isNew && m === M.pet) state.adv.frag += 20; // doublon de compagnon : fragments pour l'Aventure
   return { item, rarity, isNew, refund };
 }
 
@@ -107,12 +128,12 @@ async function animate(m, results) {
     li.className = `skin-card r-${r.rarity}${r.isNew ? ' is-new' : ''}`;
     li.style.setProperty('--rc', rar.color);
     li.style.animationDelay = (reducedMotion ? 0 : i * 90) + 'ms';
-    const dupPct = m === M.cocotte ? (cfg().dupSkinPct ?? 1) : (cfg().dupBgPct ?? 0.5);
+    const dupPct = m === M.cocotte ? (cfg().dupSkinPct ?? 1) : m === M.pet ? 0 : (cfg().dupBgPct ?? 0.5);
     li.innerHTML = `${m.visual(r.item)}
       <span class="rar">${rar.label}</span>
       ${r.isNew ? '' : `<span class="dup-badge">×${m.owned()[r.item.id]}</span>`}
       <b>${esc(r.item.name)}</b>
-      <small>${r.isNew ? 'Nouveau !' : `Doublon ! +${fmtPct(dupPct)} de production · +${r.refund} 💎`}</small>
+      <small>${r.isNew ? 'Nouveau !' : m === M.pet ? `Doublon ! +${r.refund} 💎 et +20 🧬 pour l'Aventure` : `Doublon ! +${fmtPct(dupPct)} de production · +${r.refund} 💎`}</small>
       ${results.length === 1 ? `<button class="equip-btn" data-equip="${machine}:${r.item.id}">Équiper</button>` : ''}`;
     out.appendChild(li);
   });
@@ -125,8 +146,9 @@ const fmtPct = n => (Math.round(n * 10) / 10).toLocaleString('fr-FR') + ' %';
 function equip(key) {
   const [mk, id] = key.split(':');
   const m = M[mk];
-  if (id !== 'auto' && !m.owned()[id]) return;
-  if (mk === 'decor' && id === 'auto') state.bg = 'auto'; else m.equip(id);
+  if (id !== 'auto' && id !== 'none' && !(mk === 'title' && id === '') && !m.owned()[id]) return;
+  if (mk === 'pet' && id === 'none') state.pet = null;
+  else if (mk === 'decor' && id === 'auto') state.bg = 'auto'; else m.equip(id);
   state.counters.equips++;
   if (mk === 'cocotte' && id === 'glitch') state.flags.glitch = 1;
   if (mk === 'cocotte' && DATA.skins.find(s => s.id === id)?.default && Object.keys(state.skins).length >= 20) state.flags.retour = 1;
@@ -134,7 +156,7 @@ function equip(key) {
   sfx.buy();
   emit('skin');
   renderCollection();
-  toast(id === 'auto' ? "Décor de l'ère rétabli." : `${m.byId(id).name} équipé${mk === 'cocotte' ? 'e' : ''} !`);
+  toast(id === 'auto' ? "Décor de l'ère rétabli." : id === 'none' ? 'Compagnon rangé.' : mk === 'title' ? `Titre affiché : « ${m.byId(id).name} »` : `${m.byId(id).name} équipé${mk === 'cocotte' ? 'e' : ''} !`);
 }
 
 function renderInfo() {
@@ -145,7 +167,7 @@ function renderInfo() {
   $('#gacha-title').textContent = m.title;
   $('#printer-label').textContent = m.label;
   $('#printer').dataset.machine = machine;
-  $('#gacha-info').textContent = `${got}/${m.items().length} ${m.unit}s obtenus. Taux : ${rates}. Légendaire garanti${machine === 'cocotte' ? 'e' : ''} dans ${pity} impression${pity > 1 ? 's' : ''} au plus. ×10 : au moins un Rare.`;
+  $('#gacha-info').textContent = `${machine === 'pet' ? 'Les compagnons vivent sur votre plan de travail et partent à l\'Aventure contre les virus. ' : ''}${got}/${m.items().length} ${m.unit}s obtenus. Taux : ${rates}. Légendaire garanti${machine !== 'decor' ? 'e' : ''} dans ${pity} impression${pity > 1 ? 's' : ''} au plus. ×10 : au moins un Rare.`;
   $('#pull1').innerHTML = `Imprimer ×1 <span class="cost">${cfg().cost1 ?? 25} 💎</span>`;
   $('#pull10').innerHTML = `Imprimer ×10 <span class="cost">${cost10()} 💎</span>`;
 }
@@ -153,18 +175,27 @@ function renderInfo() {
 export function renderCollection() {
   const m = M[collView];
   const all = m.all(), got = all.filter(s => m.owned()[s.id]).length;
-  const skinsGot = DATA.skins.filter(s => state.skins[s.id]).length, bgGot = DATA.backgrounds.filter(b => state.bgs[b.id]).length;
-  $('#coll-count').textContent = `${skinsGot + bgGot}/${DATA.skins.length + DATA.backgrounds.length}`;
+  const skinsGot = DATA.skins.filter(s => !s.custom && state.skins[s.id]).length, bgGot = DATA.backgrounds.filter(b => state.bgs[b.id]).length;
+  const petsGot = DATA.pets.filter(p => state.pets[p.id]).length, fxGot = DATA.effects.filter(f => state.fxOwned[f.id]).length;
+  $('#coll-count').textContent = `${skinsGot + bgGot + petsGot + fxGot}/${DATA.skins.filter(s => !s.custom).length + DATA.backgrounds.length + DATA.pets.length + DATA.effects.length}`;
   const sd = skinDupes(), bd = bgDupes();
-  $('#coll-bonus').innerHTML = `Chaque nouveau skin de Cocotte donne +${fmtPct(cfg().collectionBonusPct ?? 1)} de production, chaque décor +${fmtPct(cfg().collectionBgPct ?? 0.5)}.
+  $('#coll-bonus').innerHTML = `Chaque nouveau skin de Cocotte donne +${fmtPct(cfg().collectionBonusPct ?? 1)} de production, chaque décor +${fmtPct(cfg().collectionBgPct ?? 0.5)}, chaque compagnon +${fmtPct(cfg().petPct ?? 0.3)}, chaque effet de clic +${fmtPct(cfg().fxPct ?? 0.2)}.
     Chaque <b>doublon</b> ajoute encore +${fmtPct(cfg().dupSkinPct ?? 1)} (Cocotte) ou +${fmtPct(cfg().dupBgPct ?? 0.5)} (décor), sans limite.<br>
     Doublons : <strong>${sd}</strong> Cocotte${sd > 1 ? 's' : ''} · <strong>${bd}</strong> décor${bd > 1 ? 's' : ''} (+${fmtPct(dupBonus())}).
     Bonus total : <strong>+${fmtPct(collectionBonus())}</strong>.`;
   $$('[data-coll]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.coll === collView)));
   $('#coll-sub').textContent = `${got}/${all.length}`;
   const grid = $('#skin-grid');
-  const order = [...all].sort((a, b) => RANK[a.rarity] - RANK[b.rarity]);
-  let html = collView === 'decor'
+  const order = [...all].filter(s => !s.custom || m.owned()[s.id]).sort((a, b) => RANK[a.rarity] - RANK[b.rarity]);
+  let html = collView === 'pet'
+    ? `<li class="skin-card r-commune${!state.pet ? ' equipped' : ''}" style="--rc:#999"><span class="pet-card-ico" aria-hidden="true">🚫</span>
+        <span class="rar">Aucun</span><b>Pas de compagnon</b><small>Le plan de travail sans compagnon</small>
+        <button class="equip-btn" data-equip="pet:none" ${!state.pet ? 'disabled' : ''}>${!state.pet ? 'Choisi' : 'Ranger'}</button></li>`
+    : collView === 'title'
+    ? `<li class="skin-card r-commune${!state.title ? ' equipped' : ''}" style="--rc:#999"><span class="title-card">(aucun)</span>
+        <span class="rar">Aucun</span><b>Pas de titre</b><small>Seulement le pseudo</small>
+        <button class="equip-btn" data-equip="title:" ${!state.title ? 'disabled' : ''}>${!state.title ? 'Choisi' : 'Retirer'}</button></li>`
+    : collView === 'decor'
     ? `<li class="skin-card r-commune${state.bg === 'auto' ? ' equipped' : ''}" style="--rc:#999"><span class="bg-thumb era-auto" aria-hidden="true"></span>
         <span class="rar">Par défaut</span><b>Décor de l'ère</b><small>Change avec chaque ère</small>
         <button class="equip-btn" data-equip="decor:auto" ${state.bg === 'auto' ? 'disabled' : ''}>${state.bg === 'auto' ? 'Équipé' : 'Équiper'}</button></li>` : '';
@@ -172,8 +203,10 @@ export function renderCollection() {
     const has = !!m.owned()[s.id], rar = rarityOf(s.rarity), on = m.equipped(s.id), n = m.owned()[s.id] | 0;
     return `<li class="skin-card r-${s.rarity}${has ? '' : ' locked'}${on ? ' equipped' : ''}" style="--rc:${rar.color}">
       ${m.visual(s)}<span class="rar">${rar.label}</span>${n > 1 ? `<span class="dup-badge" title="${n - 1} doublon${n > 2 ? 's' : ''}">×${n}</span>` : ''}
-      ${has ? `<b>${esc(s.name)}</b>${s.desc ? `<small>${esc(s.desc)}</small>` : ''}
+      ${has ? `<b>${esc(collView === 'pet' ? petName(s.id) : collView === 'title' ? '' : s.name)}</b>${collView === 'pet' ? `<small>Niveau ${petLevel(s.id)} · ${({ att: '⚔️ Attaque', tank: '🛡️ Défense', soin: '💚 Soin' })[s.role]}</small>` : collView === 'title' ? `<small>${esc(s.how)}</small>` : s.desc ? `<small>${esc(s.desc)}</small>` : ''}
         <button class="equip-btn" data-equip="${collView}:${s.id}" ${on ? 'disabled' : ''}>${on ? 'Équipé' : 'Équiper'}</button>`
+        : collView === 'title' ? `<small>🔒 ${esc(s.how)}</small>`
+        : (collView === 'pet' || collView === 'fx') && s.src !== 'print' ? `<b>${esc(collView === 'pet' ? s.forms[0].name : s.name)}</b><small>${HOW[s.src] || ''}</small>`
         : s.event ? `<b>${esc(s.name)}</b><small>Objet d'événement (onglet 🎉)</small>`
         : s.craft ? `<b>${esc(s.name)}</b><small>À fabriquer (🛠️ Établi)</small>`
         : s.mega ? `<b>${esc(s.name)}</b><small>Méga-Prestige niveau ${s.mega} 🌌</small>` : '<b>???</b><small>À imprimer</small>'}</li>`;
@@ -182,7 +215,7 @@ export function renderCollection() {
 }
 
 function setTab(tab) {
-  ['cocotte', 'decor', 'coll'].forEach(t => $(`#tab-${t}`).setAttribute('aria-selected', String(t === tab)));
+  ['cocotte', 'decor', 'pet', 'coll'].forEach(t => $(`#tab-${t}`).setAttribute('aria-selected', String(t === tab)));
   $('#panel-print').hidden = tab === 'coll';
   $('#panel-coll').hidden = tab !== 'coll';
   if (tab !== 'coll') {
@@ -202,7 +235,7 @@ export function openGacha(tab = 'cocotte') {
 export function initGacha() {
   $('#pull1').addEventListener('click', () => pull(1));
   $('#pull10').addEventListener('click', () => pull(10));
-  ['cocotte', 'decor', 'coll'].forEach(t => $(`#tab-${t}`).addEventListener('click', () => { if (!busy) { sfx.ui(); setTab(t); } }));
+  ['cocotte', 'decor', 'pet', 'coll'].forEach(t => $(`#tab-${t}`).addEventListener('click', () => { if (!busy) { sfx.ui(); setTab(t); } }));
   $$('[data-coll]').forEach(b => b.addEventListener('click', () => { collView = b.dataset.coll; sfx.ui(); renderCollection(); }));
   $('#dlg-gacha').addEventListener('click', e => {
     const b = e.target.closest('[data-equip]');

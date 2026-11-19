@@ -1,0 +1,125 @@
+{
+ "_doc": "Titres affichés sous le pseudo dans les classements en ligne. Les conditions sont dans js/cosmetics.js (certaines revérifiées par le serveur : legende, mythe, diamant, survivant, surchauffe).",
+ "titles": [
+  {
+   "id": "apprenti",
+   "label": "Apprenti·e de l'atelier",
+   "rarity": "commune",
+   "how": "Offert à tout le monde."
+  },
+  {
+   "id": "habitue",
+   "label": "Habitué·e de La Co'Cotte",
+   "rarity": "rare",
+   "how": "Scanner 5 QR de récompense à La Co'Cotte."
+  },
+  {
+   "id": "dore",
+   "label": "Chasseur·se de Cocottes dorées",
+   "rarity": "rare",
+   "how": "Attraper 100 Cocottes dorées."
+  },
+  {
+   "id": "minijeux",
+   "label": "Champion·ne des mini-jeux",
+   "rarity": "rare",
+   "how": "Terminer 200 mini-jeux."
+  },
+  {
+   "id": "recettes",
+   "label": "Maître des recettes",
+   "rarity": "epique",
+   "how": "Fabriquer 50 objets à l'Établi."
+  },
+  {
+   "id": "livreur",
+   "label": "Livreur·se du Vermandois",
+   "rarity": "epique",
+   "how": "Livrer 50 commandes."
+  },
+  {
+   "id": "collection",
+   "label": "Collectionneur·se",
+   "rarity": "epique",
+   "how": "Obtenir 30 Cocottes différentes."
+  },
+  {
+   "id": "betes",
+   "label": "Ami·e des bêtes",
+   "rarity": "epique",
+   "how": "Obtenir 8 compagnons."
+  },
+  {
+   "id": "aventurier",
+   "label": "Aventurier·e",
+   "rarity": "rare",
+   "how": "Atteindre l'étage 25 de l'Aventure."
+  },
+  {
+   "id": "heros",
+   "label": "Héros contre les virus",
+   "rarity": "legendaire",
+   "how": "Atteindre l'étage 100 de l'Aventure."
+  },
+  {
+   "id": "echecs",
+   "label": "Joueur·se d'échecs",
+   "rarity": "rare",
+   "how": "Terminer le tuto des échecs."
+  },
+  {
+   "id": "stratege",
+   "label": "Stratège",
+   "rarity": "epique",
+   "how": "Battre la Cocotte en Difficile aux échecs."
+  },
+  {
+   "id": "diamant",
+   "label": "Diamant aux échecs",
+   "rarity": "legendaire",
+   "how": "Atteindre 1600 Elo au ladder des échecs."
+  },
+  {
+   "id": "survivant",
+   "label": "Survivant·e",
+   "rarity": "epique",
+   "how": "Gagner une partie de Co'Survivor."
+  },
+  {
+   "id": "surchauffe",
+   "label": "Survivant·e de la Surchauffe 5",
+   "rarity": "legendaire",
+   "how": "Gagner Co'Survivor en Surchauffe 5."
+  },
+  {
+   "id": "artiste",
+   "label": "Artiste pixel",
+   "rarity": "epique",
+   "how": "Avoir une création validée dans la galerie de l'Atelier pixel."
+  },
+  {
+   "id": "lutin",
+   "label": "Lutin de l'atelier",
+   "rarity": "rare",
+   "how": "Ouvrir 12 cases du calendrier de l'Avent."
+  },
+  {
+   "id": "noel",
+   "label": "Esprit de Noël",
+   "rarity": "legendaire",
+   "how": "Ouvrir les 24 cases du calendrier de l'Avent."
+  },
+  {
+   "id": "legende",
+   "label": "Légende 🌌",
+   "rarity": "legendaire",
+   "how": "Faire un Méga-Prestige."
+  },
+  {
+   "id": "mythe",
+   "label": "Mythe cosmique",
+   "rarity": "legendaire",
+   "how": "Atteindre le Méga-Prestige 3."
+  }
+ ]
+}

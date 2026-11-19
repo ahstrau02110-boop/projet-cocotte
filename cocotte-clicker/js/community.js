@@ -29,6 +29,8 @@ export async function rpc(name, body = {}) {
   return r.json();
 }
 const me = () => ({ p_id: state.playerId, p_token: state.net.token });
+const titleOf = id => (id && DATA.titles.find(t => t.id === id)?.label) || ''; // titre affiché sous le pseudo
+
 
 // Bonus de production débloqué par les objectifs collectifs atteints (valeur mise en cache pour le hors-ligne)
 export const communityBonus = () => (C().goals || []).filter(g => state.net.total >= g.at).reduce((a, g) => a + g.pct, 0);
@@ -222,7 +224,7 @@ function panelRank() {
     }).join('')}</ul>
     <h3>Classement général ${myRank ? `<small>· vous êtes ${myRank}<sup>e</sup></small>` : ''}</h3>
     <p class="muted small">Pour une compétition 100 % vérifiée par le serveur, rejoignez la <b>🏆 Ligue classée</b> de la semaine.</p>
-    <ol class="com-board">${board.length ? board.map(r => `<li${r.pseudo === state.pseudo && state.pseudo ? ' class="me"' : ''}><span>${r.rank}</span><b>${esc(r.pseudo)}${r.mega ? ` <small class="mega-badge" title="Méga-Prestige niveau ${r.mega}">🌌${r.mega > 1 ? r.mega : ''}</small>` : ''}</b><span>${fmt(r.lifetime)}</span></li>`).join('') : '<li class="muted">Classement indisponible pour le moment.</li>'}</ol>
+    <ol class="com-board">${board.length ? board.map(r => `<li${r.pseudo === state.pseudo && state.pseudo ? ' class="me"' : ''}><span>${r.rank}</span><b>${esc(r.pseudo)}${r.mega ? ` <small class="mega-badge" title="Méga-Prestige niveau ${r.mega}">🌌${r.mega > 1 ? r.mega : ''}</small>` : ''}${titleOf(r.title) ? `<small class="player-title">« ${esc(titleOf(r.title))} »</small>` : ''}</b><span>${fmt(r.lifetime)}</span></li>`).join('') : '<li class="muted">Classement indisponible pour le moment.</li>'}</ol>
     <label class="switch"><input type="checkbox" id="com-listed" ${state.net.listed ? 'checked' : ''}> <span>Apparaître dans les classements</span></label>
     <label for="com-pseudo">Pseudo affiché (facultatif, sans nom de famille)</label>
     <input id="com-pseudo" maxlength="20" value="${esc(state.pseudo)}" placeholder="Anonyme" autocomplete="off">`;

@@ -2,6 +2,20 @@
   "_doc": "Onglet « Maj » du jeu : la plus récente en premier. id unique (sert au point « nouveau »), date AAAA-MM-JJ, titre, liste de lignes (emoji en début de ligne).",
   "updates": [
     {
+      "id": "2026-11-19a",
+      "date": "2026-11-19",
+      "title": "Compagnons, Aventure, effets, titres, Atelier pixel et calendrier de l'Avent !",
+      "items": [
+        "🐾 Nouveau : les compagnons ! 16 petits personnages qui vivent à côté de votre Cocotte (poussin, chat de l'atelier, robot, dragon, licorne…). Une nouvelle Imprimante à compagnons les attend dans les Imprimantes mystère, d'autres se gagnent à Co'Survivor, aux échecs, au Méga-Prestige ou dans le calendrier de l'Avent.",
+        "🦠 Nouveau : l'Aventure ! Vos compagnons combattent seuls les virus, étage après étage, à l'infini, même jeu fermé (8 h max). Les fragments 🧬 gagnés les font monter de niveau, et ils évoluent aux niveaux 10 et 30.",
+        "✨ Nouveau : 10 effets de clic (copeaux, étincelles, confettis, notes de musique, pixels, cœurs, flocons…), à fabriquer à l'Établi ou à débloquer.",
+        "🏷️ Nouveau : 20 titres à débloquer dans tous les modes de jeu, affichés sous votre pseudo dans les classements.",
+        "🎨 Nouveau : l'Atelier pixel ! Dessinez votre propre Cocotte en 16 × 16, portez-la dans le jeu et proposez-la à la galerie (après validation par l'équipe).",
+        "🎄 Le calendrier de l'Avent arrive le 1er décembre : 24 cases, avec un effet flocons, une Cocotte des neiges, deux compagnons exclusifs et le titre « Esprit de Noël ».",
+        "🍲 La Collection compte maintenant les compagnons et les effets (petit bonus de production pour chacun)."
+      ]
+    },
+    {
       "id": "2026-11-18c",
       "date": "2026-11-18",
       "title": "Échecs : corrections",

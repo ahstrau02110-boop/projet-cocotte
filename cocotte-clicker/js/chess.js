@@ -21,6 +21,7 @@ const me = () => ({ p_id: state.playerId, p_token: state.net.token });
 const TIERS = [[1600, '💎', 'Diamant'], [1450, '💠', 'Platine'], [1300, '🥇', 'Or'], [1150, '🥈', 'Argent'], [1000, '🥉', 'Bronze'], [0, '🪵', 'Bois']];
 export const tier = elo => TIERS.find(([min]) => elo >= min);
 const tierTxt = elo => { const [, i, n] = tier(elo); return `${i} ${n}`; };
+const titleOf = id => (id && DATA.titles.find(t => t.id === id)?.label) || '';
 const duelUrl = code => baseUrl(DATA.config) + '#duel=' + code;
 
 let G = null, pollT = 0, stopScan = null, retried = false, mineT = 0;
@@ -341,10 +342,11 @@ async function renderLadder() {
   if (!netEnabled()) { ol.innerHTML = '<li class="muted">Hors ligne.</li>'; return; }
   const r = await rpc('chess_ladder', { p_id: state.playerId, p_limit: 20 }).catch(() => null);
   if (!r) { ol.innerHTML = '<li class="muted">Serveur injoignable.</li>'; return; }
+  if (r.me && r.me.best_elo > (state.chess.bestElo || 0)) { state.chess.bestElo = r.me.best_elo; save(); }
   $('#ch-me-elo').innerHTML = r.me
     ? `<div class="ch-tier"><span class="ch-tier-ico">${tier(r.me.elo)[1]}</span><span><b>${tierTxt(r.me.elo).slice(2).trim()} · ${r.me.elo} Elo</b><small>${r.me.rank}ᵉ / ${r.players} · record ${r.me.best_elo} · ${r.me.rated} partie${r.me.rated > 1 ? 's' : ''} classée${r.me.rated > 1 ? 's' : ''}</small></span></div>`
     : '<p class="muted small">Jouez un duel en ligne pour entrer dans le ladder (départ : 🥈 Argent, 1200 Elo).</p>';
-  ol.innerHTML = r.top.length ? r.top.map(x => `<li${x.me ? ' class="me"' : ''}><span>${x.rank}</span><span>${tier(x.elo)[1]} ${esc(x.pseudo)} <small class="muted">${x.wins}V ${x.draws}N ${x.losses}D</small></span><b>${x.elo}</b></li>`).join('')
+  ol.innerHTML = r.top.length ? r.top.map(x => `<li${x.me ? ' class="me"' : ''}><span>${x.rank}</span><span>${tier(x.elo)[1]} ${esc(x.pseudo)} <small class="muted">${x.wins}V ${x.draws}N ${x.losses}D</small>${titleOf(x.title) ? `<small class="player-title">« ${esc(titleOf(x.title))} »</small>` : ''}</span><b>${x.elo}</b></li>`).join('')
     : '<li class="muted">Personne n\'est encore classé : lancez le premier duel !</li>';
 }
 

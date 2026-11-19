@@ -30,7 +30,9 @@
     },
     "collectionBgPct": 0.2,
     "dupSkinPct": 0.2,
-    "dupBgPct": 0.05
+    "dupBgPct": 0.05,
+    "petPct": 0.3,
+    "fxPct": 0.2
   },
   "minigames": {
     "dailyCrystalCap": 60,
@@ -221,5 +223,13 @@
     "venue": "La Co'Cotte, 6 rue Marcellin Berthelot, 02110 Bohain-en-Vermandois",
     "email": "",
     "updated": "2026-11-17"
+  },
+  "adventure": {
+    "_doc": "Aventure des compagnons (idle). Plafonds par jour : cristaux et matériaux. Hors ligne : 8 h maximum.",
+    "offlineHours": 8,
+    "crystalsPerBoss": 5,
+    "dailyCrystals": 20,
+    "dailyMats": 25,
+    "farmMatEvery": 20
   }
 }

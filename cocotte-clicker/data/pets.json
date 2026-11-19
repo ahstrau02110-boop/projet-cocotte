@@ -1,0 +1,341 @@
+{
+ "_doc": "Compagnons. src : default (offert), print (Imprimante à compagnons), survivor, chess, advent, mega. role : att (attaque), tank (beaucoup de PV), soin (soigne l'équipe). forms : niveau 1, 10 et 30 (évolutions) dans l'Aventure.",
+ "pets": [
+  {
+   "id": "poussin",
+   "rarity": "commune",
+   "role": "tank",
+   "src": "default",
+   "forms": [
+    {
+     "e": "🐣",
+     "name": "Poussin"
+    },
+    {
+     "e": "🐥",
+     "name": "Poulet futé"
+    },
+    {
+     "e": "🐓",
+     "name": "Coq de l'atelier"
+    }
+   ],
+   "desc": "Le tout premier compagnon de La Co'Cotte. Courageux !"
+  },
+  {
+   "id": "escargot",
+   "rarity": "commune",
+   "role": "tank",
+   "src": "print",
+   "forms": [
+    {
+     "e": "🐌",
+     "name": "Escargot"
+    },
+    {
+     "e": "🐌",
+     "name": "Escargot blindé"
+    },
+    {
+     "e": "🐌",
+     "name": "Escargot turbo"
+    }
+   ],
+   "desc": "Lent, mais rien ne traverse sa coquille."
+  },
+  {
+   "id": "abeille",
+   "rarity": "commune",
+   "role": "att",
+   "src": "print",
+   "forms": [
+    {
+     "e": "🐝",
+     "name": "Abeille"
+    },
+    {
+     "e": "🐝",
+     "name": "Abeille ouvrière"
+    },
+    {
+     "e": "🐝",
+     "name": "Reine des abeilles"
+    }
+   ],
+   "desc": "Pique les virus sans relâche."
+  },
+  {
+   "id": "chat",
+   "rarity": "rare",
+   "role": "att",
+   "src": "print",
+   "forms": [
+    {
+     "e": "🐈",
+     "name": "Chat de l'atelier"
+    },
+    {
+     "e": "🐈‍⬛",
+     "name": "Chat ninja"
+    },
+    {
+     "e": "🐅",
+     "name": "Tigre de l'atelier"
+    }
+   ],
+   "desc": "Dort sur l'imprimante 3D… sauf quand il faut se battre."
+  },
+  {
+   "id": "herisson",
+   "rarity": "rare",
+   "role": "tank",
+   "src": "print",
+   "forms": [
+    {
+     "e": "🦔",
+     "name": "Hérisson"
+    },
+    {
+     "e": "🦔",
+     "name": "Hérisson piquant"
+    },
+    {
+     "e": "🦔",
+     "name": "Hérisson d'acier"
+    }
+   ],
+   "desc": "Une boule de piquants qui protège l'équipe."
+  },
+  {
+   "id": "hibou",
+   "rarity": "rare",
+   "role": "soin",
+   "src": "print",
+   "forms": [
+    {
+     "e": "🦉",
+     "name": "Hibou"
+    },
+    {
+     "e": "🦉",
+     "name": "Hibou savant"
+    },
+    {
+     "e": "🦉",
+     "name": "Grand-duc sage"
+    }
+   ],
+   "desc": "Connaît tous les tutos par cœur. Soigne l'équipe."
+  },
+  {
+   "id": "robot",
+   "rarity": "epique",
+   "role": "att",
+   "src": "print",
+   "forms": [
+    {
+     "e": "🤖",
+     "name": "Robot"
+    },
+    {
+     "e": "🤖",
+     "name": "Robot bricoleur"
+    },
+    {
+     "e": "🦾",
+     "name": "Méga-robot"
+    }
+   ],
+   "desc": "Assemblé au FabLab avec des pièces de récup."
+  },
+  {
+   "id": "renard",
+   "rarity": "epique",
+   "role": "att",
+   "src": "print",
+   "forms": [
+    {
+     "e": "🦊",
+     "name": "Renard"
+    },
+    {
+     "e": "🦊",
+     "name": "Renard rusé"
+    },
+    {
+     "e": "🦊",
+     "name": "Kitsune"
+    }
+   ],
+   "desc": "Rapide et malin, il trouve la faille des virus."
+  },
+  {
+   "id": "pieuvre",
+   "rarity": "epique",
+   "role": "soin",
+   "src": "print",
+   "forms": [
+    {
+     "e": "🐙",
+     "name": "Pieuvre"
+    },
+    {
+     "e": "🐙",
+     "name": "Pieuvre mécano"
+    },
+    {
+     "e": "🦑",
+     "name": "Kraken bienveillant"
+    }
+   ],
+   "desc": "Huit bras pour réparer et soigner."
+  },
+  {
+   "id": "dragon",
+   "rarity": "legendaire",
+   "role": "att",
+   "src": "print",
+   "forms": [
+    {
+     "e": "🐲",
+     "name": "Bébé dragon"
+    },
+    {
+     "e": "🐉",
+     "name": "Dragon"
+    },
+    {
+     "e": "🐉",
+     "name": "Dragon ancestral"
+    }
+   ],
+   "desc": "Crache des flammes plus chaudes qu'un fer à souder."
+  },
+  {
+   "id": "licorne",
+   "rarity": "legendaire",
+   "role": "soin",
+   "src": "print",
+   "forms": [
+    {
+     "e": "🦄",
+     "name": "Licorne"
+    },
+    {
+     "e": "🦄",
+     "name": "Licorne arc-en-ciel"
+    },
+    {
+     "e": "🦄",
+     "name": "Licorne céleste"
+    }
+   ],
+   "desc": "Sa magie répare tout, même les virus les plus coriaces."
+  },
+  {
+   "id": "drone",
+   "rarity": "epique",
+   "role": "att",
+   "src": "survivor",
+   "forms": [
+    {
+     "e": "🛸",
+     "name": "Drone"
+    },
+    {
+     "e": "🛸",
+     "name": "Drone de combat"
+    },
+    {
+     "e": "🛸",
+     "name": "Vaisseau mère"
+    }
+   ],
+   "desc": "Gagnez une partie de Co'Survivor."
+  },
+  {
+   "id": "cheval",
+   "rarity": "epique",
+   "role": "tank",
+   "src": "chess",
+   "forms": [
+    {
+     "e": "🐴",
+     "name": "Poulain"
+    },
+    {
+     "e": "🐎",
+     "name": "Cheval"
+    },
+    {
+     "e": "🐎",
+     "name": "Destrier"
+    }
+   ],
+   "desc": "Battez la Cocotte en Difficile aux échecs."
+  },
+  {
+   "id": "bonhomme",
+   "rarity": "epique",
+   "role": "tank",
+   "src": "advent",
+   "forms": [
+    {
+     "e": "⛄",
+     "name": "Bonhomme de neige"
+    },
+    {
+     "e": "☃️",
+     "name": "Bonhomme des neiges"
+    },
+    {
+     "e": "☃️",
+     "name": "Roi de l'hiver"
+    }
+   ],
+   "desc": "Case 12 du calendrier de l'Avent."
+  },
+  {
+   "id": "renne",
+   "rarity": "legendaire",
+   "role": "soin",
+   "src": "advent",
+   "forms": [
+    {
+     "e": "🦌",
+     "name": "Renne"
+    },
+    {
+     "e": "🦌",
+     "name": "Renne au nez rouge"
+    },
+    {
+     "e": "🦌",
+     "name": "Renne du Père Noël"
+    }
+   ],
+   "desc": "Case 24 du calendrier de l'Avent."
+  },
+  {
+   "id": "comete",
+   "rarity": "legendaire",
+   "role": "att",
+   "src": "mega",
+   "forms": [
+    {
+     "e": "☄️",
+     "name": "Comète"
+    },
+    {
+     "e": "🌠",
+     "name": "Étoile filante"
+    },
+    {
+     "e": "🌌",
+     "name": "Nébuleuse"
+    }
+   ],
+   "desc": "Faites un Méga-Prestige."
+  }
+ ]
+}

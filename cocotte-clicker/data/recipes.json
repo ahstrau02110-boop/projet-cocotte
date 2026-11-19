@@ -264,6 +264,95 @@
         "id": "f-reseau"
       },
       "desc": "Une Cocotte exclusive, introuvable dans les imprimantes."
+    },
+    {
+      "id": "fx-copeaux",
+      "icon": "🪵",
+      "name": "Effet : copeaux de bois",
+      "desc": "Nouvel effet quand vous cliquez sur la Cocotte (à équiper dans la Collection).",
+      "era": 1,
+      "cost": {
+        "bois": 12
+      },
+      "result": {
+        "type": "effect",
+        "id": "copeaux"
+      }
+    },
+    {
+      "id": "fx-etincelles",
+      "icon": "✨",
+      "name": "Effet : étincelles",
+      "desc": "Nouvel effet quand vous cliquez sur la Cocotte (à équiper dans la Collection).",
+      "era": 1,
+      "cost": {
+        "composants": 8,
+        "filament": 4
+      },
+      "result": {
+        "type": "effect",
+        "id": "etincelles"
+      }
+    },
+    {
+      "id": "fx-bulles",
+      "icon": "🫧",
+      "name": "Effet : bulles",
+      "desc": "Nouvel effet quand vous cliquez sur la Cocotte (à équiper dans la Collection).",
+      "era": 2,
+      "cost": {
+        "filament": 10,
+        "batteries": 3
+      },
+      "result": {
+        "type": "effect",
+        "id": "bulles"
+      }
+    },
+    {
+      "id": "fx-confettis",
+      "icon": "🎊",
+      "name": "Effet : confettis",
+      "desc": "Nouvel effet quand vous cliquez sur la Cocotte (à équiper dans la Collection).",
+      "era": 2,
+      "cost": {
+        "filament": 14,
+        "bois": 6
+      },
+      "result": {
+        "type": "effect",
+        "id": "confettis"
+      }
+    },
+    {
+      "id": "fx-notes",
+      "icon": "🎵",
+      "name": "Effet : notes de musique",
+      "desc": "Nouvel effet quand vous cliquez sur la Cocotte (à équiper dans la Collection).",
+      "era": 3,
+      "cost": {
+        "composants": 10,
+        "batteries": 4
+      },
+      "result": {
+        "type": "effect",
+        "id": "notes"
+      }
+    },
+    {
+      "id": "fx-pixels",
+      "icon": "👾",
+      "name": "Effet : pixels",
+      "desc": "Nouvel effet quand vous cliquez sur la Cocotte (à équiper dans la Collection).",
+      "era": 3,
+      "cost": {
+        "composants": 14,
+        "filament": 10
+      },
+      "result": {
+        "type": "effect",
+        "id": "pixels"
+      }
     }
   ]
 }

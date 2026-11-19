@@ -26,6 +26,10 @@ import { initMega, renderMega } from './mega.js';
 import { initSurvivor } from './survivor.js';
 import { initLegal } from './legal.js';
 import { initChess } from './chess.js';
+import { initCosmetics, renderPet } from './cosmetics.js';
+import { initAdventure } from './adventure.js';
+import { initAdvent } from './advent.js';
+import { initPixel, registerPerso } from './pixel.js';
 import { buildProgress, initProgress, renderUpgrades, checkAchievements, openAchievements } from './progress.js';
 import { decorFor } from './decor.js';
 import { initTutorial } from './tutorial.js';
@@ -71,6 +75,9 @@ async function boot() {
     DATA.missions = await loadJSON('data/missions.json');
     DATA.calendar = (await loadJSON('data/calendar.json').catch(() => ({ calendar: [] }))).calendar || [];
     setRecipes((await loadJSON('data/recipes.json')).recipes);
+    DATA.pets = (await loadJSON('data/pets.json')).pets;
+    DATA.effects = (await loadJSON('data/effects.json')).effects;
+    DATA.titles = (await loadJSON('data/titles.json')).titles;
     setOrdersData(await loadJSON('data/orders.json'));
     // Contenu modifié depuis l'espace équipe : version publiée, puis brouillon en aperçu (appareil de l'équipe)
     applyOverrides(DATA, await loadJSON('data/overrides.json').catch(() => null));
@@ -113,6 +120,7 @@ async function boot() {
 
   await claimLocal(); // un seul onglet actif : les autres enregistrent puis se mettent en pause
   const hadSave = load();
+  registerPerso(); // Cocotte dessinée dans l'Atelier pixel
   setBooted();
   // Rééquilibrage : les anciens bonus de l'Établi (cumulables) sont retirés
   state.buffs = state.buffs.filter(b => !String(b.id).startsWith('craft-'));
@@ -162,6 +170,10 @@ async function boot() {
   initSurvivor();
   initLegal();
   initChess();
+  initCosmetics();
+  initAdventure();
+  initAdvent();
+  initPixel();
   initCommunity();
   initDaily();
   on('tutoEnd', () => setTimeout(checkDaily, 600));

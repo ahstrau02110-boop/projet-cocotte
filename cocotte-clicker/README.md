@@ -479,3 +479,12 @@ Le jeu tourne dans le navigateur : une partie peut toujours être modifiée en l
 ### Méga-Prestige en ligne
 
 `supabase/mega.sql` : `submit_score` reçoit `p_mega` ; au premier envoi après un Méga-Prestige (niveau + 1, avec au moins 3 saisons et 1e15 Co'Coins en ligne), le score du classement repart de zéro, le total d'avant passe dans `mega_banked` (toujours compté dans l'objectif collectif) et le classement affiche le badge 🌌. Annonce non méritée → signalement « mega » (sans exclusion automatique). `admin_reset` remet aussi le Méga-Prestige à zéro.
+
+
+### Compagnons, Aventure, effets, titres, Atelier pixel, Avent
+
+- `data/pets.json` (16 compagnons, 3 formes chacun), `data/effects.json` (10 effets de clic), `data/titles.json` (20 titres) ; logique dans `js/cosmetics.js` (compagnon sur le plan de travail, déblocages spéciaux, conditions des titres). Imprimante à compagnons : 3ᵉ machine de `js/gacha.js`. Effets : recettes `fx-*` de l'Établi, rendu dans `js/fx.js`.
+- `js/adventure.js` : idle infini. Ennemis : PV 60 × 1,10ⁿ⁻¹, dégâts 5 × 1,10ⁿ⁻¹ (boss tous les 10 étages : ×3 PV, ×1,4 dégâts). Compagnons : +8 %/niveau, formes ×1,4 (niv. 10) et ×2 (niv. 30). Coût d'un niveau : 5 × 1,15ⁿⁱᵛ⁻¹ fragments. Récompenses plafonnées (`config.adventure`) : 5 💎 par boss au 1er passage, 20 💎 et 25 matériaux par jour. Hors connexion : 8 h.
+- `js/advent.js` : 24 cases (1er–24 décembre, rattrapage jusqu'au 31), date du serveur (`server_now`).
+- `js/pixel.js` : éditeur 16 × 16 (palette de 16 couleurs), skin `perso` (hors imprimantes et hors bonus). Galerie modérée : `pixel_submit`, `pixel_list`, `pixel_mine`, `admin_pixel_pending`, `admin_pixel_review` (espace équipe → En direct).
+- `supabase/collection.sql` : titres (`set_title`, revérifiés pour legende, mythe, diamant, survivant, surchauffe), classements avec titre, `server_now`, Atelier pixel, `admin_reset` complet.

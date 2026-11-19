@@ -1,0 +1,85 @@
+{
+ "_doc": "Effets de clic (ce qui jaillit de la Cocotte). src : default, craft (Établi), ach (succès), mega, advent.",
+ "effects": [
+  {
+   "id": "fumee",
+   "name": "Fumée colorée",
+   "icon": "💨",
+   "rarity": "commune",
+   "src": "default",
+   "desc": "L'effet d'origine de la Cocotte."
+  },
+  {
+   "id": "copeaux",
+   "name": "Copeaux de bois",
+   "icon": "🪵",
+   "rarity": "commune",
+   "src": "craft",
+   "desc": "Comme à l'atelier de menuiserie."
+  },
+  {
+   "id": "etincelles",
+   "name": "Étincelles de soudure",
+   "icon": "✨",
+   "rarity": "rare",
+   "src": "craft",
+   "desc": "Ça chauffe sous le fer à souder !"
+  },
+  {
+   "id": "bulles",
+   "name": "Bulles",
+   "icon": "🫧",
+   "rarity": "rare",
+   "src": "craft",
+   "desc": "Légères et apaisantes."
+  },
+  {
+   "id": "confettis",
+   "name": "Confettis",
+   "icon": "🎊",
+   "rarity": "rare",
+   "src": "craft",
+   "desc": "C'est la fête à chaque clic."
+  },
+  {
+   "id": "notes",
+   "name": "Notes de musique",
+   "icon": "🎵",
+   "rarity": "epique",
+   "src": "craft",
+   "desc": "Pour les fans de l'Atelier Musique."
+  },
+  {
+   "id": "pixels",
+   "name": "Pixels",
+   "icon": "👾",
+   "rarity": "epique",
+   "src": "craft",
+   "desc": "Le rétro gaming à l'honneur."
+  },
+  {
+   "id": "coeurs",
+   "name": "Cœurs",
+   "icon": "💖",
+   "rarity": "epique",
+   "src": "ach",
+   "desc": "Obtenez 50 succès."
+  },
+  {
+   "id": "etoiles",
+   "name": "Pluie d'étoiles",
+   "icon": "⭐",
+   "rarity": "legendaire",
+   "src": "mega",
+   "desc": "Faites un Méga-Prestige."
+  },
+  {
+   "id": "flocons",
+   "name": "Flocons de neige",
+   "icon": "❄️",
+   "rarity": "legendaire",
+   "src": "advent",
+   "desc": "Case 6 du calendrier de l'Avent."
+  }
+ ]
+}

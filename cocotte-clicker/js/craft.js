@@ -17,9 +17,9 @@ const fmtMin = m => (m >= 60 ? `${m / 60} h` : `${m} min`);
 function render() {
   const era = currentEra().id;
   $('#craft-stock').innerHTML = KINDS().map(k => `<span class="mat-chip big"><span aria-hidden="true">${k.icon}</span><b>${state.mats[k.id] || 0}</b><small>${k.name}</small></span>`).join('');
-  const groups = [['Bonus', r => r.result.type !== 'skin'], ['Cocottes exclusives', r => r.result.type === 'skin']];
+  const groups = [['Bonus', r => r.result.type !== 'skin' && r.result.type !== 'effect'], ['Effets de clic', r => r.result.type === 'effect'], ['Cocottes exclusives', r => r.result.type === 'skin']];
   $('#craft-list').innerHTML = groups.map(([title, f]) => `<h3>${title}</h3><ul class="craft-grid">${recipes.filter(f).map(r => {
-    const locked = r.era > era, owned = r.result.type === 'skin' && state.skins[r.result.id];
+    const locked = r.era > era, owned = (r.result.type === 'skin' && state.skins[r.result.id]) || (r.result.type === 'effect' && state.fxOwned[r.result.id]);
     const can = !locked && !owned && hasMats(r.cost);
     const visual = r.result.type === 'skin' ? `<img src="${skinImage(r.result.id)}" alt="" class="craft-skin${locked ? ' dim' : ''}">` : `<span class="craft-ico" aria-hidden="true">${r.icon}</span>`;
     return `<li class="craft${can ? ' can' : ''}${locked ? ' locked' : ''}${owned ? ' done' : ''}">
@@ -37,6 +37,7 @@ function craft(id) {
   const r = recipes.find(x => x.id === id);
   if (!r || r.era > currentEra().id) return;
   if (r.result.type === 'skin' && state.skins[r.result.id]) return;
+  if (r.result.type === 'effect' && state.fxOwned[r.result.id]) return;
   if (!spendMats(r.cost)) { sfx.deny(); toast('Il manque des matériaux : jouez, attrapez des Cocottes dorées, réussissez des missions…'); return; }
   const res = r.result;
   let msg = '';
@@ -50,6 +51,10 @@ function craft(id) {
     case 'golden': msg = 'Une Cocotte dorée arrive… attrapez-la !'; setTimeout(spawnGolden, 800); break;
     case 'mats': addMats(res.mats); msg = `+${matsText(res.mats)}`; break;
     case 'pull': { const p = freePull(res.machine); msg = p ? `Impression offerte : ${p.item.name}${p.isNew ? ' (nouveau !)' : ' (doublon)'}` : ''; break; }
+    case 'effect':
+      state.fxOwned[res.id] = 1;
+      msg = `Nouvel effet de clic : ${r.name.replace('Effet : ', '')} ! Équipez-le dans la Collection (Imprimantes mystère).`;
+      break;
     case 'skin':
       state.skins[res.id] = (state.skins[res.id] || 0) + 1;
       msg = `Nouvelle Cocotte exclusive : ${r.name} ! Équipez-la dans la Collection.`;
@@ -72,7 +77,7 @@ export function initCraft() {
 // Petit indicateur sur la tuile : une recette est faisable
 export function renderCraftTile() {
   const era = currentEra().id;
-  const n = recipes.filter(r => r.era <= era && !(r.result.type === 'skin' && state.skins[r.result.id]) && hasMats(r.cost)).length;
+  const n = recipes.filter(r => r.era <= era && !(r.result.type === 'skin' && state.skins[r.result.id]) && !(r.result.type === 'effect' && state.fxOwned[r.result.id]) && hasMats(r.cost)).length;
   $('#btn-craft').classList.toggle('ready', n > 0);
   $('#craft-mini').textContent = n ? `${n} recette${n > 1 ? 's' : ''} possible${n > 1 ? 's' : ''}` : 'Matériaux → objets';
 }

@@ -7,7 +7,7 @@ export const CONFIG = {
 };
 
 // Données chargées au démarrage (data/*.json, assets/manifest.json)
-export const DATA = { buildings: [], eras: [], manifest: {}, config: {}, skins: [], rarities: [], upgradeList: [], achList: [], projects: [], tips: [], backgrounds: [], infos: [], quiz: [], talents: [], events: [], calendar: [], missions: {} };
+export const DATA = { pets: [], effects: [], titles: [], buildings: [], eras: [], manifest: {}, config: {}, skins: [], rarities: [], upgradeList: [], achList: [], projects: [], tips: [], backgrounds: [], infos: [], quiz: [], talents: [], events: [], calendar: [], missions: {} };
 
 // Identifiant joueur anonyme (8 caractères, sans caractères ambigus)
 export function newPlayerId() {
@@ -30,7 +30,7 @@ export function freshState() {
     pseudo: '',
     skins: { classique: 1 },          // { id: nombre obtenu }
     skin: 'classique',                 // skin équipé
-    gacha: { pulls: 0, sinceLegend: 0, bgPulls: 0, bgSinceLegend: 0 },
+    gacha: { pulls: 0, sinceLegend: 0, bgPulls: 0, bgSinceLegend: 0, petPulls: 0, petSinceLegend: 0 },
     bgs: {},                           // décors obtenus { id: nombre }
     bg: 'auto',                        // décor équipé ('auto' = décor de l'ère)
     claimed: [],                       // bons QR déjà encaissés (anti-rejeu)
@@ -55,6 +55,12 @@ export function freshState() {
     weekly: { week: '', list: [], bonus: false }, // missions de la semaine
     flags: {},                         // succès secrets (actions particulières)
     mega: { level: 0 },                // Méga-Prestige (niveau)
+    pets: { poussin: 1 }, pet: 'poussin', petLv: {},  // compagnons (obtenus, affiché, niveaux dans l'Aventure)
+    fxOwned: { fumee: 1 }, fx: 'fumee',              // effets de clic
+    title: '',                                        // titre affiché dans les classements
+    adv: { team: ['poussin'], stage: 1, best: 0, auto: true, frag: 0, last: 0, wins: 0, day: '', cToday: 0, mToday: 0, farm: 0 }, // Aventure (idle)
+    advent: { year: 0, opened: [] },                  // calendrier de l'Avent
+    pixel: { art: '', status: '', sent: 0 },          // Atelier pixel
     chess: { ai: {}, cur: null, online: 0, level: 2, color: 'r', learn: { lessons: [], puzzles: [] } }, // Échecs
     surv: { bolts: 0, up: {}, best: 0, bestKills: 0, runs: 0, wins: 0, kills: 0, day: '', cToday: 0, heat: 0, heatMax: 0, bestHeat: 0, tools: ['laser'], tool: 'laser' }, // Co'Survivor (jeu à part)
     achMilestones: [],                 // paliers de succès déjà récompensés
@@ -127,7 +133,9 @@ export const dupBonus = () => skinDupes() * (DATA.config.gacha?.dupSkinPct ?? 1)
 // Bonus de collection : +X % de production par skin différent obtenu (hors skin de départ) + doublons (sans plafond)
 export function collectionBonus() {
   const pct = DATA.config.gacha?.collectionBonusPct ?? 1, bgPct = DATA.config.gacha?.collectionBgPct ?? 0.5;
-  return (Object.keys(state.skins).length - 1) * pct + Object.keys(state.bgs).length * bgPct + dupBonus();
+  const petPct = DATA.config.gacha?.petPct ?? 0.3, fxPct = DATA.config.gacha?.fxPct ?? 0.2;
+  return (Object.keys(state.skins).filter(k => k !== 'perso').length - 1) * pct + Object.keys(state.bgs).length * bgPct
+    + Math.max(0, Object.keys(state.pets).length - 1) * petPct + Math.max(0, Object.keys(state.fxOwned).length - 1) * fxPct + dupBonus();
 }
 // Paliers de projets réalisés (cette saison) : +X % tous les N projets
 export const projMilestonePct = () => {

@@ -44,7 +44,7 @@ function sanitize(raw) {
   for (const [k, v] of Object.entries(obj(raw.skins))) if (int(v) > 0) s.skins[k] = int(v);
   if (typeof raw.skin === 'string' && s.skins[raw.skin]) s.skin = raw.skin;
   const g = obj(raw.gacha);
-  s.gacha = { pulls: int(g.pulls), sinceLegend: int(g.sinceLegend), bgPulls: int(g.bgPulls), bgSinceLegend: int(g.bgSinceLegend) };
+  s.gacha = { pulls: int(g.pulls), sinceLegend: int(g.sinceLegend), bgPulls: int(g.bgPulls), bgSinceLegend: int(g.bgSinceLegend), petPulls: int(g.petPulls), petSinceLegend: int(g.petSinceLegend) };
   for (const [k, v] of Object.entries(obj(raw.bgs))) if (int(v) > 0) s.bgs[k] = int(v);
   if (typeof raw.bg === 'string' && (raw.bg === 'auto' || s.bgs[raw.bg])) s.bg = raw.bg;
   if (Array.isArray(raw.claimed)) s.claimed = raw.claimed.filter(x => typeof x === 'string').slice(-300);
@@ -65,6 +65,26 @@ function sanitize(raw) {
     list: wk.list.filter(m => m && typeof m.id === 'string').slice(0, 3).map(m => ({ id: m.id, lvl: int(m.lvl), n: Math.max(1, int(m.n, 1)), reward: int(m.reward), start: num(m.start), claimed: !!m.claimed })) };
   for (const [k, v] of Object.entries(obj(raw.flags))) if (v) s.flags[k] = 1;
   s.mega = { level: Math.min(int(obj(raw.mega).level), 99) };
+  // Compagnons, effets, titre, Aventure, Avent, Atelier pixel
+  const idOk = k => /^[a-z0-9-]{2,20}$/.test(k);
+  for (const [k, v] of Object.entries(obj(raw.pets))) if (idOk(k) && int(v) > 0) s.pets[k] = Math.min(int(v), 9999);
+  s.pets.poussin = s.pets.poussin || 1;
+  s.pet = raw.pet === null ? null : typeof raw.pet === 'string' && s.pets[raw.pet] ? raw.pet : 'poussin';
+  for (const [k, v] of Object.entries(obj(raw.petLv))) if (idOk(k) && s.pets[k]) s.petLv[k] = { lv: Math.max(1, Math.min(int(obj(v).lv, 1), 500)), xp: 0 };
+  for (const [k, v] of Object.entries(obj(raw.fxOwned))) if (idOk(k) && v) s.fxOwned[k] = 1;
+  s.fx = typeof raw.fx === 'string' && s.fxOwned[raw.fx] ? raw.fx : 'fumee';
+  s.title = typeof raw.title === 'string' && idOk(raw.title) ? raw.title : '';
+  const ad = obj(raw.adv);
+  s.adv = { team: (Array.isArray(ad.team) ? ad.team : ['poussin']).filter(k => typeof k === 'string' && s.pets[k]).slice(0, 3), stage: Math.max(1, int(ad.stage, 1)), best: int(ad.best),
+    auto: ad.auto !== false, frag: int(ad.frag), last: Math.min(num(ad.last), Date.now()), wins: int(ad.wins), day: typeof ad.day === 'string' ? ad.day : '', cToday: int(ad.cToday), mToday: int(ad.mToday), farm: int(ad.farm) };
+  if (!s.adv.team.length) s.adv.team = ['poussin'];
+  s.adv.stage = Math.min(s.adv.stage, s.adv.best + 1);
+  const av = obj(raw.advent);
+  s.advent = { year: int(av.year), opened: [...new Set((Array.isArray(av.opened) ? av.opened : []).filter(d => Number.isInteger(d) && d >= 1 && d <= 24))] };
+  const px = obj(raw.pixel);
+  s.pixel = { art: typeof px.art === 'string' && /^[0-9a-f.]{256}$/.test(px.art) ? px.art : '', status: ['', 'pending', 'ok', 'no'].includes(px.status) ? px.status : '', sent: num(px.sent) };
+  if (raw.skins?.perso && s.pixel.art) s.skins.perso = 1;
+  if (raw.skin === 'perso' && s.pixel.art) s.skin = 'perso';
   // Échecs : bilans contre l'IA, partie en cours (coups rejoués et vérifiés à l'ouverture), progression du tuto
   const ch = obj(raw.chess), le = obj(ch.learn), cur = obj(ch.cur);
   s.chess = { ai: {}, cur: null, online: ch.online ? 1 : 0, level: [1, 2, 3].includes(ch.level) ? ch.level : 2, color: ['w', 'b', 'r'].includes(ch.color) ? ch.color : 'r',
@@ -72,6 +92,7 @@ function sanitize(raw) {
   for (const k of ['1', '2', '3']) { const a = obj(obj(ch.ai)[k]); if (Object.keys(a).length) s.chess.ai[k] = { w: int(a.w), l: int(a.l), d: int(a.d) }; }
   if (['ai', 'local'].includes(cur.mode) && Array.isArray(cur.moves)) s.chess.cur = { mode: cur.mode, level: [1, 2, 3].includes(cur.level) ? cur.level : 2,
     me: cur.me === 'b' ? 'b' : 'w', moves: cur.moves.filter(u => typeof u === 'string' && /^[a-h][1-8][a-h][1-8][qrbn]?$/.test(u)).slice(0, 1200) };
+  if (typeof ch.bestElo === 'number') s.chess.bestElo = int(ch.bestElo);
   const sv = obj(raw.surv);
   s.surv = { bolts: int(sv.bolts), up: {}, best: Math.min(int(sv.best), 900), bestKills: int(sv.bestKills), runs: int(sv.runs), wins: int(sv.wins),
     kills: int(sv.kills), day: typeof sv.day === 'string' ? sv.day : '', cToday: int(sv.cToday),
